@@ -13,6 +13,14 @@ Submission for "Effizient Programmieren I+II"
 
 ##### Software Design Guidelines (Things you should stick to while coding)
 * Code style in compliance with Processing 3.5.4 Autoformat
+* Naming convention:
+    * Classes: First letter Caps ("Vehicles")
+    * Acronyms: First letter Caps ("Madrid")
+    * Functions and variables: camelCase ("showProperties")
+    * Function parameters:
+        * In: "iXxxx"
+        * Out: "oXxxx"
+        * Modifyable: "cXxxx"
 * Documentation via descriptive variable names, comments in code and Doxygen-specific comments
 * Version control via Git (duh)
 
