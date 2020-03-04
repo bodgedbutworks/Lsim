@@ -10,6 +10,8 @@ byte[] artnetHeader = {'A', 'r', 't', '-', 'N', 'e', 't', '\0'};
 byte[][] dmxData = new byte[4][512];                                            // [universe][address]
 
 int selectedFixture = -1;
+long lastFrameTime = 0;
+long calcFrameRate = 1000;
 
 boolean flag = false;
 
@@ -21,6 +23,8 @@ void setup() {
   size(1200, 900, P3D);
   //fullScreen(P3D, 1);
   surface.setResizable(true);
+
+  frameRate(60);
 
   udp = new UDP(this, 6454);
   //udp.log(true);
@@ -89,6 +93,13 @@ void draw() {
     text("Position [cm]: X " + int(theFixture.pos3d.x) + " Y " + int(theFixture.pos3d.y) + "  Z " + int(theFixture.pos3d.z), theFixture.pos2d.x, theFixture.pos2d.y-200);
     text("Rotation [deg]: X " + int(theFixture.rot.x) + " Y " + int(theFixture.rot.y) + " Z " + int(theFixture.rot.z), theFixture.pos2d.x, theFixture.pos2d.y-180);
   }
+    fill(255); textSize(height/50); textAlign(RIGHT, TOP);
+    if(frameCount % 15 == 0){
+      calcFrameRate = 1000/(millis()-lastFrameTime+1);
+    }
+    lastFrameTime = millis();
+    text(int(calcFrameRate), width-10, 7);                           // Print framerate
+
     for (int n=0; n<fixtureList.size(); n++) {
       Fixture theFixture = fixtureList.get(n);
       image(comImg, theFixture.pos2d.x-10, theFixture.pos2d.y-10, 20, 20);
