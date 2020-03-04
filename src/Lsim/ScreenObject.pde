@@ -7,6 +7,7 @@ class ScreenObject {
 
   ScreenObject(PVector iPos, PVector iRot) {
     pos3d = iPos;
+    pos2d = new PVector(0, 0);
     rot = iRot;
   }
 

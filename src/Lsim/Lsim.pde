@@ -13,6 +13,8 @@ int selectedFixture = -1;
 
 boolean flag = false;
 
+Fixture testHead;
+
 
 
 void setup() {
@@ -28,6 +30,8 @@ void setup() {
   textFont(createFont("Crown SA", 100));
 
   comImg = loadImage("comImg2.png");
+  
+  testHead = new Fixture();
 }
 
 
@@ -68,6 +72,8 @@ void draw() {
     }
   }
 
+  testHead.display();
+
   /********************* 2D Elements ********************/
   camera();
   hint(DISABLE_DEPTH_TEST);
@@ -83,6 +89,13 @@ void draw() {
     text("Position [cm]: X " + int(theFixture.pos3d.x) + " Y " + int(theFixture.pos3d.y) + "  Z " + int(theFixture.pos3d.z), theFixture.pos2d.x, theFixture.pos2d.y-200);
     text("Rotation [deg]: X " + int(theFixture.rot.x) + " Y " + int(theFixture.rot.y) + " Z " + int(theFixture.rot.z), theFixture.pos2d.x, theFixture.pos2d.y-180);
   }
+    for (int n=0; n<fixtureList.size(); n++) {
+      Fixture theFixture = fixtureList.get(n);
+      image(comImg, theFixture.pos2d.x-10, theFixture.pos2d.y-10, 20, 20);
+      textAlign(LEFT, CENTER);
+      text("Position [cm]: X " + int(theFixture.pos3d.x) + " Y " + int(theFixture.pos3d.y) + "  Z " + int(theFixture.pos3d.z), theFixture.pos2d.x, theFixture.pos2d.y-200);
+      text("Rotation [deg]: X " + int(theFixture.rot.x) + " Y " + int(theFixture.rot.y) + " Z " + int(theFixture.rot.z), theFixture.pos2d.x, theFixture.pos2d.y-180);
+    }
   hint(ENABLE_DEPTH_TEST);
 }
 
