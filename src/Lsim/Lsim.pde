@@ -17,7 +17,7 @@ void setup() {
   rectMode(CORNERS);
   textFont(createFont("Crown SA", 100));
 
-  comImg = loadImage("img/comImg2.png");
+  comImg = loadImage("comImg2.png");
 }
 
 

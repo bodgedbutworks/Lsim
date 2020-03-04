@@ -15,9 +15,9 @@ class Fixture extends ScreenObject {
   float tilt = 0;
 
   Fixture() {
-    super(new PVector(0,0,0), new PVector(0,0,0));  // ToDo
-    modelPan = loadShape("obj/Headfork.obj");
-    modelTilt = loadShape("obj/Headcorpus.obj");
+    super(new PVector(0, 0, 0), new PVector(0, 0, 0));  // ToDo
+    modelPan = loadShape("Headfork.obj"); //<>// //<>//
+    modelTilt = loadShape("Headcorpus.obj");
     modelPan.disableStyle();  // Ignore the colors in the SVG
     modelTilt.disableStyle();
   }
