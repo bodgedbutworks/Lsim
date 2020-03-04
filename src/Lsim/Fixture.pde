@@ -38,6 +38,8 @@ class Fixture extends ScreenObject {
 
      stroke(255); strokeWeight(5);
      line(pos.x, pos.y, pos.z, dummy.x, dummy.y, dummy.z);
+    pan = int(dmxData[0][0])*panAngle/255;
+    tilt = int(dmxData[0][1])*tiltAngle/255;
 
      fill(255); stroke(0);
      text("O", dummy.x, dummy.y, dummy.z);
