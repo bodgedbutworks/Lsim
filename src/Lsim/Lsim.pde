@@ -41,10 +41,13 @@ void setup() {
 
 
 void draw() {
+  /********************* 3D Elements ********************/
   background(0);
 
   camera(camPos.x, camPos.y, camPos.z, 0, 0, 0, 0, 1, 0);
-  fill(255); stroke(255); strokeWeight(1);
+  fill(255);
+  stroke(255);
+  strokeWeight(1);
   line(0, 0, 0, 100, 0, 0);
   line(0, 0, 0, 0, 100, 0);
   line(0, 0, 0, 0, 0, 100);
@@ -55,20 +58,20 @@ void draw() {
   stroke(0);
 
   pushMatrix();
-    translate(0, 3, 0);
-    fill(#555555);
-    box(200, 6, 200);
+  translate(0, 3, 0);
+  fill(#555555);
+  box(200, 6, 200);
   popMatrix();
 
   /*
   if (keyPressed  &&  key == CODED) {
-    if (mousePressed) {
-      if (keyCode == SHIFT) {
-      } else if (keyCode == CONTROL) {
-      }
-    }
-  }
-  */
+   if (mousePressed) {
+   if (keyCode == SHIFT) {
+   } else if (keyCode == CONTROL) {
+   }
+   }
+   }
+   */
 
   if (mousePressed) {
     if (mouseButton == RIGHT) {
@@ -81,24 +84,18 @@ void draw() {
   /********************* 2D Elements ********************/
   camera();
   hint(DISABLE_DEPTH_TEST);
-  if (selectedFixture != -1) {
-    /*for (int i=0; i<guiElemList.size(); i++) {
-      guiElemList.get(i).display();
-    }*/
-  }
-  for (int n=0; n<fixtureList.size(); n++) {
-    Fixture theFixture = fixtureList.get(n);
-    image(comImg, theFixture.pos2d.x-10, theFixture.pos2d.y-10, 20, 20);
-    fill(255); textSize(height/50); textAlign(LEFT, CENTER);
-    text("Position [cm]: X " + int(theFixture.pos3d.x) + " Y " + int(theFixture.pos3d.y) + "  Z " + int(theFixture.pos3d.z), theFixture.pos2d.x, theFixture.pos2d.y-200);
-    text("Rotation [deg]: X " + int(theFixture.rot.x) + " Y " + int(theFixture.rot.y) + " Z " + int(theFixture.rot.z), theFixture.pos2d.x, theFixture.pos2d.y-180);
-  }
     fill(255); textSize(height/50); textAlign(RIGHT, TOP);
     if(frameCount % 15 == 0){
       calcFrameRate = 1000/(millis()-lastFrameTime+1);
     }
     lastFrameTime = millis();
     text(int(calcFrameRate), width-10, 7);                           // Print framerate
+
+    if (selectedFixture != -1) {
+      /*for (int i=0; i<guiElemList.size(); i++) {
+       guiElemList.get(i).display();
+       }*/
+    }
 
     for (int n=0; n<fixtureList.size(); n++) {
       Fixture theFixture = fixtureList.get(n);
