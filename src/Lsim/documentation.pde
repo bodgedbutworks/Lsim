@@ -1,3 +1,14 @@
+/* 3D Coordinate System:
+      ___________________ +X
+     /|
+    / |
+   /  |
+  /   |
++Z    |
+      |
+     +Y
+*/
+
 /** \mainpage Documentation for the Lsim lighting simulation software
     Created in 2020 by Oliver Steigauf
 
