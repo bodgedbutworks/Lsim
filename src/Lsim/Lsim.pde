@@ -1,6 +1,8 @@
 import hypermedia.net.*;    // For UDP
 UDP udp;
 
+final int SIZE_GUTTER = 5;
+
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
 ArrayList<GuiObject> guiList = new ArrayList<GuiObject>();
 
@@ -36,8 +38,9 @@ void setup() {
   textFont(createFont("Crown SA", 100));
 
   comImg = loadImage("comImg2.png");
-  
+
   testHead = new Fixture();
+  testHead.loadGui();
 }
 
 
@@ -106,6 +109,13 @@ void draw() {
       text("Position [cm]: X " + int(theFixture.pos3d.x) + " Y " + int(theFixture.pos3d.y) + "  Z " + int(theFixture.pos3d.z), theFixture.pos2d.x, theFixture.pos2d.y-200);
       text("Rotation [deg]: X " + int(theFixture.rot.x) + " Y " + int(theFixture.rot.y) + " Z " + int(theFixture.rot.z), theFixture.pos2d.x, theFixture.pos2d.y-180);
     }
+  PVector tempPos = new PVector(20, 120);                                          // Anchor point of following GUI elements
+  for (int g=0; g<guiList.size(); g++) { //<>// //<>//
+    guiList.get(g).pos = tempPos.get();                                         // get() -> clone tempPos instead of creating a reference
+    tempPos.add(new PVector(0, guiList.get(g).size.y));                        // Only vertical size
+    tempPos.add(new PVector(0, SIZE_GUTTER));
+    guiList.get(g).display(); //<>//
+  }
   hint(ENABLE_DEPTH_TEST);
 }
 
