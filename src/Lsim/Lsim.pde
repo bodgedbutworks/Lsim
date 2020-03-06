@@ -182,12 +182,24 @@ PVector rotateVector(PVector _oldVector, float _rotX, float _rotY, float _rotZ) 
 void mousePressed() {
   if (mouseButton == LEFT) {
     flag = true;
+    selectedFixture = -1;
+    selectedGuiObject = -1;
   }
 }
 
 void mouseWheel(MouseEvent event) {
-  //camPos.setMag(camPos.mag()*(1.0+event.getCount()/10.0));
-  addSphereCoords(camPos, 50.0*event.getCount(), 0, 0);
+  if (selectedGuiObject != -1) {
+    guiList.get(selectedGuiObject).editValMouse(event.getCount());
+  } else {
+    //camPos.setMag(camPos.mag()*(1.0+event.getCount()/10.0));
+    addSphereCoords(camPos, 50.0*event.getCount(), 0, 0);
+  }
+}
+
+void keyPressed() {
+  if (selectedGuiObject != -1) {
+    guiList.get(selectedGuiObject).editValKey();
+  }
 }
 
 
