@@ -24,7 +24,7 @@ class ScreenObject {
       clr = color(190, 0, 0);
       if (flag  &&  mousePressed) {
         flag = false;
-        selectedFixture = fixtureList.indexOf(this);
+        updateSelectedFixture(fixtureList.indexOf(this));
         loadGui();
       }
     } else {

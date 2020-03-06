@@ -221,6 +221,9 @@ PVector rotateVector(PVector _oldVector, float _rotX, float _rotY, float _rotZ) 
   newVector.z = (cz*sy*cx-sz*sx)*_oldVector.x + (sz*sy*cx-cz*sx)*_oldVector.y + (cy*cx)*_oldVector.z;
 
   return(newVector);
+void updateSelectedFixture(int iNum) {
+  selectedFixture = iNum;
+  guiList.clear();
 }
 
 
