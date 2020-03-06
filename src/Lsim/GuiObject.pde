@@ -27,12 +27,14 @@ class GuiObject {
   void display() {
   }
 
-  void checkMouseOver() {
+  boolean checkMouseOver() {
     if (mouseX > pos.x  &&  mouseX < (pos.x+size.x)  &&  mouseY > pos.y  &&  mouseY < (pos.y+size.y)) {
       if (flag  &&  mousePressed) {
         flag = false;
         selectedGuiObject = guiList.indexOf(this);
+        return(true);
       }
     }
+    return(false);
   }
 }
