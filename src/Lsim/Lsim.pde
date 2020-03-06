@@ -24,7 +24,6 @@ boolean flag = false;
 byte menuState = 0; // 0=closed, 1=expanding, 2=expanded, 3=closing
 float menuPos = 0;  // Closed -> 0, Expanded -> positive
 
-Fixture testHead;
 Button expandBtn;
 
 
@@ -33,7 +32,6 @@ void setup() {
   size(1200, 900, P3D);
   //fullScreen(P3D, 1);
   surface.setResizable(true);
-
   frameRate(60);
 
   SIZE_X_SUBMENU = width/5;
@@ -48,8 +46,6 @@ void setup() {
 
   comImg = loadImage("comImg2.png");
 
-  testHead = new Fixture();
-  testHead.loadGui();
   btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "+"));
   expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">");
 }
@@ -95,7 +91,9 @@ void draw() {
     }
   }
 
-  testHead.display();
+  for (int f=0; f<fixtureList.size(); f++) {
+    fixtureList.get(f).display();
+  }
 
   /********************* 2D Elements ********************/
   camera();
