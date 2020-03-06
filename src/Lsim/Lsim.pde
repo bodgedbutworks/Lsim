@@ -2,6 +2,7 @@ import hypermedia.net.*;    // For UDP
 UDP udp;
 
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
+ArrayList<GuiObject> guiList = new ArrayList<GuiObject>();
 
 PVector camPos = new PVector(0, 0, 500);
 PImage comImg;
@@ -10,6 +11,7 @@ byte[] artnetHeader = {'A', 'r', 't', '-', 'N', 'e', 't', '\0'};
 byte[][] dmxData = new byte[4][512];                                            // [universe][address]
 
 int selectedFixture = -1;
+int selectedGuiObject = -1;
 long lastFrameTime = 0;
 long calcFrameRate = 1000;
 

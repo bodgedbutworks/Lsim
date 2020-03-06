@@ -54,7 +54,17 @@ class Fixture extends ScreenObject {
 
     pos2d.x = screenX(pos3d.x, pos3d.y, pos3d.z);
     pos2d.y = screenY(pos3d.x, pos3d.y, pos3d.z);
- }
+  }
+
+  void loadGui() {
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", pos3d.x));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", pos3d.y));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", pos3d.z));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.x", rot.x));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.y", rot.y));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.z", rot.z));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Channel Pan", chanPan, 1, 512));
+  }
 
 
     /*
