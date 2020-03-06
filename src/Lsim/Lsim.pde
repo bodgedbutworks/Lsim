@@ -7,6 +7,7 @@ int SIZE_X_MAINMENU;
 
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
 ArrayList<GuiObject> guiList = new ArrayList<GuiObject>();
+ArrayList<Button> btnList = new ArrayList<Button>();
 
 PVector camPos = new PVector(0, 0, 500);
 PImage comImg;
@@ -24,6 +25,7 @@ byte menuState = 0; // 0=closed, 1=expanding, 2=expanded, 3=closing
 float menuPos = 0;  // Closed -> 0, Expanded -> positive
 
 Fixture testHead;
+Button expandBtn;
 
 
 
@@ -48,6 +50,8 @@ void setup() {
 
   testHead = new Fixture();
   testHead.loadGui();
+  btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "+"));
+  expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">");
 }
 
 
@@ -180,6 +184,9 @@ void addSphereCoords(PVector _vector, float add_r, float add_omega, float add_ph
   float new_omega = old_omega;
   if ((old_omega+add_omega) < PI  &&  (old_omega+add_omega) > 0) {  // Exact values 0 and PI lead to display errors
     new_omega = old_omega + add_omega;
+  for (int b=0; b<btnList.size(); b++) {
+    btnList.get(b).pos.x = menuPos-SIZE_X_MAINMENU-SIZE_X_SUBMENU+20;
+    btnList.get(b).display();
   }
   float new_phi = old_phi + add_phi;
 
@@ -195,6 +202,9 @@ void addSphereCoords(PVector _vector, float add_r, float add_omega, float add_ph
 
 PVector Kreuzprodukt(PVector vA, PVector vB) {
   return new PVector(vA.y*vB.z-vA.z*vB.y, vA.z*vB.x-vA.x*vB.z, vA.x*vB.y-vA.y*vB.x);
+  expandBtn.pos.x = menuPos;
+  expandBtn.display();
+  hint(ENABLE_DEPTH_TEST);
 }
 
 PVector rotateVector(PVector _oldVector, float _rotX, float _rotY, float _rotZ) {  //For KOSY to KOSY rotation
