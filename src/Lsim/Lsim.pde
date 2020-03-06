@@ -42,7 +42,7 @@ void setup() {
   udp.listen(true);
 
   rectMode(CORNERS);
-  textFont(createFont("Crown SA", 100));
+  textFont(createFont("Verdana", 100, false));
 
   comImg = loadImage("comImg2.png");
 
@@ -75,19 +75,15 @@ void draw() {
   box(200, 6, 200);
   popMatrix();
 
-  /*
-  if (keyPressed  &&  key == CODED) {
-   if (mousePressed) {
-   if (keyCode == SHIFT) {
-   } else if (keyCode == CONTROL) {
-   }
-   }
-   }
-   */
-
   if (mousePressed) {
     if (mouseButton == RIGHT) {
       addSphereCoords(camPos, 0, (pmouseY-mouseY)/100.0, (pmouseX-mouseX)/100.0);
+    } else if (mouseButton == CENTER) {
+      /* // ToDo: This still needs some love to work
+       PVector tempDirection = new PVector();
+       PVector.cross(camPos, new PVector(0, 1, 0), tempDirection);
+       camPos.add(PVector.mult(tempDirection, 0.01*(mouseX-pmouseX)));
+       */
     }
   }
 
@@ -115,8 +111,6 @@ void draw() {
     text("Rotation [deg]: X " + int(theFixture.rot.x) + " Y " + int(theFixture.rot.y) + " Z " + int(theFixture.rot.z), theFixture.pos2d.x, theFixture.pos2d.y-180);
   }
 
-  PVector tempPos = new PVector(20, 120);                                          // Anchor point of following GUI elements
-  for (int g=0; g<guiList.size(); g++) { //<>// //<>//
   // Menu sidebar
   switch(menuState) {
   case 0:
@@ -156,13 +150,6 @@ void draw() {
     tempPos.add(new PVector(0, SIZE_GUTTER));
     guiList.get(g).display();
   }
-  hint(ENABLE_DEPTH_TEST);
-}
-
-
-
-
-
   for (int b=0; b<btnList.size(); b++) {
     btnList.get(b).pos.x = menuPos-SIZE_X_MAINMENU-SIZE_X_SUBMENU+20;
     btnList.get(b).display();
@@ -188,6 +175,8 @@ void mousePressed() {
     selectedGuiObject = -1;
   }
 }
+
+
 
 void mouseWheel(MouseEvent event) {
   if (selectedGuiObject != -1) {

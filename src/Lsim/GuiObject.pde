@@ -3,7 +3,7 @@ class GuiObject {
   PVector size;
   String valStr = "42.0";
   String propName = "";
-  color clr;
+  color clr = color(255, 0, 255);
 
   GuiObject(PVector iPos, PVector iSize, String iPropName, float iInitialVal) {
     pos = iPos;

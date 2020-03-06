@@ -24,7 +24,7 @@ class SpinBox<T extends ScreenObject> extends GuiObject {
     fill((selectedGuiObject==guiList.indexOf(this)) ? 220+35*sin(millis()/75.0) : 255);
     rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y);
     fill(0);
-    textSize(size.y/1.5);
+    textSize(size.y/2);
     textAlign(LEFT, TOP);
     text(valStr, pos.x, pos.y, pos.x+size.x, pos.y+size.y);
     fill(50, 255, 50);
