@@ -40,6 +40,10 @@ class IntBox<T extends Fixture> extends GuiObject {
     // ToDo: Is there a smarter way to do this??
     if (propName.equals("Channel Pan")) {
       objRef.chanPan = int(valStr);
+    } else if (propName.equals("Channel Tilt")) {
+      objRef.chanTilt = int(valStr);
+    } else if (propName.equals("Channel Dimmer")) {
+      objRef.chanDimmer = int(valStr);
     }
   }
 }

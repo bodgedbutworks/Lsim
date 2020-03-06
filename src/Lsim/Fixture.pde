@@ -11,8 +11,13 @@ class Fixture extends ScreenObject {
   PShape modelPan;
   PShape modelTilt;
 
+  int chanPan = 1;                                                              // [1-512]
+  int chanTilt = 2;
+  int chanDimmer = 3;
+
   float pan = 0;
   float tilt = 0;
+  float dimmer = 255;
 
   Fixture() {
     super(new PVector(0, 0, 0), new PVector(0, 0, 0));  // ToDo
@@ -30,6 +35,7 @@ class Fixture extends ScreenObject {
 
     pan = int(dmxData[0][chanPan-1])*panAngle/255;
     tilt = int(dmxData[0][chanTilt-1])*tiltAngle/255 - tiltAngle/2;
+    dimmer = int(dmxData[0][chanDimmer-1])*tiltAngle/255;
 
     PVector dummy = new PVector(0, 500, 0);
     dummy = rotateVector(dummy, -tilt, 0, 0);
@@ -39,7 +45,7 @@ class Fixture extends ScreenObject {
     dummy = rotateVector(dummy, -rot.x, 0, 0);
     dummy.add(new PVector(pos3d.x, pos3d.y, pos3d.z));
 
-    stroke(255);
+    stroke(dimmer);
     strokeWeight(5);
     line(pos3d.x, pos3d.y, pos3d.z, dummy.x, dummy.y, dummy.z);
 
@@ -69,6 +75,8 @@ class Fixture extends ScreenObject {
     guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.y", rot.y));
     guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.z", rot.z));
     guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Channel Pan", chanPan, 1, 512));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Channel Tilt", chanTilt, 1, 512));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Channel Dimmer", chanDimmer, 1, 512));
   }
 
 
