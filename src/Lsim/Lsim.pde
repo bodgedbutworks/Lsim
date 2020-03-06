@@ -2,6 +2,8 @@ import hypermedia.net.*;    // For UDP
 UDP udp;
 
 final int SIZE_GUTTER = 5;
+int SIZE_X_SUBMENU;
+int SIZE_X_MAINMENU;
 
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
 ArrayList<GuiObject> guiList = new ArrayList<GuiObject>();
@@ -18,6 +20,8 @@ long lastFrameTime = 0;
 long calcFrameRate = 1000;
 
 boolean flag = false;
+byte menuState = 0; // 0=closed, 1=expanding, 2=expanded, 3=closing
+float menuPos = 0;  // Closed -> 0, Expanded -> positive
 
 Fixture testHead;
 
@@ -29,6 +33,9 @@ void setup() {
   surface.setResizable(true);
 
   frameRate(60);
+
+  SIZE_X_SUBMENU = width/5;
+  SIZE_X_MAINMENU = width/10;
 
   udp = new UDP(this, 6454);
   //udp.log(true);
@@ -108,10 +115,44 @@ void draw() {
 
   PVector tempPos = new PVector(20, 120);                                          // Anchor point of following GUI elements
   for (int g=0; g<guiList.size(); g++) { //<>// //<>//
+  // Menu sidebar
+  switch(menuState) {
+  case 0:
+    break;
+  case 1:
+    if (abs(menuPos-(SIZE_X_SUBMENU+SIZE_X_MAINMENU)) > 0.2) {
+      menuPos += 0.2*((SIZE_X_SUBMENU+SIZE_X_MAINMENU)-menuPos);
+    } else {
+      menuPos = SIZE_X_SUBMENU+SIZE_X_MAINMENU;
+      menuState = 2;
+    }
+    break;
+  case 2:
+    break;
+  case 3:
+    if (menuPos > 0.2) {
+      menuPos -= 0.2*menuPos;
+    } else {
+      menuPos = 0;
+      menuState = 0;
+    }
+    break;
+  default:
+    break;
+  }
+  stroke(0);
+  strokeWeight(2);
+  fill(60);
+  rect(menuPos-(SIZE_X_SUBMENU+SIZE_X_MAINMENU), 0, menuPos, height);
+  stroke(0);
+  strokeWeight(1);
+  line(menuPos-SIZE_X_SUBMENU, 0, menuPos-SIZE_X_SUBMENU, height);
+  PVector tempPos = new PVector(menuPos-(SIZE_X_SUBMENU)+20, 20);                                          // Anchor point of following GUI elements
+  for (int g=0; g<guiList.size(); g++) {
     guiList.get(g).pos = tempPos.get();                                         // get() -> clone tempPos instead of creating a reference
     tempPos.add(new PVector(0, guiList.get(g).size.y));                        // Only vertical size
     tempPos.add(new PVector(0, SIZE_GUTTER));
-    guiList.get(g).display(); //<>//
+    guiList.get(g).display();
   }
   hint(ENABLE_DEPTH_TEST);
 }
