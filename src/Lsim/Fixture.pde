@@ -22,12 +22,14 @@ class Fixture extends ScreenObject {
     modelTilt.disableStyle();
   }
 
-  void display(){
+  void display() {
     checkMouseOver();
-    fill(80); stroke(0); strokeWeight(1);
+    fill(80);
+    stroke(0);
+    strokeWeight(1);
 
-    pan = int(dmxData[0][0])*panAngle/255;
-    tilt = int(dmxData[0][1])*tiltAngle/255;
+    pan = int(dmxData[0][chanPan-1])*panAngle/255;
+    tilt = int(dmxData[0][chanTilt-1])*tiltAngle/255 - tiltAngle/2;
 
     PVector dummy = new PVector(0, 500, 0);
     dummy = rotateVector(dummy, -tilt, 0, 0);
@@ -37,19 +39,22 @@ class Fixture extends ScreenObject {
     dummy = rotateVector(dummy, -rot.x, 0, 0);
     dummy.add(new PVector(pos3d.x, pos3d.y, pos3d.z));
 
-    stroke(255); strokeWeight(5);
+    stroke(255);
+    strokeWeight(5);
     line(pos3d.x, pos3d.y, pos3d.z, dummy.x, dummy.y, dummy.z);
 
     pushMatrix();
-      translate(pos3d.x, pos3d.y, pos3d.z);
-      rotateX(radians(rot.x));
-      rotateY(radians(rot.y));
-      rotateZ(radians(rot.z));
-      rotateY(radians(pan));
-      fill(clr); stroke(0); strokeWeight(2);
-      shape(modelPan);
-      rotateX(radians(tilt));
-      shape(modelTilt);
+    translate(pos3d.x, pos3d.y, pos3d.z);
+    rotateX(radians(rot.x));
+    rotateY(radians(rot.y));
+    rotateZ(radians(rot.z));
+    rotateY(radians(pan));
+    fill(clr);
+    stroke(0);
+    strokeWeight(2);
+    shape(modelPan);
+    rotateX(radians(tilt));
+    shape(modelTilt);
     popMatrix();
 
     pos2d.x = screenX(pos3d.x, pos3d.y, pos3d.z);
@@ -67,27 +72,27 @@ class Fixture extends ScreenObject {
   }
 
 
-    /*
+  /*
     void calcPanTilt() {
-      PVector tempVec = new PVector(0, 0, 0);
-      tempVec = PVector.sub(headPointAt, pos);   // headPointAt = Point in 3D space to point the head at
-      tempVec = rotateVector(tempVec, rotX, 0, 0);  // Sequence of rotations makes a difference!
-      tempVec = rotateVector(tempVec, 0, rotY, 0);
-      tempVec = rotateVector(tempVec, 0, 0, rotZ);
-
-      pan = degrees(atan2(tempVec.x, tempVec.z));
-      tilt = degrees(acos(tempVec.y/tempVec.mag()));
-
-
-      // For Art-Net Output
-      int actualPanRange  = 256*360/panRange;       // <8 bit> * <Pan Range of Sphere Coords> / <Fixture Pan Range>
-      int actualTiltRange = 127*180/(tiltRange/2);  // <8 bit> * <Tilt Range of Sphere Coords> / <Fixture Tilt Range>
-      byte  panByte = byte(constrain(map(pan, -180, 180, 127-(actualPanRange/2), 127+(actualPanRange/2)), 0, 255));    //ToDo: panRange/TiltRange berücksichtigen
-      byte tiltByte = byte(constrain(map(tilt,   0, 180, 127, 127+actualTiltRange), 0, 255));
-      setDMXchannel(109, (panInvert ? (255-panByte) : panByte));
-      setDMXchannel(111, (tiltInvert ? (255-tiltByte) : tiltByte));
-      myBus.sendControllerChange(15, 1, int( panByte*127/255));
-      myBus.sendControllerChange(15, 2, int(tiltByte*127/255));
-      //println(pan, tilt, panByte, tiltByte);
-    }*/
+   PVector tempVec = new PVector(0, 0, 0);
+   tempVec = PVector.sub(headPointAt, pos);   // headPointAt = Point in 3D space to point the head at
+   tempVec = rotateVector(tempVec, rotX, 0, 0);  // Sequence of rotations makes a difference!
+   tempVec = rotateVector(tempVec, 0, rotY, 0);
+   tempVec = rotateVector(tempVec, 0, 0, rotZ);
+   
+   pan = degrees(atan2(tempVec.x, tempVec.z));
+   tilt = degrees(acos(tempVec.y/tempVec.mag()));
+   
+   
+   // For Art-Net Output
+   int actualPanRange  = 256*360/panRange;       // <8 bit> * <Pan Range of Sphere Coords> / <Fixture Pan Range>
+   int actualTiltRange = 127*180/(tiltRange/2);  // <8 bit> * <Tilt Range of Sphere Coords> / <Fixture Tilt Range>
+   byte  panByte = byte(constrain(map(pan, -180, 180, 127-(actualPanRange/2), 127+(actualPanRange/2)), 0, 255));    //ToDo: panRange/TiltRange berücksichtigen
+   byte tiltByte = byte(constrain(map(tilt,   0, 180, 127, 127+actualTiltRange), 0, 255));
+   setDMXchannel(109, (panInvert ? (255-panByte) : panByte));
+   setDMXchannel(111, (tiltInvert ? (255-tiltByte) : tiltByte));
+   myBus.sendControllerChange(15, 1, int( panByte*127/255));
+   myBus.sendControllerChange(15, 2, int(tiltByte*127/255));
+   //println(pan, tilt, panByte, tiltByte);
+   }*/
 }

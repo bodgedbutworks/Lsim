@@ -89,26 +89,23 @@ void draw() {
   /********************* 2D Elements ********************/
   camera();
   hint(DISABLE_DEPTH_TEST);
-    fill(255); textSize(height/50); textAlign(RIGHT, TOP);
-    if(frameCount % 15 == 0){
-      calcFrameRate = 1000/(millis()-lastFrameTime+1);
-    }
-    lastFrameTime = millis();
-    text(int(calcFrameRate), width-10, 7);                           // Print framerate
+  fill(255);
+  textSize(height/50);
+  textAlign(RIGHT, TOP);
+  if (frameCount % 15 == 0) {
+    calcFrameRate = 1000/(millis()-lastFrameTime+1);
+  }
+  lastFrameTime = millis();
+  text(int(calcFrameRate), width-10, 7);                           // Print framerate
 
-    if (selectedFixture != -1) {
-      /*for (int i=0; i<guiElemList.size(); i++) {
-       guiElemList.get(i).display();
-       }*/
-    }
+  for (int n=0; n<fixtureList.size(); n++) {
+    Fixture theFixture = fixtureList.get(n);
+    image(comImg, theFixture.pos2d.x-10, theFixture.pos2d.y-10, 20, 20);
+    textAlign(LEFT, CENTER);
+    text("Position [cm]: X " + int(theFixture.pos3d.x) + " Y " + int(theFixture.pos3d.y) + "  Z " + int(theFixture.pos3d.z), theFixture.pos2d.x, theFixture.pos2d.y-200);
+    text("Rotation [deg]: X " + int(theFixture.rot.x) + " Y " + int(theFixture.rot.y) + " Z " + int(theFixture.rot.z), theFixture.pos2d.x, theFixture.pos2d.y-180);
+  }
 
-    for (int n=0; n<fixtureList.size(); n++) {
-      Fixture theFixture = fixtureList.get(n);
-      image(comImg, theFixture.pos2d.x-10, theFixture.pos2d.y-10, 20, 20);
-      textAlign(LEFT, CENTER);
-      text("Position [cm]: X " + int(theFixture.pos3d.x) + " Y " + int(theFixture.pos3d.y) + "  Z " + int(theFixture.pos3d.z), theFixture.pos2d.x, theFixture.pos2d.y-200);
-      text("Rotation [deg]: X " + int(theFixture.rot.x) + " Y " + int(theFixture.rot.y) + " Z " + int(theFixture.rot.z), theFixture.pos2d.x, theFixture.pos2d.y-180);
-    }
   PVector tempPos = new PVector(20, 120);                                          // Anchor point of following GUI elements
   for (int g=0; g<guiList.size(); g++) { //<>// //<>//
     guiList.get(g).pos = tempPos.get();                                         // get() -> clone tempPos instead of creating a reference
@@ -213,24 +210,24 @@ sendUdp(){
 
 
 void receive(byte[] iData, String iIp, int iPort) {
-  if(iData.length == 530){                                                      // ArtNet header + 512 bytes
-    for(int i=0; i<8; i++){
-      if(iData[i] != artnetHeader[i]){                                          // First 8 bytes must match header
+  if (iData.length == 530) {                                                      // ArtNet header + 512 bytes
+    for (int i=0; i<8; i++) {
+      if (iData[i] != artnetHeader[i]) {                                          // First 8 bytes must match header
         print("! ArtNet header mismatch !");
         return;
       }
     }
     int universe = iData[15]<<8 | iData[14];
-    if(universe >= 0  &&  universe <= 3){
+    if (universe >= 0  &&  universe <= 3) {
       dmxData[universe] = subset(iData, 18, 512);
     }
     /*
     for(int i=8; i<30; i++){
-      print(int(iData[i]));
-      print(".");
-    }
-    println();
-    */
+     print(int(iData[i]));
+     print(".");
+     }
+     println();
+     */
     //println("receive: \"" + str(subset(iData, 0, 10)) + "\" from " + iIp + " on port " + iPort);
   } else {
     println("!!! Packet of wrong length received !!!");

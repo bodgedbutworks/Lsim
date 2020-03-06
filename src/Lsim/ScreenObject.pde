@@ -21,7 +21,6 @@ class ScreenObject {
       if (flag  &&  mousePressed) {
         flag = false;
         selectedFixture = fixtureList.indexOf(this);
-        //updateGUIelements();
       }
     } else {
       if (fixtureList.indexOf(this) == selectedFixture) {
