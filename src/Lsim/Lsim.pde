@@ -153,8 +153,11 @@ void draw() {
     tempPos.add(new PVector(0, SIZE_GUTTER));
     guiList.get(g).display();
   }
+  PVector tempPos2 = new PVector(menuPos-(SIZE_X_MAINMENU+SIZE_X_SUBMENU)+20, 20);
   for (int b=0; b<btnList.size(); b++) {
-    btnList.get(b).pos.x = menuPos-SIZE_X_MAINMENU-SIZE_X_SUBMENU+20;
+    btnList.get(b).pos = tempPos2.get();
+    tempPos2.add(new PVector(0, btnList.get(b).size.y));
+    tempPos2.add(new PVector(0, SIZE_GUTTER));
     btnList.get(b).display();
   }
   expandBtn.pos.x = menuPos;
