@@ -30,10 +30,14 @@ void addSphereCoords(PVector _vector, float add_r, float add_omega, float add_ph
   _vector.z = sphereCoords.x;
 }
 
+
+
 // Note: Use PVector built-in function PVector.cross(v1, v2, target)
 //PVector Kreuzprodukt(PVector vA, PVector vB) {
 //  return new PVector(vA.y*vB.z-vA.z*vB.y, vA.z*vB.x-vA.x*vB.z, vA.x*vB.y-vA.y*vB.x);
 //}
+
+
 
 PVector rotateVector(PVector _oldVector, float _rotX, float _rotY, float _rotZ) {  //For KOSY to KOSY rotation
   PVector newVector = new PVector(0, 0, 0);

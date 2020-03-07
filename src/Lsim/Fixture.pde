@@ -138,11 +138,11 @@ class Fixture extends ScreenObject {
    tempVec = rotateVector(tempVec, rotX, 0, 0);  // Sequence of rotations makes a difference!
    tempVec = rotateVector(tempVec, 0, rotY, 0);
    tempVec = rotateVector(tempVec, 0, 0, rotZ);
-
+   
    pan = degrees(atan2(tempVec.x, tempVec.z));
    tilt = degrees(acos(tempVec.y/tempVec.mag()));
-
-
+   
+   
    // For Art-Net Output
    int actualPanRange  = 256*360/panRange;       // <8 bit> * <Pan Range of Sphere Coords> / <Fixture Pan Range>
    int actualTiltRange = 127*180/(tiltRange/2);  // <8 bit> * <Tilt Range of Sphere Coords> / <Fixture Tilt Range>

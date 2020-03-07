@@ -196,6 +196,7 @@ void mouseWheel(MouseEvent event) {
 void keyPressed() {
   if (selectedGuiObject != -1) {
     guiList.get(selectedGuiObject).editValKey();
+  } else if (key == ' ') {
   }
 }
 

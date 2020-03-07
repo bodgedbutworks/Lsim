@@ -6,12 +6,12 @@ class Button extends GuiObject {
   void display() {
     if (checkMouseOver()) {
       if (propName.equals(">")) {
-        if (menuState==0) {
+        if (menuState == 0) {
           menuState = 1;
-        } else if (menuState==2) {
+        } else if (menuState == 2) {
           menuState = 3;
         }
-      } else if (propName.equals("+")){
+      } else if (propName.equals("+")) {
         fixtureList.add(new Fixture());
       } else if (propName.equals("S")) {
         saveAll();
