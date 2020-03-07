@@ -48,6 +48,8 @@ void setup() {
   comImg = loadImage("comImg2.png");
 
   btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "+"));
+  btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "S"));
+  btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "L"));
   expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">");
 }
 

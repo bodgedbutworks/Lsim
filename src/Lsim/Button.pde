@@ -13,6 +13,10 @@ class Button extends GuiObject {
         }
       } else if (propName.equals("+")){
         fixtureList.add(new Fixture());
+      } else if (propName.equals("S")) {
+        saveAll();
+      } else if (propName.equals("L")) {
+        loadAll();
       }
     }
     noStroke();
