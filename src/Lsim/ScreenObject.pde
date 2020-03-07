@@ -1,5 +1,6 @@
 class ScreenObject {
-  int id;
+  //int id;
+  String name = "Object " + str(floor(random(0, 999999)));
   PVector pos3d;
   PVector pos2d;
   PVector rot;

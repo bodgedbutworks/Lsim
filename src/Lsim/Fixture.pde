@@ -1,10 +1,10 @@
 /// Fixture definition
 class Fixture extends ScreenObject {
   int universe = 0;                                                           //< ArtNet Universe
-  int address = 0;
+  int address = 1;
   byte numChannels = 1;
-  float panAngle = 630;
-  float tiltAngle = 270;
+  int panAngle = 630;
+  int tiltAngle = 270;
   boolean hasPan = true;
   boolean hasTilt = true;
   PShape modelBase;
@@ -33,9 +33,9 @@ class Fixture extends ScreenObject {
     stroke(0);
     strokeWeight(1);
 
-    pan = int(dmxData[0][chanPan-1])*panAngle/255;
-    tilt = int(dmxData[0][chanTilt-1])*tiltAngle/255 - tiltAngle/2;
-    dimmer = int(dmxData[0][chanDimmer-1])*tiltAngle/255;
+    pan = int(dmxData[universe][constrain(address-1+chanPan-1, 0, 511)])*float(panAngle)/255.0;
+    tilt = int(dmxData[universe][constrain(address-1+chanTilt-1, 0, 511)])*float(tiltAngle)/255.0 - float(tiltAngle)/2.0;
+    dimmer = int(dmxData[universe][constrain(address-1+chanDimmer-1, 0, 511)]);
 
     PVector dummy = new PVector(0, 500, 0);
     dummy = rotateVector(dummy, -tilt, 0, 0);
@@ -74,11 +74,19 @@ class Fixture extends ScreenObject {
     guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.x", rot.x));
     guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.y", rot.y));
     guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.z", rot.z));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Universe", universe, 0, QTY_UNIVERSES-1));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Address", address, 1, 512));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Pan Angle", panAngle, 90, 720));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Tilt Angle", tiltAngle, 90, 360));
     guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Channel Pan", chanPan, 1, 512));
     guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Channel Tilt", chanTilt, 1, 512));
     guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Channel Dimmer", chanDimmer, 1, 512));
   }
 
+     x.setString("value", str(panAngle));
+     saveXML(tempXml, "xml/" + name + ".xml");
+     */
+    return(
 
   /*
     void calcPanTilt() {

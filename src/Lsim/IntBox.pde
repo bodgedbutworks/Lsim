@@ -45,6 +45,14 @@ class IntBox<T extends Fixture> extends GuiObject {
       objRef.chanTilt = int(valStr);
     } else if (propName.equals("Channel Dimmer")) {
       objRef.chanDimmer = int(valStr);
+    } else if (propName.equals("Universe")) {
+      objRef.universe = int(valStr);
+    } else if (propName.equals("Address")) {
+      objRef.address = int(valStr);
+    } else if (propName.equals("Pan Angle")) {
+      objRef.panAngle = int(valStr);
+    } else if (propName.equals("Tilt Angle")) {
+      objRef.tiltAngle = int(valStr);
     }
   }
 }
