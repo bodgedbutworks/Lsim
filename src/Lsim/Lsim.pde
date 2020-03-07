@@ -198,3 +198,22 @@ void keyPressed() {
     guiList.get(selectedGuiObject).editValKey();
   }
 }
+
+void saveAll() {
+  String[] saveData = new String[fixtureList.size()];
+  for (int f=0; f<fixtureList.size(); f++) {
+    saveData[f] = fixtureList.get(f).getSaveString();
+  }
+  saveStrings("/save/fixtures.lsm", saveData);
+  println("Saved " + str(fixtureList.size()) + " Fixtures.");
+}
+
+void loadAll() {
+  fixtureList.clear();
+  String[] loadData = loadStrings("/save/fixtures.lsm");
+  for (int f=0; f<loadData.length; f++) {
+    fixtureList.add(new Fixture());
+    fixtureList.get(f).setLoadString(loadData[f]);
+  }
+  println("Loaded " + str(loadData.length) + " Fixtures.");
+}

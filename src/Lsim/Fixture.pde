@@ -83,10 +83,53 @@ class Fixture extends ScreenObject {
     guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Channel Dimmer", chanDimmer, 1, 512));
   }
 
+  String getSaveString() {
+    /*
+    XML tempXml = parseXML("<Fixture><Mechanical></Mechanical></Fixture>");
+     XML nodeFixture = tempXml.getChild("Mechanical");
+     XML x = nodeFixture.addChild("Property");
+     x.setString("name", "panAngle");
      x.setString("value", str(panAngle));
      saveXML(tempXml, "xml/" + name + ".xml");
      */
     return(
+      name + ";" +
+      str(pos3d.x) + ";" +
+      str(pos3d.y) + ";" +
+      str(pos3d.z) + ";" +
+      str(rot.x) + ";" +
+      str(rot.y) + ";" +
+      str(rot.z) + ";" +
+      str(universe) + ";" +
+      str(address) + ";" +
+      str(panAngle) + ";" +
+      str(tiltAngle) + ";" +
+      str(chanPan) + ";" +
+      str(chanTilt) + ";" +
+      str(chanDimmer)
+      );
+  }
+
+  void setLoadString(String iLine) {
+    String[] props = split(iLine, ';');
+    if (props.length == 14) {
+      name = props[0];
+      pos3d = new PVector(float(props[1]), float(props[2]), float(props[3]));
+      rot = new PVector(float(props[4]), float(props[5]), float(props[6]));
+      universe = int(props[7]);
+      address = int(props[8]);
+      panAngle = int(props[9]);
+      tiltAngle = int(props[10]);
+      chanPan = int(props[11]);
+      chanTilt = int(props[12]);
+      chanDimmer = int(props[13]);
+      println("Loaded Fixture " + name);
+    } else {
+      println("!Error while loading a Fixture: Number of properties in line not as expected!");
+      return;
+    }
+  }
+
 
   /*
     void calcPanTilt() {
