@@ -1,8 +1,8 @@
 class SpinBox<T extends ScreenObject> extends GuiObject {
   T objRef;
 
-  SpinBox(PVector iPos, PVector iSize, T iObjRef, String iPropName, float iInitialVal) {
-    super(iPos, iSize, iPropName, iInitialVal);
+  SpinBox(PVector iPos, PVector iSize, T iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+    super(iPos, iSize, iPropName, iInitialVal, iStepSize);
     objRef = iObjRef;
   }
 

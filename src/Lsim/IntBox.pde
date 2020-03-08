@@ -4,8 +4,8 @@ class IntBox<T extends Fixture> extends GuiObject {
   int valMin = 1;
   int valMax = 512;
 
-  IntBox(PVector iPos, PVector iSize, T iObjRef, String iPropName, int iInitialVal, int iMin, int iMax) {
-    super(iPos, iSize, iPropName, float(iInitialVal));
+  IntBox(PVector iPos, PVector iSize, T iObjRef, String iPropName, int iInitialVal, int iStepSize, int iMin, int iMax) {
+    super(iPos, iSize, iPropName, float(iInitialVal), float(iStepSize));
     objRef = iObjRef;
     valMin = iMin;
     valMax = iMax;
