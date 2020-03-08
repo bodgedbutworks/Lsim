@@ -20,6 +20,7 @@ class SpinBox<T extends ScreenObject> extends GuiObject {
 
   void display() {
     checkMouseOver();
+    //valStr = str(float(int(float(valStr)*100)/100));
     noStroke();
     fill((selectedGuiObject==guiList.indexOf(this)) ? 220+35*sin(millis()/75.0) : 255);
     rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y);

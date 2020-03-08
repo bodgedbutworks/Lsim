@@ -2,11 +2,11 @@
 class Fixture extends ScreenObject {
   int universe = 0;                                                           //< ArtNet Universe
   int address = 1;
-  byte numChannels = 1;
+  //byte numChannels = 1;
   int panAngle = 630;
   int tiltAngle = 270;
-  boolean hasPan = true;
-  boolean hasTilt = true;
+  //boolean hasPan = true;
+  //boolean hasTilt = true;
   PShape modelBase;
   PShape modelPan;
   PShape modelTilt;

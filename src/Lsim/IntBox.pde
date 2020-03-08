@@ -26,6 +26,7 @@ class IntBox<T extends Fixture> extends GuiObject {
 
   void display() {
     checkMouseOver();
+    valStr = str(int(valStr));
     noStroke();
     fill((selectedGuiObject==guiList.indexOf(this)) ? 220+35*sin(millis()/75.0) : 255);
     rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y);

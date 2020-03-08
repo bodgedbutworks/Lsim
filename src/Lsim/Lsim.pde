@@ -1,8 +1,9 @@
 import hypermedia.net.*;    // For UDP
 UDP udp;
 
-final int QTY_UNIVERSES = 3;
+
 final float POS_TOLERANCE = 0.2;    // Threshold for moving lights pan and tilt
+final int QTY_UNIVERSES = 4;
 final int SIZE_GUTTER = 5;
 int SIZE_X_SUBMENU;
 int SIZE_X_MAINMENU;
