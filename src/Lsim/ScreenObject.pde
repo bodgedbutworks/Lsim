@@ -6,10 +6,15 @@ class ScreenObject {
   PVector rot;
   color clr = color(50);
 
+  Dynamics pan;     // These don't really belong here, but can't get Fixture.loadGUI() and SpinBox working otherwise
+  Dynamics tilt;
+
   ScreenObject(PVector iPos, PVector iRot) {
     pos3d = iPos;
     pos2d = new PVector(0, 0);
     rot = iRot;
+    pan = new Dynamics();
+    tilt = new Dynamics();
   }
 
   void display() {

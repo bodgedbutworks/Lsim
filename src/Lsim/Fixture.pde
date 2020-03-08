@@ -15,8 +15,6 @@ class Fixture extends ScreenObject {
   int chanTilt = 2;
   int chanDimmer = 3;
 
-  float pan = 0;
-  float tilt = 0;
   float dimmer = 255;
 
   Fixture() {
@@ -33,13 +31,15 @@ class Fixture extends ScreenObject {
     stroke(0);
     strokeWeight(1);
 
-    pan = int(dmxData[universe][constrain(address-1+chanPan-1, 0, 511)])*float(panAngle)/255.0;
-    tilt = int(dmxData[universe][constrain(address-1+chanTilt-1, 0, 511)])*float(tiltAngle)/255.0 - float(tiltAngle)/2.0;
+    pan.updateDest(int(dmxData[universe][constrain(address-1+chanPan-1, 0, 511)])*float(panAngle)/255.0);
+    pan.move();
+    tilt.updateDest(int(dmxData[universe][constrain(address-1+chanTilt-1, 0, 511)])*float(tiltAngle)/255.0 - float(tiltAngle)/2.0);
+    tilt.move();
     dimmer = int(dmxData[universe][constrain(address-1+chanDimmer-1, 0, 511)]);
 
     PVector dummy = new PVector(0, 500, 0);
-    dummy = rotateVector(dummy, -tilt, 0, 0);
-    dummy = rotateVector(dummy, 0, -pan, 0);
+    dummy = rotateVector(dummy, -tilt.pos, 0, 0);
+    dummy = rotateVector(dummy, 0, -pan.pos, 0);
     dummy = rotateVector(dummy, 0, 0, -rot.z);  // Sequence of rotations makes a difference!
     dummy = rotateVector(dummy, 0, -rot.y, 0);
     dummy = rotateVector(dummy, -rot.x, 0, 0);
@@ -54,12 +54,12 @@ class Fixture extends ScreenObject {
     rotateX(radians(rot.x));
     rotateY(radians(rot.y));
     rotateZ(radians(rot.z));
-    rotateY(radians(pan));
+    rotateY(radians(pan.pos));
     fill(clr);
     stroke(0);
     strokeWeight(2);
     shape(modelPan);
-    rotateX(radians(tilt));
+    rotateX(radians(tilt.pos));
     shape(modelTilt);
     popMatrix();
 

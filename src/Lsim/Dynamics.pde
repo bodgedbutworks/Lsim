@@ -1,0 +1,82 @@
+class Dynamics {
+  int state = 0;    // 0=idle, 1=accelerating, 2=@maxSpeed, 3=decelerating, 4=tweaking
+
+  // ToDo add pan/tilt angles here and constrain pos to those
+  float maxAcc = 0.15;
+  float maxSpd = 6.0;
+  float maxSpdTweak = 0.1;
+
+  float dest = 0;                      // Destination (Angular value [deg])
+  float pos = 0;                       // Current position [deg]
+  float spd = 0;                       // Current speed [deg/frame]
+  float acc = 0;                       // Current acceleration, constant (always 0 or +/- maxAcc)
+
+  void updateDest(float iDest) {       // Check for changes, if so: reset state
+    float tempDest = iDest;
+    if (dest != tempDest) {
+      dest = tempDest;
+      state = 0;
+    }
+  }
+
+  // ToDo Debug movements with many updates (e.g. EFX)
+  void move() {
+    float diff = dest - pos;
+
+    /* print(diff);
+     print(" ");
+     print(state);
+     print(" ");
+     print(acc);
+     print(" ");
+     print(spd);
+     print(" ");
+     println(); */
+
+    switch(state) {
+    case  0:
+      if (abs(diff) < POS_TOLERANCE) {            // While within tolerance
+        acc = 0;
+        spd = 0;
+      } else {
+        acc = ((diff>=0) ? maxAcc : -maxAcc);     // Set acc to constant value (+/-)
+        state = 1;
+      }
+      break;
+    case  1:
+      float lookahead_spd = spd+acc;              // Estimate theoretical speed in the next iteration
+      float lookahead_pos = diff-spd;             // Estimate theoretical pos in the next iteration
+      // If either max spd reached OR it's already time to decelerate
+      if ((abs(spd) >= maxSpd)  ||  ((lookahead_spd*lookahead_spd)/(2*maxAcc)) >= abs(lookahead_pos)) {
+        spd = constrain(spd, -maxSpd, maxSpd);
+        state = 2;
+      } else {
+        spd += acc;
+      }
+      break;
+    case  2:
+      lookahead_pos = diff-spd;                   // Estimate theoretical pos in the next iteration (speed is constant!)
+      if (((spd*spd)/(2*maxAcc)) >= abs(lookahead_pos)) {    // Check if it's time to decelerate
+        state = 3;
+      }
+      break;
+    case  3:
+      spd -= acc;
+      if (spd*diff < 0) {    // When the speed=0 point is passed (spd points in opposite direction of diff)
+        spd = ((diff>=0) ? maxSpdTweak : -maxSpdTweak);
+        state = 4;
+      }
+      break;
+    case  4:
+      if (abs(diff) >= POS_TOLERANCE) {
+        /* Tweak with small spd (set in state no. 3) */
+      } else {
+        state = 0;
+      }
+    default:
+      break;
+    }
+
+    pos += spd;
+  }
+}
