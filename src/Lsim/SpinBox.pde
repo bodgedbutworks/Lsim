@@ -43,6 +43,18 @@ class SpinBox<T extends ScreenObject> extends GuiObject {
       objRef.rot.y = float(valStr);
     } else if (propName.equals("rot.z")) {
       objRef.rot.z = float(valStr);
+    } else if (propName.equals("Pan Accel")) {
+      objRef.pan.maxAcc = float(valStr);
+    } else if (propName.equals("Pan Speed")) {
+      objRef.pan.maxSpd = float(valStr);
+    } else if (propName.equals("Pan Tweak")) {
+      objRef.pan.maxSpdTweak = float(valStr);
+    } else if (propName.equals("Tilt Accel")) {
+      objRef.tilt.maxAcc = float(valStr);
+    } else if (propName.equals("Tilt Speed")) {
+      objRef.tilt.maxSpd = float(valStr);
+    } else if (propName.equals("Tilt Tweak")) {
+      objRef.tilt.maxSpdTweak = float(valStr);
     }
   }
 }

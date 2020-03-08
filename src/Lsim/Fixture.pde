@@ -68,19 +68,25 @@ class Fixture extends ScreenObject {
   }
 
   void loadGui() {
-    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", pos3d.x));
-    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", pos3d.y));
-    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", pos3d.z));
-    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.x", rot.x));
-    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.y", rot.y));
-    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.z", rot.z));
-    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Universe", universe, 0, QTY_UNIVERSES-1));
-    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Address", address, 1, 512));
-    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Pan Angle", panAngle, 90, 720));
-    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Tilt Angle", tiltAngle, 90, 360));
-    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Channel Pan", chanPan, 1, 512));
-    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Channel Tilt", chanTilt, 1, 512));
-    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Channel Dimmer", chanDimmer, 1, 512));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", pos3d.x, 1.0));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", pos3d.y, 1.0));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", pos3d.z, 1.0));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.x", rot.x, 1.0));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.y", rot.y, 1.0));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "rot.z", rot.z, 1.0));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(60, 25), this, "Universe", universe, 1, 0, QTY_UNIVERSES-1));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(60, 25), this, "Address", address, 1, 1, 512));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(100, 25), this, "Pan Angle", panAngle, 1, 90, 720));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(100, 25), this, "Pan Accel", pan.maxAcc, 0.01));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(100, 25), this, "Pan Speed", pan.maxSpd, 0.01));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(100, 25), this, "Pan Tweak", pan.maxSpdTweak, 0.01));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(80, 25), this, "Tilt Angle", tiltAngle, 1, 90, 360));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(100, 25), this, "Tilt Accel", tilt.maxAcc, 0.01));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(100, 25), this, "Tilt Speed", tilt.maxSpd, 0.01));
+    guiList.add(new SpinBox<Fixture>(new PVector(0, 0), new PVector(100, 25), this, "Tilt Tweak", tilt.maxSpdTweak, 0.01));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(50, 25), this, "Channel Pan", chanPan, 1, 1, 512));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(50, 25), this, "Channel Tilt", chanTilt, 1, 1, 512));
+    guiList.add(new IntBox<Fixture>(new PVector(0, 0), new PVector(50, 25), this, "Channel Dimmer", chanDimmer, 1, 1, 512));
   }
 
   String getSaveString() {
