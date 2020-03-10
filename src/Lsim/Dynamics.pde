@@ -33,8 +33,8 @@ class Dynamics {
      print(" ");
      println(); */
 
-    switch(state) {
-    case  0:
+    // ifs instead of switch/case so that multiple state changes can be handled in one function call
+    if (state == 0) {
       if (abs(diff) < POS_TOLERANCE) {            // While within tolerance
         acc = 0;
         spd = 0;
@@ -42,8 +42,8 @@ class Dynamics {
         acc = ((diff>=0) ? maxAcc : -maxAcc);     // Set acc to constant value (+/-)
         state = 1;
       }
-      break;
-    case  1:
+    }
+    if (state == 1) {
       float lookahead_spd = spd+acc;              // Estimate theoretical speed in the next iteration
       float lookahead_pos = diff-spd;             // Estimate theoretical pos in the next iteration
       // If either max spd reached OR it's already time to decelerate
@@ -53,28 +53,25 @@ class Dynamics {
       } else {
         spd += acc;
       }
-      break;
-    case  2:
       lookahead_pos = diff-spd;                   // Estimate theoretical pos in the next iteration (speed is constant!)
       if (((spd*spd)/(2*maxAcc)) >= abs(lookahead_pos)) {    // Check if it's time to decelerate
+    }
         state = 3;
       }
-      break;
-    case  3:
+    }
+    if (state == 3) {
       spd -= acc;
       if (spd*diff < 0) {    // When the speed=0 point is passed (spd points in opposite direction of diff)
         spd = ((diff>=0) ? maxSpdTweak : -maxSpdTweak);
         state = 4;
       }
-      break;
-    case  4:
+    }
+    if (state == 4) {
       if (abs(diff) >= POS_TOLERANCE) {
         /* Tweak with small spd (set in state no. 3) */
       } else {
         state = 0;
       }
-    default:
-      break;
     }
 
     pos += spd;
