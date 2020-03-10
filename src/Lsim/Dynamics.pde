@@ -53,9 +53,9 @@ class Dynamics {
       } else {
         spd += acc;
       }
-      lookahead_pos = diff-spd;                   // Estimate theoretical pos in the next iteration (speed is constant!)
-      if (((spd*spd)/(2*maxAcc)) >= abs(lookahead_pos)) {    // Check if it's time to decelerate
     }
+    if (state == 2) {
+      if (((spd*spd)/(2*maxAcc)) >= abs(diff)) {    // Check if it's time to decelerate
         state = 3;
       }
     }
