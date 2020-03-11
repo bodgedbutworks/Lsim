@@ -41,6 +41,9 @@ class ScreenObject {
         flag = false;
         updateSelectedFixture(fixtureList.indexOf(this));
         loadGui();
+        if (menuState == 0) {
+          menuState = 1;
+        }
       }
     } else {
       if (fixtureList.indexOf(this) == selectedFixture) {
