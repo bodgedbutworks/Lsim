@@ -1,8 +1,8 @@
 class SpinBox<T extends ScreenObject> extends GuiObject {
   T objRef;
 
-  SpinBox(PVector iPos, PVector iSize, T iObjRef, String iPropName, float iInitialVal) {
-    super(iPos, iSize, iPropName, iInitialVal);
+  SpinBox(PVector iPos, PVector iSize, T iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+    super(iPos, iSize, iPropName, iInitialVal, iStepSize);
     objRef = iObjRef;
   }
 
@@ -20,6 +20,7 @@ class SpinBox<T extends ScreenObject> extends GuiObject {
 
   void display() {
     checkMouseOver();
+    //valStr = str(float(int(float(valStr)*100)/100));
     noStroke();
     fill((selectedGuiObject==guiList.indexOf(this)) ? 220+35*sin(millis()/75.0) : 255);
     rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y);
@@ -43,6 +44,18 @@ class SpinBox<T extends ScreenObject> extends GuiObject {
       objRef.rot.y = float(valStr);
     } else if (propName.equals("rot.z")) {
       objRef.rot.z = float(valStr);
+    } else if (propName.equals("Pan Accel")) {
+      objRef.pan.maxAcc = float(valStr);
+    } else if (propName.equals("Pan Speed")) {
+      objRef.pan.maxSpd = float(valStr);
+    } else if (propName.equals("Pan Tweak")) {
+      objRef.pan.maxSpdTweak = float(valStr);
+    } else if (propName.equals("Tilt Accel")) {
+      objRef.tilt.maxAcc = float(valStr);
+    } else if (propName.equals("Tilt Speed")) {
+      objRef.tilt.maxSpd = float(valStr);
+    } else if (propName.equals("Tilt Tweak")) {
+      objRef.tilt.maxSpdTweak = float(valStr);
     }
   }
 }

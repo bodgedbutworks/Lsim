@@ -3,16 +3,19 @@ class GuiObject {
   PVector size;
   String valStr = "42.0";
   String propName = "";
+  float stepSize = 1.0;
   color clr = color(255, 0, 255);
 
-  GuiObject(PVector iPos, PVector iSize, String iPropName, float iInitialVal) {
+  GuiObject(PVector iPos, PVector iSize, String iPropName, float iInitialVal, float iStepSize) {
     pos = iPos;
     size = iSize;
     propName = iPropName;
     valStr = str(iInitialVal);
+    stepSize = iStepSize;
   }
 
   void editValMouse(float iEventGetCount) {
+    iEventGetCount *= stepSize;
     if (keyPressed  &&  key==CODED  &&  keyCode==CONTROL) {
       iEventGetCount *= 10;
     } else if (keyPressed  &&  key==CODED  &&  keyCode==SHIFT) {

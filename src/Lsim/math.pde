@@ -1,4 +1,4 @@
-// Transform _vector to sphere coordinates, modify them, then tranform back to cartesian & save to vector //<>//
+// Transform _vector to sphere coordinates, modify them, then tranform back to cartesian & save to vector
 // r = radius, omega = [0°-180°], phi = [0°-360°]
 // Note: {+x, +y, +z} in sphere coordinates correspond to {+z, +x, -y}
 void addSphereCoords(PVector _vector, float add_r, float add_omega, float add_phi) {

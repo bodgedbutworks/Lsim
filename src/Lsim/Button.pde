@@ -1,6 +1,6 @@
 class Button extends GuiObject {
   Button(PVector iPos, PVector iSize, String iPropName) {
-    super(iPos, iSize, iPropName, 0.0/*initialVal*/);
+    super(iPos, iSize, iPropName, 0.0/*initialVal*/, 1.0/*stepSize*/);
   }
 
   void display() {

@@ -6,10 +6,15 @@ class ScreenObject {
   PVector rot;
   color clr = color(50);
 
+  Dynamics pan;     // These don't really belong here, but can't get Fixture.loadGUI() and SpinBox working otherwise
+  Dynamics tilt;
+
   ScreenObject(PVector iPos, PVector iRot) {
     pos3d = iPos;
     pos2d = new PVector(0, 0);
     rot = iRot;
+    pan = new Dynamics();
+    tilt = new Dynamics();
   }
 
   void display() {
@@ -20,6 +25,15 @@ class ScreenObject {
     println("Gui load function not defined!");
   }
 
+  String getSaveString(){
+    println("Object save function not defined!");
+    return("Object save function not defined!");
+  }
+
+  void setLoadString(String iLine) {
+    println("Object load function not defined!");
+  }
+
   void checkMouseOver() {
     if (dist(screenX(pos3d.x, pos3d.y, pos3d.z), screenY(pos3d.x, pos3d.y, pos3d.z), mouseX, mouseY) < 40) {
       clr = color(190, 0, 0);
@@ -27,6 +41,9 @@ class ScreenObject {
         flag = false;
         updateSelectedFixture(fixtureList.indexOf(this));
         loadGui();
+        if (menuState == 0) {
+          menuState = 1;
+        }
       }
     } else {
       if (fixtureList.indexOf(this) == selectedFixture) {
@@ -35,5 +52,10 @@ class ScreenObject {
         clr = color(80);
       }
     }
+  }
+
+  void updatePos2d(){
+    pos2d.x = screenX(pos3d.x, pos3d.y, pos3d.z);
+    pos2d.y = screenY(pos3d.x, pos3d.y, pos3d.z);
   }
 }
