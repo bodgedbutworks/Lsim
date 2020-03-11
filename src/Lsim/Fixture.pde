@@ -63,8 +63,7 @@ class Fixture extends ScreenObject {
     shape(modelTilt);
     popMatrix();
 
-    pos2d.x = screenX(pos3d.x, pos3d.y, pos3d.z);
-    pos2d.y = screenY(pos3d.x, pos3d.y, pos3d.z);
+    updatePos2d();
   }
 
   void loadGui() {

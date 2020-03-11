@@ -25,6 +25,15 @@ class ScreenObject {
     println("Gui load function not defined!");
   }
 
+  String getSaveString(){
+    println("Object save function not defined!");
+    return("Object save function not defined!");
+  }
+
+  void setLoadString(String iLine) {
+    println("Object load function not defined!");
+  }
+
   void checkMouseOver() {
     if (dist(screenX(pos3d.x, pos3d.y, pos3d.z), screenY(pos3d.x, pos3d.y, pos3d.z), mouseX, mouseY) < 40) {
       clr = color(190, 0, 0);
@@ -40,5 +49,10 @@ class ScreenObject {
         clr = color(80);
       }
     }
+  }
+
+  void updatePos2d(){
+    pos2d.x = screenX(pos3d.x, pos3d.y, pos3d.z);
+    pos2d.y = screenY(pos3d.x, pos3d.y, pos3d.z);
   }
 }
