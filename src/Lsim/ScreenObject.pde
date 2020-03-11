@@ -6,8 +6,11 @@ class ScreenObject {
   PVector rot;
   color clr = color(50);
 
+  ////////////////////
   Dynamics pan;     // These don't really belong here, but can't get Fixture.loadGUI() and SpinBox working otherwise
   Dynamics tilt;
+  PVector size3d;
+  ///////////////////
 
   ScreenObject(PVector iPos, PVector iRot) {
     pos3d = iPos;

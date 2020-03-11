@@ -56,6 +56,12 @@ class SpinBox<T extends ScreenObject> extends GuiObject {
       objRef.tilt.maxSpd = float(valStr);
     } else if (propName.equals("Tilt Tweak")) {
       objRef.tilt.maxSpdTweak = float(valStr);
+    } else if (propName.equals("size3d.x")) {
+      objRef.size3d.x = float(valStr);
+    } else if (propName.equals("size3d.y")) {
+      objRef.size3d.y = float(valStr);
+    } else if (propName.equals("size3d.z")) {
+      objRef.size3d.z = float(valStr);
     }
   }
 }

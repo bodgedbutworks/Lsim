@@ -9,6 +9,7 @@ int SIZE_X_SUBMENU;
 int SIZE_X_MAINMENU;
 
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
+ArrayList<Cuboid> cuboidList = new ArrayList<Cuboid>();
 ArrayList<GuiObject> guiList = new ArrayList<GuiObject>();
 ArrayList<Button> btnList = new ArrayList<Button>();
 
@@ -50,6 +51,7 @@ void setup() {
   comImg = loadImage("comImg2.png");
 
   btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "+"));
+  btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "++"));
   btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "S"));
   btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "L"));
   expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">");
@@ -94,6 +96,9 @@ void draw() {
 
   for (int f=0; f<fixtureList.size(); f++) {
     fixtureList.get(f).display();
+  }
+  for (int f=0; f<cuboidList.size(); f++) {
+    cuboidList.get(f).display();
   }
 
   /********************* 2D Elements ********************/
