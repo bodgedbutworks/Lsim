@@ -18,7 +18,7 @@ class Fixture extends ScreenObject {
   float dimmer = 255;
 
   Fixture() {
-    super(new PVector(0, 0, 0), new PVector(0, 0, 0));  // ToDo
+    super(new PVector(int(random(-100, 100)), int(random(-250, -50)), int(random(-100, 100))), new PVector(0, 0, 0));
     modelPan = loadShape("Headfork.obj");
     modelTilt = loadShape("Headcorpus.obj");
     modelPan.disableStyle();  // Ignore the colors in the SVG
@@ -144,11 +144,11 @@ class Fixture extends ScreenObject {
    tempVec = rotateVector(tempVec, rotX, 0, 0);  // Sequence of rotations makes a difference!
    tempVec = rotateVector(tempVec, 0, rotY, 0);
    tempVec = rotateVector(tempVec, 0, 0, rotZ);
-   
+
    pan = degrees(atan2(tempVec.x, tempVec.z));
    tilt = degrees(acos(tempVec.y/tempVec.mag()));
-   
-   
+
+
    // For Art-Net Output
    int actualPanRange  = 256*360/panRange;       // <8 bit> * <Pan Range of Sphere Coords> / <Fixture Pan Range>
    int actualTiltRange = 127*180/(tiltRange/2);  // <8 bit> * <Tilt Range of Sphere Coords> / <Fixture Tilt Range>

@@ -2,7 +2,7 @@ class Dynamics {
   int state = 0;    // 0=idle, 1=accelerating, 2=@maxSpeed, 3=decelerating, 4=tweaking
 
   // ToDo add pan/tilt angles here and constrain pos to those
-  float maxAcc = 0.15;
+  float maxAcc = 0.18;
   float maxSpd = 6.0;
   float maxSpdTweak = 0.1;
 
@@ -59,7 +59,7 @@ class Dynamics {
         state = 3;
       }
     }
-    if (state == 3) {
+    if (state == 3) {       // ToDo: If dest pos is changed by a small amount in reverse direction during deceleration, the speed jumps to zero
       spd -= acc;
       if (spd*diff < 0) {    // When the speed=0 point is passed (spd points in opposite direction of diff)
         spd = ((diff>=0) ? maxSpdTweak : -maxSpdTweak);
