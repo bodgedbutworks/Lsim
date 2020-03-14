@@ -163,26 +163,54 @@ class Fixture extends ScreenObject {
       str(universe) + ";" +
       str(address) + ";" +
       str(panAngle) + ";" +
+      str(pan.maxAcc) + ";" +
+      str(pan.maxSpd) + ";" +
+      str(pan.maxSpdTweak) + ";" +
       str(tiltAngle) + ";" +
+      str(tilt.maxAcc) + ";" +
+      str(tilt.maxSpd) + ";" +
+      str(tilt.maxSpdTweak) + ";" +
+      str(zoomAngleMin) + ";" +
+      str(zoomAngleMax) + ";" +
+      str(lensSize) + ";" +
       str(chanPan) + ";" +
       str(chanTilt) + ";" +
-      str(chanDimmer)
+      str(chanDimmer) + ";" +
+      str(chanZoom) + ";" +
+      str(chanClrR) + ";" +
+      str(chanClrG) + ";" +
+      str(chanClrB) + ";" +
+      str(chanClrW)
       );
   }
 
   void setLoadString(String iLine) {
     String[] props = split(iLine, ';');
-    if (props.length == 14) {
+    if (props.length == 28) {
       name = props[0];
       pos3d = new PVector(float(props[1]), float(props[2]), float(props[3]));
       rot = new PVector(float(props[4]), float(props[5]), float(props[6]));
       universe = int(props[7]);
       address = int(props[8]);
       panAngle = int(props[9]);
-      tiltAngle = int(props[10]);
-      chanPan = int(props[11]);
-      chanTilt = int(props[12]);
-      chanDimmer = int(props[13]);
+      pan.maxAcc = int(props[10]);
+      pan.maxSpd = int(props[11]);
+      pan.maxSpdTweak = int(props[12]);
+      tiltAngle = int(props[13]);
+      tilt.maxAcc = int(props[14]);
+      tilt.maxSpd = int(props[15]);
+      tilt.maxSpdTweak = int(props[16]);
+      zoomAngleMin = int(props[17]);
+      zoomAngleMax = int(props[18]);
+      lensSize = int(props[19]);
+      chanPan = int(props[20]);
+      chanTilt = int(props[21]);
+      chanDimmer = int(props[22]);
+      chanZoom = int(props[23]);
+      chanClrR = int(props[24]);
+      chanClrG = int(props[25]);
+      chanClrB = int(props[26]);
+      chanClrW = int(props[27]);
       println("Loaded Fixture " + name);
     } else {
       println("!Error while loading a Fixture: Number of properties in line not as expected!");
