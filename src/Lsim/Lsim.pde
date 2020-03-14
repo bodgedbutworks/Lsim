@@ -211,20 +211,48 @@ void keyPressed() {
 }
 
 void saveAll() {
-  String[] saveData = new String[fixtureList.size()];
+  String[] saveDataFix = new String[fixtureList.size()];
   for (int f=0; f<fixtureList.size(); f++) {
-    saveData[f] = fixtureList.get(f).getSaveString();
+    saveDataFix[f] = fixtureList.get(f).getSaveString();
   }
-  saveStrings("/save/fixtures.lsm", saveData);
+  saveStrings("/save/fixtures.lsm", saveDataFix);
   println("Saved " + str(fixtureList.size()) + " Fixtures.");
+
+  String[] saveDataCub = new String[cuboidList.size()];
+  for (int f=0; f<cuboidList.size(); f++) {
+    saveDataCub[f] = cuboidList.get(f).getSaveString();
+  }
+  saveStrings("/save/cuboids.lsm", saveDataCub);
+  println("Saved " + str(cuboidList.size()) + " Cuboids.");
 }
 
 void loadAll() {
   fixtureList.clear();
-  String[] loadData = loadStrings("/save/fixtures.lsm");
-  for (int f=0; f<loadData.length; f++) {
-    fixtureList.add(new Fixture());
-    fixtureList.get(f).setLoadString(loadData[f]);
+  cuboidList.clear();
+
+  try {
+    String[] loadDataFix = loadStrings("/save/fixtures.lsm");
+    for (int f=0; f<loadDataFix.length; f++) {
+      fixtureList.add(new Fixture());
+      fixtureList.get(f).setLoadString(loadDataFix[f]);
+    }
+    println("Loaded " + str(loadDataFix.length) + " Fixtures.");
   }
-  println("Loaded " + str(loadData.length) + " Fixtures.");
+  catch(Exception e) {
+    println("Error while loading file /save/fixtures.lsm");
+    println(e);
+  }
+
+  try {
+    String[] loadDataCub = loadStrings("/save/cuboids.lsm");
+    for (int f=0; f<loadDataCub.length; f++) {
+      cuboidList.add(new Cuboid());
+      cuboidList.get(f).setLoadString(loadDataCub[f]);
+    }
+    println("Loaded " + str(loadDataCub.length) + " Cuboids.");
+  }
+  catch(Exception e) {
+    println("Error while loading file /save/cuboids.lsm");
+    println(e);
+  }
 }

@@ -40,4 +40,33 @@ class Cuboid extends ScreenObject {
     guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.y", size3d.y, 1.0));
     guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.z", size3d.z, 1.0));
   }
+
+  String getSaveString() {
+    return(
+      name + ";" +
+      str(pos3d.x) + ";" +
+      str(pos3d.y) + ";" +
+      str(pos3d.z) + ";" +
+      str(rot.x) + ";" +
+      str(rot.y) + ";" +
+      str(rot.z) + ";" +
+      str(size3d.x) + ";" +
+      str(size3d.y) + ";" +
+      str(size3d.z)
+      );
+  }
+
+  void setLoadString(String iLine) {
+    String[] props = split(iLine, ';');
+    if (props.length == 10) {
+      name = props[0];
+      pos3d = new PVector(float(props[1]), float(props[2]), float(props[3]));
+      rot = new PVector(float(props[4]), float(props[5]), float(props[6]));
+      size3d = new PVector(float(props[7]), float(props[8]), float(props[9]));
+      println("Loaded Cuboid " + name);
+    } else {
+      println("!Error while loading a Cuboid: Number of properties in line not as expected!");
+      return;
+    }
+  }
 }
