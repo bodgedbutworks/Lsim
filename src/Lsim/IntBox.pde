@@ -1,12 +1,16 @@
 /// Similar to SpinBox, but for integer values and with constraints
-class IntBox<T extends Fixture> extends GuiObject {
-  T objRef;
+class IntBox extends GuiObject {
   int valMin = 1;
   int valMax = 512;
 
-  IntBox(PVector iPos, PVector iSize, T iObjRef, String iPropName, int iInitialVal, int iStepSize, int iMin, int iMax) {
-    super(iPos, iSize, iPropName, float(iInitialVal), float(iStepSize));
-    objRef = iObjRef;
+  IntBox(PVector iPos, PVector iSize, Fixture iObjRef, String iPropName, int iInitialVal, int iStepSize, int iMin, int iMax) {
+    super(iPos, iSize, iObjRef, iPropName, float(iInitialVal), float(iStepSize));
+    valMin = iMin;
+    valMax = iMax;
+    valStr = str(int(valStr));
+  }
+  IntBox(PVector iPos, PVector iSize, Cuboid iObjRef, String iPropName, int iInitialVal, int iStepSize, int iMin, int iMax) {
+    super(iPos, iSize, iObjRef, iPropName, float(iInitialVal), float(iStepSize));
     valMin = iMin;
     valMax = iMax;
     valStr = str(int(valStr));
@@ -40,20 +44,24 @@ class IntBox<T extends Fixture> extends GuiObject {
     valStr = str(constrain(int(valStr), valMin, valMax));
 
     // ToDo: Is there a smarter way to do this??
-    if (propName.equals("Channel Pan")) {
-      objRef.chanPan = int(valStr);
-    } else if (propName.equals("Channel Tilt")) {
-      objRef.chanTilt = int(valStr);
-    } else if (propName.equals("Channel Dimmer")) {
-      objRef.chanDimmer = int(valStr);
-    } else if (propName.equals("Universe")) {
-      objRef.universe = int(valStr);
-    } else if (propName.equals("Address")) {
-      objRef.address = int(valStr);
-    } else if (propName.equals("Pan Angle")) {
-      objRef.panAngle = int(valStr);
-    } else if (propName.equals("Tilt Angle")) {
-      objRef.tiltAngle = int(valStr);
+    if (objType.equals("Fixture")) {
+      if (propName.equals("Channel Pan")) {
+        fixObjRef.chanPan = int(valStr);
+      } else if (propName.equals("Channel Tilt")) {
+        fixObjRef.chanTilt = int(valStr);
+      } else if (propName.equals("Channel Dimmer")) {
+        fixObjRef.chanDimmer = int(valStr);
+      } else if (propName.equals("Universe")) {
+        fixObjRef.universe = int(valStr);
+      } else if (propName.equals("Address")) {
+        fixObjRef.address = int(valStr);
+      } else if (propName.equals("Pan Angle")) {
+        fixObjRef.panAngle = int(valStr);
+      } else if (propName.equals("Tilt Angle")) {
+        fixObjRef.tiltAngle = int(valStr);
+      }
+    } else if (objType.equals("Cuboid")) {
+      /* Cuboid stuff here */
     }
   }
 }

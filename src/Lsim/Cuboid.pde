@@ -1,4 +1,6 @@
 class Cuboid extends ScreenObject {
+  PVector size3d;
+  
   Cuboid() {
     super(new PVector(0, 0, 0), new PVector(0, 0, 0));
     size3d = new PVector(40, 40, 40);
@@ -28,14 +30,14 @@ class Cuboid extends ScreenObject {
   }
 
   void loadGui() {
-    guiList.add(new SpinBox<Cuboid>(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", pos3d.x, 1.0));
-    guiList.add(new SpinBox<Cuboid>(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", pos3d.y, 1.0));
-    guiList.add(new SpinBox<Cuboid>(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", pos3d.z, 1.0));
-    guiList.add(new SpinBox<Cuboid>(new PVector(0, 0), new PVector(80, 25), this, "rot.x", rot.x, 1.0));
-    guiList.add(new SpinBox<Cuboid>(new PVector(0, 0), new PVector(80, 25), this, "rot.y", rot.y, 1.0));
-    guiList.add(new SpinBox<Cuboid>(new PVector(0, 0), new PVector(80, 25), this, "rot.z", rot.z, 1.0));
-    guiList.add(new SpinBox<Cuboid>(new PVector(0, 0), new PVector(80, 25), this, "size3d.x", size3d.x, 1.0));
-    guiList.add(new SpinBox<Cuboid>(new PVector(0, 0), new PVector(80, 25), this, "size3d.y", size3d.y, 1.0));
-    guiList.add(new SpinBox<Cuboid>(new PVector(0, 0), new PVector(80, 25), this, "size3d.z", size3d.z, 1.0));
+    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", pos3d.x, 1.0));
+    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", pos3d.y, 1.0));
+    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", pos3d.z, 1.0));
+    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.x", rot.x, 1.0));
+    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.y", rot.y, 1.0));
+    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.z", rot.z, 1.0));
+    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.x", size3d.x, 1.0));
+    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.y", size3d.y, 1.0));
+    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.z", size3d.z, 1.0));
   }
 }

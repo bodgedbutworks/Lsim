@@ -1,9 +1,9 @@
-class SpinBox<T extends ScreenObject> extends GuiObject {
-  T objRef;
-
-  SpinBox(PVector iPos, PVector iSize, T iObjRef, String iPropName, float iInitialVal, float iStepSize) {
-    super(iPos, iSize, iPropName, iInitialVal, iStepSize);
-    objRef = iObjRef;
+class SpinBox extends GuiObject {
+  SpinBox(PVector iPos, PVector iSize, Fixture iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+    super(iPos, iSize, iObjRef, iPropName, iInitialVal, iStepSize);
+  }
+  SpinBox(PVector iPos, PVector iSize, Cuboid iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+    super(iPos, iSize, iObjRef, iPropName, iInitialVal, iStepSize);
   }
 
   void editValKey() {
@@ -32,36 +32,52 @@ class SpinBox<T extends ScreenObject> extends GuiObject {
     text(propName, pos.x+size.x+SIZE_GUTTER, pos.y);
 
     // ToDo: Is there a smarter way to do this??
-    if (propName.equals("pos3d.x")) {
-      objRef.pos3d.x = float(valStr);
-    } else if (propName.equals("pos3d.y")) {
-      objRef.pos3d.y = float(valStr);
-    } else if (propName.equals("pos3d.z")) {
-      objRef.pos3d.z = float(valStr);
-    } else if (propName.equals("rot.x")) {
-      objRef.rot.x = float(valStr);
-    } else if (propName.equals("rot.y")) {
-      objRef.rot.y = float(valStr);
-    } else if (propName.equals("rot.z")) {
-      objRef.rot.z = float(valStr);
-    } else if (propName.equals("Pan Accel")) {
-      objRef.pan.maxAcc = float(valStr);
-    } else if (propName.equals("Pan Speed")) {
-      objRef.pan.maxSpd = float(valStr);
-    } else if (propName.equals("Pan Tweak")) {
-      objRef.pan.maxSpdTweak = float(valStr);
-    } else if (propName.equals("Tilt Accel")) {
-      objRef.tilt.maxAcc = float(valStr);
-    } else if (propName.equals("Tilt Speed")) {
-      objRef.tilt.maxSpd = float(valStr);
-    } else if (propName.equals("Tilt Tweak")) {
-      objRef.tilt.maxSpdTweak = float(valStr);
-    } else if (propName.equals("size3d.x")) {
-      objRef.size3d.x = float(valStr);
-    } else if (propName.equals("size3d.y")) {
-      objRef.size3d.y = float(valStr);
-    } else if (propName.equals("size3d.z")) {
-      objRef.size3d.z = float(valStr);
+    if (objType.equals("Fixture")) {
+      if (propName.equals("pos3d.x")) {
+        fixObjRef.pos3d.x = float(valStr);
+      } else if (propName.equals("pos3d.y")) {
+        fixObjRef.pos3d.y = float(valStr);
+      } else if (propName.equals("pos3d.z")) {
+        fixObjRef.pos3d.z = float(valStr);
+      } else if (propName.equals("rot.x")) {
+        fixObjRef.rot.x = float(valStr);
+      } else if (propName.equals("rot.y")) {
+        fixObjRef.rot.y = float(valStr);
+      } else if (propName.equals("rot.z")) {
+        fixObjRef.rot.z = float(valStr);
+      } else if (propName.equals("Pan Accel")) {
+        fixObjRef.pan.maxAcc = float(valStr);
+      } else if (propName.equals("Pan Speed")) {
+        fixObjRef.pan.maxSpd = float(valStr);
+      } else if (propName.equals("Pan Tweak")) {
+        fixObjRef.pan.maxSpdTweak = float(valStr);
+      } else if (propName.equals("Tilt Accel")) {
+        fixObjRef.tilt.maxAcc = float(valStr);
+      } else if (propName.equals("Tilt Speed")) {
+        fixObjRef.tilt.maxSpd = float(valStr);
+      } else if (propName.equals("Tilt Tweak")) {
+        fixObjRef.tilt.maxSpdTweak = float(valStr);
+      }
+    } else if (objType.equals("Cuboid")) {
+      if (propName.equals("pos3d.x")) {
+        cubObjRef.pos3d.x = float(valStr);
+      } else if (propName.equals("pos3d.y")) {
+        cubObjRef.pos3d.y = float(valStr);
+      } else if (propName.equals("pos3d.z")) {
+        cubObjRef.pos3d.z = float(valStr);
+      } else if (propName.equals("rot.x")) {
+        cubObjRef.rot.x = float(valStr);
+      } else if (propName.equals("rot.y")) {
+        cubObjRef.rot.y = float(valStr);
+      } else if (propName.equals("rot.z")) {
+        cubObjRef.rot.z = float(valStr);
+      } else if (propName.equals("size3d.x")) {
+        cubObjRef.size3d.x = float(valStr);
+      } else if (propName.equals("size3d.y")) {
+        cubObjRef.size3d.y = float(valStr);
+      } else if (propName.equals("size3d.z")) {
+        cubObjRef.size3d.z = float(valStr);
+      }
     }
   }
 }
