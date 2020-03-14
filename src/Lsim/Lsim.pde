@@ -16,7 +16,8 @@ ArrayList<Cuboid> cuboidList = new ArrayList<Cuboid>();
 ArrayList<GuiObject> guiList = new ArrayList<GuiObject>();
 ArrayList<Button> btnList = new ArrayList<Button>();
 
-PVector camPos = new PVector(0, 0, 500);
+PVector camPos = new PVector(900, -300, 900);
+PVector camLookAt = new PVector(0, -200, 0);
 PImage comImg;
 
 byte[] artnetHeader = {'A', 'r', 't', '-', 'N', 'e', 't', '\0'};
@@ -66,7 +67,7 @@ void draw() {
   /********************* 3D Elements ********************/
   background(0);
 
-  camera(camPos.x, camPos.y, camPos.z, 0, 0, 0, 0, 1, 0);
+  camera(camPos.x, camPos.y, camPos.z, camLookAt.x, camLookAt.y, camLookAt.z, 0, 1, 0);
   fill(255);
   stroke(255);
   strokeWeight(1);
@@ -88,13 +89,12 @@ void draw() {
 
   if (mousePressed) {
     if (mouseButton == RIGHT) {
-      addSphereCoords(camPos, 0, (pmouseY-mouseY)/100.0, (pmouseX-mouseX)/100.0);
+      camPos = addSphereCoords(PVector.sub(camPos, camLookAt), 0, (pmouseY-mouseY)/100.0, (pmouseX-mouseX)/100.0);
+      camPos.add(camLookAt);
     } else if (mouseButton == CENTER) {
-      /* // ToDo: This still needs some love to work
-       PVector tempDirection = new PVector();
-       PVector.cross(camPos, new PVector(0, 1, 0), tempDirection);
-       camPos.add(PVector.mult(tempDirection, 0.01*(mouseX-pmouseX)));
-       */
+      float xzDir = atan2(camPos.z, camPos.x);
+      camLookAt.add(new PVector((pmouseX-mouseX)*sin(xzDir), pmouseY-mouseY, -(pmouseX-mouseX)*cos(xzDir)));
+      camPos.add(new PVector((pmouseX-mouseX)*sin(xzDir), pmouseY-mouseY, -(pmouseX-mouseX)*cos(xzDir)));
     }
   }
 
@@ -199,8 +199,7 @@ void mouseWheel(MouseEvent event) {
   if (selectedGuiObject != -1) {
     guiList.get(selectedGuiObject).editValMouse(event.getCount());
   } else {
-    //camPos.setMag(camPos.mag()*(1.0+event.getCount()/10.0));
-    addSphereCoords(camPos, 50.0*event.getCount(), 0, 0);
+    camPos = addSphereCoords(camPos, 80.0*event.getCount(), 0, 0);
   }
 }
 

@@ -1,7 +1,7 @@
 // Transform _vector to sphere coordinates, modify them, then tranform back to cartesian & save to vector
 // r = radius, omega = [0°-180°], phi = [0°-360°]
 // Note: {+x, +y, +z} in sphere coordinates correspond to {+z, +x, -y}
-void addSphereCoords(PVector _vector, float add_r, float add_omega, float add_phi) {
+PVector addSphereCoords(PVector _vector, float add_r, float add_omega, float add_phi) {
   PVector sphereCoords = new PVector(0, 0, 0);
 
   // Transform cartesian Processing coordinates to cartesian coordinates as defined for sphere
@@ -24,10 +24,8 @@ void addSphereCoords(PVector _vector, float add_r, float add_omega, float add_ph
   sphereCoords.y = new_r*sin(new_omega)*sin(new_phi);
   sphereCoords.z = new_r*cos(new_omega);
 
-  // Transform cartesian coordinates as defined for sphere to cartesian Processing coordinates and save to vector
-  _vector.x = sphereCoords.y;
-  _vector.y = -(sphereCoords.z);
-  _vector.z = sphereCoords.x;
+  // Return cartesian coordinates as defined for sphere, transformed to cartesian Processing coordinates
+  return(new PVector(sphereCoords.y, -(sphereCoords.z), sphereCoords.x));
 }
 
 
