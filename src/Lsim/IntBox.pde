@@ -45,13 +45,7 @@ class IntBox extends GuiObject {
 
     // ToDo: Is there a smarter way to do this??
     if (objType.equals("Fixture")) {
-      if (propName.equals("Channel Pan")) {
-        fixObjRef.chanPan = int(valStr);
-      } else if (propName.equals("Channel Tilt")) {
-        fixObjRef.chanTilt = int(valStr);
-      } else if (propName.equals("Channel Dimmer")) {
-        fixObjRef.chanDimmer = int(valStr);
-      } else if (propName.equals("Universe")) {
+      if (propName.equals("Universe")) {
         fixObjRef.universe = int(valStr);
       } else if (propName.equals("Address")) {
         fixObjRef.address = int(valStr);
@@ -59,6 +53,28 @@ class IntBox extends GuiObject {
         fixObjRef.panAngle = int(valStr);
       } else if (propName.equals("Tilt Angle")) {
         fixObjRef.tiltAngle = int(valStr);
+      } else if (propName.equals("Zoom Angle Min")) {
+        fixObjRef.zoomAngleMin = int(valStr);
+      } else if (propName.equals("Zoom Angle Max")) {
+        fixObjRef.zoomAngleMax = int(valStr);
+      } else if (propName.equals("Lens Size")) {
+        fixObjRef.lensSize = int(valStr);
+      } else if (propName.equals("Channel Pan")) {
+        fixObjRef.chanPan = int(valStr);
+      } else if (propName.equals("Channel Tilt")) {
+        fixObjRef.chanTilt = int(valStr);
+      } else if (propName.equals("Channel Dimmer")) {
+        fixObjRef.chanDimmer = int(valStr);
+      } else if (propName.equals("Channel Zoom")) {
+        fixObjRef.chanZoom = int(valStr);
+      } else if (propName.equals("Channel Red")) {
+        fixObjRef.chanClrR = int(valStr);
+      } else if (propName.equals("Channel Green")) {
+        fixObjRef.chanClrG = int(valStr);
+      } else if (propName.equals("Channel Blue")) {
+        fixObjRef.chanClrB = int(valStr);
+      } else if (propName.equals("Channel White")) {
+        fixObjRef.chanClrW = int(valStr);
       }
     } else if (objType.equals("Cuboid")) {
       /* Cuboid stuff here */

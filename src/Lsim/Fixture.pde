@@ -89,9 +89,9 @@ class Fixture extends ScreenObject {
 
     /*
     stroke(dimmer);
-    strokeWeight(5);
-    line(pos3d.x, pos3d.y, pos3d.z, dummy.x, dummy.y, dummy.z);
-    */
+     strokeWeight(5);
+     line(pos3d.x, pos3d.y, pos3d.z, dummy.x, dummy.y, dummy.z);
+     */
 
     pushMatrix();
     translate(pos3d.x, pos3d.y, pos3d.z);
@@ -130,9 +130,17 @@ class Fixture extends ScreenObject {
     guiList.add(new SpinBox(new PVector(0, 0), new PVector(100, 25), this, "Tilt Accel", tilt.maxAcc, 0.01));
     guiList.add(new SpinBox(new PVector(0, 0), new PVector(100, 25), this, "Tilt Speed", tilt.maxSpd, 0.01));
     guiList.add(new SpinBox(new PVector(0, 0), new PVector(100, 25), this, "Tilt Tweak", tilt.maxSpdTweak, 0.01));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Zoom Angle Min", zoomAngleMin, 1, 0, 180));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Zoom Angle Max", zoomAngleMax, 1, 0, 180));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Lens Size", lensSize, 1, 0, 30));
     guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Pan", chanPan, 1, 1, 512));
     guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Tilt", chanTilt, 1, 1, 512));
     guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Dimmer", chanDimmer, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Zoom", chanZoom, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Red", chanClrR, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Green", chanClrG, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Blue", chanClrB, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel White", chanClrW, 1, 1, 512));
   }
 
   String getSaveString() {
@@ -190,11 +198,11 @@ class Fixture extends ScreenObject {
    tempVec = rotateVector(tempVec, rotX, 0, 0);  // Sequence of rotations makes a difference!
    tempVec = rotateVector(tempVec, 0, rotY, 0);
    tempVec = rotateVector(tempVec, 0, 0, rotZ);
-
+   
    pan = degrees(atan2(tempVec.x, tempVec.z));
    tilt = degrees(acos(tempVec.y/tempVec.mag()));
-
-
+   
+   
    // For Art-Net Output
    int actualPanRange  = 256*360/panRange;       // <8 bit> * <Pan Range of Sphere Coords> / <Fixture Pan Range>
    int actualTiltRange = 127*180/(tiltRange/2);  // <8 bit> * <Tilt Range of Sphere Coords> / <Fixture Tilt Range>

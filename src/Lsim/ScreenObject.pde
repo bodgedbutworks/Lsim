@@ -20,7 +20,7 @@ class ScreenObject {
     println("Gui load function not defined!");
   }
 
-  String getSaveString(){
+  String getSaveString() {
     println("Object save function not defined!");
     return("Object save function not defined!");
   }
@@ -49,7 +49,7 @@ class ScreenObject {
     }
   }
 
-  void updatePos2d(){
+  void updatePos2d() {
     pos2d.x = screenX(pos3d.x, pos3d.y, pos3d.z);
     pos2d.y = screenY(pos3d.x, pos3d.y, pos3d.z);
   }
