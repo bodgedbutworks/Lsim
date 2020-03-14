@@ -120,27 +120,27 @@ class Fixture extends ScreenObject {
     guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.x", rot.x, 1.0));
     guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.y", rot.y, 1.0));
     guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.z", rot.z, 1.0));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Universe", universe, 1, 0, QTY_UNIVERSES-1));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Address", address, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Universe", universe, 1, 0, QTY_UNIVERSES-1));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Address", address, 1, 1, 512));
     guiList.add(new IntBox(new PVector(0, 0), new PVector(100, 25), this, "Pan Angle", panAngle, 1, 90, 720));
-    guiList.add(new SpinBox(new PVector(0, 0), new PVector(100, 25), this, "Pan Accel", pan.maxAcc, 0.01));
-    guiList.add(new SpinBox(new PVector(0, 0), new PVector(100, 25), this, "Pan Speed", pan.maxSpd, 0.01));
-    guiList.add(new SpinBox(new PVector(0, 0), new PVector(100, 25), this, "Pan Tweak", pan.maxSpdTweak, 0.01));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Angle", tiltAngle, 1, 90, 360));
-    guiList.add(new SpinBox(new PVector(0, 0), new PVector(100, 25), this, "Tilt Accel", tilt.maxAcc, 0.01));
-    guiList.add(new SpinBox(new PVector(0, 0), new PVector(100, 25), this, "Tilt Speed", tilt.maxSpd, 0.01));
-    guiList.add(new SpinBox(new PVector(0, 0), new PVector(100, 25), this, "Tilt Tweak", tilt.maxSpdTweak, 0.01));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Zoom Angle Min", zoomAngleMin, 1, 0, 180));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Zoom Angle Max", zoomAngleMax, 1, 0, 180));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Lens Size", lensSize, 1, 0, 30));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Pan", chanPan, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Tilt", chanTilt, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Dimmer", chanDimmer, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Zoom", chanZoom, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Red", chanClrR, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Green", chanClrG, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel Blue", chanClrB, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(50, 25), this, "Channel White", chanClrW, 1, 1, 512));
+    guiList.add(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Accel", pan.maxAcc, 0.01));
+    guiList.add(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Speed", pan.maxSpd, 0.01));
+    guiList.add(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Tweak", pan.maxSpdTweak, 0.01));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(100, 25), this, "Tilt Angle", tiltAngle, 1, 90, 360));
+    guiList.add(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Accel", tilt.maxAcc, 0.01));
+    guiList.add(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Speed", tilt.maxSpd, 0.01));
+    guiList.add(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Tweak", tilt.maxSpdTweak, 0.01));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Min", zoomAngleMin, 1, 0, 180));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Max", zoomAngleMax, 1, 0, 180));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Lens Size", lensSize, 1, 0, 30));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Pan", chanPan, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Tilt", chanTilt, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Dimmer", chanDimmer, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Zoom", chanZoom, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Red", chanClrR, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Green", chanClrG, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Blue", chanClrB, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel White", chanClrW, 1, 1, 512));
   }
 
   String getSaveString() {
