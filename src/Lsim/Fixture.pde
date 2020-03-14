@@ -22,9 +22,18 @@ class Fixture extends ScreenObject {
   int chanPan = 1;                                                              // [1-512]
   int chanTilt = 2;
   int chanDimmer = 3;
+  int chanZoom = 4;
+  int chanClrR = 10;
+  int chanClrG = 11;
+  int chanClrB = 12;
+  int chanClrW = 13;
 
-  int dimmer = 255;
-  int zoom = 255;
+  float dimmer = 255;
+  float zoom = 255;
+  float clrR = 0;
+  float clrG = 255;
+  float clrB = 0;
+  float clrW = 0;
 
   Fixture() {
     super(new PVector(int(random(-100, 100)), int(random(-250, -50)), int(random(-100, 100))), new PVector(0, 0, 0));
@@ -42,7 +51,8 @@ class Fixture extends ScreenObject {
     modelBeam = createShape();
     modelBeam.beginShape(TRIANGLE_STRIP);
     modelBeam.noStroke();
-    modelBeam.fill(255, 20, 50, 100);
+    // ToDo: Color model is incorrect, vary dark color settings result in 'black' light output
+    modelBeam.fill(min(clrR+clrW, 255), min(clrG+clrW, 255), min(clrB+clrW, 255), dimmer*(clrR+clrG+clrB+clrW)*OPACITY_BEAMS/(4*255*255));
     for (int i=0; i<=RESOLUTION_BEAMS; i++) {
       modelBeam.vertex(lensSize*sin(i*TWO_PI/RESOLUTION_BEAMS), 20, lensSize*cos(i*TWO_PI/RESOLUTION_BEAMS));
       modelBeam.vertex(zoomRadius*sin(i*TWO_PI/RESOLUTION_BEAMS), LENGTH_BEAMS, zoomRadius*cos(i*TWO_PI/RESOLUTION_BEAMS));
@@ -62,6 +72,10 @@ class Fixture extends ScreenObject {
     tilt.move();
     dimmer = int(dmxData[universe][constrain(address-1+chanDimmer-1, 0, 511)]);
     zoom = int(dmxData[universe][constrain(address-1+chanZoom-1, 0, 511)]);
+    clrR = int(dmxData[universe][constrain(address-1+chanClrR-1, 0, 511)]);
+    clrG = int(dmxData[universe][constrain(address-1+chanClrG-1, 0, 511)]);
+    clrB = int(dmxData[universe][constrain(address-1+chanClrB-1, 0, 511)]);
+    clrW = int(dmxData[universe][constrain(address-1+chanClrW-1, 0, 511)]);
 
     updateBeam();
 

@@ -2,7 +2,8 @@ import hypermedia.net.*;    // For UDP
 UDP udp;
 
 
-final int LENGTH_BEAMS = 300;
+final int OPACITY_BEAMS = 180;       // [0-255]
+final int LENGTH_BEAMS = 1000;
 final int RESOLUTION_BEAMS = 20;
 final float POS_TOLERANCE = 0.2;    // Threshold for moving lights pan and tilt
 final int QTY_UNIVERSES = 4;
