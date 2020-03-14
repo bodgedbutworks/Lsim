@@ -47,7 +47,7 @@ class Fixture extends ScreenObject {
   }
 
   void updateBeam() {
-    int zoomRadius = int(tan(radians(map(zoom, 0, 255, zoomAngleMin, zoomAngleMax)/2))*LENGTH_BEAMS);
+    int zoomRadius = lensSize + int(tan(radians(map(zoom, 0, 255, zoomAngleMin, zoomAngleMax)/2))*LENGTH_BEAMS);    // radius = tan(half beam angle) * beam length
     modelBeam = createShape();
     modelBeam.beginShape(TRIANGLE_STRIP);
     modelBeam.noStroke();
