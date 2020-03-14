@@ -2,6 +2,8 @@ import hypermedia.net.*;    // For UDP
 UDP udp;
 
 
+final int LENGTH_BEAMS = 300;
+final int RESOLUTION_BEAMS = 20;
 final float POS_TOLERANCE = 0.2;    // Threshold for moving lights pan and tilt
 final int QTY_UNIVERSES = 4;
 final int SIZE_GUTTER = 5;
@@ -79,7 +81,7 @@ void draw() {
   pushMatrix();
   translate(0, 3, 0);
   fill(#555555);
-  box(400, 6, 400);
+  box(2000, 6, 2000);
   popMatrix();
 
   if (mousePressed) {

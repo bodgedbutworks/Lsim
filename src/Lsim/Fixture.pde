@@ -1,6 +1,9 @@
 /// Fixture definition
 class Fixture extends ScreenObject {
-  int universe = 0;                                                           //< ArtNet Universe
+  int lensSize = 5;                                                             // Size of upper part of beam cone
+  int zoomAngleMin = 10;                                                        // [deg]
+  int zoomAngleMax = 35;
+  int universe = 0;                                                             //< ArtNet Universe
   int address = 1;
   //byte numChannels = 1;
   int panAngle = 630;
@@ -14,12 +17,14 @@ class Fixture extends ScreenObject {
   PShape modelBase;
   PShape modelPan;
   PShape modelTilt;
+  PShape modelBeam;
 
   int chanPan = 1;                                                              // [1-512]
   int chanTilt = 2;
   int chanDimmer = 3;
 
-  float dimmer = 255;
+  int dimmer = 255;
+  int zoom = 255;
 
   Fixture() {
     super(new PVector(int(random(-100, 100)), int(random(-250, -50)), int(random(-100, 100))), new PVector(0, 0, 0));
@@ -27,8 +32,22 @@ class Fixture extends ScreenObject {
     modelTilt = loadShape("Headcorpus.obj");
     modelPan.disableStyle();  // Ignore the colors in the SVG
     modelTilt.disableStyle();
+    updateBeam();
     pan = new Dynamics();
     tilt = new Dynamics();
+  }
+
+  void updateBeam() {
+    int zoomRadius = int(tan(radians(map(zoom, 0, 255, zoomAngleMin, zoomAngleMax)/2))*LENGTH_BEAMS);
+    modelBeam = createShape();
+    modelBeam.beginShape(TRIANGLE_STRIP);
+    modelBeam.noStroke();
+    modelBeam.fill(255, 20, 50, 100);
+    for (int i=0; i<=RESOLUTION_BEAMS; i++) {
+      modelBeam.vertex(lensSize*sin(i*TWO_PI/RESOLUTION_BEAMS), 20, lensSize*cos(i*TWO_PI/RESOLUTION_BEAMS));
+      modelBeam.vertex(zoomRadius*sin(i*TWO_PI/RESOLUTION_BEAMS), LENGTH_BEAMS, zoomRadius*cos(i*TWO_PI/RESOLUTION_BEAMS));
+    }
+    modelBeam.endShape(CLOSE);
   }
 
   void display() {
@@ -42,6 +61,9 @@ class Fixture extends ScreenObject {
     tilt.updateDest(int(dmxData[universe][constrain(address-1+chanTilt-1, 0, 511)])*float(tiltAngle)/255.0 - float(tiltAngle)/2.0);
     tilt.move();
     dimmer = int(dmxData[universe][constrain(address-1+chanDimmer-1, 0, 511)]);
+    zoom = int(dmxData[universe][constrain(address-1+chanZoom-1, 0, 511)]);
+
+    updateBeam();
 
     PVector dummy = new PVector(0, 500, 0);
     dummy = rotateVector(dummy, -tilt.pos, 0, 0);
@@ -51,9 +73,11 @@ class Fixture extends ScreenObject {
     dummy = rotateVector(dummy, -rot.x, 0, 0);
     dummy.add(new PVector(pos3d.x, pos3d.y, pos3d.z));
 
+    /*
     stroke(dimmer);
     strokeWeight(5);
     line(pos3d.x, pos3d.y, pos3d.z, dummy.x, dummy.y, dummy.z);
+    */
 
     pushMatrix();
     translate(pos3d.x, pos3d.y, pos3d.z);
@@ -67,6 +91,9 @@ class Fixture extends ScreenObject {
     shape(modelPan);
     rotateX(radians(tilt.pos));
     shape(modelTilt);
+    hint(DISABLE_DEPTH_MASK);                                                   // Disable depth counter, NOT occlusion detection (=DISABLE_DEPTH_TEST)
+    shape(modelBeam);
+    hint(ENABLE_DEPTH_MASK);
     popMatrix();
 
     updatePos2d();

@@ -14,12 +14,12 @@ class GuiObject {
   // Overloaded constructor for every object type reference
   GuiObject(PVector iPos, PVector iSize, String iPropName, float iInitialVal, float iStepSize) {
     objType = "None";
-    init(iPos, iSize, iPropName, iInitialVal, iStepSize);
+    init(iPos, iSize, iPropName, iInitialVal, iStepSize);  // Initialize object type independent properties
   }
   GuiObject(PVector iPos, PVector iSize, Fixture iObjRef, String iPropName, float iInitialVal, float iStepSize) {
     fixObjRef = iObjRef;
     objType = "Fixture";
-    init(iPos, iSize, iPropName, iInitialVal, iStepSize);   // Initialize object type independent properties
+    init(iPos, iSize, iPropName, iInitialVal, iStepSize);
   }
   GuiObject(PVector iPos, PVector iSize, Cuboid iObjRef, String iPropName, float iInitialVal, float iStepSize) {
     cubObjRef = iObjRef;
