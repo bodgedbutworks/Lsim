@@ -3,7 +3,7 @@ UDP udp;
 
 
 final int OPACITY_BEAMS = 180;       // [0-255]
-final int LENGTH_BEAMS = 1000;
+final int LENGTH_BEAMS = 2000;
 final int RESOLUTION_BEAMS = 20;
 final float POS_TOLERANCE = 0.2;    // Threshold for moving lights pan and tilt
 final int QTY_UNIVERSES = 4;
@@ -70,19 +70,20 @@ void draw() {
   fill(255);
   stroke(255);
   strokeWeight(1);
-  line(0, 0, 0, 200, 0, 0);
-  line(0, 0, 0, 0, 200, 0);
-  line(0, 0, 0, 0, 0, 200);
-  textSize(9);
-  text("+X", 210, 0, 0);
-  text("+Y", 0, 210, 0);
-  text("+Z", 0, 0, 210);
+  line(0, -1, 0, 70, -1, 0);
+  line(0, -1, 0, 0, -71, 0);
+  line(0, -1, 0, 0, -1, 70);
+  textSize(height/90);
+  text("+X", 80, -10, 0);
+  text("-Y", 0, -80, 0);
+  text("+Z", 0, -10, 80);
   stroke(0);
 
   pushMatrix();
-  translate(0, 3, 0);
-  fill(#555555);
-  box(2000, 6, 2000);
+  translate(0, 1000, 0);
+  stroke(#222222);
+  fill(#333333);
+  box(3000, 2000, 3000);
   popMatrix();
 
   if (mousePressed) {
