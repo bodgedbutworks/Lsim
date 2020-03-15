@@ -20,4 +20,9 @@
         - Hold SHIFT: Incrementation speed x100
         - BACKSPACE: Delete rightmost spin box digit
         - DELETE: Clear spin box
+
+    Mouse control:
+        - Mousewheel: Zoom in/out
+        - Hold right mouse button: Orbit around point of interest
+        - Hold middle mouse button: Move point of interest
 **/
