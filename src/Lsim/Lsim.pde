@@ -32,6 +32,8 @@ boolean flag = false;
 byte menuState = 0; // 0=closed, 1=expanding, 2=expanded, 3=closing
 float menuPos = 0;  // Closed -> 0, Expanded -> positive
 
+boolean lightsOff = false;                                                      // Activation of ambient/directional lights
+
 Button expandBtn;
 
 
@@ -58,6 +60,7 @@ void setup() {
   btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "++"));
   btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "S"));
   btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "L"));
+  btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "*"));
   expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">");
 }
 
@@ -66,6 +69,11 @@ void setup() {
 void draw() {
   /********************* 3D Elements ********************/
   background(0);
+
+  if (lightsOff) {
+    ambientLight(128, 128, 128);
+    directionalLight(128, 128, 128, 0, 0, -1);
+  }
 
   camera(camPos.x, camPos.y, camPos.z, camLookAt.x, camLookAt.y, camLookAt.z, 0, 1, 0);
   fill(255);

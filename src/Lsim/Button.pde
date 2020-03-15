@@ -19,6 +19,8 @@ class Button extends GuiObject {
         saveAll();
       } else if (propName.equals("L")) {
         loadAll();
+      } else if (propName.equals("*")) {
+        lightsOff = !lightsOff;
       }
     }
     noStroke();
