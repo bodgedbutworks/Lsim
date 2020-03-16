@@ -64,6 +64,19 @@ void setup() {
   btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "L"));
   btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "*"));
   expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">");
+
+  File file = new File(sketchPath() + "/data/");
+  if (file.isDirectory()) {
+    String names[] = file.list();
+    for (String n : names) {
+      if (n.indexOf("env") != -1) {
+        println(n);
+      }
+    }
+  } else {
+    print("Error while loading environments!");
+  }
+
   env = loadShape("env_test1.obj");
   env.disableStyle();  // Ignore the colors in the SVG
 }
