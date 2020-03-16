@@ -25,4 +25,12 @@
         - Mousewheel: Zoom in/out
         - Hold right mouse button: Orbit around point of interest
         - Hold middle mouse button: Move point of interest
+
+    General:
+        - Scale is 1cm/px
+
+    Environment format generation:
+        - CAD (e.g. CATIA): Tesselate CAD model with >=0.5 Millimeters deviation
+        - Converter (e.g. Cinema4D): Import .stl with scale 1 Millimeter
+        - Export as .obj with scale 10 Millimeters amd inverted Y-axis
 **/
