@@ -36,6 +36,8 @@ boolean lightsOff = false;                                                      
 
 Button expandBtn;
 
+PShape env;
+
 
 
 void setup() {
@@ -62,6 +64,8 @@ void setup() {
   btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "L"));
   btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "*"));
   expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">");
+  env = loadShape("env_test1.obj");
+  env.disableStyle();  // Ignore the colors in the SVG
 }
 
 
@@ -92,7 +96,7 @@ void draw() {
   translate(0, 1000, 0);
   stroke(#222222);
   fill(#333333);
-  box(3000, 2000, 3000);
+  box(6000, 2000, 6000);
   popMatrix();
 
   if (mousePressed) {
@@ -105,6 +109,10 @@ void draw() {
       camPos.add(new PVector((pmouseX-mouseX)*sin(xzDir), pmouseY-mouseY, -(pmouseX-mouseX)*cos(xzDir)));
     }
   }
+
+  noStroke(); 
+  fill(70);
+  shape(env);
 
   for (int f=0; f<fixtureList.size(); f++) {
     fixtureList.get(f).display();
