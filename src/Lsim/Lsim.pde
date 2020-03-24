@@ -54,6 +54,7 @@ void setup() {
   udp.listen(true);
 
   rectMode(CORNERS);
+  ellipseMode(CENTER);
   textFont(createFont("Verdana", 100, false));
 
   comImg = loadImage("comImg2.png");

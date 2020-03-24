@@ -19,10 +19,11 @@ class Pixel{
   float clrG = 255;
   float clrB = 0;
   float clrW = 0;
-  
-  String faceType = "Circle";
 
   Pixel(int iFixtureAddress){
+  color beamClr;
+  String faceType = "Rectangle";                                                   // Circle, Rectangle
+
     fixtureAddress = iFixtureAddress;
     chanDimmer = fixtureAddress+2;      // ToDo
     chanZoom = fixtureAddress+3;
@@ -58,12 +59,24 @@ class Pixel{
     clrW = int(iDmxUniverse[constrain(fixtureAddress-1+chanClrW-1, 0, 511)]);
 
     // ToDo: Color model is incorrect, vary dark color settings result in 'black' light output
-    modelBeam.setFill(color(min(clrR+clrW, 255), min(clrG+clrW, 255), min(clrB+clrW, 255), dimmer*(clrR+clrG+clrB+clrW)*OPACITY_BEAMS/(4*255*255)));
+    beamClr = color(min(clrR+clrW, 255), min(clrG+clrW, 255), min(clrB+clrW, 255), dimmer*(clrR+clrG+clrB+clrW)*OPACITY_BEAMS/(4*255*255));
+    modelBeam.setFill(beamClr);
   }
 
-  void display(){
+  void display() {
     hint(DISABLE_DEPTH_MASK);                                                   // Disable depth counter, NOT occlusion detection (=DISABLE_DEPTH_TEST)
     shape(modelBeam);
+    noStroke();
+    fill(beamClr | 150<<24);    // Set alpha
+    pushMatrix();
+    rotateX(HALF_PI);
+    translate(0, 0, -50);    // ToDo implement position & size
+    if (faceType.equals("Circle")) {
+      ellipse(0, 0, 100, 100);
+    } else if (faceType.equals("Rectangle")) {
+      rect(-30, -15, 30, 15);
+    }
+    popMatrix();
     hint(ENABLE_DEPTH_MASK);
   }
 
