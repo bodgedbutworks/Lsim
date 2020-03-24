@@ -1,6 +1,6 @@
 /// Similar to SpinBox, but for integer values and with constraints
 class IntBox extends GuiObject {
-  int valMin = 1;
+  int valMin = 1;   // ToDo: Move min and max constraints to GuiObject class, relevant for SpinBox as well
   int valMax = 512;
 
   IntBox(PVector iPos, PVector iSize, Fixture iObjRef, String iPropName, int iInitialVal, int iStepSize, int iMin, int iMax) {
@@ -10,6 +10,12 @@ class IntBox extends GuiObject {
     valStr = str(int(valStr));
   }
   IntBox(PVector iPos, PVector iSize, Cuboid iObjRef, String iPropName, int iInitialVal, int iStepSize, int iMin, int iMax) {
+    super(iPos, iSize, iObjRef, iPropName, float(iInitialVal), float(iStepSize));
+    valMin = iMin;
+    valMax = iMax;
+    valStr = str(int(valStr));
+  }
+  IntBox(PVector iPos, PVector iSize, Pixel iObjRef, String iPropName, int iInitialVal, int iStepSize, int iMin, int iMax) {
     super(iPos, iSize, iObjRef, iPropName, float(iInitialVal), float(iStepSize));
     valMin = iMin;
     valMax = iMax;
@@ -53,31 +59,33 @@ class IntBox extends GuiObject {
         fixObjRef.panAngle = int(valStr);
       } else if (propName.equals("Tilt Angle")) {
         fixObjRef.tiltAngle = int(valStr);
-      } else if (propName.equals("Zoom Angle Min")) {
-        fixObjRef.zoomAngleMin = int(valStr);
-      } else if (propName.equals("Zoom Angle Max")) {
-        fixObjRef.zoomAngleMax = int(valStr);
-      } else if (propName.equals("Lens Size")) {
-        fixObjRef.lensSize = int(valStr);
       } else if (propName.equals("Channel Pan")) {
         fixObjRef.chanPan = int(valStr);
       } else if (propName.equals("Channel Tilt")) {
         fixObjRef.chanTilt = int(valStr);
-      } else if (propName.equals("Channel Dimmer")) {
-        fixObjRef.chanDimmer = int(valStr);
-      } else if (propName.equals("Channel Zoom")) {
-        fixObjRef.chanZoom = int(valStr);
-      } else if (propName.equals("Channel Red")) {
-        fixObjRef.chanClrR = int(valStr);
-      } else if (propName.equals("Channel Green")) {
-        fixObjRef.chanClrG = int(valStr);
-      } else if (propName.equals("Channel Blue")) {
-        fixObjRef.chanClrB = int(valStr);
-      } else if (propName.equals("Channel White")) {
-        fixObjRef.chanClrW = int(valStr);
       }
     } else if (objType.equals("Cuboid")) {
       /* Cuboid stuff here */
+    } else if (objType.equals("Pixel")) {
+      if (propName.equals("Zoom Angle Min")) {
+        pixObjRef.zoomAngleMin = int(valStr);
+      } else if (propName.equals("Zoom Angle Max")) {
+        pixObjRef.zoomAngleMax = int(valStr);
+      } else if (propName.equals("Lens Size")) {
+        pixObjRef.lensSize = int(valStr);
+      } else if (propName.equals("Channel Dimmer")) {
+        pixObjRef.chanDimmer = int(valStr);
+      } else if (propName.equals("Channel Zoom")) {
+        pixObjRef.chanZoom = int(valStr);
+      } else if (propName.equals("Channel Red")) {
+        pixObjRef.chanClrR = int(valStr);
+      } else if (propName.equals("Channel Green")) {
+        pixObjRef.chanClrG = int(valStr);
+      } else if (propName.equals("Channel Blue")) {
+        pixObjRef.chanClrB = int(valStr);
+      } else if (propName.equals("Channel White")) {
+        pixObjRef.chanClrW = int(valStr);
+      }
     }
   }
 }

@@ -4,6 +4,7 @@ class GuiObject {
 
   Fixture fixObjRef;
   Cuboid cubObjRef;
+  Pixel pixObjRef;
   String objType = "";
 
   String propName = "";
@@ -24,6 +25,11 @@ class GuiObject {
   GuiObject(PVector iPos, PVector iSize, Cuboid iObjRef, String iPropName, float iInitialVal, float iStepSize) {
     cubObjRef = iObjRef;
     objType = "Cuboid";
+    init(iPos, iSize, iPropName, iInitialVal, iStepSize);
+  }
+  GuiObject(PVector iPos, PVector iSize, Pixel iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+    pixObjRef = iObjRef;
+    objType = "Pixel";
     init(iPos, iSize, iPropName, iInitialVal, iStepSize);
   }
   void init(PVector iPos, PVector iSize, String iPropName, float iInitialVal, float iStepSize) {
