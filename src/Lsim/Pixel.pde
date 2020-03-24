@@ -71,11 +71,11 @@ class Pixel{
     guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Min", zoomAngleMin, 1, 0, 180));
     guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Max", zoomAngleMax, 1, 0, 180));
     guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Lens Size", lensSize, 1, 0, 30));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Dimmer", chanDimmer, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Zoom", chanZoom, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Red", chanClrR, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Green", chanClrG, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Blue", chanClrB, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel White", chanClrW, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Dimmer", chanDimmer, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Zoom", chanZoom, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Red", chanClrR, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Green", chanClrG, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Blue", chanClrB, 1, 1, 512));
+    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel White", chanClrW, 1, 1, 512));
   }
 }

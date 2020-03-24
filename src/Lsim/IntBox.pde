@@ -73,17 +73,17 @@ class IntBox extends GuiObject {
         pixObjRef.zoomAngleMax = int(valStr);
       } else if (propName.equals("Lens Size")) {
         pixObjRef.lensSize = int(valStr);
-      } else if (propName.equals("Channel Dimmer")) {
+      } else if (propName.equals("Rel. Channel Dimmer")) {
         pixObjRef.chanDimmer = int(valStr);
-      } else if (propName.equals("Channel Zoom")) {
+      } else if (propName.equals("Rel. Channel Zoom")) {
         pixObjRef.chanZoom = int(valStr);
-      } else if (propName.equals("Channel Red")) {
+      } else if (propName.equals("Rel. Channel Red")) {
         pixObjRef.chanClrR = int(valStr);
-      } else if (propName.equals("Channel Green")) {
+      } else if (propName.equals("Rel. Channel Green")) {
         pixObjRef.chanClrG = int(valStr);
-      } else if (propName.equals("Channel Blue")) {
+      } else if (propName.equals("Rel. Channel Blue")) {
         pixObjRef.chanClrB = int(valStr);
-      } else if (propName.equals("Channel White")) {
+      } else if (propName.equals("Rel. Channel White")) {
         pixObjRef.chanClrW = int(valStr);
       }
     }
