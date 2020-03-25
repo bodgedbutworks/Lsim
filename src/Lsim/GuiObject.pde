@@ -1,10 +1,12 @@
 class GuiObject {
-  PVector pos;    // Modified automatically in draw() to align objects
+  PVector offset;     // Position offset, added to temporary position before saving to pos
+  PVector pos;        // Actual element pos, used for mouseover/displaying, set by "parent" Expandable
   PVector size;
 
   Fixture fixObjRef;
   Cuboid cubObjRef;
   Pixel pixObjRef;
+  Expandable expObjRef;
   String objType = "";
 
   String propName = "";
@@ -13,27 +15,33 @@ class GuiObject {
   color clr = color(255, 0, 255);
 
   // Overloaded constructor for every object type reference
-  GuiObject(PVector iPos, PVector iSize, String iPropName, float iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, String iPropName, float iInitialVal, float iStepSize) {
     objType = "None";
-    init(iPos, iSize, iPropName, iInitialVal, iStepSize);  // Initialize object type independent properties
+    init(iOffset, iSize, iPropName, iInitialVal, iStepSize);  // Initialize object type independent properties
   }
-  GuiObject(PVector iPos, PVector iSize, Fixture iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, float iInitialVal, float iStepSize) {
     fixObjRef = iObjRef;
     objType = "Fixture";
-    init(iPos, iSize, iPropName, iInitialVal, iStepSize);
+    init(iOffset, iSize, iPropName, iInitialVal, iStepSize);
   }
-  GuiObject(PVector iPos, PVector iSize, Cuboid iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, float iInitialVal, float iStepSize) {
     cubObjRef = iObjRef;
     objType = "Cuboid";
-    init(iPos, iSize, iPropName, iInitialVal, iStepSize);
+    init(iOffset, iSize, iPropName, iInitialVal, iStepSize);
   }
-  GuiObject(PVector iPos, PVector iSize, Pixel iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, float iInitialVal, float iStepSize) {
     pixObjRef = iObjRef;
     objType = "Pixel";
-    init(iPos, iSize, iPropName, iInitialVal, iStepSize);
+    init(iOffset, iSize, iPropName, iInitialVal, iStepSize);
   }
-  void init(PVector iPos, PVector iSize, String iPropName, float iInitialVal, float iStepSize) {
-    pos = iPos;
+  GuiObject(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+    expObjRef = iObjRef;
+    objType = "Expandable";
+    init(iOffset, iSize, iPropName, iInitialVal, iStepSize);
+  }
+  void init(PVector iOffset, PVector iSize, String iPropName, float iInitialVal, float iStepSize) {
+    offset = iOffset;
+    pos = new PVector(0, 0);
     size = iSize;
     propName = iPropName;
     valStr = str(iInitialVal);

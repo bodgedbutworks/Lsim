@@ -1,9 +1,9 @@
 class SpinBox extends GuiObject {
-  SpinBox(PVector iPos, PVector iSize, Fixture iObjRef, String iPropName, float iInitialVal, float iStepSize) {
-    super(iPos, iSize, iObjRef, iPropName, iInitialVal, iStepSize);
+  SpinBox(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+    super(iOffset, iSize, iObjRef, iPropName, iInitialVal, iStepSize);
   }
-  SpinBox(PVector iPos, PVector iSize, Cuboid iObjRef, String iPropName, float iInitialVal, float iStepSize) {
-    super(iPos, iSize, iObjRef, iPropName, iInitialVal, iStepSize);
+  SpinBox(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+    super(iOffset, iSize, iObjRef, iPropName, iInitialVal, iStepSize);
   }
 
   void editValKey() {

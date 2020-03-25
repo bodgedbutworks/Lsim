@@ -1,26 +1,39 @@
 class Button extends GuiObject {
-  Button(PVector iPos, PVector iSize, String iPropName) {
-    super(iPos, iSize, iPropName, 0.0/*initialVal*/, 1.0/*stepSize*/);
+  Button(PVector iOffset, PVector iSize, String iPropName) {
+    super(iOffset, iSize, iPropName, 0.0/*initialVal*/, 1.0/*stepSize*/);
+  }
+  Button(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName) {
+    super(iOffset, iSize, iObjRef, iPropName, 0.0/*initialVal*/, 1.0/*stepSize*/);
   }
 
   void display() {
     if (checkMouseOver()) {
-      if (propName.equals(">")) {
-        if (menuState == 0) {
-          menuState = 1;
-        } else if (menuState == 2) {
-          menuState = 3;
+      if (objType.equals("Expandable")) {
+        if (propName.equals("state")) {
+          if (expObjRef.state == 0) {
+            expObjRef.state = 1;
+          } else if (expObjRef.state == 2) {
+            expObjRef.state = 3;
+          }
         }
-      } else if (propName.equals("+")) {
-        fixtureList.add(new Fixture());
-      } else if (propName.equals("++")) {
-        cuboidList.add(new Cuboid());
-      } else if (propName.equals("S")) {
-        saveAll();
-      } else if (propName.equals("L")) {
-        loadAll();
-      } else if (propName.equals("*")) {
-        lightsOff = !lightsOff;
+      } else {
+        if (propName.equals(">")) {
+          if (menuState == 0) {
+            menuState = 1;
+          } else if (menuState == 2) {
+            menuState = 3;
+          }
+        } else if (propName.equals("+")) {
+          fixtureList.add(new Fixture());
+        } else if (propName.equals("++")) {
+          cuboidList.add(new Cuboid());
+        } else if (propName.equals("S")) {
+          saveAll();
+        } else if (propName.equals("L")) {
+          loadAll();
+        } else if (propName.equals("*")) {
+          lightsOff = !lightsOff;
+        }
       }
     }
     noStroke();
