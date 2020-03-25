@@ -80,7 +80,7 @@ class Pixel {
     hint(ENABLE_DEPTH_MASK);
   }
 
-  void loadGui(Expandable iParentExp) {
+  void loadGui() {
     Expandable pixelExp = new Expandable(new PVector(0, 0), new PVector(0, 0), true, false);
     pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Min", zoomAngleMin, 1, 0, 180));
     pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Max", zoomAngleMax, 1, 0, 180));
@@ -91,6 +91,6 @@ class Pixel {
     pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Green", chanClrG, 1, 1, 512));
     pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Blue", chanClrB, 1, 1, 512));
     pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel White", chanClrW, 1, 1, 512));
-    iParentExp.put(pixelExp);
+    menuExpRight.put(pixelExp);
   }
 }

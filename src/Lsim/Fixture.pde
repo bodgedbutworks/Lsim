@@ -104,7 +104,7 @@ class Fixture extends ScreenObject {
     headExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Tilt", chanTilt, 1, 1, 512));
     menuExpRight.put(headExp);
     for (Pixel p : pixelList) {
-      p.loadGui(headExp);
+      p.loadGui();
     }
   }
 
