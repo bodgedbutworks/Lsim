@@ -27,7 +27,6 @@ class Expandable extends GuiObject {
       expandBtn.pos = pos.get();
       expandBtn.display();
     }
-    println(state);
 
     switch(state) {
     case 0:

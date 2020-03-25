@@ -58,7 +58,6 @@ void setup() {
 
   comImg = loadImage("comImg2.png");
 
-
   expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">");
 
   menuExpLeft = new Expandable(new PVector(0, 0), new PVector(0, 0), false, true);
@@ -69,11 +68,6 @@ void setup() {
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*"));
 
   menuExpRight = new Expandable(new PVector(0, 0), new PVector(0, 0), false, true);
-  menuExpRight.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*"));
-  menuExpRight.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*"));
-  menuExpRight.put(new Button(new PVector(20, 80), new PVector(width/20, width/20), "*"));
-  menuExpRight.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*"));
-
 
   File file = new File(sketchPath() + "/data/");
   if (file.isDirectory()) {
@@ -197,11 +191,11 @@ void draw() {
   strokeWeight(1);
   fill(100);
   rect(menuXpos-SIZE_X_SUBMENU-10, menuScroll-30, menuXpos-SIZE_X_SUBMENU+10, menuScroll+30);
-  if(flag && mousePressed && mouseX>=(menuXpos-SIZE_X_SUBMENU-10) && mouseX<=(menuXpos-SIZE_X_SUBMENU+10) && mouseY>=(menuScroll-30) && mouseY<=(menuScroll+30)){
+  if (flag && mousePressed && mouseX>=(menuXpos-SIZE_X_SUBMENU-10) && mouseX<=(menuXpos-SIZE_X_SUBMENU+10) && mouseY>=(menuScroll-30) && mouseY<=(menuScroll+30)) {
     flag = false;
     scrolling = true;
   }
-  if(scrolling){
+  if (scrolling) {
     menuScroll = constrain(menuScroll+(mouseY-pmouseY), 0, height);
   }
   expandBtn.pos.x = menuXpos;
@@ -231,7 +225,7 @@ void mousePressed() {
 }
 
 
-void mouseReleased(){
+void mouseReleased() {
   scrolling = false;
 }
 
