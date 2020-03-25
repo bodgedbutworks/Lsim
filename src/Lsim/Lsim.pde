@@ -13,8 +13,11 @@ int SIZE_X_MAINMENU;
 
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
 ArrayList<Cuboid> cuboidList = new ArrayList<Cuboid>();
-ArrayList<GuiObject> guiList = new ArrayList<GuiObject>();
-ArrayList<Button> btnList = new ArrayList<Button>();
+Expandable menuExpLeft;
+Expandable menuExpRight;
+Button expandBtn;
+float menuPos = 0;      // Closed -> 0, Expanded -> positive
+byte menuState = 0;     // 0=closed, 1=expanding, 2=expanded, 3=closing
 
 PVector camPos = new PVector(900, -300, 900);
 PVector camLookAt = new PVector(0, -200, 0);
@@ -27,14 +30,8 @@ int selectedFixture = -1;
 int selectedGuiObject = -1;
 long lastFrameTime = 0;
 long calcFrameRate = 1000;
-
-boolean flag = false;
-byte menuState = 0; // 0=closed, 1=expanding, 2=expanded, 3=closing
-float menuPos = 0;  // Closed -> 0, Expanded -> positive
-
 boolean lightsOff = false;                                                      // Activation of ambient/directional lights
-
-Button expandBtn;
+boolean flag = false;
 
 PShape env;
 
@@ -59,12 +56,22 @@ void setup() {
 
   comImg = loadImage("comImg2.png");
 
-  btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "+"));
-  btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "++"));
-  btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "S"));
-  btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "L"));
-  btnList.add(new Button(new PVector(20, 20), new PVector(width/20, width/20), "*"));
+
   expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">");
+
+  menuExpLeft = new Expandable(new PVector(0, 0), new PVector(0, 0), false, true);
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "+"));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "++"));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "S"));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "L"));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*"));
+
+  menuExpRight = new Expandable(new PVector(0, 0), new PVector(0, 0), false, true);
+  menuExpRight.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*"));
+  menuExpRight.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*"));
+  menuExpRight.put(new Button(new PVector(20, 80), new PVector(width/20, width/20), "*"));
+  menuExpRight.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*"));
+
 
   File file = new File(sketchPath() + "/data/");
   if (file.isDirectory()) {
@@ -187,22 +194,12 @@ void draw() {
   stroke(0);
   strokeWeight(1);
   line(menuPos-SIZE_X_SUBMENU, 0, menuPos-SIZE_X_SUBMENU, height);
-  PVector tempPos = new PVector(menuPos-(SIZE_X_SUBMENU)+20, 20);                                          // Anchor point of following GUI elements
-  for (int g=0; g<guiList.size(); g++) {
-    guiList.get(g).pos = tempPos.get();                                         // get() -> clone tempPos instead of creating a reference
-    tempPos.add(new PVector(0, guiList.get(g).size.y));                        // Only vertical size
-    tempPos.add(new PVector(0, SIZE_GUTTER));
-    guiList.get(g).display();
-  }
-  PVector tempPos2 = new PVector(menuPos-(SIZE_X_MAINMENU+SIZE_X_SUBMENU)+20, 20);
-  for (int b=0; b<btnList.size(); b++) {
-    btnList.get(b).pos = tempPos2.get();
-    tempPos2.add(new PVector(0, btnList.get(b).size.y));
-    tempPos2.add(new PVector(0, SIZE_GUTTER));
-    btnList.get(b).display();
-  }
   expandBtn.pos.x = menuPos;
   expandBtn.display();
+  menuExpLeft.pos = PVector.add(new PVector(menuPos-(SIZE_X_MAINMENU+SIZE_X_SUBMENU)+20, 20), menuExpLeft.offset);
+  menuExpLeft.display();
+  menuExpRight.pos = PVector.add(new PVector(menuPos-(SIZE_X_SUBMENU)+20, 20), menuExpLeft.offset);
+  menuExpRight.display();
   hint(ENABLE_DEPTH_TEST);
 }
 
@@ -210,7 +207,7 @@ void draw() {
 
 void updateSelectedFixture(int iNum) {
   selectedFixture = iNum;
-  guiList.clear();
+  menuExpRight.subElementsList.clear();
 }
 
 
