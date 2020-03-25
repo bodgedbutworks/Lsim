@@ -2,6 +2,7 @@ class Dynamics {
   int state = 0;    // 0=idle, 1=accelerating, 2=@maxSpeed, 3=decelerating, 4=tweaking
 
   // ToDo add pan/tilt angles here and constrain pos to those
+  // ToDo sometimes the fixtures start spinning endlessly, find out why
   float maxAcc = 0.18;
   float maxSpd = 6.0;
   float maxSpdTweak = 0.1;

@@ -43,7 +43,7 @@ class Fixture extends ScreenObject {
     tilt.updateDest(int(dmxData[universe][constrain(address-1+chanTilt-1, 0, 511)])*float(tiltAngle)/255.0 - float(tiltAngle)/2.0);
     tilt.move();
 
-    for(Pixel p: pixelList){
+    for (Pixel p : pixelList) {
       p.updateChannels(dmxData[universe]);
     }
 
@@ -74,7 +74,7 @@ class Fixture extends ScreenObject {
     shape(modelPan);
     rotateX(radians(tilt.pos));
     shape(modelTilt);
-    for(Pixel p: pixelList){
+    for (Pixel p : pixelList) {
       p.display();
     }
     popMatrix();
@@ -101,7 +101,7 @@ class Fixture extends ScreenObject {
     guiList.add(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Tweak", tilt.maxSpdTweak, 0.01));
     guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Pan", chanPan, 1, 1, 512));
     guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Tilt", chanTilt, 1, 1, 512));
-    for(Pixel p: pixelList){
+    for (Pixel p : pixelList) {
       p.loadGui();
     }
   }
@@ -133,17 +133,17 @@ class Fixture extends ScreenObject {
       str(tilt.maxAcc) + ";" +
       str(tilt.maxSpd) + ";" +
       str(tilt.maxSpdTweak)/* + ";" +
-      str(zoomAngleMin) + ";" +
-      str(zoomAngleMax) + ";" +
-      str(lensSize) + ";" +
-      str(chanPan) + ";" +
-      str(chanTilt) + ";" +
-      str(chanDimmer) + ";" +
-      str(chanZoom) + ";" +
-      str(chanClrR) + ";" +
-      str(chanClrG) + ";" +
-      str(chanClrB) + ";" +
-      str(chanClrW)*/
+     str(zoomAngleMin) + ";" +
+     str(zoomAngleMax) + ";" +
+     str(lensSize) + ";" +
+     str(chanPan) + ";" +
+     str(chanTilt) + ";" +
+     str(chanDimmer) + ";" +
+     str(chanZoom) + ";" +
+     str(chanClrR) + ";" +
+     str(chanClrG) + ";" +
+     str(chanClrB) + ";" +
+     str(chanClrW)*/
       );
   }
 
@@ -164,16 +164,16 @@ class Fixture extends ScreenObject {
       tilt.maxSpd = float(props[15]);
       tilt.maxSpdTweak = float(props[16]);
       /*zoomAngleMin = int(props[17]);
-      zoomAngleMax = int(props[18]);
-      lensSize = int(props[19]);
-      chanPan = int(props[20]);
-      chanTilt = int(props[21]);
-      chanDimmer = int(props[22]);
-      chanZoom = int(props[23]);
-      chanClrR = int(props[24]);
-      chanClrG = int(props[25]);
-      chanClrB = int(props[26]);
-      chanClrW = int(props[27]);*/
+       zoomAngleMax = int(props[18]);
+       lensSize = int(props[19]);
+       chanPan = int(props[20]);
+       chanTilt = int(props[21]);
+       chanDimmer = int(props[22]);
+       chanZoom = int(props[23]);
+       chanClrR = int(props[24]);
+       chanClrG = int(props[25]);
+       chanClrB = int(props[26]);
+       chanClrW = int(props[27]);*/
       println("Loaded Fixture " + name);
     } else {
       println("!Error while loading a Fixture: Number of properties in line not as expected!");
@@ -189,11 +189,11 @@ class Fixture extends ScreenObject {
    tempVec = rotateVector(tempVec, rotX, 0, 0);  // Sequence of rotations makes a difference!
    tempVec = rotateVector(tempVec, 0, rotY, 0);
    tempVec = rotateVector(tempVec, 0, 0, rotZ);
-
+   
    pan = degrees(atan2(tempVec.x, tempVec.z));
    tilt = degrees(acos(tempVec.y/tempVec.mag()));
-
-
+   
+   
    // For Art-Net Output
    int actualPanRange  = 256*360/panRange;       // <8 bit> * <Pan Range of Sphere Coords> / <Fixture Pan Range>
    int actualTiltRange = 127*180/(tiltRange/2);  // <8 bit> * <Tilt Range of Sphere Coords> / <Fixture Tilt Range>

@@ -124,7 +124,7 @@ void draw() {
     }
   }
 
-  noStroke(); 
+  noStroke();
   fill(70);
   shape(env);
 

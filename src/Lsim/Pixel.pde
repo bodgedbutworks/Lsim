@@ -1,4 +1,4 @@
-class Pixel{
+class Pixel {
   PShape modelBeam;
 
   int lensSize = 5;                                                             // Size of upper part of beam cone
@@ -6,12 +6,12 @@ class Pixel{
   int zoomAngleMax = 35;
 
   int fixtureAddress = 1;
-  int chanDimmer = 1;                                                           // offsets towards fixture address
-  int chanZoom = 1;
-  int chanClrR = 1;
-  int chanClrG = 1;
-  int chanClrB = 1;
-  int chanClrW = 1;
+  int chanDimmer = 6;                                                           // offsets towards fixture address
+  int chanZoom = 4;
+  int chanClrR = 10;
+  int chanClrG = 11;
+  int chanClrB = 12;
+  int chanClrW = 13;
 
   float dimmer = 255;
   float zoom = 255;
@@ -20,17 +20,17 @@ class Pixel{
   float clrB = 0;
   float clrW = 0;
 
-  Pixel(int iFixtureAddress){
   color beamClr;
   String faceType = "Rectangle";                                                   // Circle, Rectangle
 
+  Pixel(int iFixtureAddress) {
     fixtureAddress = iFixtureAddress;
-    chanDimmer = fixtureAddress+2;      // ToDo
-    chanZoom = fixtureAddress+3;
-    chanClrR = fixtureAddress+9;
-    chanClrG = fixtureAddress+10;
-    chanClrB = fixtureAddress+11;
-    chanClrW = fixtureAddress+12;
+    /*chanDimmer = fixtureAddress+6;      // ToDo
+     chanZoom = fixtureAddress+4;
+     chanClrR = fixtureAddress+9;
+     chanClrG = fixtureAddress+10;
+     chanClrB = fixtureAddress+11;
+     chanClrW = fixtureAddress+12;*/
     updateBeam();
   }
 
@@ -46,7 +46,7 @@ class Pixel{
     modelBeam.endShape(CLOSE);
   }
 
-  void updateChannels(byte[] iDmxUniverse){
+  void updateChannels(byte[] iDmxUniverse) {
     dimmer = int(iDmxUniverse[constrain(fixtureAddress-1+chanDimmer-1, 0, 511)]);
     float tempZoom = int(iDmxUniverse[constrain(fixtureAddress-1+chanZoom-1, 0, 511)]);
     if (zoom != tempZoom) {

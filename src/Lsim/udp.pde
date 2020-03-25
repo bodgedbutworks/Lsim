@@ -26,6 +26,6 @@ void receive(byte[] iData, String iIp, int iPort) {
      */
     //println("receive: \"" + str(subset(iData, 0, 10)) + "\" from " + iIp + " on port " + iPort);
   } else {
-    println("(Packet of wrong length received)");
+    //println("(Packet of wrong length received)");
   }
 }
