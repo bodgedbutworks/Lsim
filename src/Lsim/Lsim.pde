@@ -16,8 +16,10 @@ ArrayList<Cuboid> cuboidList = new ArrayList<Cuboid>();
 Expandable menuExpLeft;
 Expandable menuExpRight;
 Button expandBtn;
-float menuPos = 0;      // Closed -> 0, Expanded -> positive
+float menuXpos = 0;      // Closed -> 0, Expanded -> positive
 byte menuState = 0;     // 0=closed, 1=expanding, 2=expanded, 3=closing
+boolean scrolling = false;
+int menuScroll = 0;
 
 PVector camPos = new PVector(900, -300, 900);
 PVector camLookAt = new PVector(0, -200, 0);
@@ -167,20 +169,20 @@ void draw() {
   case 0:
     break;
   case 1:
-    if (abs(menuPos-(SIZE_X_SUBMENU+SIZE_X_MAINMENU)) > 0.2) {
-      menuPos += 0.2*((SIZE_X_SUBMENU+SIZE_X_MAINMENU)-menuPos);
+    if (abs(menuXpos-(SIZE_X_SUBMENU+SIZE_X_MAINMENU)) > 0.2) {
+      menuXpos += 0.2*((SIZE_X_SUBMENU+SIZE_X_MAINMENU)-menuXpos);
     } else {
-      menuPos = SIZE_X_SUBMENU+SIZE_X_MAINMENU;
+      menuXpos = SIZE_X_SUBMENU+SIZE_X_MAINMENU;
       menuState = 2;
     }
     break;
   case 2:
     break;
   case 3:
-    if (menuPos > 0.2) {
-      menuPos -= 0.2*menuPos;
+    if (menuXpos > 0.2) {
+      menuXpos -= 0.2*menuXpos;
     } else {
-      menuPos = 0;
+      menuXpos = 0;
       menuState = 0;
     }
     break;
@@ -190,15 +192,23 @@ void draw() {
   stroke(0);
   strokeWeight(2);
   fill(60);
-  rect(menuPos-(SIZE_X_SUBMENU+SIZE_X_MAINMENU), 0, menuPos, height);
+  rect(menuXpos-(SIZE_X_SUBMENU+SIZE_X_MAINMENU), 0, menuXpos, height);
   stroke(0);
   strokeWeight(1);
-  line(menuPos-SIZE_X_SUBMENU, 0, menuPos-SIZE_X_SUBMENU, height);
-  expandBtn.pos.x = menuPos;
+  fill(100);
+  rect(menuXpos-SIZE_X_SUBMENU-10, menuScroll-30, menuXpos-SIZE_X_SUBMENU+10, menuScroll+30);
+  if(flag && mousePressed && mouseX>=(menuXpos-SIZE_X_SUBMENU-10) && mouseX<=(menuXpos-SIZE_X_SUBMENU+10) && mouseY>=(menuScroll-30) && mouseY<=(menuScroll+30)){
+    flag = false;
+    scrolling = true;
+  }
+  if(scrolling){
+    menuScroll = constrain(menuScroll+(mouseY-pmouseY), 0, height);
+  }
+  expandBtn.pos.x = menuXpos;
   expandBtn.display();
-  menuExpLeft.pos = PVector.add(new PVector(menuPos-(SIZE_X_MAINMENU+SIZE_X_SUBMENU)+20, 20), menuExpLeft.offset);
+  menuExpLeft.pos = PVector.add(new PVector(menuXpos-(SIZE_X_MAINMENU+SIZE_X_SUBMENU)+20, 20), menuExpLeft.offset);
   menuExpLeft.display();
-  menuExpRight.pos = PVector.add(new PVector(menuPos-(SIZE_X_SUBMENU)+20, 20), menuExpLeft.offset);
+  menuExpRight.pos = PVector.add(new PVector(menuXpos-(SIZE_X_SUBMENU)+20, 20-menuScroll), menuExpRight.offset);
   menuExpRight.display();
   hint(ENABLE_DEPTH_TEST);
 }
@@ -218,6 +228,11 @@ void mousePressed() {
     selectedFixture = -1;
     selectedGuiObject = null;
   }
+}
+
+
+void mouseReleased(){
+  scrolling = false;
 }
 
 
