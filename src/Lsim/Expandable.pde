@@ -44,22 +44,22 @@ class Expandable extends GuiObject {
       break;
     }
 
+    PVector tempPos = pos.get();                                                // get() -> clone tempPos instead of creating a reference
+    if (hasButton) {
+      tempPos.add(new PVector(0, expandBtn.offset.y));
+      tempPos.add(new PVector(0, expandBtn.size.y));
+      tempPos.add(new PVector(0, SIZE_GUTTER));
+    }
     if (state != 0) {
-      PVector tempPos = pos.get();                                              // get() -> clone tempPos instead of creating a reference
-      if (hasButton) {
-        tempPos.add(new PVector(0, expandBtn.offset.y));
-        tempPos.add(new PVector(0, expandBtn.size.y));
-        tempPos.add(new PVector(0, SIZE_GUTTER));
-      }
       for (GuiObject g : subElementsList) {
         g.pos = PVector.add(tempPos.get(), g.offset);
         tempPos.add(new PVector(0, g.offset.y));
-        tempPos.add(new PVector(0, g.size.y));                        // Only vertical size
+        tempPos.add(new PVector(0, g.size.y));
         tempPos.add(new PVector(0, SIZE_GUTTER));
         g.display();
       }
     }
-
+    size = PVector.sub(tempPos.get(), pos.get());                                                       // determine Expandable size by summing subelement sizes
     hint(ENABLE_DEPTH_TEST);
   }
 }
