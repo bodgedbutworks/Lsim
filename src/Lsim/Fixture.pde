@@ -83,26 +83,28 @@ class Fixture extends ScreenObject {
   }
 
   void loadGui() {
-    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", pos3d.x, 1.0));
-    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", pos3d.y, 1.0));
-    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", pos3d.z, 1.0));
-    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.x", rot.x, 1.0));
-    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.y", rot.y, 1.0));
-    guiList.add(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.z", rot.z, 1.0));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Universe", universe, 1, 0, QTY_UNIVERSES-1));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Address", address, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(100, 25), this, "Pan Angle", panAngle, 1, 90, 720));
-    guiList.add(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Accel", pan.maxAcc, 0.01));
-    guiList.add(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Speed", pan.maxSpd, 0.01));
-    guiList.add(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Tweak", pan.maxSpdTweak, 0.01));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(100, 25), this, "Tilt Angle", tiltAngle, 1, 90, 360));
-    guiList.add(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Accel", tilt.maxAcc, 0.01));
-    guiList.add(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Speed", tilt.maxSpd, 0.01));
-    guiList.add(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Tweak", tilt.maxSpdTweak, 0.01));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Pan", chanPan, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Tilt", chanTilt, 1, 1, 512));
+    Expandable headExp = new Expandable(new PVector(0, 0), new PVector(0, 0), true, true);
+    headExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", pos3d.x, 1.0));
+    headExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", pos3d.y, 1.0));
+    headExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", pos3d.z, 1.0));
+    headExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.x", rot.x, 1.0));
+    headExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.y", rot.y, 1.0));
+    headExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.z", rot.z, 1.0));
+    headExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Universe", universe, 1, 0, QTY_UNIVERSES-1));
+    headExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Address", address, 1, 1, 512));
+    headExp.put(new IntBox(new PVector(0, 0), new PVector(100, 25), this, "Pan Angle", panAngle, 1, 90, 720));
+    headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Accel", pan.maxAcc, 0.01));
+    headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Speed", pan.maxSpd, 0.01));
+    headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Tweak", pan.maxSpdTweak, 0.01));
+    headExp.put(new IntBox(new PVector(0, 0), new PVector(100, 25), this, "Tilt Angle", tiltAngle, 1, 90, 360));
+    headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Accel", tilt.maxAcc, 0.01));
+    headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Speed", tilt.maxSpd, 0.01));
+    headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Tweak", tilt.maxSpdTweak, 0.01));
+    headExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Pan", chanPan, 1, 1, 512));
+    headExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Channel Tilt", chanTilt, 1, 1, 512));
+    menuExpRight.put(headExp);
     for (Pixel p : pixelList) {
-      p.loadGui();
+      p.loadGui(headExp);
     }
   }
 

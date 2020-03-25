@@ -80,15 +80,17 @@ class Pixel {
     hint(ENABLE_DEPTH_MASK);
   }
 
-  void loadGui() {
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Min", zoomAngleMin, 1, 0, 180));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Max", zoomAngleMax, 1, 0, 180));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Lens Size", lensSize, 1, 0, 30));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Dimmer", chanDimmer, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Zoom", chanZoom, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Red", chanClrR, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Green", chanClrG, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Blue", chanClrB, 1, 1, 512));
-    guiList.add(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel White", chanClrW, 1, 1, 512));
+  void loadGui(Expandable iParentExp) {
+    Expandable pixelExp = new Expandable(new PVector(0, 0), new PVector(0, 0), true, false);
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Min", zoomAngleMin, 1, 0, 180));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Max", zoomAngleMax, 1, 0, 180));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Lens Size", lensSize, 1, 0, 30));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Dimmer", chanDimmer, 1, 1, 512));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Zoom", chanZoom, 1, 1, 512));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Red", chanClrR, 1, 1, 512));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Green", chanClrG, 1, 1, 512));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Blue", chanClrB, 1, 1, 512));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel White", chanClrW, 1, 1, 512));
+    iParentExp.put(pixelExp);
   }
 }
