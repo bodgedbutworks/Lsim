@@ -38,7 +38,7 @@ class IntBox extends GuiObject {
     checkMouseOver();
     valStr = str(int(valStr));
     noStroke();
-    fill((selectedGuiObject==guiList.indexOf(this)) ? 220+35*sin(millis()/75.0) : 255);
+    fill((selectedGuiObject==this) ? 220+35*sin(millis()/75.0) : 255);
     rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y);
     fill(0);
     textSize(size.y/2);

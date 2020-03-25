@@ -27,7 +27,7 @@ byte[] artnetHeader = {'A', 'r', 't', '-', 'N', 'e', 't', '\0'};
 byte[][] dmxData = new byte[4][512];                                            // [universe][address]
 
 int selectedFixture = -1;
-int selectedGuiObject = -1;
+GuiObject selectedGuiObject = null;
 long lastFrameTime = 0;
 long calcFrameRate = 1000;
 boolean lightsOff = false;                                                      // Activation of ambient/directional lights
@@ -216,23 +216,23 @@ void mousePressed() {
   if (mouseButton == LEFT) {
     flag = true;
     selectedFixture = -1;
-    selectedGuiObject = -1;
+    selectedGuiObject = null;
   }
 }
 
 
 
 void mouseWheel(MouseEvent event) {
-  if (selectedGuiObject != -1) {
-    guiList.get(selectedGuiObject).editValMouse(event.getCount());
+  if (selectedGuiObject != null) {
+    selectedGuiObject.editValMouse(event.getCount());
   } else {
     camPos = addSphereCoords(camPos, 80.0*event.getCount(), 0, 0);
   }
 }
 
 void keyPressed() {
-  if (selectedGuiObject != -1) {
-    guiList.get(selectedGuiObject).editValKey();
+  if (selectedGuiObject != null) {
+    selectedGuiObject.editValKey();
   } else if (key == ' ') {
   }
 }
