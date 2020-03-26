@@ -1,7 +1,7 @@
 class Pixel {
+  PVector pos3d = new PVector(0, 0, 0);                                         // Offset realtive to fixture center of mass (COM)
   PShape modelBeam;
 
-  int lensSize = 5;                                                             // Size of upper part of beam cone
   int zoomAngleMin = 10;                                                        // [deg]
   int zoomAngleMax = 35;
 
@@ -22,6 +22,7 @@ class Pixel {
 
   color beamClr;
   String faceType = "Rectangle";                                                   // Circle, Rectangle
+  PVector faceSize = new PVector(30, 30);                                       // width & height
 
   Pixel(int iFixtureAddress) {
     fixtureAddress = iFixtureAddress;
@@ -35,12 +36,12 @@ class Pixel {
   }
 
   void updateBeam() {
-    int zoomRadius = lensSize + int(tan(radians(map(zoom, 0, 255, zoomAngleMin, zoomAngleMax)/2))*LENGTH_BEAMS);    // radius = tan(half beam angle) * beam length
+    int zoomRadius = int(min(faceSize.x, faceSize.y)) + int(tan(radians(map(zoom, 0, 255, zoomAngleMin, zoomAngleMax)/2))*LENGTH_BEAMS);    // radius = tan(half beam angle) * beam length
     modelBeam = createShape();
     modelBeam.beginShape(TRIANGLE_STRIP);
     modelBeam.noStroke();
     for (int i=0; i<=RESOLUTION_BEAMS; i++) {
-      modelBeam.vertex(lensSize*sin(i*TWO_PI/RESOLUTION_BEAMS), 20, lensSize*cos(i*TWO_PI/RESOLUTION_BEAMS));
+      modelBeam.vertex((faceSize.x/2)*sin(i*TWO_PI/RESOLUTION_BEAMS), 0, (faceSize.y/2)*cos(i*TWO_PI/RESOLUTION_BEAMS));
       modelBeam.vertex(zoomRadius*sin(i*TWO_PI/RESOLUTION_BEAMS), LENGTH_BEAMS, zoomRadius*cos(i*TWO_PI/RESOLUTION_BEAMS));
     }
     modelBeam.endShape(CLOSE);
@@ -82,15 +83,19 @@ class Pixel {
 
   void loadGui() {
     Expandable pixelExp = new Expandable(new PVector(0, 0), new PVector(0, 0), true, false);
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Min", zoomAngleMin, 1, 0, 180));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Max", zoomAngleMax, 1, 0, 180));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Lens Size", lensSize, 1, 0, 30));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Dimmer", chanDimmer, 1, 1, 512));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Zoom", chanZoom, 1, 1, 512));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Red", chanClrR, 1, 1, 512));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Green", chanClrG, 1, 1, 512));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Blue", chanClrB, 1, 1, 512));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel White", chanClrW, 1, 1, 512));
+    pixelExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Pixel Pos LR", pos3d.x, 1.0));
+    pixelExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Pixel Pos UD", pos3d.y, 1.0));
+    pixelExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Pixel Pos FB", pos3d.z, 1.0));
+    pixelExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pixel Width", int(faceSize.x), 1, 1, 10000));
+    pixelExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pixel Height", int(faceSize.y), 1, 1, 10000));
+    pixelExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Zoom Angle Min", zoomAngleMin, 1, 0, 180));
+    pixelExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Zoom Angle Max", zoomAngleMax, 1, 0, 180));
+    pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel Dimmer", chanDimmer, 1, 1, 512));
+    pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel Zoom", chanZoom, 1, 1, 512));
+    pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel Red", chanClrR, 1, 1, 512));
+    pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel Green", chanClrG, 1, 1, 512));
+    pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel Blue", chanClrB, 1, 1, 512));
+    pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel White", chanClrW, 1, 1, 512));
     menuExpRight.put(pixelExp);
   }
 }

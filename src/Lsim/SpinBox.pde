@@ -5,6 +5,9 @@ class SpinBox extends GuiObject {
   SpinBox(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, float iInitialVal, float iStepSize) {
     super(iOffset, iSize, iObjRef, iPropName, iInitialVal, iStepSize);
   }
+  SpinBox(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+    super(iOffset, iSize, iObjRef, iPropName, iInitialVal, iStepSize);
+  }
 
   void editValKey() {
     if ((key >= '0'  &&  key <= '9')  ||  (key == '.'  &&  valStr.indexOf('.') == -1)  ||  (key == '-'  &&  valStr.length() == 0)) {
@@ -77,6 +80,14 @@ class SpinBox extends GuiObject {
         cubObjRef.size3d.y = float(valStr);
       } else if (propName.equals("size3d.z")) {
         cubObjRef.size3d.z = float(valStr);
+      }
+    } else if (objType.equals("Pixel")) {
+      if (propName.equals("Pixel Pos LR")) {
+        pixObjRef.pos3d.x = float(valStr);
+      } else if (propName.equals("Pixel Pos UD")) {
+        pixObjRef.pos3d.y = float(valStr);
+      } else if (propName.equals("Pixel Pos FB")) {
+        pixObjRef.pos3d.z = float(valStr);
       }
     }
   }

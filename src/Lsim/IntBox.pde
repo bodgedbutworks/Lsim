@@ -67,12 +67,18 @@ class IntBox extends GuiObject {
     } else if (objType.equals("Cuboid")) {
       /* Cuboid stuff here */
     } else if (objType.equals("Pixel")) {
-      if (propName.equals("Zoom Angle Min")) {
+      if (propName.equals("Pixel Width")) {
+        pixObjRef.faceSize.x = int(valStr);
+        pixObjRef.updateBeam();
+      } else if (propName.equals("Pixel Height")) {
+        pixObjRef.faceSize.y = int(valStr);
+        pixObjRef.updateBeam();
+      } else if (propName.equals("Zoom Angle Min")) {
         pixObjRef.zoomAngleMin = int(valStr);
+        pixObjRef.updateBeam();
       } else if (propName.equals("Zoom Angle Max")) {
         pixObjRef.zoomAngleMax = int(valStr);
-      } else if (propName.equals("Lens Size")) {
-        pixObjRef.lensSize = int(valStr);
+        pixObjRef.updateBeam();
       } else if (propName.equals("Rel. Channel Dimmer")) {
         pixObjRef.chanDimmer = int(valStr);
       } else if (propName.equals("Rel. Channel Zoom")) {
