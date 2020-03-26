@@ -18,6 +18,8 @@ class Fixture extends ScreenObject {
   PShape modelBase;
   PShape modelPan;
   PShape modelTilt;
+  PVector sizePan = new PVector(100, 100, 100);
+  PVector sizeTilt = new PVector(100, 100, 100);
 
   int chanPan = 1;                                                              // [1-512]
   int chanTilt = 2;
@@ -74,13 +76,17 @@ class Fixture extends ScreenObject {
     stroke(0);
     strokeWeight(2);
     if (panType.equals("Fork")) {
+      modelPan.resetMatrix();      // ToDo keep an eye on this, it's run every frame and might slow things down (?)
+      modelPan.scale(sizePan.x/100.0, sizePan.y/100.0, sizePan.z/100.0);
       shape(modelPan);
     }
     rotateX(radians(tilt.pos));
     if (tiltType.equals("Head")) {
+      modelTilt.resetMatrix();      // ToDo keep an eye on this, it's run every frame and might slow things down (?)
+      modelTilt.scale(sizeTilt.x/100.0, sizeTilt.y/100.0, sizeTilt.z/100.0);
       shape(modelTilt);
     } else if (tiltType.equals("Cuboid")) {
-      box(25, 40, 25);
+      box(sizeTilt.x, sizeTilt.y, sizeTilt.z);      // ToDo: Implement scaling for obj models
     }
     for (Pixel p : pixelList) {
       p.display();
@@ -112,10 +118,16 @@ class Fixture extends ScreenObject {
     headExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Channel Tilt", chanTilt, 1, 1, 512));
     Expandable selectPanExp = new Expandable(new PVector(10, 0), new PVector(0, 0), true, false);
     selectPanExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Fork Model"));    // ToDo add representation in Button class
+    selectPanExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Size LR", int(sizePan.x), 1, 1, 10000));
+    selectPanExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Size UD", int(sizePan.y), 1, 1, 10000));
+    selectPanExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Size FB", int(sizePan.z), 1, 1, 10000));
     headExp.put(selectPanExp);
     Expandable selectTiltExp = new Expandable(new PVector(10, 0), new PVector(0, 0), true, false);
     selectTiltExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Head Model"));
     selectTiltExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Cuboid Model"));
+    selectTiltExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Size LR", int(sizeTilt.x), 1, 1, 10000));
+    selectTiltExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Size FB", int(sizeTilt.y), 1, 1, 10000));
+    selectTiltExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Size UD", int(sizeTilt.z), 1, 1, 10000));
     headExp.put(selectTiltExp);
     menuExpRight.put(headExp);
     for (Pixel p : pixelList) {
