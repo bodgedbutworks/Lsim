@@ -187,17 +187,18 @@ void draw() {
   strokeWeight(2);
   fill(60);
   rect(menuXpos-(SIZE_X_SUBMENU+SIZE_X_MAINMENU), 0, menuXpos, height);
-  stroke(0);
-  strokeWeight(1);
-  fill(100);
-  rect(menuXpos-SIZE_X_SUBMENU-10, menuScroll-30, menuXpos-SIZE_X_SUBMENU+10, menuScroll+30);
   if (flag && mousePressed && mouseX>=(menuXpos-SIZE_X_SUBMENU-10) && mouseX<=(menuXpos-SIZE_X_SUBMENU+10) && mouseY>=(menuScroll-30) && mouseY<=(menuScroll+30)) {
     flag = false;
     scrolling = true;
   }
   if (scrolling) {
-    menuScroll = constrain(menuScroll+(mouseY-pmouseY), 0, height);
+    menuScroll += mouseY-pmouseY;
   }
+  menuScroll = constrain(menuScroll, 0, height);
+  stroke(0);
+  strokeWeight(1);
+  fill(100);
+  rect(menuXpos-SIZE_X_SUBMENU-10, menuScroll-30, menuXpos-SIZE_X_SUBMENU+10, menuScroll+30);
   expandBtn.pos.x = menuXpos;
   expandBtn.display();
   menuExpLeft.pos = PVector.add(new PVector(menuXpos-(SIZE_X_MAINMENU+SIZE_X_SUBMENU)+20, 20), menuExpLeft.offset);
