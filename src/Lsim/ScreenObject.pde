@@ -21,12 +21,27 @@ class ScreenObject {
   }
 
   String getSaveString() {
-    println("Object save function not defined!");
-    return("Object save function not defined!");
+    return(
+      name + ";" +
+      str(pos3d.x) + ";" +
+      str(pos3d.y) + ";" +
+      str(pos3d.z) + ";" +
+      str(rot.x) + ";" +
+      str(rot.y) + ";" +
+      str(rot.z)
+      );
   }
 
-  void setLoadString(String iLine) {
-    println("Object load function not defined!");
+  void setLoadArray(String[] iProps) {
+    try {
+      name = iProps[0];
+      pos3d = new PVector(float(iProps[1]), float(iProps[2]), float(iProps[3]));
+      rot = new PVector(float(iProps[4]), float(iProps[5]), float(iProps[6]));
+      print("Loading ScreenObj..");
+    } 
+    catch(Exception e) {
+      println(e);
+    }
   }
 
   void checkMouseOver() {

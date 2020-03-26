@@ -77,4 +77,24 @@ class Dynamics {
 
     pos += spd;
   }
+
+  String getSaveString() {
+    return(
+      str(maxAcc) + ";" +
+      str(maxSpd) + ";" +
+      str(maxSpdTweak)
+      );
+  }
+
+  void setLoadArray(String[] iProps) {
+    try {
+      maxAcc = float(iProps[0]);
+      maxSpd = float(iProps[1]);
+      maxSpdTweak = float(iProps[2]);
+      print("Loading Dynamics..");
+    } 
+    catch(Exception e) {
+      println(e);
+    }
+  }
 }

@@ -2,17 +2,13 @@
 class Fixture extends ScreenObject {
   int universe = 0;                                                             //< ArtNet Universe
   int address = 1;
-  //byte numChannels = 1;
-  int panAngle = 630;
-  int tiltAngle = 270;
-  //boolean hasPan = true;
-  //boolean hasTilt = true;
-
-  Dynamics pan;
-  Dynamics tilt;
 
   ArrayList<Pixel> pixelList = new ArrayList<Pixel>();
 
+  int panAngle = 630;
+  int tiltAngle = 270;
+  Dynamics pan;
+  Dynamics tilt;
   String panType = "Fork";                                                      // Fork,
   String tiltType = "Head";                                                     // Head, Cuboid
   PShape modelBase;
@@ -144,69 +140,54 @@ class Fixture extends ScreenObject {
      x.setString("value", str(panAngle));
      saveXML(tempXml, "xml/" + name + ".xml");
      */
-    return(
-      name + ";" +
-      str(pos3d.x) + ";" +
-      str(pos3d.y) + ";" +
-      str(pos3d.z) + ";" +
-      str(rot.x) + ";" +
-      str(rot.y) + ";" +
-      str(rot.z) + ";" +
+    String saveStr = "";
+    saveStr +=
+      super.getSaveString() + ";" +
       str(universe) + ";" +
       str(address) + ";" +
       str(panAngle) + ";" +
-      str(pan.maxAcc) + ";" +
-      str(pan.maxSpd) + ";" +
-      str(pan.maxSpdTweak) + ";" +
       str(tiltAngle) + ";" +
-      str(tilt.maxAcc) + ";" +
-      str(tilt.maxSpd) + ";" +
-      str(tilt.maxSpdTweak)/* + ";" +
-     str(zoomAngleMin) + ";" +
-     str(zoomAngleMax) + ";" +
-     str(lensSize) + ";" +
-     str(chanPan) + ";" +
-     str(chanTilt) + ";" +
-     str(chanDimmer) + ";" +
-     str(chanZoom) + ";" +
-     str(chanClrR) + ";" +
-     str(chanClrG) + ";" +
-     str(chanClrB) + ";" +
-     str(chanClrW)*/
-      );
+      panType + ";" +
+      tiltType + ";" +
+      str(sizePan.x) + ";" +
+      str(sizePan.y) + ";" +
+      str(sizePan.z) + ";" +
+      str(sizeTilt.x) + ";" +
+      str(sizeTilt.y) + ";" +
+      str(sizeTilt.z) + ";" +
+      pan.getSaveString() + ";" +
+      tilt.getSaveString() + ";" +
+      str(pixelList.size());
+    for (Pixel p : pixelList) {
+      saveStr += ";" + p.getSaveString();
+    }
+    return(saveStr);
   }
 
-  void setLoadString(String iLine) {
-    String[] props = split(iLine, ';');
-    if (props.length == 28) {
-      name = props[0];
-      pos3d = new PVector(float(props[1]), float(props[2]), float(props[3]));
-      rot = new PVector(float(props[4]), float(props[5]), float(props[6]));
-      universe = int(props[7]);
-      address = int(props[8]);
-      panAngle = int(props[9]);
-      pan.maxAcc = float(props[10]);
-      pan.maxSpd = float(props[11]);
-      pan.maxSpdTweak = float(props[12]);
-      tiltAngle = int(props[13]);
-      tilt.maxAcc = float(props[14]);
-      tilt.maxSpd = float(props[15]);
-      tilt.maxSpdTweak = float(props[16]);
-      /*zoomAngleMin = int(props[17]);
-       zoomAngleMax = int(props[18]);
-       lensSize = int(props[19]);
-       chanPan = int(props[20]);
-       chanTilt = int(props[21]);
-       chanDimmer = int(props[22]);
-       chanZoom = int(props[23]);
-       chanClrR = int(props[24]);
-       chanClrG = int(props[25]);
-       chanClrB = int(props[26]);
-       chanClrW = int(props[27]);*/
+  void setLoadArray(String[] iProps) {
+    try {
+      super.setLoadArray(Arrays.copyOfRange(iProps, 0, 7));
+      universe = int(iProps[7]);
+      address = int(iProps[8]);
+      panAngle = int(iProps[9]);
+      tiltAngle = int(iProps[10]);
+      panType = iProps[11];
+      tiltType = iProps[12];
+      sizePan = new PVector(float(iProps[13]), float(iProps[14]), float(iProps[15]));
+      sizeTilt = new PVector(float(iProps[16]), float(iProps[17]), float(iProps[18]));
+      pan.setLoadArray(Arrays.copyOfRange(iProps, 19, 22));
+      tilt.setLoadArray(Arrays.copyOfRange(iProps, 22, 25));
+      int numOfPixels = int(iProps[25]);
+      pixelList.clear();
+      for (int n=0; n<numOfPixels; n++) {
+        Pixel tempPixel = new Pixel();
+        tempPixel.setLoadArray(Arrays.copyOfRange(iProps, 26+n*14, 40+n*14));
+        pixelList.add(tempPixel);
+      }
       println("Loaded Fixture " + name);
-    } else {
-      println("!Error while loading a Fixture: Number of properties in line not as expected!");
-      return;
+    } 
+    catch(Exception e) {
+      println(e);
     }
   }
 

@@ -1,4 +1,5 @@
 import hypermedia.net.*;    // For UDP
+import java.util.Arrays;
 UDP udp;
 
 
@@ -271,7 +272,7 @@ void loadAll() {
     String[] loadDataFix = loadStrings("/save/fixtures.lsm");
     for (int f=0; f<loadDataFix.length; f++) {
       fixtureList.add(new Fixture());
-      fixtureList.get(f).setLoadString(loadDataFix[f]);
+      fixtureList.get(f).setLoadArray(loadDataFix[f].split(";"));
     }
     println("Loaded " + str(loadDataFix.length) + " Fixtures.");
   }
@@ -284,7 +285,7 @@ void loadAll() {
     String[] loadDataCub = loadStrings("/save/cuboids.lsm");
     for (int f=0; f<loadDataCub.length; f++) {
       cuboidList.add(new Cuboid());
-      cuboidList.get(f).setLoadString(loadDataCub[f]);
+      cuboidList.get(f).setLoadArray(loadDataCub[f].split(";"));
     }
     println("Loaded " + str(loadDataCub.length) + " Cuboids.");
   }
