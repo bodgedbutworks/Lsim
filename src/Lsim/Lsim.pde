@@ -267,6 +267,9 @@ void saveAll() {
 void loadAll() {
   fixtureList.clear();
   cuboidList.clear();
+  menuExpRight.subElementsList.clear();
+
+  println("\n --- Loading ---");
 
   try {
     String[] loadDataFix = loadStrings("/save/fixtures.lsm");

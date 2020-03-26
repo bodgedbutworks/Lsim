@@ -43,30 +43,21 @@ class Cuboid extends ScreenObject {
 
   String getSaveString() {
     return(
-      name + ";" +
-      str(pos3d.x) + ";" +
-      str(pos3d.y) + ";" +
-      str(pos3d.z) + ";" +
-      str(rot.x) + ";" +
-      str(rot.y) + ";" +
-      str(rot.z) + ";" +
+      super.getSaveString() + ";" +
       str(size3d.x) + ";" +
       str(size3d.y) + ";" +
       str(size3d.z)
       );
   }
 
-  void setLoadString(String iLine) {
-    String[] props = split(iLine, ';');
-    if (props.length == 10) {
-      name = props[0];
-      pos3d = new PVector(float(props[1]), float(props[2]), float(props[3]));
-      rot = new PVector(float(props[4]), float(props[5]), float(props[6]));
-      size3d = new PVector(float(props[7]), float(props[8]), float(props[9]));
+  void setLoadArray(String[] iProps) {
+    try {
+      super.setLoadArray(Arrays.copyOfRange(iProps, 0, 7));
+      size3d = new PVector(float(iProps[7]), float(iProps[8]), float(iProps[9]));
       println("Loaded Cuboid " + name);
-    } else {
-      println("!Error while loading a Cuboid: Number of properties in line not as expected!");
-      return;
+    }
+    catch(Exception e) {
+      println(e);
     }
   }
 }
