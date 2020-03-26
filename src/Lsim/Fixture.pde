@@ -33,7 +33,7 @@ class Fixture extends ScreenObject {
     modelTilt.disableStyle();
     pan = new Dynamics();
     tilt = new Dynamics();
-    pixelList.add(new Pixel(address));
+    pixelList.add(new Pixel());
   }
 
   void display() {
@@ -48,7 +48,7 @@ class Fixture extends ScreenObject {
     tilt.move();
 
     for (Pixel p : pixelList) {
-      p.updateChannels(dmxData[universe]);
+      p.updateChannels(address, dmxData[universe]);
     }
 
 

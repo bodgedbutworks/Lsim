@@ -1,11 +1,13 @@
 class Pixel {
   PVector pos3d = new PVector(0, 0, 0);                                         // Offset realtive to fixture center of mass (COM)
   PShape modelBeam;
-
+  color beamClr;
   int zoomAngleMin = 10;                                                        // [deg]
   int zoomAngleMax = 35;
 
-  int fixtureAddress = 1;
+  String faceType = "Rectangle";                                                // Ellipse, Rectangle
+  PVector faceSize = new PVector(30, 30);                                       // width & height
+
   int chanDimmer = 6;                                                           // offsets towards fixture address
   int chanZoom = 4;
   int chanClrR = 10;
@@ -20,18 +22,7 @@ class Pixel {
   float clrB = 0;
   float clrW = 0;
 
-  color beamClr;
-  String faceType = "Rectangle";                                                  // Ellipse, Rectangle
-  PVector faceSize = new PVector(30, 30);                                       // width & height
-
-  Pixel(int iFixtureAddress) {
-    fixtureAddress = iFixtureAddress;
-    /*chanDimmer = fixtureAddress+6;      // ToDo
-     chanZoom = fixtureAddress+4;
-     chanClrR = fixtureAddress+9;
-     chanClrG = fixtureAddress+10;
-     chanClrB = fixtureAddress+11;
-     chanClrW = fixtureAddress+12;*/
+  Pixel() {
     updateBeam();
   }
 
@@ -47,17 +38,17 @@ class Pixel {
     modelBeam.endShape(CLOSE);
   }
 
-  void updateChannels(byte[] iDmxUniverse) {
-    dimmer = int(iDmxUniverse[constrain(fixtureAddress-1+chanDimmer-1, 0, 511)]);
-    float tempZoom = int(iDmxUniverse[constrain(fixtureAddress-1+chanZoom-1, 0, 511)]);
+  void updateChannels(int iFixtureAddress, byte[] iDmxUniverse) {
+    dimmer = int(iDmxUniverse[constrain(iFixtureAddress-1+chanDimmer-1, 0, 511)]);
+    float tempZoom = int(iDmxUniverse[constrain(iFixtureAddress-1+chanZoom-1, 0, 511)]);
     if (zoom != tempZoom) {
       zoom = tempZoom;
       updateBeam();
     }
-    clrR = int(iDmxUniverse[constrain(fixtureAddress-1+chanClrR-1, 0, 511)]);
-    clrG = int(iDmxUniverse[constrain(fixtureAddress-1+chanClrG-1, 0, 511)]);
-    clrB = int(iDmxUniverse[constrain(fixtureAddress-1+chanClrB-1, 0, 511)]);
-    clrW = int(iDmxUniverse[constrain(fixtureAddress-1+chanClrW-1, 0, 511)]);
+    clrR = int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrR-1, 0, 511)]);
+    clrG = int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrG-1, 0, 511)]);
+    clrB = int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrB-1, 0, 511)]);
+    clrW = int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrW-1, 0, 511)]);
 
     // ToDo: Color model is incorrect, vary dark color settings result in 'black' light output
     beamClr = color(min(clrR+clrW, 255), min(clrG+clrW, 255), min(clrB+clrW, 255), dimmer*(clrR+clrG+clrB+clrW)*OPACITY_BEAMS/(4*255*255));
