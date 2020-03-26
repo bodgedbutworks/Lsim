@@ -21,7 +21,7 @@ class Pixel {
   float clrW = 0;
 
   color beamClr;
-  String faceType = "Rectangle";                                                   // Circle, Rectangle
+  String faceType = "Rectangle";                                                  // Ellipse, Rectangle
   PVector faceSize = new PVector(30, 30);                                       // width & height
 
   Pixel(int iFixtureAddress) {
@@ -66,16 +66,16 @@ class Pixel {
 
   void display() {
     hint(DISABLE_DEPTH_MASK);                                                   // Disable depth counter, NOT occlusion detection (=DISABLE_DEPTH_TEST)
+    pushMatrix();
+    translate(pos3d.x, pos3d.z, pos3d.y);
     shape(modelBeam);
     noStroke();
     fill(beamClr | 150<<24);    // Set alpha
-    pushMatrix();
     rotateX(HALF_PI);
-    translate(0, 0, -50);    // ToDo implement position & size
-    if (faceType.equals("Circle")) {
-      ellipse(0, 0, 100, 100);
+    if (faceType.equals("Ellipse")) {
+      ellipse(0, 0, faceSize.x, faceSize.y);
     } else if (faceType.equals("Rectangle")) {
-      rect(-30, -15, 30, 15);
+      rect(-faceSize.x/2, -faceSize.y/2, faceSize.x/2, faceSize.y/2);
     }
     popMatrix();
     hint(ENABLE_DEPTH_MASK);
@@ -96,6 +96,10 @@ class Pixel {
     pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel Green", chanClrG, 1, 1, 512));
     pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel Blue", chanClrB, 1, 1, 512));
     pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel White", chanClrW, 1, 1, 512));
+    Expandable faceTypeExp = new Expandable(new PVector(10, 0), new PVector(0, 0), true, false);
+    faceTypeExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Ellipse"));
+    faceTypeExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Rectangle"));
+    pixelExp.put(faceTypeExp);
     menuExpRight.put(pixelExp);
   }
 }

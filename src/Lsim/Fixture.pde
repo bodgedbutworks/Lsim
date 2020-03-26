@@ -13,6 +13,8 @@ class Fixture extends ScreenObject {
 
   ArrayList<Pixel> pixelList = new ArrayList<Pixel>();
 
+  String panType = "Fork";                                                      // Fork,
+  String tiltType = "Head";                                                     // Head, Cuboid
   PShape modelBase;
   PShape modelPan;
   PShape modelTilt;
@@ -71,9 +73,15 @@ class Fixture extends ScreenObject {
     fill(clr);
     stroke(0);
     strokeWeight(2);
-    shape(modelPan);
+    if (panType.equals("Fork")) {
+      shape(modelPan);
+    }
     rotateX(radians(tilt.pos));
-    shape(modelTilt);
+    if (tiltType.equals("Head")) {
+      shape(modelTilt);
+    } else if (tiltType.equals("Cuboid")) {
+      box(25, 40, 25);
+    }
     for (Pixel p : pixelList) {
       p.display();
     }
@@ -102,6 +110,13 @@ class Fixture extends ScreenObject {
     headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Tweak", tilt.maxSpdTweak, 0.01));
     headExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Channel Pan", chanPan, 1, 1, 512));
     headExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Channel Tilt", chanTilt, 1, 1, 512));
+    Expandable selectPanExp = new Expandable(new PVector(10, 0), new PVector(0, 0), true, false);
+    selectPanExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Fork Model"));    // ToDo add representation in Button class
+    headExp.put(selectPanExp);
+    Expandable selectTiltExp = new Expandable(new PVector(10, 0), new PVector(0, 0), true, false);
+    selectTiltExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Head Model"));
+    selectTiltExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Cuboid Model"));
+    headExp.put(selectTiltExp);
     menuExpRight.put(headExp);
     for (Pixel p : pixelList) {
       p.loadGui();

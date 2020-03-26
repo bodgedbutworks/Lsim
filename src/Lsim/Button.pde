@@ -2,13 +2,33 @@ class Button extends GuiObject {
   Button(PVector iOffset, PVector iSize, String iPropName) {
     super(iOffset, iSize, iPropName, 0.0/*initialVal*/, 1.0/*stepSize*/);
   }
+  Button(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName) {
+    super(iOffset, iSize, iObjRef, iPropName, 0.0/*initialVal*/, 1.0/*stepSize*/);
+  }
+  Button(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName) {
+    super(iOffset, iSize, iObjRef, iPropName, 0.0/*initialVal*/, 1.0/*stepSize*/);
+  }
   Button(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName) {
     super(iOffset, iSize, iObjRef, iPropName, 0.0/*initialVal*/, 1.0/*stepSize*/);
   }
 
   void display() {
     if (checkMouseOver()) {
-      if (objType.equals("Expandable")) {
+      if (objType.equals("Pixel")) {
+        if (propName.equals("Ellipse")) {
+          pixObjRef.faceType = "Ellipse";
+        } else if (propName.equals("Rectangle")) {
+          pixObjRef.faceType = "Rectangle";
+        }
+      } else if (objType.equals("Fixture")) {
+        if (propName.equals("Fork Model")) {
+          fixObjRef.panType = "Fork";
+        } else if (propName.equals("Head Model")) {
+          fixObjRef.tiltType = "Head";
+        } else if (propName.equals("Cuboid Model")) {
+          fixObjRef.tiltType = "Cuboid";
+        }
+      } else if (objType.equals("Expandable")) {
         if (propName.equals("state")) {
           if (expObjRef.state == 0) {
             expObjRef.state = 1;
