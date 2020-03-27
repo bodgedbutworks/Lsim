@@ -37,6 +37,7 @@ long lastFrameTime = 0;
 long calcFrameRate = 1000;
 boolean lightsOff = false;                                                      // Activation of ambient/directional lights
 boolean flag = false;
+ScreenObject reloadMyGui;     // GUI sometimes can't be reloaded directly because it would delete the calling element, instead, do it in main loop
 
 PShape env;
 
@@ -60,6 +61,8 @@ void setup() {
   textFont(createFont("Khmer UI", 100, false));
 
   comImg = loadImage("comImg2.png");
+
+  reloadMyGui = null;
 
   expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">", ">");
 
@@ -154,6 +157,12 @@ void draw() {
   }
 
   /********************* 2D Elements ********************/
+  if (reloadMyGui != null) {
+    println("GUI Reeeeeeloading!");
+    menuExpRight.subElementsList.clear();
+    reloadMyGui.loadGui();
+    reloadMyGui = null;
+  }
   camera();
   hint(DISABLE_DEPTH_TEST);
   fill(255);

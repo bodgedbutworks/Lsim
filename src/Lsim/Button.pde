@@ -25,6 +25,7 @@ class Button extends GuiObject {
           tempPix.name += " Copy";
           tempPix.pos3d.x += 40;
           pixObjRef.parentFixRef.pixelList.add(tempPix);
+          reloadMyGui = pixObjRef.parentFixRef;     // Directly modifying the GUI here would lead to ConcurrentModificationException, so do in main loop
         }
       } else if (objType.equals("Fixture")) {
         if (propName.equals("Fork Model")) {
