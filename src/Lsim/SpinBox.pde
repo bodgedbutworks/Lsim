@@ -34,7 +34,7 @@ class SpinBox extends GuiObject {
     textAlign(LEFT, TOP);
     text(valStr, pos.x, pos.y, pos.x+size.x, pos.y+size.y);
     fill(50, 255, 50);
-    text(propName, pos.x+size.x+SIZE_GUTTER, pos.y);
+    text(displayName, pos.x+size.x+SIZE_GUTTER, pos.y);
 
     // ToDo: Is there a smarter way to do this??
     if (objType.equals("Fixture")) {
