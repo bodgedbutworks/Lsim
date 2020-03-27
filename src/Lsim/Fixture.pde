@@ -104,6 +104,8 @@ class Fixture extends ScreenObject {
     tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "rot.z", "rot.z", rot.z, 1.0));
     tempFixExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Universe", "Universe", universe, 1, 0, QTY_UNIVERSES-1));
     tempFixExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Address", "Address", address, 1, 1, 512));
+    tempFixExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Channel Pan", "Channel Pan", chanPan, 1, 1, 512));
+    tempFixExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Channel Tilt", "Channel Tilt", chanTilt, 1, 1, 512));
     tempFixExp.put(new IntBox(new PVector(10, 0), new PVector(100, 25), this, "Pan Angle", "Pan Angle", panAngle, 1, 90, 720));
     tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Accel", "Pan Accel", pan.maxAcc, 0.01));
     tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Speed", "Pan Speed", pan.maxSpd, 0.01));
@@ -112,8 +114,6 @@ class Fixture extends ScreenObject {
     tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Accel", "Tilt Accel", tilt.maxAcc, 0.01));
     tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Speed", "Tilt Speed", tilt.maxSpd, 0.01));
     tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Tweak", "Tilt Tweak", tilt.maxSpdTweak, 0.01));
-    tempFixExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Channel Pan", "Channel Pan", chanPan, 1, 1, 512));
-    tempFixExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Channel Tilt", "Channel Tilt", chanTilt, 1, 1, 512));
     Expandable selectPanExp = new Expandable(new PVector(10, 0), new PVector(0, 0), "Pan", true, false);
     selectPanExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Fork Model", "Fork Model"));    // ToDo add representation in Button class
     selectPanExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Size LR", "Pan Size LR", int(sizePan.x), 1, 1, 10000));
@@ -149,6 +149,8 @@ class Fixture extends ScreenObject {
       super.getSaveString() + ";" +
       str(universe) + ";" +
       str(address) + ";" +
+      str(chanPan) + ";" +
+      str(chanTilt) + ";" +
       str(panAngle) + ";" +
       str(tiltAngle) + ";" +
       panType + ";" +
@@ -173,19 +175,21 @@ class Fixture extends ScreenObject {
       super.setLoadArray(Arrays.copyOfRange(iProps, 0, 7));
       universe = int(iProps[7]);
       address = int(iProps[8]);
-      panAngle = int(iProps[9]);
-      tiltAngle = int(iProps[10]);
-      panType = iProps[11];
-      tiltType = iProps[12];
-      sizePan = new PVector(float(iProps[13]), float(iProps[14]), float(iProps[15]));
-      sizeTilt = new PVector(float(iProps[16]), float(iProps[17]), float(iProps[18]));
-      pan.setLoadArray(Arrays.copyOfRange(iProps, 19, 22));
-      tilt.setLoadArray(Arrays.copyOfRange(iProps, 22, 25));
-      int numOfPixels = int(iProps[25]);
+      chanPan = int(iProps[9]);
+      chanTilt = int(iProps[10]);
+      panAngle = int(iProps[11]);
+      tiltAngle = int(iProps[12]);
+      panType = iProps[13];
+      tiltType = iProps[14];
+      sizePan = new PVector(float(iProps[15]), float(iProps[16]), float(iProps[17]));
+      sizeTilt = new PVector(float(iProps[18]), float(iProps[19]), float(iProps[20]));
+      pan.setLoadArray(Arrays.copyOfRange(iProps, 21, 24));
+      tilt.setLoadArray(Arrays.copyOfRange(iProps, 24, 27));
+      int numOfPixels = int(iProps[27]);
       pixelList.clear();
       for (int n=0; n<numOfPixels; n++) {
         Pixel tempPixel = new Pixel(str(n+1), this);
-        tempPixel.setLoadArray(Arrays.copyOfRange(iProps, 26+n*15, 41+n*15));
+        tempPixel.setLoadArray(Arrays.copyOfRange(iProps, 28+n*15, 43+n*15));
         pixelList.add(tempPixel);
       }
       println("Loaded Fixture " + name);
