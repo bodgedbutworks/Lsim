@@ -280,51 +280,54 @@ void keyPressed() {
 }
 
 void saveAll() {
-  String[] saveDataFix = new String[fixtureList.size()];
-  for (int f=0; f<fixtureList.size(); f++) {
-    saveDataFix[f] = fixtureList.get(f).getSaveString();
+  println("\n--- Saving Project ---");
+  int fls = fixtureList.size();
+  int cls = cuboidList.size();
+  String[] saveData = new String[fls+cls];
+  for (int f=0; f<fls; f++) {
+    saveData[f] = "Fixture_;" + fixtureList.get(f).getSaveString();
   }
-  saveStrings("/save/fixtures.lsm", saveDataFix);
-  println("Saved " + str(fixtureList.size()) + " Fixtures.");
+  for (int c=0; c<cls; c++) {
+    saveData[fls+c] = "Cuboid_;" + cuboidList.get(c).getSaveString();
+  }
 
-  String[] saveDataCub = new String[cuboidList.size()];
-  for (int f=0; f<cuboidList.size(); f++) {
-    saveDataCub[f] = cuboidList.get(f).getSaveString();
+  try {
+    saveStrings(PATH_PROJECTS + projectName + ".lsm", saveData);
+    println("Saved " + str(fls) + " Fixtures.");
+    println("Saved " + str(cls) + " Cuboids.");
+  } 
+  catch(Exception e) {
+    print(e);
   }
-  saveStrings("/save/cuboids.lsm", saveDataCub);
-  println("Saved " + str(cuboidList.size()) + " Cuboids.");
 }
 
-void loadAll() {
+void loadAll(String iFileName) {
   fixtureList.clear();
   cuboidList.clear();
   menuExpRight.subElementsList.clear();
-
-  println("\n --- Loading ---");
-
+  int countFix = 0;
+  int countCub = 0;
+  println("\n--- Loading Project ---");
   try {
-    String[] loadDataFix = loadStrings("/save/fixtures.lsm");
-    for (int f=0; f<loadDataFix.length; f++) {
-      fixtureList.add(new Fixture());
-      fixtureList.get(f).setLoadArray(loadDataFix[f].split(";"));
+    String[] loadData = loadStrings(PATH_PROJECTS + iFileName);
+    for (String d : loadData) {
+      if (d.indexOf("Fixture_;") == 0) {                                                // Identifier at BEGINNING of string
+        Fixture tempFix = new Fixture();
+        tempFix.setLoadArray(d.substring(d.indexOf(";")+1, d.length()).split(";"));   // Cut away identifier
+        fixtureList.add(tempFix);
+        countFix++;
+      } else if (d.indexOf("Cuboid_;") == 0) {
+        Cuboid tempCub = new Cuboid();
+        tempCub.setLoadArray(d.substring(d.indexOf(";")+1, d.length()).split(";"));
+        cuboidList.add(tempCub);
+        countCub++;
+      }
     }
-    println("Loaded " + str(loadDataFix.length) + " Fixtures.");
+    println("Loaded " + str(countFix) + " Fixtures.");
+    println("Loaded " + str(countCub) + " Cuboids.");
   }
   catch(Exception e) {
-    println("Error while loading file /save/fixtures.lsm");
-    println(e);
-  }
-
-  try {
-    String[] loadDataCub = loadStrings("/save/cuboids.lsm");
-    for (int f=0; f<loadDataCub.length; f++) {
-      cuboidList.add(new Cuboid());
-      cuboidList.get(f).setLoadArray(loadDataCub[f].split(";"));
-    }
-    println("Loaded " + str(loadDataCub.length) + " Cuboids.");
-  }
-  catch(Exception e) {
-    println("Error while loading file /save/cuboids.lsm");
+    println("Error while loading project " + iFileName + "!");
     println(e);
   }
 }
