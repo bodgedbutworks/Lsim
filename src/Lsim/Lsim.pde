@@ -13,13 +13,14 @@ int SIZE_X_SUBMENU;
 int SIZE_X_MAINMENU;
 String PATH_FIXTURES = "/save/fixtures/";
 
+// ToDo merge fixture and cuboid lists if feasible
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
 ArrayList<Cuboid> cuboidList = new ArrayList<Cuboid>();
 Expandable menuExpLeft;
 Expandable menuExpRight;
 Button expandBtn;
-float menuXpos = 0;      // Closed -> 0, Expanded -> positive
-byte menuState = 0;     // 0=closed, 1=expanding, 2=expanded, 3=closing
+float menuXpos = 0;                                                             // Closed -> 0, Expanded -> positive
+byte menuState = 0;                                                             // 0=closed, 1=expanding, 2=expanded, 3=closing
 boolean scrolling = false;
 int menuScroll = 0;
 
@@ -42,7 +43,7 @@ PShape env;
 
 
 void setup() {
-  size(1200, 900, P3D);
+  size(1500, 900, P3D);
   //fullScreen(P3D, 1);
   surface.setResizable(true);
   frameRate(60);
@@ -56,7 +57,7 @@ void setup() {
 
   rectMode(CORNERS);
   ellipseMode(CENTER);
-  textFont(createFont("Verdana", 100, false));
+  textFont(createFont("Khmer UI", 100, false));
 
   comImg = loadImage("comImg2.png");
 

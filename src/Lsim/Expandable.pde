@@ -8,7 +8,7 @@ class Expandable extends GuiObject {
      super(iOffset, iSize, ""/*propName*/    , iDisplayName, 0.0/*initialVal*/, 1.0/*stepSize*/);
     hasButton = iHasButton;
     if (hasButton) {
-      expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/40), this, "state", iDisplayName);
+      expandBtn = new Button(new PVector(0, 0), new PVector(width/15, width/40), this, "state", iDisplayName);
     }
     if (iDefaultOpen) {
       state = 2;
@@ -22,7 +22,6 @@ class Expandable extends GuiObject {
   }
 
   void display() {
-    hint(DISABLE_DEPTH_TEST);
     if (hasButton) {
       expandBtn.pos = pos.get();
       expandBtn.display();
@@ -59,6 +58,5 @@ class Expandable extends GuiObject {
       }
     }
     size = PVector.sub(tempPos.get(), pos.get());                                                       // determine Expandable size by summing subelement sizes
-    hint(ENABLE_DEPTH_TEST);
   }
 }

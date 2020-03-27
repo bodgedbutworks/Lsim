@@ -73,7 +73,7 @@ class Button extends GuiObject {
     fill(clr);
     rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y, size.y/10);
     fill(0);
-    textSize(size.y/map(displayName.length(), 1, 5, 2, 4));
+    textSize(displayName.length()<3 ? width/45 : width/110);
     textAlign(CENTER, CENTER);
     text(displayName, pos.x+size.x/2, pos.y+size.y/2);
   }
