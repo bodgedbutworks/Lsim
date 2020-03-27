@@ -27,6 +27,15 @@ class Button extends GuiObject {
           fixObjRef.tiltType = "Head";
         } else if (propName.equals("Cuboid Model")) {
           fixObjRef.tiltType = "Cuboid";
+        } else if (propName.equals("Save Fixture")) {
+          String[] tempLine = new String[1];
+          tempLine[0] = fixObjRef.getSaveString();
+          saveStrings(PATH_FIXTURES + fixObjRef.name + ".lsm", tempLine);
+          println("Saved Fixture: " + fixObjRef.name);
+        } else if (propName.equals("Copy Fixture")) {
+          Fixture tempFix = new Fixture();
+          tempFix.setLoadArray(fixObjRef.getSaveString().split(";"));
+          fixtureList.add(tempFix);
         }
       } else if (objType.equals("Expandable")) {
         if (propName.equals("state")) {
