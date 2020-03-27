@@ -94,39 +94,39 @@ class Fixture extends ScreenObject {
 
   // ToDo move Dynamics GUI stuff to Dynamics class
   void loadGui() {
-    Expandable headExp = new Expandable(new PVector(0, 0), new PVector(0, 0), name, true, true);
-    headExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.x", "pos3d.x", pos3d.x, 1.0));
-    headExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.y", "pos3d.y", pos3d.y, 1.0));
-    headExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.z", "pos3d.z", pos3d.z, 1.0));
-    headExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "rot.x", "rot.x", rot.x, 1.0));
-    headExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "rot.y", "rot.y", rot.y, 1.0));
-    headExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "rot.z", "rot.z", rot.z, 1.0));
-    headExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Universe", "Universe", universe, 1, 0, QTY_UNIVERSES-1));
-    headExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Address", "Address", address, 1, 1, 512));
-    headExp.put(new IntBox(new PVector(10, 0), new PVector(100, 25), this, "Pan Angle", "Pan Angle", panAngle, 1, 90, 720));
-    headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Accel", "Pan Accel", pan.maxAcc, 0.01));
-    headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Speed", "Pan Speed", pan.maxSpd, 0.01));
-    headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Tweak", "Pan Tweak", pan.maxSpdTweak, 0.01));
-    headExp.put(new IntBox(new PVector(10, 0), new PVector(100, 25), this, "Tilt Angle", "Tilt Angle", tiltAngle, 1, 90, 360));
-    headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Accel", "Tilt Accel", tilt.maxAcc, 0.01));
-    headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Speed", "Tilt Speed", tilt.maxSpd, 0.01));
-    headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Tweak", "Tilt Tweak", tilt.maxSpdTweak, 0.01));
-    headExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Channel Pan", "Channel Pan", chanPan, 1, 1, 512));
-    headExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Channel Tilt", "Channel Tilt", chanTilt, 1, 1, 512));
+    Expandable tempFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixture", true, true);
+    tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.x", "pos3d.x", pos3d.x, 1.0));
+    tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.y", "pos3d.y", pos3d.y, 1.0));
+    tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.z", "pos3d.z", pos3d.z, 1.0));
+    tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "rot.x", "rot.x", rot.x, 1.0));
+    tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "rot.y", "rot.y", rot.y, 1.0));
+    tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "rot.z", "rot.z", rot.z, 1.0));
+    tempFixExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Universe", "Universe", universe, 1, 0, QTY_UNIVERSES-1));
+    tempFixExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Address", "Address", address, 1, 1, 512));
+    tempFixExp.put(new IntBox(new PVector(10, 0), new PVector(100, 25), this, "Pan Angle", "Pan Angle", panAngle, 1, 90, 720));
+    tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Accel", "Pan Accel", pan.maxAcc, 0.01));
+    tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Speed", "Pan Speed", pan.maxSpd, 0.01));
+    tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Pan Tweak", "Pan Tweak", pan.maxSpdTweak, 0.01));
+    tempFixExp.put(new IntBox(new PVector(10, 0), new PVector(100, 25), this, "Tilt Angle", "Tilt Angle", tiltAngle, 1, 90, 360));
+    tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Accel", "Tilt Accel", tilt.maxAcc, 0.01));
+    tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Speed", "Tilt Speed", tilt.maxSpd, 0.01));
+    tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Tweak", "Tilt Tweak", tilt.maxSpdTweak, 0.01));
+    tempFixExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Channel Pan", "Channel Pan", chanPan, 1, 1, 512));
+    tempFixExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Channel Tilt", "Channel Tilt", chanTilt, 1, 1, 512));
     Expandable selectPanExp = new Expandable(new PVector(10, 0), new PVector(0, 0), "Pan", true, false);
     selectPanExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Fork Model", "Fork Model"));    // ToDo add representation in Button class
     selectPanExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Size LR", "Pan Size LR", int(sizePan.x), 1, 1, 10000));
     selectPanExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Size UD", "Pan Size UD", int(sizePan.y), 1, 1, 10000));
     selectPanExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Size FB", "Pan Size FB", int(sizePan.z), 1, 1, 10000));
-    headExp.put(selectPanExp);
+    tempFixExp.put(selectPanExp);
     Expandable selectTiltExp = new Expandable(new PVector(10, 0), new PVector(0, 0), "Tilt", true, false);
     selectTiltExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Head Model", "Head Model"));
     selectTiltExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Cuboid Model", "Cuboid Model"));
     selectTiltExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Size LR", "Tilt Size LR", int(sizeTilt.x), 1, 1, 10000));
     selectTiltExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Size FB", "Tilt Size FB", int(sizeTilt.y), 1, 1, 10000));
     selectTiltExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Size UD", "Tilt Size UD", int(sizeTilt.z), 1, 1, 10000));
-    headExp.put(selectTiltExp);
-    menuExpRight.put(headExp);
+    tempFixExp.put(selectTiltExp);
+    menuExpRight.put(tempFixExp);
     for (Pixel p : pixelList) {
       p.loadGui();
     }
