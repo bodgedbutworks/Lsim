@@ -1,15 +1,15 @@
 class Button extends GuiObject {
-  Button(PVector iOffset, PVector iSize, String iPropName) {
-    super(iOffset, iSize, iPropName, 0.0/*initialVal*/, 1.0/*stepSize*/);
+  Button(PVector iOffset, PVector iSize, String iPropName, String iDisplayName) {
+    super(iOffset, iSize, iPropName, iDisplayName, 0.0/*initialVal*/, 1.0/*stepSize*/);
   }
-  Button(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName) {
-    super(iOffset, iSize, iObjRef, iPropName, 0.0/*initialVal*/, 1.0/*stepSize*/);
+  Button(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName) {
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, 0.0/*initialVal*/, 1.0/*stepSize*/);
   }
-  Button(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName) {
-    super(iOffset, iSize, iObjRef, iPropName, 0.0/*initialVal*/, 1.0/*stepSize*/);
+  Button(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName) {
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, 0.0/*initialVal*/, 1.0/*stepSize*/);
   }
-  Button(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName) {
-    super(iOffset, iSize, iObjRef, iPropName, 0.0/*initialVal*/, 1.0/*stepSize*/);
+  Button(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName) {
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, 0.0/*initialVal*/, 1.0/*stepSize*/);
   }
 
   void display() {
@@ -60,8 +60,8 @@ class Button extends GuiObject {
     fill(clr);
     rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y, size.y/10);
     fill(0);
-    textSize(size.y/map(propName.length(), 1, 5, 2, 4));
+    textSize(size.y/map(displayName.length(), 1, 5, 2, 4));
     textAlign(CENTER, CENTER);
-    text(propName, pos.x+size.x/2, pos.y+size.y/2);
+    text(displayName, pos.x+size.x/2, pos.y+size.y/2);
   }
 }

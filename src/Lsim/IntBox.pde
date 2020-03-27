@@ -3,20 +3,20 @@ class IntBox extends GuiObject {
   int valMin = 1;   // ToDo: Move min and max constraints to GuiObject class, relevant for SpinBox as well
   int valMax = 512;
 
-  IntBox(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, int iInitialVal, int iStepSize, int iMin, int iMax) {
-    super(iOffset, iSize, iObjRef, iPropName, float(iInitialVal), float(iStepSize));
+  IntBox(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax) {
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, float(iInitialVal), float(iStepSize));
     valMin = iMin;
     valMax = iMax;
     valStr = str(int(valStr));
   }
-  IntBox(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, int iInitialVal, int iStepSize, int iMin, int iMax) {
-    super(iOffset, iSize, iObjRef, iPropName, float(iInitialVal), float(iStepSize));
+  IntBox(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax) {
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, float(iInitialVal), float(iStepSize));
     valMin = iMin;
     valMax = iMax;
     valStr = str(int(valStr));
   }
-  IntBox(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, int iInitialVal, int iStepSize, int iMin, int iMax) {
-    super(iOffset, iSize, iObjRef, iPropName, float(iInitialVal), float(iStepSize));
+  IntBox(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax) {
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, float(iInitialVal), float(iStepSize));
     valMin = iMin;
     valMax = iMax;
     valStr = str(int(valStr));

@@ -10,40 +10,42 @@ class GuiObject {
   String objType = "";
 
   String propName = "";
+  String displayName = "";
   String valStr = "42.0";
   float stepSize = 1.0;
   color clr = color(255, 0, 255);
 
   // Overloaded constructor for every object type reference
-  GuiObject(PVector iOffset, PVector iSize, String iPropName, float iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     objType = "None";
-    init(iOffset, iSize, iPropName, iInitialVal, iStepSize);  // Initialize object type independent properties
+    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);  // Initialize object type independent properties
   }
-  GuiObject(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     fixObjRef = iObjRef;
     objType = "Fixture";
-    init(iOffset, iSize, iPropName, iInitialVal, iStepSize);
+    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
   }
-  GuiObject(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     cubObjRef = iObjRef;
     objType = "Cuboid";
-    init(iOffset, iSize, iPropName, iInitialVal, iStepSize);
+    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
   }
-  GuiObject(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     pixObjRef = iObjRef;
     objType = "Pixel";
-    init(iOffset, iSize, iPropName, iInitialVal, iStepSize);
+    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
   }
-  GuiObject(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, float iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     expObjRef = iObjRef;
     objType = "Expandable";
-    init(iOffset, iSize, iPropName, iInitialVal, iStepSize);
+    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
   }
-  void init(PVector iOffset, PVector iSize, String iPropName, float iInitialVal, float iStepSize) {
+  void init(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     offset = iOffset;
     pos = new PVector(0, 0);
     size = iSize;
     propName = iPropName;
+    displayName = iDisplayName;
     valStr = str(iInitialVal);
     stepSize = iStepSize;
   }

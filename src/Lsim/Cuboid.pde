@@ -30,15 +30,15 @@ class Cuboid extends ScreenObject {
   }
 
   void loadGui() {
-    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", pos3d.x, 1.0));
-    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", pos3d.y, 1.0));
-    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", pos3d.z, 1.0));
-    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.x", rot.x, 1.0));
-    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.y", rot.y, 1.0));
-    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.z", rot.z, 1.0));
-    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.x", size3d.x, 1.0));
-    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.y", size3d.y, 1.0));
-    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.z", size3d.z, 1.0));
+    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", "pos3d.x", pos3d.x, 1.0));
+    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", "pos3d.y", pos3d.y, 1.0));
+    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", "pos3d.z", pos3d.z, 1.0));
+    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.x", "rot.x", rot.x, 1.0));
+    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.y", "rot.y", rot.y, 1.0));
+    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.z", "rot.z", rot.z, 1.0));
+    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.x", "size3d.x", size3d.x, 1.0));
+    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.y", "size3d.y", size3d.y, 1.0));
+    menuExpRight.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.z", "size3d.z", size3d.z, 1.0));
   }
 
   String getSaveString() {
