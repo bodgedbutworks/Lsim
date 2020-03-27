@@ -181,12 +181,12 @@ class Fixture extends ScreenObject {
       int numOfPixels = int(iProps[25]);
       pixelList.clear();
       for (int n=0; n<numOfPixels; n++) {
-        Pixel tempPixel = new Pixel();
-        tempPixel.setLoadArray(Arrays.copyOfRange(iProps, 26+n*14, 40+n*14));
+        Pixel tempPixel = new Pixel(str(n+1));
+        tempPixel.setLoadArray(Arrays.copyOfRange(iProps, 26+n*15, 41+n*15));
         pixelList.add(tempPixel);
       }
       println("Loaded Fixture " + name);
-    } 
+    }
     catch(Exception e) {
       println(e);
     }

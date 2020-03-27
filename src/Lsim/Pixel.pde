@@ -98,6 +98,7 @@ class Pixel {
 
   String getSaveString() {
     return(
+      name + ";" +
       str(pos3d.x) + ";" +
       str(pos3d.y) + ";" +
       str(pos3d.z) + ";" +
@@ -117,19 +118,20 @@ class Pixel {
 
   void setLoadArray(String[] iProps) {
     try {
-      pos3d = new PVector(float(iProps[0]), float(iProps[1]), float(iProps[2]));
-      zoomAngleMin = int(iProps[3]);
-      zoomAngleMax = int(iProps[4]);
-      faceType = iProps[5];
-      faceSize = new PVector(float(iProps[6]), float(iProps[7]));
-      chanDimmer = int(iProps[8]);
-      chanZoom = int(iProps[9]);
-      chanClrR = int(iProps[10]);
-      chanClrG = int(iProps[11]);
-      chanClrB = int(iProps[12]);
-      chanClrW = int(iProps[13]);
+      name = iProps[0];
+      pos3d = new PVector(float(iProps[1]), float(iProps[2]), float(iProps[3]));
+      zoomAngleMin = int(iProps[4]);
+      zoomAngleMax = int(iProps[5]);
+      faceType = iProps[6];
+      faceSize = new PVector(float(iProps[7]), float(iProps[8]));
+      chanDimmer = int(iProps[9]);
+      chanZoom = int(iProps[10]);
+      chanClrR = int(iProps[11]);
+      chanClrG = int(iProps[12]);
+      chanClrB = int(iProps[13]);
+      chanClrW = int(iProps[14]);
       print("Loading Pixel..");
-    } 
+    }
     catch(Exception e) {
       println(e);
     }
