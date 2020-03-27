@@ -17,7 +17,6 @@ int SIZE_X_MAINMENU;
 String PATH_FIXTURES = "/save/fixtures/";
 String PATH_PROJECTS = "/save/projects/";
 
-// ToDo merge fixture and cuboid lists if feasible
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
 ArrayList<Cuboid> cuboidList = new ArrayList<Cuboid>();
 Expandable menuExpLeft;
@@ -76,6 +75,9 @@ void setup() {
 
   menuExpLeft = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true);
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "+", "Add\nFixture"));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "++", "Add\nCuboid"));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*", "Toggle\nLights"));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "S", "Save\nProject"));
   menuExpLeft.put(new NameBox(new PVector(0, 0), new PVector(width/12, 25), "projectName", "Name", projectName));
 
   // Load fixtures

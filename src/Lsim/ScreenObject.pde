@@ -1,6 +1,6 @@
 class ScreenObject {
   //int id;
-  String name = "Object " + str(floor(random(0, 999999)));
+  String name = "Object" + str(floor(random(0, 999999)));
   PVector pos3d;
   PVector pos2d;
   PVector rot;
@@ -38,7 +38,7 @@ class ScreenObject {
       pos3d = new PVector(float(iProps[1]), float(iProps[2]), float(iProps[3]));
       rot = new PVector(float(iProps[4]), float(iProps[5]), float(iProps[6]));
       print("Loading ScreenObj..");
-    } 
+    }
     catch(Exception e) {
       println(e);
     }
