@@ -29,7 +29,7 @@ class Fixture extends ScreenObject {
     modelTilt.disableStyle();
     pan = new Dynamics();
     tilt = new Dynamics();
-    pixelList.add(new Pixel("1"));
+    pixelList.add(new Pixel("1", this));
   }
 
   void display() {
@@ -183,7 +183,7 @@ class Fixture extends ScreenObject {
       int numOfPixels = int(iProps[25]);
       pixelList.clear();
       for (int n=0; n<numOfPixels; n++) {
-        Pixel tempPixel = new Pixel(str(n+1));
+        Pixel tempPixel = new Pixel(str(n+1), this);
         tempPixel.setLoadArray(Arrays.copyOfRange(iProps, 26+n*15, 41+n*15));
         pixelList.add(tempPixel);
       }

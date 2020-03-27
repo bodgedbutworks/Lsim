@@ -1,4 +1,5 @@
 class Pixel {
+  Fixture parentFixRef;
   String name = "";
   PVector pos3d = new PVector(0, 0, 0);                                         // Offset realtive to fixture center of mass (COM)
   PShape modelBeam;
@@ -23,7 +24,8 @@ class Pixel {
   float clrB = 0;
   float clrW = 0;
 
-  Pixel(String iName) {
+  Pixel(String iName, Fixture iParentFixRef) {
+    parentFixRef = iParentFixRef;
     name = iName;
     updateBeam();
   }
