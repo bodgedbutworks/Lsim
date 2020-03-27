@@ -78,6 +78,7 @@ class Pixel {
 
   void loadGui() {
     Expandable pixelExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pixel "+name, true, false);
+    pixelExp.put(new NameBox(new PVector(10, 0), new PVector(80, 25), this, "name", "Name", name));
     pixelExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Pixel Pos LR", "Pixel Pos LR", pos3d.x, 1.0));
     pixelExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Pixel Pos UD", "Pixel Pos UD", pos3d.y, 1.0));
     pixelExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Pixel Pos FB", "Pixel Pos FB", pos3d.z, 1.0));

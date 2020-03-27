@@ -1,15 +1,15 @@
 class Button extends GuiObject {
   Button(PVector iOffset, PVector iSize, String iPropName, String iDisplayName) {
-    super(iOffset, iSize, iPropName, iDisplayName, 0.0/*initialVal*/, 1.0/*stepSize*/);
+     super(iOffset, iSize, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
   }
   Button(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, 0.0/*initialVal*/, 1.0/*stepSize*/);
+     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
   }
   Button(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, 0.0/*initialVal*/, 1.0/*stepSize*/);
+     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
   }
   Button(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, 0.0/*initialVal*/, 1.0/*stepSize*/);
+     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
   }
 
   void display() {

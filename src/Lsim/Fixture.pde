@@ -95,6 +95,7 @@ class Fixture extends ScreenObject {
   // ToDo move Dynamics GUI stuff to Dynamics class
   void loadGui() {
     Expandable tempFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixture", true, true);
+    tempFixExp.put(new NameBox(new PVector(10, 0), new PVector(80, 25), this, "name", "Name", name));
     tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.x", "pos3d.x", pos3d.x, 1.0));
     tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.y", "pos3d.y", pos3d.y, 1.0));
     tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.z", "pos3d.z", pos3d.z, 1.0));

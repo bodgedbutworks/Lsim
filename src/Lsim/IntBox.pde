@@ -4,19 +4,19 @@ class IntBox extends GuiObject {
   int valMax = 512;
 
   IntBox(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, float(iInitialVal), float(iStepSize));
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(float(iInitialVal)), float(iStepSize));
     valMin = iMin;
     valMax = iMax;
     valStr = str(int(valStr));
   }
   IntBox(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, float(iInitialVal), float(iStepSize));
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(float(iInitialVal)), float(iStepSize));
     valMin = iMin;
     valMax = iMax;
     valStr = str(int(valStr));
   }
   IntBox(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, float(iInitialVal), float(iStepSize));
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(float(iInitialVal)), float(iStepSize));
     valMin = iMin;
     valMax = iMax;
     valStr = str(int(valStr));
