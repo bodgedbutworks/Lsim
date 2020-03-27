@@ -29,7 +29,7 @@ class Fixture extends ScreenObject {
     modelTilt.disableStyle();
     pan = new Dynamics();
     tilt = new Dynamics();
-    pixelList.add(new Pixel());
+    pixelList.add(new Pixel("1"));
   }
 
   void display() {
@@ -94,7 +94,7 @@ class Fixture extends ScreenObject {
 
   // ToDo move Dynamics GUI stuff to Dynamics class
   void loadGui() {
-    Expandable headExp = new Expandable(new PVector(0, 0), new PVector(0, 0), true, true);
+    Expandable headExp = new Expandable(new PVector(0, 0), new PVector(0, 0), name, true, true);
     headExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.x", "pos3d.x", pos3d.x, 1.0));
     headExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.y", "pos3d.y", pos3d.y, 1.0));
     headExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.z", "pos3d.z", pos3d.z, 1.0));
@@ -113,13 +113,13 @@ class Fixture extends ScreenObject {
     headExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Tweak", "Tilt Tweak", tilt.maxSpdTweak, 0.01));
     headExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Channel Pan", "Channel Pan", chanPan, 1, 1, 512));
     headExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Channel Tilt", "Channel Tilt", chanTilt, 1, 1, 512));
-    Expandable selectPanExp = new Expandable(new PVector(10, 0), new PVector(0, 0), true, false);
+    Expandable selectPanExp = new Expandable(new PVector(10, 0), new PVector(0, 0), "Pan", true, false);
     selectPanExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Fork Model", "Fork Model"));    // ToDo add representation in Button class
     selectPanExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Size LR", "Pan Size LR", int(sizePan.x), 1, 1, 10000));
     selectPanExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Size UD", "Pan Size UD", int(sizePan.y), 1, 1, 10000));
     selectPanExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Size FB", "Pan Size FB", int(sizePan.z), 1, 1, 10000));
     headExp.put(selectPanExp);
-    Expandable selectTiltExp = new Expandable(new PVector(10, 0), new PVector(0, 0), true, false);
+    Expandable selectTiltExp = new Expandable(new PVector(10, 0), new PVector(0, 0), "Tilt", true, false);
     selectTiltExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Head Model", "Head Model"));
     selectTiltExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Cuboid Model", "Cuboid Model"));
     selectTiltExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Size LR", "Tilt Size LR", int(sizeTilt.x), 1, 1, 10000));

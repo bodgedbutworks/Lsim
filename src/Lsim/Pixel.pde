@@ -1,4 +1,5 @@
 class Pixel {
+  String name = "";
   PVector pos3d = new PVector(0, 0, 0);                                         // Offset realtive to fixture center of mass (COM)
   PShape modelBeam;
   color beamClr;
@@ -22,7 +23,8 @@ class Pixel {
   float clrB = 0;
   float clrW = 0;
 
-  Pixel() {
+  Pixel(String iName) {
+    name = iName;
     updateBeam();
   }
 
@@ -73,7 +75,7 @@ class Pixel {
   }
 
   void loadGui() {
-    Expandable pixelExp = new Expandable(new PVector(0, 0), new PVector(0, 0), true, false);
+    Expandable pixelExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pixel "+name, true, false);
     pixelExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Pixel Pos LR", "Pixel Pos LR", pos3d.x, 1.0));
     pixelExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Pixel Pos UD", "Pixel Pos UD", pos3d.y, 1.0));
     pixelExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Pixel Pos FB", "Pixel Pos FB", pos3d.z, 1.0));
@@ -87,7 +89,7 @@ class Pixel {
     pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel Green", "Rel. Channel Green", chanClrG, 1, 1, 512));
     pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel Blue", "Rel. Channel Blue", chanClrB, 1, 1, 512));
     pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel White", "Rel. Channel White", chanClrW, 1, 1, 512));
-    Expandable faceTypeExp = new Expandable(new PVector(10, 0), new PVector(0, 0), true, false);
+    Expandable faceTypeExp = new Expandable(new PVector(10, 0), new PVector(0, 0), "Pixel Type", true, false);
     faceTypeExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Ellipse", "Ellipse"));
     faceTypeExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Rectangle", "Rectangle"));
     pixelExp.put(faceTypeExp);

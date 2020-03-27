@@ -61,14 +61,14 @@ void setup() {
 
   expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">", ">");
 
-  menuExpLeft = new Expandable(new PVector(0, 0), new PVector(0, 0), false, true);
+  menuExpLeft = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true);
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "+", "+"));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "++", "++"));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "S", "S"));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "L", "L"));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*", "*"));
 
-  menuExpRight = new Expandable(new PVector(0, 0), new PVector(0, 0), false, true);
+  menuExpRight = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true);
 
   File file = new File(sketchPath() + "/data/");
   if (file.isDirectory()) {
