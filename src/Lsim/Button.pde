@@ -53,6 +53,10 @@ class Button extends GuiObject {
           loadAll();
         } else if (propName.equals("*")) {
           lightsOff = !lightsOff;
+        } else if (propName.equals("loadfilename")) {
+          Fixture tempFix = new Fixture();
+          tempFix.setLoadArray(loadStrings(sketchPath() + PATH_FIXTURES + displayName)[0].split(";"));
+          fixtureList.add(tempFix);
         }
       }
     }
