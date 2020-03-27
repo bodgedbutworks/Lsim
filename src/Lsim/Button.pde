@@ -13,6 +13,14 @@ class Button extends GuiObject {
   }
 
   void display() {
+    noStroke();
+    fill(clr);
+    rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y, size.y/10);
+    fill(0);
+    textSize(displayName.length()<3 ? width/45 : width/110);
+    textAlign(CENTER, CENTER);
+    text(displayName, pos.x+size.x/2, pos.y+size.y/2);
+
     if (checkMouseOver()) {
       if (objType.equals("Pixel")) {
         if (propName.equals("Ellipse")) {
@@ -42,6 +50,7 @@ class Button extends GuiObject {
         } else if (propName.equals("Copy Fixture")) {
           Fixture tempFix = new Fixture();
           tempFix.setLoadArray(fixObjRef.getSaveString().split(";"));
+          tempFix.name = fixObjRef.name+" Copy";
           tempFix.pos3d.x += 200;
           fixtureList.add(tempFix);
         }
@@ -77,12 +86,5 @@ class Button extends GuiObject {
         }
       }
     }
-    noStroke();
-    fill(clr);
-    rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y, size.y/10);
-    fill(0);
-    textSize(displayName.length()<3 ? width/45 : width/110);
-    textAlign(CENTER, CENTER);
-    text(displayName, pos.x+size.x/2, pos.y+size.y/2);
   }
 }

@@ -2,7 +2,7 @@ class Cuboid extends ScreenObject {
   PVector size3d;
 
   Cuboid() {
-    super(new PVector(0, 0, 0), new PVector(0, 0, 0));
+    super(new PVector(0, -200, 0), new PVector(0, 0, 0));
     size3d = new PVector(40, 40, 40);
   }
 

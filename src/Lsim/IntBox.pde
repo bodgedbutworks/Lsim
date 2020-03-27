@@ -35,7 +35,7 @@ class IntBox extends GuiObject {
   }
 
   void display() {
-    if(checkMouseOver()){
+    if (checkMouseOver()) {
       selectedGuiObject = this;
     }
     valStr = str(int(valStr));

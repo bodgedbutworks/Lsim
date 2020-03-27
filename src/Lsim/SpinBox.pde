@@ -22,7 +22,7 @@ class SpinBox extends GuiObject {
   }
 
   void display() {
-    if(checkMouseOver()){
+    if (checkMouseOver()) {
       selectedGuiObject = this;
     }
     //valStr = str(float(int(float(valStr)*100)/100));

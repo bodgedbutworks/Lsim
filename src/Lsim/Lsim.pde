@@ -78,7 +78,7 @@ void setup() {
   if (dir.isDirectory()) {
     String names[] = dir.list();
     for (String n : names) {
-      loadFixExp.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "loadfilename", n));
+      loadFixExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadfilename", n));
     }
   } else {
     print("Error while loading environments!");
@@ -130,6 +130,7 @@ void draw() {
   pushMatrix();
   translate(0, 1000, 0);
   stroke(#222222);
+  strokeWeight(5);
   fill(#333333);
   box(6000, 2000, 6000);
   popMatrix();
@@ -145,9 +146,12 @@ void draw() {
     }
   }
 
+  pushMatrix();
   noStroke();
   fill(70);
+  translate(0, -1, 0);
   shape(env);
+  popMatrix();
 
   for (int f=0; f<fixtureList.size(); f++) {
     fixtureList.get(f).display();
@@ -260,10 +264,9 @@ void mouseWheel(MouseEvent event) {
   if (selectedGuiObject != null) {
     selectedGuiObject.editValMouse(event.getCount());
   } else {
-    if(menuState == 2  &&  mouseX <= SIZE_X_SUBMENU+SIZE_X_MAINMENU){
+    if (menuState == 2  &&  mouseX <= SIZE_X_SUBMENU+SIZE_X_MAINMENU) {
       menuScroll += 100*event.getCount();
-    }
-    else{
+    } else {
       camPos = addSphereCoords(camPos, 80.0*event.getCount(), 0, 0);
     }
   }
