@@ -35,7 +35,9 @@ class IntBox extends GuiObject {
   }
 
   void display() {
-    checkMouseOver();
+    if(checkMouseOver()){
+      selectedGuiObject = this;
+    }
     valStr = str(int(valStr));
     noStroke();
     fill((selectedGuiObject==this) ? 220+35*sin(millis()/75.0) : 255);

@@ -70,7 +70,6 @@ class GuiObject {
     if (mouseX > pos.x  &&  mouseX < (pos.x+size.x)  &&  mouseY > pos.y  &&  mouseY < (pos.y+size.y)) {
       if (flag  &&  mousePressed) {
         flag = false;
-        selectedGuiObject = this;
         return(true);
       }
     }
