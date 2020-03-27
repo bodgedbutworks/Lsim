@@ -1,4 +1,7 @@
 class NameBox extends GuiObject {
+  NameBox(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, String iInitialVal) {
+    super(iOffset, iSize, iPropName, iDisplayName, iInitialVal, 1.0/*stepSize*/);
+  }
   NameBox(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName, String iInitialVal) {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, 1.0/*stepSize*/);
   }
@@ -10,7 +13,7 @@ class NameBox extends GuiObject {
   }
 
   void editValKey() {
-    if ((key >= 'a'  &&  key <= 'z')  ||  (key >= 'A'  &&  key <= 'Z')  ||  (key >= '0'  &&  key <= '9')) {
+    if ((key >= 'a'  &&  key <= 'z')  ||  (key >= 'A'  &&  key <= 'Z')  ||  (key >= '0'  &&  key <= '9')  ||  key == ' ') {
       valStr += key;
     } else if (key == BACKSPACE  &&  valStr.length() > 0) {
       valStr = valStr.substring(0, valStr.length()-1);
@@ -48,6 +51,10 @@ class NameBox extends GuiObject {
     } else if (objType.equals("Pixel")) {
       if (propName.equals("name")) {
         pixObjRef.name = valStr;
+      }
+    } else if (objType.equals("None")) {
+      if (propName.equals("projectName")) {
+        projectName = valStr;
       }
     }
   }

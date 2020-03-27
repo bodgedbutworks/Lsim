@@ -1,5 +1,8 @@
 import hypermedia.net.*;    // For UDP
 import java.util.Arrays;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 UDP udp;
 
 
@@ -23,6 +26,8 @@ float menuXpos = 0;                                                             
 byte menuState = 0;                                                             // 0=closed, 1=expanding, 2=expanded, 3=closing
 boolean scrolling = false;
 int menuScroll = 0;
+
+String projectName = "Oops";
 
 PVector camPos = new PVector(900, -300, 900);
 PVector camLookAt = new PVector(0, -200, 0);
@@ -64,14 +69,13 @@ void setup() {
 
   reloadMyGui = null;
 
+  projectName = ZonedDateTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern( "uuuu_MM_dd HH_mm_ss" ));
+
   expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">", ">");
 
   menuExpLeft = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true);
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "+", "+"));
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "++", "++"));
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "S", "S"));
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "L", "L"));
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*", "*"));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "+", "Add\nFixture"));
+  menuExpLeft.put(new NameBox(new PVector(0, 0), new PVector(width/12, 25), "projectName", "Name", projectName));
 
   Expandable loadFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Load Fixtures", true, false);
   File dir = new File(sketchPath() + PATH_FIXTURES);
