@@ -19,6 +19,12 @@ class Button extends GuiObject {
           pixObjRef.faceType = "Ellipse";
         } else if (propName.equals("Rectangle")) {
           pixObjRef.faceType = "Rectangle";
+        } else if (propName.equals("Copy Pixel")) {
+          Pixel tempPix = new Pixel("Irrelevant", pixObjRef.parentFixRef);
+          tempPix.setLoadArray(pixObjRef.getSaveString().split(";"));
+          tempPix.name += " Copy";
+          tempPix.pos3d.x += 40;
+          pixObjRef.parentFixRef.pixelList.add(tempPix);
         }
       } else if (objType.equals("Fixture")) {
         if (propName.equals("Fork Model")) {
@@ -35,6 +41,7 @@ class Button extends GuiObject {
         } else if (propName.equals("Copy Fixture")) {
           Fixture tempFix = new Fixture();
           tempFix.setLoadArray(fixObjRef.getSaveString().split(";"));
+          tempFix.pos3d.x += 200;
           fixtureList.add(tempFix);
         }
       } else if (objType.equals("Expandable")) {
