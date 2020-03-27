@@ -62,7 +62,7 @@ class Button extends GuiObject {
             expObjRef.state = 3;
           }
         }
-      } else {
+      } else if (objType.equals("None")) {
         if (propName.equals(">")) {
           if (menuState == 0) {
             menuState = 1;
@@ -75,14 +75,14 @@ class Button extends GuiObject {
           cuboidList.add(new Cuboid());
         } else if (propName.equals("S")) {
           saveAll();
-        } else if (propName.equals("L")) {
-          loadAll();
         } else if (propName.equals("*")) {
           lightsOff = !lightsOff;
-        } else if (propName.equals("loadfilename")) {
+        } else if (propName.equals("loadfixfilename")) {
           Fixture tempFix = new Fixture();
           tempFix.setLoadArray(loadStrings(sketchPath() + PATH_FIXTURES + displayName)[0].split(";"));
           fixtureList.add(tempFix);
+        } else if (propName.equals("loadprojfilename")) {
+          loadAll(displayName);
         }
       }
     }

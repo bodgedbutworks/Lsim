@@ -15,6 +15,7 @@ final int SIZE_GUTTER = 5;
 int SIZE_X_SUBMENU;
 int SIZE_X_MAINMENU;
 String PATH_FIXTURES = "/save/fixtures/";
+String PATH_PROJECTS = "/save/projects/";
 
 // ToDo merge fixture and cuboid lists if feasible
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
@@ -77,17 +78,32 @@ void setup() {
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "+", "Add\nFixture"));
   menuExpLeft.put(new NameBox(new PVector(0, 0), new PVector(width/12, 25), "projectName", "Name", projectName));
 
+  // Load fixtures
   Expandable loadFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Load Fixtures", true, false);
   File dir = new File(sketchPath() + PATH_FIXTURES);
   if (dir.isDirectory()) {
     String names[] = dir.list();
     for (String n : names) {
-      loadFixExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadfilename", n));
+      loadFixExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadfixfilename", n));
     }
   } else {
-    print("Error while loading environments!");
+    print("Error while scanning fixtures!");
   }
   menuExpLeft.put(loadFixExp);
+
+  // Load projects
+  Expandable loadProjExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Load Projects", true, false);
+  dir = new File(sketchPath() + PATH_PROJECTS);
+  if (dir.isDirectory()) {
+    String names[] = dir.list();
+    for (String n : names) {
+      loadProjExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadprojfilename", n));
+    }
+  } else {
+    print("Error while scanning projects!");
+  }
+  menuExpLeft.put(loadProjExp);
+
 
   menuExpRight = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true);
 
