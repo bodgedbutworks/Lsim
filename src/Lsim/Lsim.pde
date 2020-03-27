@@ -216,7 +216,7 @@ void draw() {
   rect(menuXpos-SIZE_X_SUBMENU-10, menuScroll-30, menuXpos-SIZE_X_SUBMENU+10, menuScroll+30);
   expandBtn.pos.x = menuXpos;
   expandBtn.display();
-  menuExpLeft.pos = PVector.add(new PVector(menuXpos-(SIZE_X_MAINMENU+SIZE_X_SUBMENU)+20, 20), menuExpLeft.offset);
+  menuExpLeft.pos = PVector.add(new PVector(menuXpos-(SIZE_X_MAINMENU+SIZE_X_SUBMENU)+20, 20-menuScroll), menuExpLeft.offset);
   menuExpLeft.display();
   menuExpRight.pos = PVector.add(new PVector(menuXpos-(SIZE_X_SUBMENU)+20, 20-menuScroll), menuExpRight.offset);
   menuExpRight.display();
@@ -251,7 +251,12 @@ void mouseWheel(MouseEvent event) {
   if (selectedGuiObject != null) {
     selectedGuiObject.editValMouse(event.getCount());
   } else {
-    camPos = addSphereCoords(camPos, 80.0*event.getCount(), 0, 0);
+    if(menuState == 2  &&  mouseX <= SIZE_X_SUBMENU+SIZE_X_MAINMENU){
+      menuScroll += 100*event.getCount();
+    }
+    else{
+      camPos = addSphereCoords(camPos, 80.0*event.getCount(), 0, 0);
+    }
   }
 }
 
