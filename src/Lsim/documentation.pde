@@ -12,7 +12,7 @@
 /** \mainpage Documentation for the Lsim lighting simulation software
     Created in 2020 by Oliver Steigauf
 
-    Git repository available at https://gitlab.fsmach.uni-stuttgart.de/lsim/lsim
+    Git repository and README available at https://gitlab.fsmach.uni-stuttgart.de/lsim/lsim
 
     Key bindings:
         - Mousewheel / 0-9: Edit spin box values
@@ -30,7 +30,10 @@
         - Scale is 1cm/px
 
     Environment format generation:
-        - CAD (e.g. CATIA): Tesselate CAD model with >=0.5 Millimeters deviation
+        - CAD (e.g. CATIA): Model should be roughly centered around vertical axis
+        - Tesselate CAD model with 0.5 Millimeters allowed deviation
         - Converter (e.g. Cinema4D): Import .stl with scale 1 Millimeter
         - Export as .obj with scale 10 Millimeters amd inverted Y-axis
+        - Place file in data/ subdirectory of sketch, name starting with "env_"
+
 **/
