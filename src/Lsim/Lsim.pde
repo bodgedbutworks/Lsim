@@ -15,6 +15,7 @@ final int SIZE_GUTTER = 5;
 int SIZE_X_SUBMENU;
 int SIZE_X_MAINMENU;
 String PATH_FIXTURES = "/save/fixtures/";
+String PATH_ENVIRONMENTS = "/data/";                                            // .obj files must be in data/ dir in Processing
 String PATH_PROJECTS = "/save/projects/";
 
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
@@ -44,7 +45,8 @@ boolean lightsOff = false;                                                      
 boolean flag = false;
 ScreenObject reloadMyGui;     // GUI sometimes can't be reloaded directly because it would delete the calling element, instead, do it in main loop
 
-PShape env;
+PShape environmentShape;
+String environmentFileName = "";                                                        // Save filename to be able to save environment later
 
 
 
@@ -81,7 +83,7 @@ void setup() {
   menuExpLeft.put(new NameBox(new PVector(0, 0), new PVector(width/12, 25), "projectName", "Name", projectName));
 
   // Load fixtures
-  Expandable loadFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Load Fixtures", true, false);
+  Expandable loadFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixtures", true, false);
   File dir = new File(sketchPath() + PATH_FIXTURES);
   if (dir.isDirectory()) {
     String names[] = dir.list();
@@ -93,8 +95,24 @@ void setup() {
   }
   menuExpLeft.put(loadFixExp);
 
+  // Load environment
+  Expandable loadEnvExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Environments", true, false);
+  loadEnvExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadenvfilename", "None"));
+  dir = new File(sketchPath() + PATH_ENVIRONMENTS);
+  if (dir.isDirectory()) {
+    String names[] = dir.list();
+    for (String n : names) {
+      if (n.indexOf("env_") != -1) {
+        loadEnvExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadenvfilename", n));
+      }
+    }
+  } else {
+    print("Error while scanning environments!");
+  }
+  menuExpLeft.put(loadEnvExp);
+
   // Load projects
-  Expandable loadProjExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Load Projects", true, false);
+  Expandable loadProjExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Projects", true, false);
   dir = new File(sketchPath() + PATH_PROJECTS);
   if (dir.isDirectory()) {
     String names[] = dir.list();
@@ -108,21 +126,6 @@ void setup() {
 
 
   menuExpRight = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true);
-
-  File file = new File(sketchPath() + "/data/");
-  if (file.isDirectory()) {
-    String names[] = file.list();
-    for (String n : names) {
-      if (n.indexOf("env") != -1) {
-        println(n);
-      }
-    }
-  } else {
-    print("Error while loading environments!");
-  }
-
-  env = loadShape("env_test1.obj");
-  env.disableStyle();  // Ignore the colors in the SVG
 }
 
 
@@ -168,12 +171,14 @@ void draw() {
     }
   }
 
-  pushMatrix();
-  noStroke();
-  fill(70);
-  translate(0, -1, 0);
-  shape(env);
-  popMatrix();
+  if (environmentShape != null) {
+    pushMatrix();
+    noStroke();
+    fill(70);
+    translate(0, -1, 0);
+    shape(environmentShape);
+    popMatrix();
+  }
 
   for (int f=0; f<fixtureList.size(); f++) {
     fixtureList.get(f).display();
@@ -305,35 +310,46 @@ void saveAll() {
   println("\n--- Saving Project ---");
   int fls = fixtureList.size();
   int cls = cuboidList.size();
-  String[] saveData = new String[fls+cls];
+  String[] saveData = new String[fls+cls+((environmentShape!=null)? 1 : 0)];
   for (int f=0; f<fls; f++) {
     saveData[f] = "Fixture_;" + fixtureList.get(f).getSaveString();
   }
   for (int c=0; c<cls; c++) {
     saveData[fls+c] = "Cuboid_;" + cuboidList.get(c).getSaveString();
   }
+  if(environmentShape != null){
+    saveData[fls+cls] = "Environment_;" + environmentFileName;
+  }
 
   try {
     saveStrings(PATH_PROJECTS + projectName + ".lsm", saveData);
     println("Saved " + str(fls) + " Fixtures.");
     println("Saved " + str(cls) + " Cuboids.");
-  } 
+    if(environmentShape != null){
+      println("Saved the environment (lol).");
+    }
+  }
   catch(Exception e) {
     print(e);
   }
 }
 
 void loadAll(String iFileName) {
-  fixtureList.clear();
-  cuboidList.clear();
-  menuExpRight.subElementsList.clear();
+  // Commented to try loading multiple projects at once
+  //fixtureList.clear();
+  //cuboidList.clear();
+  //menuExpRight.subElementsList.clear();
+  //environmentShape = null;
+  //environmentFileName = "";
+
   int countFix = 0;
   int countCub = 0;
+  boolean loadedEnv = false;
   println("\n--- Loading Project ---");
   try {
     String[] loadData = loadStrings(PATH_PROJECTS + iFileName);
     for (String d : loadData) {
-      if (d.indexOf("Fixture_;") == 0) {                                                // Identifier at BEGINNING of string
+      if (d.indexOf("Fixture_;") == 0) {                                        // Identifier at BEGINNING of string
         Fixture tempFix = new Fixture();
         tempFix.setLoadArray(d.substring(d.indexOf(";")+1, d.length()).split(";"));   // Cut away identifier
         fixtureList.add(tempFix);
@@ -343,10 +359,18 @@ void loadAll(String iFileName) {
         tempCub.setLoadArray(d.substring(d.indexOf(";")+1, d.length()).split(";"));
         cuboidList.add(tempCub);
         countCub++;
+      } else if (d.indexOf("Environment_;") == 0) {
+        environmentFileName = d.substring(d.indexOf(";")+1, d.length());
+        environmentShape = loadShape(sketchPath() + PATH_ENVIRONMENTS + environmentFileName);
+        environmentShape.disableStyle();                                        // Ignore the colors in the SVG
+        loadedEnv = true;
       }
     }
     println("Loaded " + str(countFix) + " Fixtures.");
     println("Loaded " + str(countCub) + " Cuboids.");
+    if(loadedEnv){
+      println("Loaded an environment.");
+    }
   }
   catch(Exception e) {
     println("Error while loading project " + iFileName + "!");

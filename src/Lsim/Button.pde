@@ -81,6 +81,15 @@ class Button extends GuiObject {
           Fixture tempFix = new Fixture();
           tempFix.setLoadArray(loadStrings(sketchPath() + PATH_FIXTURES + displayName)[0].split(";"));
           fixtureList.add(tempFix);
+        } else if (propName.equals("loadenvfilename")) {
+          if(displayName.equals("None")){
+            environmentFileName = "";
+            environmentShape = null;
+          } else {
+            environmentFileName = displayName;
+            environmentShape = loadShape(sketchPath() + PATH_ENVIRONMENTS + displayName);
+            environmentShape.disableStyle();                                    // Ignore the colors in the SVG
+          }
         } else if (propName.equals("loadprojfilename")) {
           loadAll(displayName);
         }
