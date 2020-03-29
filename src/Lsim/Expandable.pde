@@ -4,11 +4,11 @@ class Expandable extends GuiObject {
   boolean hasButton = true;
   byte state = 0;
 
-  Expandable(PVector iOffset, PVector iSize, String iDisplayName, boolean iHasButton, boolean iDefaultOpen) {
+  Expandable(PVector iOffset, PVector iSize, String iDisplayName, boolean iHasButton, boolean iDefaultOpen, color iClr) {
      super(iOffset, iSize, ""/*propName*/     , iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
     hasButton = iHasButton;
     if (hasButton) {
-      expandBtn = new Button(new PVector(0, 0), new PVector(width/15, width/40), this, "state", iDisplayName);
+      expandBtn = new Button(new PVector(0, 0), new PVector(width/15, width/40), this, "state", iDisplayName, iClr);
     }
     if (iDefaultOpen) {
       state = 2;

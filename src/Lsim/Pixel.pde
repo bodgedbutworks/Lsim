@@ -77,7 +77,7 @@ class Pixel {
   }
 
   void loadGui() {
-    Expandable pixelExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pixel "+name, true, false);
+    Expandable pixelExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pixel "+name, true, false, CLR_MENU_LV1);
     pixelExp.put(new NameBox(new PVector(10, 0), new PVector(80, 25), this, "name", "Name", name));
     pixelExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Pixel Pos LR", "Pixel Pos LR", pos3d.x, 1.0));
     pixelExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Pixel Pos UD", "Pixel Pos UD", pos3d.y, 1.0));
@@ -92,12 +92,12 @@ class Pixel {
     pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel Green", "Rel. Channel Green", chanClrG, 1, 1, 512));
     pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel Blue", "Rel. Channel Blue", chanClrB, 1, 1, 512));
     pixelExp.put(new IntBox(new PVector(10, 0), new PVector(60, 25), this, "Rel. Channel White", "Rel. Channel White", chanClrW, 1, 1, 512));
-    Expandable faceTypeExp = new Expandable(new PVector(10, 0), new PVector(0, 0), "Pixel Type", true, false);
-    faceTypeExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Ellipse", "Ellipse"));
-    faceTypeExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Rectangle", "Rectangle"));
+    Expandable faceTypeExp = new Expandable(new PVector(10, 0), new PVector(0, 0), "Pixel Type", true, false, CLR_MENU_LV2);
+    faceTypeExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Ellipse", "Ellipse", CLR_MENU_LV3));
+    faceTypeExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Rectangle", "Rectangle", CLR_MENU_LV3));
     pixelExp.put(faceTypeExp);
-    pixelExp.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Copy Pixel", "Copy"));
-    pixelExp.put(new Button(new PVector(60+SIZE_GUTTER, 0-30-SIZE_GUTTER), new PVector(60, 30), this, "Delete Pixel", "Delete"));
+    pixelExp.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Copy Pixel", "Copy", CLR_MENU_LV2));
+    pixelExp.put(new Button(new PVector(60+SIZE_GUTTER, 0-30-SIZE_GUTTER), new PVector(60, 30), this, "Delete Pixel", "Delete", CLR_MENU_LV2));
     menuExpRight.put(pixelExp);
   }
 

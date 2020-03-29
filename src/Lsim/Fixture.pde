@@ -94,7 +94,7 @@ class Fixture extends ScreenObject {
 
   // ToDo move Dynamics GUI stuff to Dynamics class
   void loadGui() {
-    Expandable tempFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixture", true, true);
+    Expandable tempFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixture", true, true, CLR_MENU_LV1);
     tempFixExp.put(new NameBox(new PVector(10, 0), new PVector(80, 25), this, "name", "Name", name));
     tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.x", "pos3d.x", pos3d.x, 1.0));
     tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "pos3d.y", "pos3d.y", pos3d.y, 1.0));
@@ -114,15 +114,15 @@ class Fixture extends ScreenObject {
     tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Accel", "Tilt Accel", tilt.maxAcc, 0.01));
     tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Speed", "Tilt Speed", tilt.maxSpd, 0.01));
     tempFixExp.put(new SpinBox(new PVector(20, 0), new PVector(80, 25), this, "Tilt Tweak", "Tilt Tweak", tilt.maxSpdTweak, 0.01));
-    Expandable selectPanExp = new Expandable(new PVector(10, 0), new PVector(0, 0), "Pan", true, false);
-    selectPanExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Fork Model", "Fork Model"));    // ToDo add representation in Button class
+    Expandable selectPanExp = new Expandable(new PVector(10, 0), new PVector(0, 0), "Pan", true, false, CLR_MENU_LV2);
+    selectPanExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Fork Model", "Fork Model", CLR_MENU_LV3));    // ToDo add representation in Button class
     selectPanExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Size LR", "Pan Size LR", int(sizePan.x), 1, 1, 10000));
     selectPanExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Size UD", "Pan Size UD", int(sizePan.y), 1, 1, 10000));
     selectPanExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Size FB", "Pan Size FB", int(sizePan.z), 1, 1, 10000));
     tempFixExp.put(selectPanExp);
-    Expandable selectTiltExp = new Expandable(new PVector(10, 0), new PVector(0, 0), "Tilt", true, false);
-    selectTiltExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Head Model", "Head Model"));
-    selectTiltExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Cuboid Model", "Cuboid Model"));
+    Expandable selectTiltExp = new Expandable(new PVector(10, 0), new PVector(0, 0), "Tilt", true, false, CLR_MENU_LV2);
+    selectTiltExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Head Model", "Head Model", CLR_MENU_LV3));
+    selectTiltExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Cuboid Model", "Cuboid Model", CLR_MENU_LV3));
     selectTiltExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Size LR", "Tilt Size LR", int(sizeTilt.x), 1, 1, 10000));
     selectTiltExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Size FB", "Tilt Size FB", int(sizeTilt.y), 1, 1, 10000));
     selectTiltExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Size UD", "Tilt Size UD", int(sizeTilt.z), 1, 1, 10000));
@@ -131,9 +131,9 @@ class Fixture extends ScreenObject {
     for (Pixel p : pixelList) {
       p.loadGui();
     }
-    menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Save Fixture", "Save"));
-    menuExpRight.put(new Button(new PVector(60+SIZE_GUTTER, 0-30-SIZE_GUTTER), new PVector(60, 30), this, "Copy Fixture", "Copy"));
-    menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Delete Fixture", "Delete"));
+    menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Save Fixture", "Save", CLR_MENU_LV1));
+    menuExpRight.put(new Button(new PVector(60+SIZE_GUTTER, 0-30-SIZE_GUTTER), new PVector(60, 30), this, "Copy Fixture", "Copy", CLR_MENU_LV1));
+    menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Delete Fixture", "Delete", CLR_MENU_LV1));
   }
 
   String getSaveString() {

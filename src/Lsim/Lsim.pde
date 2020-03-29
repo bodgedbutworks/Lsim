@@ -17,6 +17,10 @@ int SIZE_X_MAINMENU;
 String PATH_FIXTURES = "/save/fixtures/";
 String PATH_ENVIRONMENTS = "/data/";                                            // .obj files must be in data/ dir in Processing
 String PATH_PROJECTS = "/save/projects/";
+// Saturation 57%, Brightness 100%, Hue varied
+color CLR_MENU_LV1 = #FF00FF;
+color CLR_MENU_LV2 = #FFD68C;
+color CLR_MENU_LV3 = #6CE8FF;
 
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
 ArrayList<Cuboid> cuboidList = new ArrayList<Cuboid>();
@@ -74,22 +78,22 @@ void setup() {
 
   projectName = ZonedDateTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern( "uuuu_MM_dd HH_mm_ss" ));
 
-  expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">", ">");
+  expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">", ">", CLR_MENU_LV1);
 
-  menuExpLeft = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true);
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "+", "Add\nFixture"));
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "++", "Add\nCuboid"));
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*", "Toggle\nLights"));
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "S", "Save\nProject"));
+  menuExpLeft = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true, CLR_MENU_LV1);
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "+", "Add\nFixture", CLR_MENU_LV1));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "++", "Add\nCuboid", CLR_MENU_LV1));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*", "Toggle\nLights", CLR_MENU_LV1));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "S", "Save\nProject", CLR_MENU_LV1));
   menuExpLeft.put(new NameBox(new PVector(0, 0), new PVector(width/12, 25), "projectName", "Name", projectName));
 
   // Load fixtures
-  Expandable loadFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixtures", true, false);
+  Expandable loadFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixtures", true, false, CLR_MENU_LV1);
   File dir = new File(sketchPath() + PATH_FIXTURES);
   if (dir.isDirectory()) {
     String names[] = dir.list();
     for (String n : names) {
-      loadFixExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadfixfilename", n));
+      loadFixExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadfixfilename", n, CLR_MENU_LV2));
     }
   } else {
     print("Error while scanning fixtures!");
@@ -97,14 +101,14 @@ void setup() {
   menuExpLeft.put(loadFixExp);
 
   // Load environment
-  Expandable loadEnvExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Environments", true, false);
-  loadEnvExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadenvfilename", "None"));
+  Expandable loadEnvExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Environments", true, false, CLR_MENU_LV1);
+  loadEnvExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadenvfilename", "None", CLR_MENU_LV2));
   dir = new File(sketchPath() + PATH_ENVIRONMENTS);
   if (dir.isDirectory()) {
     String names[] = dir.list();
     for (String n : names) {
       if (n.indexOf("env_") != -1) {
-        loadEnvExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadenvfilename", n));
+        loadEnvExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadenvfilename", n, CLR_MENU_LV2));
       }
     }
   } else {
@@ -113,12 +117,12 @@ void setup() {
   menuExpLeft.put(loadEnvExp);
 
   // Load projects
-  Expandable loadProjExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Projects", true, false);
+  Expandable loadProjExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Projects", true, false, CLR_MENU_LV1);
   dir = new File(sketchPath() + PATH_PROJECTS);
   if (dir.isDirectory()) {
     String names[] = dir.list();
     for (String n : names) {
-      loadProjExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadprojfilename", n));
+      loadProjExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadprojfilename", n, CLR_MENU_LV2));
     }
   } else {
     print("Error while scanning projects!");
@@ -126,7 +130,7 @@ void setup() {
   menuExpLeft.put(loadProjExp);
 
 
-  menuExpRight = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true);
+  menuExpRight = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true, CLR_MENU_LV1);
 }
 
 

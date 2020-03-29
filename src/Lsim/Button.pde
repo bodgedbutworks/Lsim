@@ -1,18 +1,25 @@
 class Button extends GuiObject {
-  Button(PVector iOffset, PVector iSize, String iPropName, String iDisplayName) {
+  color clr = color(255);
+
+  Button(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, color iClr) {
      super(iOffset, iSize, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
+    clr = iClr;
   }
-  Button(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName) {
+  Button(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName, color iClr) {
      super(iOffset, iSize, iObjRef, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
+    clr = iClr;
   }
-  Button(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName) {
+  Button(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName, color iClr) {
      super(iOffset, iSize, iObjRef, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
+    clr = iClr;
   }
-  Button(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, String iDisplayName) {
+  Button(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, String iDisplayName, color iClr) {
      super(iOffset, iSize, iObjRef, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
+    clr = iClr;
   }
-  Button(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName) {
+  Button(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, color iClr) {
      super(iOffset, iSize, iObjRef, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
+    clr = iClr;
   }
 
   void display() {
