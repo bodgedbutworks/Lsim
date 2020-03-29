@@ -23,9 +23,11 @@ class Fixture extends ScreenObject {
 
   Fixture() {
     super(new PVector(int(random(-100, 100)), int(random(-250, -50)), int(random(-100, 100))), new PVector(0, 0, 0));
+    modelBase = loadShape("Headbase.obj");
     modelPan = loadShape("Headfork.obj");
     modelTilt = loadShape("Headcorpus.obj");
-    modelPan.disableStyle();  // Ignore the colors in the SVG
+    modelBase.disableStyle();  // Ignore the colors in the SVG
+    modelPan.disableStyle();
     modelTilt.disableStyle();
     pan = new Dynamics();
     tilt = new Dynamics();
@@ -67,10 +69,11 @@ class Fixture extends ScreenObject {
     rotateX(radians(rot.x));
     rotateY(radians(rot.y));
     rotateZ(radians(rot.z));
-    rotateY(radians(pan.pos));
     fill(clr);
     stroke(0);
     strokeWeight(2);
+    shape(modelBase);
+    rotateY(radians(pan.pos));
     if (panType.equals("Fork")) {
       modelPan.resetMatrix();      // ToDo keep an eye on this, it's run every frame and might slow things down (?)
       modelPan.scale(sizePan.x/100.0, sizePan.y/100.0, sizePan.z/100.0);
