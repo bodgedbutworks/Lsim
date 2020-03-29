@@ -8,6 +8,9 @@ class Button extends GuiObject {
   Button(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName) {
      super(iOffset, iSize, iObjRef, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
   }
+  Button(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, String iDisplayName) {
+     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
+  }
   Button(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName) {
      super(iOffset, iSize, iObjRef, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
   }
@@ -34,6 +37,9 @@ class Button extends GuiObject {
           tempPix.pos3d.x += 40;
           pixObjRef.parentFixRef.pixelList.add(tempPix);
           reloadMyGui = pixObjRef.parentFixRef;     // Directly modifying the GUI here would lead to ConcurrentModificationException, so do in main loop
+        } else if (propName.equals("Delete Pixel")) {
+          pixObjRef.parentFixRef.pixelList.remove(pixObjRef);
+          reloadMyGui = pixObjRef.parentFixRef;
         }
       } else if (objType.equals("Fixture")) {
         if (propName.equals("Fork Model")) {
@@ -53,6 +59,20 @@ class Button extends GuiObject {
           tempFix.name = fixObjRef.name+" Copy";
           tempFix.pos3d.x += 200;
           fixtureList.add(tempFix);
+        } else if (propName.equals("Delete Fixture")) {
+          fixtureList.remove(fixObjRef);
+          deleteMyGui = true;
+        }
+      } else if (objType.equals("Cuboid")) {
+        if (propName.equals("Copy Cuboid")) {
+          Cuboid tempCub = new Cuboid();
+          tempCub.setLoadArray(cubObjRef.getSaveString().split(";"));
+          tempCub.name = cubObjRef.name+" Copy";
+          tempCub.pos3d.x += 200;
+          cuboidList.add(tempCub);
+        } else if (propName.equals("Delete Cuboid")) {
+          cuboidList.remove(cubObjRef);
+          deleteMyGui = true;
         }
       } else if (objType.equals("Expandable")) {
         if (propName.equals("state")) {
@@ -82,7 +102,7 @@ class Button extends GuiObject {
           tempFix.setLoadArray(loadStrings(sketchPath() + PATH_FIXTURES + displayName)[0].split(";"));
           fixtureList.add(tempFix);
         } else if (propName.equals("loadenvfilename")) {
-          if(displayName.equals("None")){
+          if (displayName.equals("None")) {
             environmentFileName = "";
             environmentShape = null;
           } else {

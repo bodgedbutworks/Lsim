@@ -44,9 +44,10 @@ long calcFrameRate = 1000;
 boolean lightsOff = false;                                                      // Activation of ambient/directional lights
 boolean flag = false;
 ScreenObject reloadMyGui;     // GUI sometimes can't be reloaded directly because it would delete the calling element, instead, do it in main loop
+boolean deleteMyGui = false;                                                    // Clear right hand side GUI (f.ex. when deleting a Fixture)
 
 PShape environmentShape;
-String environmentFileName = "";                                                        // Save filename to be able to save environment later
+String environmentFileName = "";                                                // Save filename to be able to save environment later
 
 
 
@@ -194,6 +195,11 @@ void draw() {
     reloadMyGui.loadGui();
     reloadMyGui = null;
   }
+  if (deleteMyGui) {
+    println("Clearing GUI!");
+    deleteMyGui = false;
+    menuExpRight.subElementsList.clear();
+  }
   camera();
   hint(DISABLE_DEPTH_TEST);
   fill(255);
@@ -317,7 +323,7 @@ void saveAll() {
   for (int c=0; c<cls; c++) {
     saveData[fls+c] = "Cuboid_;" + cuboidList.get(c).getSaveString();
   }
-  if(environmentShape != null){
+  if (environmentShape != null) {
     saveData[fls+cls] = "Environment_;" + environmentFileName;
   }
 
@@ -325,7 +331,7 @@ void saveAll() {
     saveStrings(PATH_PROJECTS + projectName + ".lsm", saveData);
     println("Saved " + str(fls) + " Fixtures.");
     println("Saved " + str(cls) + " Cuboids.");
-    if(environmentShape != null){
+    if (environmentShape != null) {
       println("Saved the environment (lol).");
     }
   }
@@ -368,7 +374,7 @@ void loadAll(String iFileName) {
     }
     println("Loaded " + str(countFix) + " Fixtures.");
     println("Loaded " + str(countCub) + " Cuboids.");
-    if(loadedEnv){
+    if (loadedEnv) {
       println("Loaded an environment.");
     }
   }

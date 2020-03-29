@@ -97,6 +97,7 @@ class Pixel {
     faceTypeExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Rectangle", "Rectangle"));
     pixelExp.put(faceTypeExp);
     pixelExp.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Copy Pixel", "Copy"));
+    pixelExp.put(new Button(new PVector(60+SIZE_GUTTER, 0-30-SIZE_GUTTER), new PVector(60, 30), this, "Delete Pixel", "Delete"));
     menuExpRight.put(pixelExp);
   }
 

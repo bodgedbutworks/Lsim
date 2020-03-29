@@ -133,6 +133,7 @@ class Fixture extends ScreenObject {
     }
     menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Save Fixture", "Save"));
     menuExpRight.put(new Button(new PVector(60+SIZE_GUTTER, 0-30-SIZE_GUTTER), new PVector(60, 30), this, "Copy Fixture", "Copy"));
+    menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Delete Fixture", "Delete"));
   }
 
   String getSaveString() {
