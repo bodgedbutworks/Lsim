@@ -29,7 +29,7 @@ class Button extends GuiObject {
     fill(0);
     textSize(displayName.length()<3 ? width/45 : width/110);
     textAlign(CENTER, CENTER);
-    text(displayName, pos.x+size.x/2, pos.y+size.y/2);
+    text(displayName, pos.x+size.x/2, pos.y+size.y/2-3);
 
     if (checkMouseOver()) {
       if (objType.equals("Pixel")) {

@@ -31,13 +31,13 @@ class NameBox extends GuiObject {
     //valStr = str(float(int(float(valStr)*100)/100));
     noStroke();
     fill((selectedGuiObject==this) ? 220+35*sin(millis()/75.0) : 255);
-    rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y);
+    rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y, 3);
     fill(0);
     textSize(size.y/2);
     textAlign(LEFT, TOP);
-    text(valStr, pos.x, pos.y, pos.x+size.x, pos.y+size.y);
+    text(valStr, pos.x+2, pos.y+4, pos.x+size.x-2, pos.y+size.y-4);
     fill(50, 255, 50);
-    text(propName, pos.x+size.x+SIZE_GUTTER, pos.y);
+    text(displayName, pos.x+size.x+SIZE_GUTTER, pos.y);
 
     // ToDo: Is there a smarter way to do this??
     if (objType.equals("Fixture")) {

@@ -76,19 +76,19 @@ void setup() {
 
   reloadMyGui = null;
 
-  projectName = ZonedDateTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern( "uuuu_MM_dd HH_mm_ss" ));
+  projectName = "Projname_" + ZonedDateTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern( "uuuu_MM_dd HH_mm_ss" ));
 
-  expandBtn = new Button(new PVector(0, 0), new PVector(width/20, width/20), ">", ">", CLR_MENU_LV1);
+  expandBtn = new Button(new PVector(0, 0), new PVector(width/30, width/25), ">", ">", color(100, 70, 100));
 
   menuExpLeft = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true, CLR_MENU_LV1);
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "+", "Add\nFixture", CLR_MENU_LV1));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "++", "Add\nCuboid", CLR_MENU_LV1));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*", "Toggle\nLights", CLR_MENU_LV1));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "S", "Save\nProject", CLR_MENU_LV1));
-  menuExpLeft.put(new NameBox(new PVector(0, 0), new PVector(width/12, 25), "projectName", "Name", projectName));
+  menuExpLeft.put(new NameBox(new PVector(0, 0), new PVector(width/15, 25), "projectName", "", projectName));
 
   // Load fixtures
-  Expandable loadFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixtures", true, false, CLR_MENU_LV1);
+  Expandable loadFixExp = new Expandable(new PVector(0, 20), new PVector(0, 0), "Fixtures", true, false, CLR_MENU_LV1);
   File dir = new File(sketchPath() + PATH_FIXTURES);
   if (dir.isDirectory()) {
     String names[] = dir.list();
