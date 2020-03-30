@@ -12,8 +12,8 @@ final int RESOLUTION_BEAMS = 20;
 final float POS_TOLERANCE = 0.2;    // Threshold for moving lights pan and tilt
 final int QTY_UNIVERSES = 4;
 final int SIZE_GUTTER = 5;
-int SIZE_X_SUBMENU;
-int SIZE_X_MAINMENU;
+int SIZE_MENU_RIGHT;
+int SIZE_MENU_LEFT;
 String PATH_FIXTURES = "/save/fixtures/";
 String PATH_ENVIRONMENTS = "/data/";                                            // .obj files must be in data/ dir in Processing
 String PATH_PROJECTS = "/save/projects/";
@@ -61,8 +61,8 @@ void setup() {
   surface.setResizable(true);
   frameRate(60);
 
-  SIZE_X_SUBMENU = width/5;
-  SIZE_X_MAINMENU = width/10;
+  SIZE_MENU_LEFT = width/9;
+  SIZE_MENU_RIGHT = width/6;
 
   udp = new UDP(this, 6454);
   //udp.log(true);
@@ -227,10 +227,10 @@ void draw() {
   case 0:
     break;
   case 1:
-    if (abs(menuXpos-(SIZE_X_SUBMENU+SIZE_X_MAINMENU)) > 0.2) {
-      menuXpos += 0.2*((SIZE_X_SUBMENU+SIZE_X_MAINMENU)-menuXpos);
+    if (abs(menuXpos-(SIZE_MENU_RIGHT+SIZE_MENU_LEFT)) > 0.2) {
+      menuXpos += 0.2*((SIZE_MENU_RIGHT+SIZE_MENU_LEFT)-menuXpos);
     } else {
-      menuXpos = SIZE_X_SUBMENU+SIZE_X_MAINMENU;
+      menuXpos = SIZE_MENU_RIGHT+SIZE_MENU_LEFT;
       menuState = 2;
     }
     break;
@@ -250,8 +250,8 @@ void draw() {
   stroke(0);
   strokeWeight(2);
   fill(60);
-  rect(menuXpos-(SIZE_X_SUBMENU+SIZE_X_MAINMENU), 0, menuXpos, height);
-  if (flag && mousePressed && mouseX>=(menuXpos-SIZE_X_SUBMENU-10) && mouseX<=(menuXpos-SIZE_X_SUBMENU+10) && mouseY>=(menuScroll-30) && mouseY<=(menuScroll+30)) {
+  rect(menuXpos-(SIZE_MENU_RIGHT+SIZE_MENU_LEFT), 0, menuXpos, height);
+  if (flag && mousePressed && mouseX>=(menuXpos-SIZE_MENU_RIGHT-10) && mouseX<=(menuXpos-SIZE_MENU_RIGHT+10) && mouseY>=(menuScroll-30) && mouseY<=(menuScroll+30)) {
     flag = false;
     scrolling = true;
   }
@@ -262,12 +262,12 @@ void draw() {
   stroke(0);
   strokeWeight(1);
   fill(100);
-  rect(menuXpos-SIZE_X_SUBMENU-10, menuScroll-30, menuXpos-SIZE_X_SUBMENU+10, menuScroll+30);
+  rect(menuXpos-SIZE_MENU_RIGHT-10, menuScroll-30, menuXpos-SIZE_MENU_RIGHT+10, menuScroll+30);
   expandBtn.pos.x = menuXpos;
   expandBtn.display();
-  menuExpLeft.pos = PVector.add(new PVector(menuXpos-(SIZE_X_MAINMENU+SIZE_X_SUBMENU)+20, 20-menuScroll), menuExpLeft.offset);
+  menuExpLeft.pos = PVector.add(new PVector(menuXpos-(SIZE_MENU_LEFT+SIZE_MENU_RIGHT)+20, 20-menuScroll), menuExpLeft.offset);
   menuExpLeft.display();
-  menuExpRight.pos = PVector.add(new PVector(menuXpos-(SIZE_X_SUBMENU)+20, 20-menuScroll), menuExpRight.offset);
+  menuExpRight.pos = PVector.add(new PVector(menuXpos-(SIZE_MENU_RIGHT)+20, 20-menuScroll), menuExpRight.offset);
   menuExpRight.display();
   hint(ENABLE_DEPTH_TEST);
 }
@@ -294,7 +294,7 @@ void mouseWheel(MouseEvent event) {
   if (selectedGuiObject != null) {
     selectedGuiObject.editValMouse(event.getCount());
   } else {
-    if (menuState == 2  &&  mouseX <= SIZE_X_SUBMENU+SIZE_X_MAINMENU) {
+    if (menuState == 2  &&  mouseX <= SIZE_MENU_RIGHT+SIZE_MENU_LEFT) {
       menuScroll += 100*event.getCount();
     } else {
       camPos = addSphereCoords(camPos, 80.0*event.getCount(), 0, 0);
