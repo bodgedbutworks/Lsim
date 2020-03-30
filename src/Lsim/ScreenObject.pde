@@ -45,18 +45,20 @@ class ScreenObject {
   }
 
   void checkMouseOver() {
-    if (dist(screenX(pos3d.x, pos3d.y, pos3d.z), screenY(pos3d.x, pos3d.y, pos3d.z), mouseX, mouseY) < 40) {
+    if (dist(screenX(pos3d.x, pos3d.y, pos3d.z), screenY(pos3d.x, pos3d.y, pos3d.z), mouseX, mouseY) < 30) {
       clr = color(190, 0, 0);
       if (flag  &&  mousePressed) {
         flag = false;
-        updateSelectedFixture(fixtureList.indexOf(this));
+        selectedScreenObject = this;
+        menuExpRight.subElementsList.clear();
+        menuScroll = 0;
         loadGui();
         if (menuState == 0) {
           menuState = 1;
         }
       }
     } else {
-      if (fixtureList.indexOf(this) == selectedFixture) {
+      if (this == selectedScreenObject) {
         clr = color(245+10*sin(millis()/100.0), 0, 0);
       } else {
         clr = color(80);

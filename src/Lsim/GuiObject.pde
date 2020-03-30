@@ -66,7 +66,9 @@ class GuiObject {
   void display() {
   }
 
-  boolean checkMouseOver() {  	 // returns true if mouse was clicked inside box
+  // Returns true if mouse was clicked inside hitbox. Setting of selectedGuiObject moved
+  // to child classes because some of them (f.ex. Button) arent't supposed to be a selectedGuiObject
+  boolean checkMouseOver() {
     if (mouseX > pos.x  &&  mouseX < (pos.x+size.x)  &&  mouseY > pos.y  &&  mouseY < (pos.y+size.y)) {
       if (flag  &&  mousePressed) {
         flag = false;

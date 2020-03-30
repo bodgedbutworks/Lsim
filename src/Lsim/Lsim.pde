@@ -41,7 +41,7 @@ PImage comImg;
 byte[] artnetHeader = {'A', 'r', 't', '-', 'N', 'e', 't', '\0'};
 byte[][] dmxData = new byte[4][512];                                            // [universe][address]
 
-int selectedFixture = -1;
+ScreenObject selectedScreenObject = null;
 GuiObject selectedGuiObject = null;
 long lastFrameTime = 0;
 long calcFrameRate = 1000;
@@ -274,17 +274,11 @@ void draw() {
 
 
 
-void updateSelectedFixture(int iNum) {
-  selectedFixture = iNum;
-  menuExpRight.subElementsList.clear();
-}
-
-
 
 void mousePressed() {
   if (mouseButton == LEFT) {
     flag = true;
-    selectedFixture = -1;
+    selectedScreenObject = null;
     selectedGuiObject = null;
   }
 }
