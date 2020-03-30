@@ -49,7 +49,6 @@ class Fixture extends ScreenObject {
       p.updateChannels(address, dmxData[universe]);
     }
 
-
     PVector dummy = new PVector(0, 500, 0);
     dummy = rotateVector(dummy, -tilt.pos, 0, 0);
     dummy = rotateVector(dummy, 0, -pan.pos, 0);
@@ -93,6 +92,18 @@ class Fixture extends ScreenObject {
     popMatrix();
 
     updatePos2d();
+
+    fill(255);
+    textSize(height/80);
+    textAlign(CENTER, CENTER);
+    text(name, pos3d.x, pos3d.y-70, pos3d.z);
+    //text("Pos [cm]: X " + int(pos3d.x) + " Y " + int(pos3d.y) + "  Z " + int(pos3d.z), pos3d.x, pos3d.y-100, pos3d.z);
+    //text("Rot [deg]: X " + int(rot.x) + " Y " + int(rot.y) + " Z " + int(rot.z), pos3d.x, pos3d.y-90, pos3d.z);
+  }
+
+  // Draw Center Of Mass symbol; Has to be called in main after resetting camera() for correct 2D display
+  void drawCom() {
+    image(comImg, pos2d.x-7, pos2d.y-7, 14, 14);
   }
 
   // ToDo move Dynamics GUI stuff to Dynamics class

@@ -22,11 +22,21 @@ class Cuboid extends ScreenObject {
     rotateZ(radians(rot.z));
     stroke(0);
     strokeWeight(1);
-    fill(#555555);
+    fill(clr);
     box(size3d.x, size3d.y, size3d.z);
     popMatrix();
 
     updatePos2d();
+
+    fill(255);
+    textSize(height/80);
+    textAlign(CENTER, CENTER);
+    text(name, pos3d.x, pos3d.y-15-size3d.y/2, pos3d.z);
+  }
+
+  // Draw Center Of Mass symbol; Has to be called in main after resetting camera() for correct 2D display
+  void drawCom() {
+    image(comImg, pos2d.x-7, pos2d.y-7, 14, 14);
   }
 
   void loadGui() {

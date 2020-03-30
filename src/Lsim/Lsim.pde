@@ -185,11 +185,11 @@ void draw() {
     popMatrix();
   }
 
-  for (int f=0; f<fixtureList.size(); f++) {
-    fixtureList.get(f).display();
+  for (Fixture f : fixtureList) {
+    f.display();
   }
-  for (int f=0; f<cuboidList.size(); f++) {
-    cuboidList.get(f).display();
+  for (Cuboid c : cuboidList) {
+    c.display();
   }
 
   /********************* 2D Elements ********************/
@@ -213,14 +213,13 @@ void draw() {
     calcFrameRate = 1000/(millis()-lastFrameTime+1);
   }
   lastFrameTime = millis();
-  text(int(calcFrameRate), width-10, 7);                           // Print framerate
+  text(int(calcFrameRate), width-10, 7);                                        // Print framerate
 
-  for (int n=0; n<fixtureList.size(); n++) {                      // ToDo move to class
-    Fixture theFixture = fixtureList.get(n);
-    image(comImg, theFixture.pos2d.x-10, theFixture.pos2d.y-10, 20, 20);
-    textAlign(LEFT, CENTER);
-    text("Position [cm]: X " + int(theFixture.pos3d.x) + " Y " + int(theFixture.pos3d.y) + "  Z " + int(theFixture.pos3d.z), theFixture.pos2d.x, theFixture.pos2d.y-200);
-    text("Rotation [deg]: X " + int(theFixture.rot.x) + " Y " + int(theFixture.rot.y) + " Z " + int(theFixture.rot.z), theFixture.pos2d.x, theFixture.pos2d.y-180);
+  for (Fixture f : fixtureList) {
+    f.drawCom();
+  }
+  for (Cuboid c : cuboidList) {
+    c.drawCom();
   }
 
   // Menu sidebar
