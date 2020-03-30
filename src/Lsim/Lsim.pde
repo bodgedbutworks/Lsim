@@ -170,6 +170,7 @@ void draw() {
       camPos = addSphereCoords(PVector.sub(camPos, camLookAt), 0, (pmouseY-mouseY)/100.0, (pmouseX-mouseX)/100.0);
       camPos.add(camLookAt);
     } else if (mouseButton == CENTER) {
+      // ToDo this movement behaves a bit unintuitively
       float xzDir = atan2(camPos.z, camPos.x);
       camLookAt.add(new PVector((pmouseX-mouseX)*sin(xzDir), pmouseY-mouseY, -(pmouseX-mouseX)*cos(xzDir)));
       camPos.add(new PVector((pmouseX-mouseX)*sin(xzDir), pmouseY-mouseY, -(pmouseX-mouseX)*cos(xzDir)));
@@ -192,7 +193,6 @@ void draw() {
     c.display();
   }
 
-  /********************* 2D Elements ********************/
   if (reloadMyGui != null) {
     println("GUI Reeeeeeloading!");
     menuExpRight.subElementsList.clear();
@@ -204,13 +204,15 @@ void draw() {
     deleteMyGui = false;
     menuExpRight.subElementsList.clear();
   }
+
+  /********************* 2D Elements ********************/
   camera();
   hint(DISABLE_DEPTH_TEST);
   fill(255);
   textSize(height/50);
   textAlign(RIGHT, TOP);
   if (frameCount % 15 == 0) {
-    calcFrameRate = 1000/(millis()-lastFrameTime+1);
+    calcFrameRate = int(0.8*calcFrameRate + 0.2*(1000/(millis()-lastFrameTime+1)));  // Average about 5 frames
   }
   lastFrameTime = millis();
   text(int(calcFrameRate), width-10, 7);                                        // Print framerate

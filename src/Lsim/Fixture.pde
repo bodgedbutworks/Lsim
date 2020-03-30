@@ -145,9 +145,9 @@ class Fixture extends ScreenObject {
     for (Pixel p : pixelList) {
       p.loadGui();
     }
+    menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Copy Fixture", "Copy", CLR_MENU_LV1));
+    menuExpRight.put(new Button(new PVector(60+SIZE_GUTTER, 0-30-SIZE_GUTTER), new PVector(60, 30), this, "Delete Fixture", "Delete", CLR_MENU_LV1));
     menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Save Fixture", "Save", CLR_MENU_LV1));
-    menuExpRight.put(new Button(new PVector(60+SIZE_GUTTER, 0-30-SIZE_GUTTER), new PVector(60, 30), this, "Copy Fixture", "Copy", CLR_MENU_LV1));
-    menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Delete Fixture", "Delete", CLR_MENU_LV1));
   }
 
   String getSaveString() {

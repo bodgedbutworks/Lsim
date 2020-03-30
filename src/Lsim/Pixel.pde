@@ -1,14 +1,14 @@
 class Pixel {
   Fixture parentFixRef;
   String name = "";
-  PVector pos3d = new PVector(0, 0, 20);                                        // Offset realtive to fixture center of mass (COM)
+  PVector pos3d = new PVector(0, 0, 27);                                        // Offset realtive to fixture center of mass (COM)
   PShape modelBeam;
   color beamClr;
   int zoomAngleMin = 10;                                                        // [deg]
   int zoomAngleMax = 35;
 
   String faceType = "Ellipse";                                                  // Ellipse, Rectangle
-  PVector faceSize = new PVector(20, 20);                                       // width & height
+  PVector faceSize = new PVector(16, 16);                                       // width & height
 
   int chanDimmer = 6;                                                           // offsets towards fixture address
   int chanZoom = 4;
