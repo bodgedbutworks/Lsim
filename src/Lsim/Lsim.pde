@@ -37,6 +37,7 @@ String projectName = "Oops";
 PVector camPos = new PVector(900, -300, 900);
 PVector camLookAt = new PVector(0, -200, 0);
 PImage comImg;
+boolean showNamesAndComs = true;                                                // Toggle display of names and Center-Of-Mass icons
 
 byte[] artnetHeader = {'A', 'r', 't', '-', 'N', 'e', 't', '\0'};
 byte[][] dmxData = new byte[4][512];                                            // [universe][address]
@@ -83,6 +84,7 @@ void setup() {
   menuExpLeft = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true, CLR_MENU_LV1);
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "+", "Add\nFixture", CLR_MENU_LV1));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "++", "Add\nCuboid", CLR_MENU_LV1));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "COM", "Toggle\nNames", CLR_MENU_LV1));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*", "Toggle\nLights", CLR_MENU_LV1));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "S", "Save\nProject", CLR_MENU_LV1));
   menuExpLeft.put(new NameBox(new PVector(0, 0), new PVector(width/15, 25), "projectName", "", projectName));
@@ -217,11 +219,13 @@ void draw() {
   lastFrameTime = millis();
   text(int(calcFrameRate), width-10, 7);                                        // Print framerate
 
-  for (Fixture f : fixtureList) {
-    f.drawCom();
-  }
-  for (Cuboid c : cuboidList) {
-    c.drawCom();
+  if (showNamesAndComs) {
+    for (Fixture f : fixtureList) {
+      f.draw2d();
+    }
+    for (Cuboid c : cuboidList) {
+      c.draw2d();
+    }
   }
 
   // Menu sidebar

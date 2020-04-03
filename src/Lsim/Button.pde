@@ -104,6 +104,8 @@ class Button extends GuiObject {
           cuboidList.add(new Cuboid());
         } else if (propName.equals("S")) {
           saveAll();
+        } else if (propName.equals("COM")) {
+          showNamesAndComs = !showNamesAndComs;
         } else if (propName.equals("*")) {
           lightsOff = !lightsOff;
         } else if (propName.equals("loadfixfilename")) {
