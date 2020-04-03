@@ -71,6 +71,8 @@ class Fixture extends ScreenObject {
     fill(clr);
     stroke(0);
     strokeWeight(2);
+    modelBase.resetMatrix();      // ToDo keep an eye on this, it's run every frame and might slow things down (?)
+    modelBase.scale(sizePan.x/100.0, sizePan.y/100.0, sizePan.z/100.0);
     shape(modelBase);
     rotateY(radians(pan.pos));
     if (panType.equals("Fork")) {

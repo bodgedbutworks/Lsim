@@ -12,6 +12,10 @@ class NameBox extends GuiObject {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, 1.0/*stepSize*/);
   }
 
+  void editValMouse(float iEventGetCount) {
+    /* Ovverride parent class function to prevent string edit on scroll */
+  }
+
   void editValKey() {
     if ((key >= 'a'  &&  key <= 'z')  ||  (key >= 'A'  &&  key <= 'Z')  ||  (key >= '0'  &&  key <= '9')  ||  key == ' ') {
       valStr += key;
