@@ -16,6 +16,15 @@ class ScreenObject {
     println("Display function not defined!");
   }
 
+  // Show name and Center Of Mass symbol; Has to be called in main after resetting camera() for correct 2D display
+  void draw2d() {
+    fill(255);
+    textSize(height/60);
+    textAlign(CENTER, CENTER);
+    text(name, pos2d.x, pos2d.y-80);
+    image(comImg, pos2d.x-7, pos2d.y-7, 14, 14);
+  }
+
   void loadGui() {
     println("Gui load function not defined!");
   }
