@@ -61,10 +61,14 @@ class IntBox extends GuiObject {
         fixObjRef.panAngle = int(valStr);
       } else if (propName.equals("Tilt Angle")) {
         fixObjRef.tiltAngle = int(valStr);
-      } else if (propName.equals("Channel Pan")) {
-        fixObjRef.chanPan = int(valStr);
-      } else if (propName.equals("Channel Tilt")) {
-        fixObjRef.chanTilt = int(valStr);
+      } else if (propName.equals("Chan Pan Coarse")) {
+        fixObjRef.chanPanCoarse = int(valStr);
+      } else if (propName.equals("Chan Pan Fine")) {
+        fixObjRef.chanPanFine = int(valStr);
+      } else if (propName.equals("Chan Tilt Coarse")) {
+        fixObjRef.chanTiltCoarse = int(valStr);
+      } else if (propName.equals("Chan Tilt Fine")) {
+        fixObjRef.chanTiltFine = int(valStr);
       } else if (propName.equals("Pan Size LR")) {
         fixObjRef.sizePan.x = int(valStr);
         fixObjRef.rescaleModels();
