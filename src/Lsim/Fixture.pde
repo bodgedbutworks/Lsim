@@ -29,10 +29,24 @@ class Fixture extends ScreenObject {
     modelBase.disableStyle();  // Ignore the colors in the SVG
     modelPan.disableStyle();
     modelTilt.disableStyle();
+    rescaleModels();
     pan = new Dynamics();
     tilt = new Dynamics();
     pixelList.add(new Pixel("1", this));
   }
+
+
+
+  void rescaleModels() {
+    modelBase.resetMatrix();
+    modelPan.resetMatrix();
+    modelTilt.resetMatrix();
+    modelBase.scale(sizePan.x/100.0, sizePan.y/100.0, sizePan.z/100.0);
+    modelPan.scale(sizePan.x/100.0, sizePan.y/100.0, sizePan.z/100.0);
+    modelTilt.scale(sizeTilt.x/100.0, sizeTilt.y/100.0, sizeTilt.z/100.0);
+  }
+
+
 
   void display() {
     checkMouseOver();
@@ -71,19 +85,13 @@ class Fixture extends ScreenObject {
     fill(clr);
     stroke(0);
     strokeWeight(2);
-    modelBase.resetMatrix();      // ToDo keep an eye on this, it's run every frame and might slow things down (?)
-    modelBase.scale(sizePan.x/100.0, sizePan.y/100.0, sizePan.z/100.0);
     shape(modelBase);
     rotateY(radians(pan.pos));
     if (panType.equals("Fork")) {
-      modelPan.resetMatrix();      // ToDo keep an eye on this, it's run every frame and might slow things down (?)
-      modelPan.scale(sizePan.x/100.0, sizePan.y/100.0, sizePan.z/100.0);
       shape(modelPan);
     }
     rotateX(radians(tilt.pos));
     if (tiltType.equals("Head")) {
-      modelTilt.resetMatrix();      // ToDo keep an eye on this, it's run every frame and might slow things down (?)
-      modelTilt.scale(sizeTilt.x/100.0, sizeTilt.y/100.0, sizeTilt.z/100.0);
       shape(modelTilt);
     } else if (tiltType.equals("Cuboid")) {
       box(sizeTilt.x, sizeTilt.y, sizeTilt.z);      // ToDo: Implement scaling for obj models
@@ -197,6 +205,7 @@ class Fixture extends ScreenObject {
         tempPixel.setLoadArray(Arrays.copyOfRange(iProps, 28+n*15, 43+n*15));
         pixelList.add(tempPixel);
       }
+      rescaleModels();
       println("Loaded Fixture " + name);
     }
     catch(Exception e) {

@@ -67,16 +67,22 @@ class IntBox extends GuiObject {
         fixObjRef.chanTilt = int(valStr);
       } else if (propName.equals("Pan Size LR")) {
         fixObjRef.sizePan.x = int(valStr);
+        fixObjRef.rescaleModels();
       } else if (propName.equals("Pan Size UD")) {
         fixObjRef.sizePan.y = int(valStr);
+        fixObjRef.rescaleModels();
       } else if (propName.equals("Pan Size FB")) {
         fixObjRef.sizePan.z = int(valStr);
+        fixObjRef.rescaleModels();
       } else if (propName.equals("Tilt Size LR")) {
         fixObjRef.sizeTilt.x = int(valStr);
+        fixObjRef.rescaleModels();
       } else if (propName.equals("Tilt Size FB")) {
         fixObjRef.sizeTilt.y = int(valStr);
+        fixObjRef.rescaleModels();
       } else if (propName.equals("Tilt Size UD")) {
         fixObjRef.sizeTilt.z = int(valStr);
+        fixObjRef.rescaleModels();
       }
     } else if (objType.equals("Cuboid")) {
       /* Cuboid stuff here */
