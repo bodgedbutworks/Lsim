@@ -5,8 +5,10 @@ class Fixture extends ScreenObject {
 
   ArrayList<Pixel> pixelList = new ArrayList<Pixel>();
 
-  int panAngle = 630;
+  int panAngle = 630;                                                           // [deg]
+  int panOffset = 0;
   int tiltAngle = 270;
+  // Tilt offset is constant (tiltAngle/2)
   Dynamics pan;
   Dynamics tilt;
   String panType = "Fork";                                                      // Fork,
@@ -60,9 +62,9 @@ class Fixture extends ScreenObject {
     int panLSB = int(dmxData[universe][constrain(address-1+chanPanFine-1, 0, 511)]);
     int tiltMSB = int(dmxData[universe][constrain(address-1+chanTiltCoarse-1, 0, 511)]);
     int tiltLSB = int(dmxData[universe][constrain(address-1+chanTiltFine-1, 0, 511)]);
-    pan.updateDest(((panMSB<<8) | panLSB)*float(panAngle)/65536.0);
+    pan.updateDest(((panMSB<<8) | panLSB)*float(panAngle)/65536.0 + panOffset);
     pan.move();
-    tilt.updateDest(((tiltMSB<<8) | tiltLSB)*float(tiltAngle)/65536.0 - float(tiltAngle)/2.0);
+    tilt.updateDest(((tiltMSB<<8) | tiltLSB)*float(tiltAngle)/65536.0 - float(tiltAngle)/2.0);    // Fixed offset angle
     tilt.move();
 
     for (Pixel p : pixelList) {
@@ -126,6 +128,7 @@ class Fixture extends ScreenObject {
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Chan Pan Fine", "Chan Pan Fine", chanPanFine, 1, 1, 512));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Chan Tilt Coarse", "Chan Tilt Coarse", chanTiltCoarse, 1, 1, 512));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Chan Tilt Fine", "Chan Tilt Fine", chanTiltFine, 1, 1, 512));
+    tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Offset", "Pan Offset", panOffset, 1, -180, 180));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Angle", "Pan Angle", panAngle, 1, 90, 720));
     tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(70, 25), this, "Pan Accel", "Pan Accel", pan.maxAcc, 0.01));
     tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(70, 25), this, "Pan Speed", "Pan Speed", pan.maxSpd, 0.01));
@@ -170,7 +173,7 @@ class Fixture extends ScreenObject {
       super.getSaveString() + ";" +
       str(universe) + ";" +
       str(address) + ";" +
-      // ToDo add Pan/Tilt fine
+      // ToDo add Pan/Tilt fine, pan offset
       str(chanPanCoarse) + ";" +
       str(chanTiltCoarse) + ";" +
       str(panAngle) + ";" +
@@ -197,7 +200,7 @@ class Fixture extends ScreenObject {
       super.setLoadArray(Arrays.copyOfRange(iProps, 0, 7));
       universe = int(iProps[7]);
       address = int(iProps[8]);
-      // ToDo add Pan/Tilt fine
+      // ToDo add Pan/Tilt fine, pan offset
       chanPanCoarse = int(iProps[9]);
       chanTiltCoarse = int(iProps[10]);
       panAngle = int(iProps[11]);
