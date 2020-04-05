@@ -2,23 +2,27 @@
 class IntBox extends GuiObject {
   int valMin = 1;   // ToDo: Move min and max constraints to GuiObject class, relevant for SpinBox as well
   int valMax = 512;
+  int valDeac = -99999;    // Deactivation value, changes IntBox color
 
-  IntBox(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax) {
+  IntBox(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax, int ivalDeac) {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(float(iInitialVal)), float(iStepSize));
     valMin = iMin;
     valMax = iMax;
+    valDeac = ivalDeac;
     valStr = str(int(valStr));
   }
-  IntBox(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax) {
+  IntBox(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax, int ivalDeac) {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(float(iInitialVal)), float(iStepSize));
     valMin = iMin;
     valMax = iMax;
+    valDeac = ivalDeac;
     valStr = str(int(valStr));
   }
-  IntBox(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax) {
+  IntBox(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax, int ivalDeac) {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(float(iInitialVal)), float(iStepSize));
     valMin = iMin;
     valMax = iMax;
+    valDeac = ivalDeac;
     valStr = str(int(valStr));
   }
 
@@ -40,7 +44,11 @@ class IntBox extends GuiObject {
     }
     valStr = str(int(valStr));
     noStroke();
-    fill((selectedGuiObject==this) ? 220+35*sin(millis()/75.0) : 255);
+    if (int(valStr) != valDeac) {
+      fill((selectedGuiObject==this) ? 220+35*sin(millis()/75.0) : 255);
+    } else {
+      fill((selectedGuiObject==this) ? 110+20*sin(millis()/75.0) : 127);
+    }
     rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y, 3);
     fill(0);
     textSize(size.y/2);

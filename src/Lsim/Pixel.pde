@@ -43,16 +43,16 @@ class Pixel {
   }
 
   void updateChannels(int iFixtureAddress, byte[] iDmxUniverse) {
-    dimmer = int(iDmxUniverse[constrain(iFixtureAddress-1+chanDimmer-1, 0, 511)]);
-    float tempZoom = int(iDmxUniverse[constrain(iFixtureAddress-1+chanZoom-1, 0, 511)]);
+    dimmer = ((chanDimmer>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanDimmer-1, 0, 511)]) : 255);
+    float tempZoom = ((chanZoom>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanZoom-1, 0, 511)]) : 0);
     if (zoom != tempZoom) {
       zoom = tempZoom;
       updateBeam();
     }
-    clrR = int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrR-1, 0, 511)]);
-    clrG = int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrG-1, 0, 511)]);
-    clrB = int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrB-1, 0, 511)]);
-    clrW = int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrW-1, 0, 511)]);
+    clrR = ((chanClrR>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrR-1, 0, 511)]) : 0);
+    clrG = ((chanClrG>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrG-1, 0, 511)]) : 0);
+    clrB = ((chanClrB>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrB-1, 0, 511)]) : 0);
+    clrW = ((chanClrW>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrW-1, 0, 511)]) : 0);
 
     // ToDo: Color model is incorrect, vary dark color settings result in 'black' light output
     beamClr = color(min(clrR+clrW, 255), min(clrG+clrW, 255), min(clrB+clrW, 255), dimmer*(clrR+clrG+clrB+clrW)*OPACITY_BEAMS/(4*255*255));
@@ -82,16 +82,16 @@ class Pixel {
     pixelExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Pos LR", "Pixel Pos LR", pos3d.x, 1.0));
     pixelExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Pos UD", "Pixel Pos UD", pos3d.y, 1.0));
     pixelExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Pos FB", "Pixel Pos FB", pos3d.z, 1.0));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Width", "Pixel Width", int(faceSize.x), 1, 1, 10000));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Height", "Pixel Height", int(faceSize.y), 1, 1, 10000));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Min", "Zoom Angle Min", zoomAngleMin, 1, 0, 180));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Max", "Zoom Angle Max", zoomAngleMax, 1, 0, 180));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Dimmer", "Rel. Channel Dimmer", chanDimmer, 1, 1, 512));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Zoom", "Rel. Channel Zoom", chanZoom, 1, 1, 512));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Red", "Rel. Channel Red", chanClrR, 1, 1, 512));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Green", "Rel. Channel Green", chanClrG, 1, 1, 512));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Blue", "Rel. Channel Blue", chanClrB, 1, 1, 512));
-    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel White", "Rel. Channel White", chanClrW, 1, 1, 512));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Width", "Pixel Width", int(faceSize.x), 1, 1, 10000, -1));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Height", "Pixel Height", int(faceSize.y), 1, 1, 10000, -1));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Min", "Zoom Angle Min", zoomAngleMin, 1, 0, 180, -1));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Max", "Zoom Angle Max", zoomAngleMax, 1, 0, 180, -1));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Dimmer", "Rel. Channel Dimmer", chanDimmer, 1, 0, 512, 0));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Zoom", "Rel. Channel Zoom", chanZoom, 1, 0, 512, 0));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Red", "Rel. Channel Red", chanClrR, 1, 0, 512, 0));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Green", "Rel. Channel Green", chanClrG, 1, 0, 512, 0));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel Blue", "Rel. Channel Blue", chanClrB, 1, 0, 512, 0));
+    pixelExp.put(new IntBox(new PVector(0, 0), new PVector(60, 25), this, "Rel. Channel White", "Rel. Channel White", chanClrW, 1, 0, 512, 0));
     Expandable faceTypeExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pixel Type", true, false, CLR_MENU_LV2);
     faceTypeExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Ellipse", "Ellipse", CLR_MENU_LV3));
     faceTypeExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Rectangle", "Rectangle", CLR_MENU_LV3));
