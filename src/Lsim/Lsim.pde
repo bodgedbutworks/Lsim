@@ -8,7 +8,7 @@ UDP udp;
 
 final int OPACITY_BEAMS = 180;       // [0-255]
 final int LENGTH_BEAMS = 2000;
-final int RESOLUTION_BEAMS = 20;
+final int RESOLUTION_BEAMS = 10;
 final float POS_TOLERANCE = 0.2;    // Threshold for moving lights pan and tilt
 final int QTY_UNIVERSES = 4;
 final int SIZE_GUTTER = 5;
@@ -47,6 +47,7 @@ GuiObject selectedGuiObject = null;
 long lastFrameTime = 0;
 long calcFrameRate = 1000;
 boolean lightsOff = false;                                                      // Activation of ambient/directional lights
+boolean beamsOff = false;                                                       // Activation of beam cones
 boolean flag = false;
 ScreenObject reloadMyGui;     // GUI sometimes can't be reloaded directly because it would delete the calling element, instead, do it in main loop
 boolean deleteMyGui = false;                                                    // Clear right hand side GUI (f.ex. when deleting a Fixture)
@@ -86,6 +87,7 @@ void setup() {
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "++", "Add\nCuboid", CLR_MENU_LV1));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "COM", "Toggle\nNames", CLR_MENU_LV1));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*", "Toggle\nLights", CLR_MENU_LV1));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "B", "Toggle\nBeams", CLR_MENU_LV1));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "S", "Save\nProject", CLR_MENU_LV1));
   menuExpLeft.put(new NameBox(new PVector(0, 0), new PVector(width/15, 25), "projectName", "", projectName));
 

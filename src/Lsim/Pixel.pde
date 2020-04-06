@@ -63,9 +63,11 @@ class Pixel {
     hint(DISABLE_DEPTH_MASK);                                                   // Disable depth counter, NOT occlusion detection (=DISABLE_DEPTH_TEST)
     pushMatrix();
     translate(pos3d.x, pos3d.z, pos3d.y);
-    shape(modelBeam);
+    if (!beamsOff) {
+      shape(modelBeam);
+    }
     noStroke();
-    fill(beamClr | 150<<24);    // Set alpha
+    fill(beamClr | 150<<24);    // Set alpha, ToDo: Causes Pixel face to be colored even though dimmer is off -_-
     rotateX(HALF_PI);
     if (faceType.equals("Ellipse")) {
       ellipse(0, 0, faceSize.x, faceSize.y);

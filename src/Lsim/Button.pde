@@ -106,6 +106,8 @@ class Button extends GuiObject {
           showNamesAndComs = !showNamesAndComs;
         } else if (propName.equals("*")) {
           lightsOff = !lightsOff;
+        } else if (propName.equals("B")) {
+          beamsOff = !beamsOff;
         } else if (propName.equals("loadfixfilename")) {
           try {
             Fixture tempFix = new Fixture();
