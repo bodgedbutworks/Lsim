@@ -317,21 +317,30 @@ void keyPressed() {
 
 void saveAll() {
   println("\n--- Saving Project ---");
+  JSONObject jsonRoot = new JSONObject();
   int fls = fixtureList.size();
   int cls = cuboidList.size();
-  String[] saveData = new String[fls+cls+((environmentShape!=null)? 1 : 0)];
+
+  JSONArray jsonFixArray = new JSONArray();
   for (int f=0; f<fls; f++) {
-    saveData[f] = "Fixture_;" + fixtureList.get(f).getSaveString();
+    jsonFixArray.setJSONObject(f, fixtureList.get(f).save());
   }
+  jsonRoot.setJSONArray("Fixtures", jsonFixArray);
+
+  JSONArray jsonCubArray = new JSONArray();
   for (int c=0; c<cls; c++) {
-    saveData[fls+c] = "Cuboid_;" + cuboidList.get(c).getSaveString();
+    jsonCubArray.setJSONObject(c, cuboidList.get(c).save());
   }
+  jsonRoot.setJSONArray("Cuboids", jsonCubArray);
+
   if (environmentShape != null) {
-    saveData[fls+cls] = "Environment_;" + environmentFileName;
+    JSONObject jsonEnvObj = new JSONObject();
+    jsonEnvObj.setString("filename", environmentFileName);
+    jsonRoot.setJSONObject("Environment", jsonEnvObj);
   }
 
   try {
-    saveStrings(PATH_PROJECTS + projectName + ".lsm", saveData);
+    saveJSONObject(jsonRoot, PATH_PROJECTS + projectName + ".lsm");
     println("Saved " + str(fls) + " Fixtures.");
     println("Saved " + str(cls) + " Cuboids.");
     if (environmentShape != null) {
@@ -356,24 +365,29 @@ void loadAll(String iFileName) {
   boolean loadedEnv = false;
   println("\n--- Loading Project ---");
   try {
-    String[] loadData = loadStrings(PATH_PROJECTS + iFileName);
-    for (String d : loadData) {
-      if (d.indexOf("Fixture_;") == 0) {                                        // Identifier at BEGINNING of string
-        Fixture tempFix = new Fixture();
-        tempFix.setLoadArray(d.substring(d.indexOf(";")+1, d.length()).split(";"));   // Cut away identifier
-        fixtureList.add(tempFix);
-        countFix++;
-      } else if (d.indexOf("Cuboid_;") == 0) {
-        Cuboid tempCub = new Cuboid();
-        tempCub.setLoadArray(d.substring(d.indexOf(";")+1, d.length()).split(";"));
-        cuboidList.add(tempCub);
-        countCub++;
-      } else if (d.indexOf("Environment_;") == 0) {
-        environmentFileName = d.substring(d.indexOf(";")+1, d.length());
-        environmentShape = loadShape(sketchPath() + PATH_ENVIRONMENTS + environmentFileName);
-        environmentShape.disableStyle();                                        // Ignore the colors in the SVG
-        loadedEnv = true;
-      }
+    JSONObject jsonLoadRoot = loadJSONObject(PATH_PROJECTS + iFileName);
+
+    JSONArray jsonLoadFixArray = jsonLoadRoot.getJSONArray("Fixtures");
+    for (int i=0; i<jsonLoadFixArray.size(); i++) {
+      Fixture tempFix = new Fixture();
+      tempFix.load(jsonLoadFixArray.getJSONObject(i));
+      fixtureList.add(tempFix);
+      countFix++;
+    }
+
+    JSONArray jsonLoadCubArray = jsonLoadRoot.getJSONArray("Cuboids");
+    for (int i=0; i<jsonLoadCubArray.size(); i++) {
+      Cuboid tempCub = new Cuboid();
+      tempCub.load(jsonLoadCubArray.getJSONObject(i));
+      cuboidList.add(tempCub);
+      countCub++;
+    }
+    if (!jsonLoadRoot.isNull("Environment")) {
+      JSONObject jsonLoadEnvObj = jsonLoadRoot.getJSONObject("Environment");
+      environmentFileName = jsonLoadEnvObj.getString("filename");
+      environmentShape = loadShape(sketchPath() + PATH_ENVIRONMENTS + environmentFileName);
+      environmentShape.disableStyle();                                          // Ignore the colors in the SVG
+      loadedEnv = true;
     }
     println("Loaded " + str(countFix) + " Fixtures.");
     println("Loaded " + str(countCub) + " Cuboids.");

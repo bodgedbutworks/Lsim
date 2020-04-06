@@ -101,44 +101,42 @@ class Pixel {
     menuExpRight.put(pixelExp);
   }
 
-  String getSaveString() {
-    return(
-      name + ";" +
-      str(pos3d.x) + ";" +
-      str(pos3d.y) + ";" +
-      str(pos3d.z) + ";" +
-      str(zoomAngleMin) + ";" +
-      str(zoomAngleMax) + ";" +
-      faceType + ";" +
-      str(faceSize.x) + ";" +
-      str(faceSize.y) + ";" +
-      str(chanDimmer) + ";" +
-      str(chanZoom) + ";" +
-      str(chanClrR) + ";" +
-      str(chanClrG) + ";" +
-      str(chanClrB) + ";" +
-      str(chanClrW)
-      );
+  JSONObject save() {
+    JSONObject oJson = new JSONObject();
+    oJson.setString("name", name);
+    oJson.setFloat("pos3d.x", pos3d.x);
+    oJson.setFloat("pos3d.y", pos3d.y);
+    oJson.setFloat("pos3d.z", pos3d.z);
+    oJson.setInt("zoomAngleMin", zoomAngleMin);
+    oJson.setInt("zoomAngleMax", zoomAngleMax);
+    oJson.setString("faceType", faceType);
+    oJson.setFloat("faceSize.x", faceSize.x);
+    oJson.setFloat("faceSize.y", faceSize.y);
+    oJson.setInt("chanDimmer", chanDimmer);
+    oJson.setInt("chanZoom", chanZoom);
+    oJson.setInt("chanClrR", chanClrR);
+    oJson.setInt("chanClrG", chanClrG);
+    oJson.setInt("chanClrB", chanClrB);
+    oJson.setInt("chanClrW", chanClrW);
+    return(oJson);
   }
 
-  void setLoadArray(String[] iProps) {
-    try {
-      name = iProps[0];
-      pos3d = new PVector(float(iProps[1]), float(iProps[2]), float(iProps[3]));
-      zoomAngleMin = int(iProps[4]);
-      zoomAngleMax = int(iProps[5]);
-      faceType = iProps[6];
-      faceSize = new PVector(float(iProps[7]), float(iProps[8]));
-      chanDimmer = int(iProps[9]);
-      chanZoom = int(iProps[10]);
-      chanClrR = int(iProps[11]);
-      chanClrG = int(iProps[12]);
-      chanClrB = int(iProps[13]);
-      chanClrW = int(iProps[14]);
-      print("Loading Pixel..");
-    }
-    catch(Exception e) {
-      println(e);
-    }
+  void load(JSONObject iJson) {
+    name = iJson.getString("name");
+    pos3d.x = iJson.getFloat("pos3d.x");
+    pos3d.y = iJson.getFloat("pos3d.y");
+    pos3d.z = iJson.getFloat("pos3d.z");
+    zoomAngleMin = iJson.getInt("zoomAngleMin");
+    zoomAngleMax = iJson.getInt("zoomAngleMax");
+    faceType = iJson.getString("faceType");
+    faceSize.x = iJson.getFloat("faceSize.x");
+    faceSize.y = iJson.getFloat("faceSize.y");
+    chanDimmer = iJson.getInt("chanDimmer");
+    chanZoom = iJson.getInt("chanZoom");
+    chanClrR = iJson.getInt("chanClrR");
+    chanClrG = iJson.getInt("chanClrG");
+    chanClrB = iJson.getInt("chanClrB");
+    chanClrW = iJson.getInt("chanClrW");
+    print("Loading Pixel..");
   }
 }

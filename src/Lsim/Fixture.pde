@@ -159,73 +159,66 @@ class Fixture extends ScreenObject {
     menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Save Fixture", "Save", CLR_MENU_LV1));
   }
 
-  String getSaveString() {
-    /*
-    XML tempXml = parseXML("<Fixture><Mechanical></Mechanical></Fixture>");
-     XML nodeFixture = tempXml.getChild("Mechanical");
-     XML x = nodeFixture.addChild("Property");
-     x.setString("name", "panAngle");
-     x.setString("value", str(panAngle));
-     saveXML(tempXml, "xml/" + name + ".xml");
-     */
-    String saveStr = "";
-    saveStr +=
-      super.getSaveString() + ";" +
-      str(universe) + ";" +
-      str(address) + ";" +
-      // ToDo add Pan/Tilt fine, pan offset
-      str(chanPanCoarse) + ";" +
-      str(chanTiltCoarse) + ";" +
-      str(panAngle) + ";" +
-      str(tiltAngle) + ";" +
-      panType + ";" +
-      tiltType + ";" +
-      str(sizePan.x) + ";" +
-      str(sizePan.y) + ";" +
-      str(sizePan.z) + ";" +
-      str(sizeTilt.x) + ";" +
-      str(sizeTilt.y) + ";" +
-      str(sizeTilt.z) + ";" +
-      pan.getSaveString() + ";" +
-      tilt.getSaveString() + ";" +
-      str(pixelList.size());
-    for (Pixel p : pixelList) {
-      saveStr += ";" + p.getSaveString();
+  JSONObject save() {
+    JSONObject oJson = super.save();
+    oJson.setInt("universe", universe);
+    oJson.setInt("address", address);
+    oJson.setInt("chanPanCoarse", chanPanCoarse);
+    oJson.setInt("chanPanFine", chanPanFine);
+    oJson.setInt("chanTiltCoarse", chanTiltCoarse);
+    oJson.setInt("chanTiltFine", chanTiltFine);
+    oJson.setFloat("panOffset", panOffset);
+    oJson.setInt("panAngle", panAngle);
+    oJson.setInt("tiltAngle", tiltAngle);
+    oJson.setString("panType", panType);
+    oJson.setString("tiltType", tiltType);
+    oJson.setFloat("sizePan.x", sizePan.x);
+    oJson.setFloat("sizePan.y", sizePan.y);
+    oJson.setFloat("sizePan.z", sizePan.z);
+    oJson.setFloat("sizeTilt.x", sizeTilt.x);
+    oJson.setFloat("sizeTilt.y", sizeTilt.y);
+    oJson.setFloat("sizeTilt.z", sizeTilt.z);
+    oJson.setJSONObject("pan", pan.save());
+    oJson.setJSONObject("tilt", tilt.save());
+    JSONArray tempJsonArray = new JSONArray();
+    for (int i=0; i<pixelList.size(); i++) {
+      tempJsonArray.setJSONObject(i, pixelList.get(i).save());
     }
-    return(saveStr);
+    oJson.setJSONArray("pixels", tempJsonArray);
+    return(oJson);
   }
 
-  void setLoadArray(String[] iProps) {
-    try {
-      super.setLoadArray(Arrays.copyOfRange(iProps, 0, 7));
-      universe = int(iProps[7]);
-      address = int(iProps[8]);
-      // ToDo add Pan/Tilt fine, pan offset
-      chanPanCoarse = int(iProps[9]);
-      chanTiltCoarse = int(iProps[10]);
-      panAngle = int(iProps[11]);
-      tiltAngle = int(iProps[12]);
-      panType = iProps[13];
-      tiltType = iProps[14];
-      sizePan = new PVector(float(iProps[15]), float(iProps[16]), float(iProps[17]));
-      sizeTilt = new PVector(float(iProps[18]), float(iProps[19]), float(iProps[20]));
-      pan.setLoadArray(Arrays.copyOfRange(iProps, 21, 24));
-      tilt.setLoadArray(Arrays.copyOfRange(iProps, 24, 27));
-      int numOfPixels = int(iProps[27]);
-      pixelList.clear();
-      for (int n=0; n<numOfPixels; n++) {
-        Pixel tempPixel = new Pixel(str(n+1), this);
-        tempPixel.setLoadArray(Arrays.copyOfRange(iProps, 28+n*15, 43+n*15));
-        pixelList.add(tempPixel);
-      }
-      rescaleModels();
-      println("Loaded Fixture " + name);
+  void load(JSONObject iJson) {
+    super.load(iJson);
+    universe = iJson.getInt("universe");
+    address = iJson.getInt("address");
+    chanPanCoarse = iJson.getInt("chanPanCoarse");
+    chanPanFine = iJson.getInt("chanPanFine");
+    chanTiltCoarse = iJson.getInt("chanTiltCoarse");
+    chanTiltFine = iJson.getInt("chanTiltFine");
+    panOffset = iJson.getInt("panOffset");
+    panAngle = iJson.getInt("panAngle");
+    tiltAngle = iJson.getInt("tiltAngle");
+    panType = iJson.getString("panType");
+    tiltType = iJson.getString("tiltType");
+    sizePan.x = iJson.getFloat("sizePan.x");
+    sizePan.y = iJson.getFloat("sizePan.y");
+    sizePan.z = iJson.getFloat("sizePan.z");
+    sizeTilt.x = iJson.getFloat("sizeTilt.x");
+    sizeTilt.y = iJson.getFloat("sizeTilt.y");
+    sizeTilt.z = iJson.getFloat("sizeTilt.z");
+    pan.load(iJson.getJSONObject("pan"));
+    tilt.load(iJson.getJSONObject("tilt"));
+    pixelList.clear();
+    JSONArray tempJsonArray = iJson.getJSONArray("pixels");
+    for (int i=0; i<tempJsonArray.size(); i++) {
+      Pixel tempPixel = new Pixel("irrelevant", this);
+      tempPixel.load(tempJsonArray.getJSONObject(i));
+      pixelList.add(tempPixel);
     }
-    catch(Exception e) {
-      println(e);
-    }
+    rescaleModels();
+    println("Loaded Fixture " + name);
   }
-
 
   /*
     void calcPanTilt() {
@@ -237,7 +230,6 @@ class Fixture extends ScreenObject {
    
    pan = degrees(atan2(tempVec.x, tempVec.z));
    tilt = degrees(acos(tempVec.y/tempVec.mag()));
-   
    
    // For Art-Net Output
    int actualPanRange  = 256*360/panRange;       // <8 bit> * <Pan Range of Sphere Coords> / <Fixture Pan Range>

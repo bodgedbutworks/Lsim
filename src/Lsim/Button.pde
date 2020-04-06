@@ -39,9 +39,9 @@ class Button extends GuiObject {
           pixObjRef.faceType = "Rectangle";
         } else if (propName.equals("Copy Pixel")) {
           Pixel tempPix = new Pixel("Irrelevant", pixObjRef.parentFixRef);
-          tempPix.setLoadArray(pixObjRef.getSaveString().split(";"));
+          tempPix.load(pixObjRef.save());
           tempPix.name += " Copy";
-          tempPix.pos3d.x += 40;
+          tempPix.pos3d.x += 20;
           pixObjRef.parentFixRef.pixelList.add(tempPix);
           reloadMyGui = pixObjRef.parentFixRef;     // Directly modifying the GUI here would lead to ConcurrentModificationException, so do in main loop
         } else if (propName.equals("Delete Pixel")) {
@@ -56,14 +56,12 @@ class Button extends GuiObject {
         } else if (propName.equals("Cuboid Model")) {
           fixObjRef.tiltType = "Cuboid";
         } else if (propName.equals("Save Fixture")) {
-          String[] tempLine = new String[1];
-          tempLine[0] = fixObjRef.getSaveString();
-          saveStrings(PATH_FIXTURES + fixObjRef.name + ".lsm", tempLine);
+          saveJSONObject(fixObjRef.save(), PATH_FIXTURES + fixObjRef.name + ".lsm");
           println("Saved Fixture: " + fixObjRef.name);
         } else if (propName.equals("Copy Fixture")) {
           Fixture tempFix = new Fixture();
-          tempFix.setLoadArray(fixObjRef.getSaveString().split(";"));
-          tempFix.name = fixObjRef.name+" Copy";
+          tempFix.load(fixObjRef.save());
+          tempFix.name = fixObjRef.name + " Copy";
           tempFix.pos3d.x += 200;
           fixtureList.add(tempFix);
           reloadMyGui = tempFix;
@@ -74,8 +72,8 @@ class Button extends GuiObject {
       } else if (objType.equals("Cuboid")) {
         if (propName.equals("Copy Cuboid")) {
           Cuboid tempCub = new Cuboid();
-          tempCub.setLoadArray(cubObjRef.getSaveString().split(";"));
-          tempCub.name = cubObjRef.name+" Copy";
+          tempCub.load(cubObjRef.save());
+          tempCub.name = cubObjRef.name + " Copy";
           tempCub.pos3d.x += 200;
           cuboidList.add(tempCub);
           reloadMyGui = tempCub;
@@ -109,17 +107,27 @@ class Button extends GuiObject {
         } else if (propName.equals("*")) {
           lightsOff = !lightsOff;
         } else if (propName.equals("loadfixfilename")) {
-          Fixture tempFix = new Fixture();
-          tempFix.setLoadArray(loadStrings(sketchPath() + PATH_FIXTURES + displayName)[0].split(";"));
-          fixtureList.add(tempFix);
+          try {
+            Fixture tempFix = new Fixture();
+            tempFix.load(loadJSONObject(sketchPath() + PATH_FIXTURES + displayName));
+            fixtureList.add(tempFix);
+          }
+          catch(Exception e) {
+            println(e);
+          }
         } else if (propName.equals("loadenvfilename")) {
           if (displayName.equals("None")) {
             environmentFileName = "";
             environmentShape = null;
           } else {
-            environmentFileName = displayName;
-            environmentShape = loadShape(sketchPath() + PATH_ENVIRONMENTS + displayName);
-            environmentShape.disableStyle();                                    // Ignore the colors in the SVG
+            try {
+              environmentFileName = displayName;
+              environmentShape = loadShape(sketchPath() + PATH_ENVIRONMENTS + displayName);
+              environmentShape.disableStyle();                                  // Ignore the colors in the SVG
+            }
+            catch(Exception e) {
+              println(e);
+            }
           }
         } else if (propName.equals("loadprojfilename")) {
           loadAll(displayName);

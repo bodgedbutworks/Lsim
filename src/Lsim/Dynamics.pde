@@ -78,23 +78,18 @@ class Dynamics {
     pos += spd;
   }
 
-  String getSaveString() {
-    return(
-      str(maxAcc) + ";" +
-      str(maxSpd) + ";" +
-      str(maxSpdTweak)
-      );
+  JSONObject save() {
+    JSONObject oJson = new JSONObject();
+    oJson.setFloat("maxAcc", maxAcc);
+    oJson.setFloat("maxSpd", maxSpd);
+    oJson.setFloat("maxSpdTweak", maxSpdTweak);
+    return(oJson);
   }
 
-  void setLoadArray(String[] iProps) {
-    try {
-      maxAcc = float(iProps[0]);
-      maxSpd = float(iProps[1]);
-      maxSpdTweak = float(iProps[2]);
-      print("Loading Dynamics..");
-    } 
-    catch(Exception e) {
-      println(e);
-    }
+  void load(JSONObject iJson) {
+    maxAcc = iJson.getFloat("maxAcc");
+    maxSpd = iJson.getFloat("maxSpd");
+    maxSpdTweak = iJson.getFloat("maxSpdTweak");
+    print("Loading Dynamics..");
   }
 }

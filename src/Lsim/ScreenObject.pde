@@ -29,28 +29,27 @@ class ScreenObject {
     println("Gui load function not defined!");
   }
 
-  String getSaveString() {
-    return(
-      name + ";" +
-      str(pos3d.x) + ";" +
-      str(pos3d.y) + ";" +
-      str(pos3d.z) + ";" +
-      str(rot.x) + ";" +
-      str(rot.y) + ";" +
-      str(rot.z)
-      );
+  JSONObject save() {
+    JSONObject oJson = new JSONObject();
+    oJson.setString("name", name);
+    oJson.setFloat("pos3d.x", pos3d.x);
+    oJson.setFloat("pos3d.y", pos3d.y);
+    oJson.setFloat("pos3d.z", pos3d.z);
+    oJson.setFloat("rot.x", rot.x);
+    oJson.setFloat("rot.y", rot.y);
+    oJson.setFloat("rot.z", rot.z);
+    return(oJson);
   }
 
-  void setLoadArray(String[] iProps) {
-    try {
-      name = iProps[0];
-      pos3d = new PVector(float(iProps[1]), float(iProps[2]), float(iProps[3]));
-      rot = new PVector(float(iProps[4]), float(iProps[5]), float(iProps[6]));
-      print("Loading ScreenObj..");
-    }
-    catch(Exception e) {
-      println(e);
-    }
+  void load(JSONObject iJson) {
+    print("Loading ScreenObj..");
+    name = iJson.getString("name");
+    pos3d.x = iJson.getFloat("pos3d.x");
+    pos3d.y = iJson.getFloat("pos3d.y");
+    pos3d.z = iJson.getFloat("pos3d.z");
+    rot.x = iJson.getFloat("rot.x");
+    rot.y = iJson.getFloat("rot.y");
+    rot.z = iJson.getFloat("rot.z");
   }
 
   void checkMouseOver() {

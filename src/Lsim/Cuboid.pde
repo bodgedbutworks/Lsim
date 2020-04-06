@@ -46,23 +46,19 @@ class Cuboid extends ScreenObject {
     menuExpRight.put(tempCubExp);
   }
 
-  String getSaveString() {
-    return(
-      super.getSaveString() + ";" +
-      str(size3d.x) + ";" +
-      str(size3d.y) + ";" +
-      str(size3d.z)
-      );
+  JSONObject save() {
+    JSONObject oJson = super.save();
+    oJson.setFloat("size3d.x", size3d.x);
+    oJson.setFloat("size3d.y", size3d.y);
+    oJson.setFloat("size3d.z", size3d.z);
+    return(oJson);
   }
 
-  void setLoadArray(String[] iProps) {
-    try {
-      super.setLoadArray(Arrays.copyOfRange(iProps, 0, 7));
-      size3d = new PVector(float(iProps[7]), float(iProps[8]), float(iProps[9]));
-      println("Loaded Cuboid " + name);
-    }
-    catch(Exception e) {
-      println(e);
-    }
+  void load(JSONObject iJson) {
+    super.load(iJson);
+    size3d.x = iJson.getFloat("size3d.x");
+    size3d.y = iJson.getFloat("size3d.y");
+    size3d.z = iJson.getFloat("size3d.z");
+    println("Loaded Cuboid " + name);
   }
 }
