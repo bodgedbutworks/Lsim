@@ -6,9 +6,9 @@ class Fixture extends ScreenObject {
   ArrayList<Pixel> pixelList = new ArrayList<Pixel>();
 
   int panAngle = 630;                                                           // [deg]
-  int panOffset = 0;
   int tiltAngle = 270;
-  // Tilt offset is constant (tiltAngle/2)
+  int panOffset = 0;                                                            // [deg]
+  int tiltOffset = 0;
   Dynamics pan;
   Dynamics tilt;
   String panType = "Fork";                                                      // Fork,
@@ -58,14 +58,22 @@ class Fixture extends ScreenObject {
     stroke(0);
     strokeWeight(1);
 
-    int panMSB = ((chanPanCoarse>0) ? int(dmxData[universe][constrain(address-1+chanPanCoarse-1, 0, 511)]) : 127);
-    int panLSB = ((chanPanFine>0) ? int(dmxData[universe][constrain(address-1+chanPanFine-1, 0, 511)]) : 127);
-    int tiltMSB = ((chanTiltCoarse>0) ? int(dmxData[universe][constrain(address-1+chanTiltCoarse-1, 0, 511)]) : 127);
-    int tiltLSB = ((chanTiltFine>0) ? int(dmxData[universe][constrain(address-1+chanTiltFine-1, 0, 511)]) : 127);
-    pan.updateDest(((panMSB<<8) | panLSB)*float(panAngle)/65536.0 + panOffset);
-    pan.move();
-    tilt.updateDest(((tiltMSB<<8) | tiltLSB)*float(tiltAngle)/65536.0 - float(tiltAngle)/2.0);    // Fixed offset angle
-    tilt.move();
+    if (chanPanCoarse > 0  &&  chanPanFine > 0) {
+      int panMSB = ((chanPanCoarse>0) ? int(dmxData[universe][constrain(address-1+chanPanCoarse-1, 0, 511)]) : 127);
+      int panLSB = ((chanPanFine>0) ? int(dmxData[universe][constrain(address-1+chanPanFine-1, 0, 511)]) : 127);
+      pan.updateDest(((panMSB<<8) | panLSB)*float(panAngle)/65536.0 + panOffset);
+      pan.move();
+    } else {
+      pan.pos = float(panAngle)/2;
+    }
+    if (chanTiltCoarse > 0  &&  chanTiltFine > 0) {
+      int tiltMSB = ((chanTiltCoarse>0) ? int(dmxData[universe][constrain(address-1+chanTiltCoarse-1, 0, 511)]) : 127);
+      int tiltLSB = ((chanTiltFine>0) ? int(dmxData[universe][constrain(address-1+chanTiltFine-1, 0, 511)]) : 127);
+      tilt.updateDest(((tiltMSB<<8) | tiltLSB)*float(tiltAngle)/65536.0 + tiltOffset);
+      tilt.move();
+    } else {
+      tilt.pos = float(tiltAngle)/2;
+    }
 
     for (Pixel p : pixelList) {
       p.updateChannels(address, dmxData[universe]);
@@ -98,7 +106,7 @@ class Fixture extends ScreenObject {
     if (panType.equals("Fork")) {
       shape(modelPan);
     }
-    rotateX(radians(tilt.pos));
+    rotateX(radians(tilt.pos - float(tiltAngle)/2.0));                          // Offset tilt (center = pointing straight forwards)
     if (tiltType.equals("Head")) {
       shape(modelTilt);
     } else if (tiltType.equals("Cuboid")) {
@@ -129,6 +137,7 @@ class Fixture extends ScreenObject {
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Chan Tilt Coarse", "Chan Tilt Coarse", chanTiltCoarse, 1, 0, 512, 0));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Chan Tilt Fine", "Chan Tilt Fine", chanTiltFine, 1, 0, 512, 0));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Offset", "Pan Offset", panOffset, 1, -180, 180, -999));
+    tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Offset", "Tilt Offset", tiltOffset, 1, -180, 180, -999));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Angle", "Pan Angle", panAngle, 1, 90, 720, -1));
     tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(70, 25), this, "Pan Accel", "Pan Accel", pan.maxAcc, 0.01));
     tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(70, 25), this, "Pan Speed", "Pan Speed", pan.maxSpd, 0.01));
@@ -168,6 +177,7 @@ class Fixture extends ScreenObject {
     oJson.setInt("chanTiltCoarse", chanTiltCoarse);
     oJson.setInt("chanTiltFine", chanTiltFine);
     oJson.setFloat("panOffset", panOffset);
+    oJson.setFloat("tiltOffset", tiltOffset);
     oJson.setInt("panAngle", panAngle);
     oJson.setInt("tiltAngle", tiltAngle);
     oJson.setString("panType", panType);
@@ -197,6 +207,7 @@ class Fixture extends ScreenObject {
     chanTiltCoarse = iJson.getInt("chanTiltCoarse");
     chanTiltFine = iJson.getInt("chanTiltFine");
     panOffset = iJson.getInt("panOffset");
+    tiltOffset = iJson.getInt("tiltOffset");
     panAngle = iJson.getInt("panAngle");
     tiltAngle = iJson.getInt("tiltAngle");
     panType = iJson.getString("panType");

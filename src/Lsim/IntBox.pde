@@ -67,6 +67,8 @@ class IntBox extends GuiObject {
         fixObjRef.address = int(valStr);
       } else if (propName.equals("Pan Offset")) {
         fixObjRef.panOffset = int(valStr);
+      } else if (propName.equals("Tilt Offset")) {
+        fixObjRef.tiltOffset = int(valStr);
       } else if (propName.equals("Pan Angle")) {
         fixObjRef.panAngle = int(valStr);
       } else if (propName.equals("Tilt Angle")) {
