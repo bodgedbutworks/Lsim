@@ -49,7 +49,9 @@ class Button extends GuiObject {
           reloadMyGui = pixObjRef.parentFixRef;
         }
       } else if (objType.equals("Fixture")) {
-        if (propName.equals("Fork Model")) {
+        if (propName.equals("Toggle Beams")) {
+          fixObjRef.showBeams = !fixObjRef.showBeams;
+        } else if (propName.equals("Fork Model")) {
           fixObjRef.panType = "Fork";
         } else if (propName.equals("Head Model")) {
           fixObjRef.tiltType = "Head";

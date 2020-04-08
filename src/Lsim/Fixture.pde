@@ -1,5 +1,7 @@
 /// Fixture definition
 class Fixture extends ScreenObject {
+  boolean showBeams = true;
+
   int universe = 0;                                                             //< ArtNet Universe
   int address = 1;
 
@@ -130,6 +132,7 @@ class Fixture extends ScreenObject {
     tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.x", "rot.x", rot.x, 1.0));
     tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.y", "rot.y", rot.y, 1.0));
     tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.z", "rot.z", rot.z, 1.0));
+    tempFixExp.put(new Button(new PVector(0, 0), new PVector(120, 25), this, "Toggle Beams", "Toggle Beams", CLR_MENU_LV2));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Universe", "Universe", universe, 1, 0, QTY_UNIVERSES-1, -1));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Address", "Address", address, 1, 1, 512, -1));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Chan Pan Coarse", "Chan Pan Coarse", chanPanCoarse, 1, 0, 512, 0));
@@ -147,7 +150,7 @@ class Fixture extends ScreenObject {
     tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(70, 25), this, "Tilt Speed", "Tilt Speed", tilt.maxSpd, 0.01));
     tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(70, 25), this, "Tilt Tweak", "Tilt Tweak", tilt.maxSpdTweak, 0.01));
     Expandable selectPanExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pan", true, false, CLR_MENU_LV2);
-    selectPanExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Fork Model", "Fork Model", CLR_MENU_LV3));    // ToDo add representation in Button class
+    selectPanExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Fork Model", "Fork Model", CLR_MENU_LV3));
     selectPanExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pan Size LR", "Pan Size LR", int(sizePan.x), 1, 1, 10000, -1));
     selectPanExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pan Size UD", "Pan Size UD", int(sizePan.y), 1, 1, 10000, -1));
     selectPanExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pan Size FB", "Pan Size FB", int(sizePan.z), 1, 1, 10000, -1));
@@ -170,6 +173,7 @@ class Fixture extends ScreenObject {
 
   JSONObject save() {
     JSONObject oJson = super.save();
+    oJson.setInt("showBeams", (showBeams ? 1 : 0));
     oJson.setInt("universe", universe);
     oJson.setInt("address", address);
     oJson.setInt("chanPanCoarse", chanPanCoarse);
@@ -200,6 +204,7 @@ class Fixture extends ScreenObject {
 
   void load(JSONObject iJson) {
     super.load(iJson);
+    showBeams = (!iJson.isNull("showBeams") ? boolean(iJson.getInt("showBeams")) : true);   // Ensure backwards compatibility
     universe = iJson.getInt("universe");
     address = iJson.getInt("address");
     chanPanCoarse = iJson.getInt("chanPanCoarse");

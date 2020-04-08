@@ -44,11 +44,6 @@ class Pixel {
 
   void updateChannels(int iFixtureAddress, byte[] iDmxUniverse) {
     dimmer = ((chanDimmer>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanDimmer-1, 0, 511)]) : 255);
-    float tempZoom = ((chanZoom>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanZoom-1, 0, 511)]) : 0);
-    if (zoom != tempZoom) {
-      zoom = tempZoom;
-      updateBeam();
-    }
     clrR = ((chanClrR>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrR-1, 0, 511)]) : 0);
     clrG = ((chanClrG>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrG-1, 0, 511)]) : 0);
     clrB = ((chanClrB>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrB-1, 0, 511)]) : 0);
@@ -56,14 +51,22 @@ class Pixel {
 
     // ToDo: Color model is incorrect, vary dark color settings result in 'black' light output
     beamClr = color(min(clrR+clrW, 255), min(clrG+clrW, 255), min(clrB+clrW, 255), dimmer*(clrR+clrG+clrB+clrW)*OPACITY_BEAMS/(4*255*255));
-    modelBeam.setFill(beamClr);
+
+    if (!beamsOff  &&  parentFixRef.showBeams) {
+      float tempZoom = ((chanZoom>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanZoom-1, 0, 511)]) : 0);
+      if (zoom != tempZoom) {
+        zoom = tempZoom;
+        updateBeam();
+      }
+      modelBeam.setFill(beamClr);
+    }
   }
 
   void display() {
     hint(DISABLE_DEPTH_MASK);                                                   // Disable depth counter, NOT occlusion detection (=DISABLE_DEPTH_TEST)
     pushMatrix();
     translate(pos3d.x, pos3d.z, pos3d.y);
-    if (!beamsOff) {
+    if (!beamsOff  &&  parentFixRef.showBeams) {
       shape(modelBeam);
     }
     noStroke();
