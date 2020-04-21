@@ -33,38 +33,48 @@ class IntBox extends GuiObject {
     valStr = str(int(valStr));
   }
 
-  void editValKey() {
-    if ((key >= '0'  &&  key <= '9')  ||  (key == '-'  &&  valStr.length() == 0)) {
-      valStr += key;
-    } else if (key == BACKSPACE  &&  valStr.length() > 0) {
-      valStr = valStr.substring(0, valStr.length()-1);
+  void editValKey() {                                                           // run only when a key is pressed
+    if ((key >= '0'  &&  key <= '9')  ||  (key == '-'  &&  utilStr.length() == 0)) {
+      utilStr += key;
+      keyEditState = 1;
+    } else if (key == BACKSPACE  &&  utilStr.length() > 0) {
+      utilStr = utilStr.substring(0, utilStr.length()-1);
+      keyEditState = 1;
     } else if (key == DELETE) {
-      valStr = str(valMin);
-    } else if (key == ENTER) {
-      print("Print valStr: " + valStr);
+      utilStr = "";
+      keyEditState = 1;
+    }
+
+    if (keyEditState == 1) {
+      if (key == ENTER) {
+        valStr = utilStr;
+        keyEditState = 0;
+      }
     }
   }
 
   void display() {
     if (checkMouseOver()) {
       selectedGuiObject = this;
+      utilStr = new String(valStr);
     }
-    valStr = str(int(valStr));
+    if (selectedGuiObject != this) {
+      keyEditState = 0;
+    }
+    valStr = str(constrain(int(valStr), valMin, valMax));
     noStroke();
     if (int(valStr) != valDeac) {
-      fill((selectedGuiObject==this) ? 220+35*sin(millis()/75.0) : 255);
+      fill((selectedGuiObject==this) ? 220+25*sin(millis()/100.0) : 255);       // Flash background while selected
     } else {
-      fill((selectedGuiObject==this) ? 110+20*sin(millis()/75.0) : 127);
+      fill((selectedGuiObject==this) ? 110+20*sin(millis()/100.0) : 127);
     }
     rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y, 3);
-    fill(0);
+    fill((keyEditState==1) ? 70+70*sin(millis()/50.0) : 0);                     // Flash text while editing via
     textSize(size.y/2);
     textAlign(LEFT, TOP);
-    text(valStr, pos.x+2, pos.y+4, pos.x+size.x-2, pos.y+size.y-4);
+    text(((keyEditState==0) ? valStr : utilStr), pos.x+2, pos.y+4, pos.x+size.x-2, pos.y+size.y-4);
     fill(50, 255, 50);
     text(displayName, pos.x+size.x+SIZE_GUTTER, pos.y);
-
-    valStr = str(constrain(int(valStr), valMin, valMax));
 
     // ToDo: Is there a smarter way to do this??
     if (objType.equals("Fixture")) {

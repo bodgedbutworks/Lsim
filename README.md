@@ -46,14 +46,16 @@ Submission for "Effizient Programmieren I+II"
 * If it still doesn't work as expected, please report the issue at https://gitlab.fsmach.uni-stuttgart.de/lsim/lsim/-/issues or via E-Mail to lsim@aerotrax.de
 
 ##### Key bindings
-* Mousewheel / 0-9: Edit spin box values
-* Hold CONTROL: Incrementation speed x10
-* Hold SHIFT: Incrementation speed x100
-* BACKSPACE: Delete rightmost spin box digit
 * DELETE: Clear spin box
+* BACKSPACE: Delete rightmost spin box digit
+* '-', '0'-'9', '.': Change spin box value
+* ENTER: Apply value
 
 ##### Mouse control
-* Mousewheel: Zoom in/out
+* Mousewheel (menu): Increment/Decrement box values
+* CONTROL + Mousewheel: Incrementation speed x10
+* SHIFT + Mousewheel: Incrementation speed x100
+* Mousewheel (3D space): Zoom in/out
 * Hold right mouse button: Orbit around point of interest
 * Hold middle mouse button: Move point of interest
 

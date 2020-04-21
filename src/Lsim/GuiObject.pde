@@ -13,6 +13,8 @@ class GuiObject {
   String propName = "";
   String displayName = "";
   String valStr = "42.0";
+  String utilStr = "0";                                                         // Used while editing via keyboard, later applied to valStr
+  byte keyEditState = 0;                                                        // 0=idle, 1=editing
   float stepSize = 1.0;
   color clr = color(255, 0, 255);
 

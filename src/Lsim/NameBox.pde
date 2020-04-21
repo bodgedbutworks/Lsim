@@ -34,7 +34,7 @@ class NameBox extends GuiObject {
     }
     //valStr = str(float(int(float(valStr)*100)/100));
     noStroke();
-    fill((selectedGuiObject==this) ? 220+35*sin(millis()/75.0) : 255);
+    fill((selectedGuiObject==this) ? 220+25*sin(millis()/100.0) : 255);
     rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y, 3);
     fill(0);
     textSize(size.y/2);

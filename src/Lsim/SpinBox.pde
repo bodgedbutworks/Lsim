@@ -12,30 +12,42 @@ class SpinBox extends GuiObject {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
   }
 
-  void editValKey() {
-    if ((key >= '0'  &&  key <= '9')  ||  (key == '.'  &&  valStr.indexOf('.') == -1)  ||  (key == '-'  &&  valStr.length() == 0)) {
-      valStr += key;
-    } else if (key == BACKSPACE  &&  valStr.length() > 0) {
-      valStr = valStr.substring(0, valStr.length()-1);
+  void editValKey() {                                                           // run only when a key is pressed
+    if ((key >= '0'  &&  key <= '9')  ||  (key == '.'  &&  utilStr.indexOf('.') == -1)  ||  (key == '-'  &&  utilStr.length() == 0)) {
+      utilStr += key;
+      keyEditState = 1;
+    } else if (key == BACKSPACE  &&  utilStr.length() > 0) {
+      utilStr = utilStr.substring(0, utilStr.length()-1);
+      keyEditState = 1;
     } else if (key == DELETE) {
-      valStr = "";
-    } else if (key == ENTER) {
-      print("Print valStr: " + valStr);
+      utilStr = "";
+      keyEditState = 1;
+    }
+
+    if (keyEditState == 1) {
+      if (key == ENTER) {
+        valStr = utilStr;
+        keyEditState = 0;
+      }
     }
   }
 
   void display() {
     if (checkMouseOver()) {
       selectedGuiObject = this;
+      utilStr = new String(valStr);
+    }
+    if (selectedGuiObject != this) {
+      keyEditState = 0;
     }
     //valStr = str(float(int(float(valStr)*100)/100));
     noStroke();
-    fill((selectedGuiObject==this) ? 220+35*sin(millis()/75.0) : 255);
+    fill((selectedGuiObject==this) ? 220+25*sin(millis()/100.0) : 255);         // Flash background while selected
     rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y, 3);
-    fill(0);
+    fill((keyEditState==1) ? 70+70*sin(millis()/50.0) : 0);                     // Flash text while editing via keyboard
     textSize(size.y/2);
     textAlign(LEFT, TOP);
-    text(valStr, pos.x+2, pos.y+4, pos.x+size.x-2, pos.y+size.y-4);
+    text(((keyEditState==0) ? valStr : utilStr), pos.x+2, pos.y+4, pos.x+size.x-2, pos.y+size.y-4);
     fill(50, 255, 50);
     text(displayName, pos.x+size.x+SIZE_GUTTER, pos.y);
 
