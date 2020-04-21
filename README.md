@@ -59,6 +59,7 @@ Submission for "Effizient Programmieren I+II"
 
 ##### General
 * Scale is 1cm/px
+* Backups are automatically created in save/autobackups/ upon program start, so if you (or a bug) messed something up, check older versions there
 
 ##### Environment format generation
 * CAD (e.g. CATIA): Model should be roughly centered around vertical axis

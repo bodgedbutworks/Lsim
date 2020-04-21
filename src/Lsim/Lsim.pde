@@ -3,6 +3,10 @@ import java.util.Arrays;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 UDP udp;
 
 
@@ -17,6 +21,7 @@ int SIZE_MENU_LEFT;
 String PATH_FIXTURES = "/save/fixtures/";
 String PATH_ENVIRONMENTS = "/data/";                                            // .obj files must be in data/ dir in Processing
 String PATH_PROJECTS = "/save/projects/";
+String PATH_BACKUPS = "/save/autobackups/";
 // Saturation 57%, Brightness 100%, Hue varied
 color CLR_MENU_LV1 = #FF00FF;
 color CLR_MENU_LV2 = #FFD68C;
@@ -78,7 +83,8 @@ void setup() {
 
   reloadMyGui = null;
 
-  projectName = "Projname_" + ZonedDateTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern( "uuuu_MM_dd HH_mm_ss" ));
+  String timestamp = ZonedDateTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern( "uuuu_MM_dd-HH_mm_ss" ));
+  projectName = "Projname_" + timestamp;
 
   expandBtn = new Button(new PVector(0, 0), new PVector(width/30, width/25), ">", ">", color(100, 70, 100));
 
@@ -91,12 +97,21 @@ void setup() {
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "S", "Save\nProject", CLR_MENU_LV1));
   menuExpLeft.put(new NameBox(new PVector(0, 0), new PVector(width/15, 25), "projectName", "", projectName));
 
+  new File(sketchPath() + PATH_BACKUPS + timestamp + "/fixtures/").mkdirs();             // Create directories for backup
+  new File(sketchPath() + PATH_BACKUPS + timestamp + "/projects/").mkdirs();
+
   // Load fixtures
   Expandable loadFixExp = new Expandable(new PVector(0, 20), new PVector(0, 0), "Fixtures", true, false, CLR_MENU_LV1);
   File dir = new File(sketchPath() + PATH_FIXTURES);
   if (dir.isDirectory()) {
     String names[] = dir.list();
     for (String n : names) {
+      try {
+        Files.copy(new File(sketchPath() + PATH_FIXTURES + n).toPath(), new File(sketchPath() + PATH_BACKUPS + timestamp + "/fixtures/" + n).toPath(), StandardCopyOption.REPLACE_EXISTING);
+      } 
+      catch(IOException e) {
+        println(e);
+      }
       loadFixExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadfixfilename", n, CLR_MENU_LV2));
     }
   } else {
@@ -126,6 +141,12 @@ void setup() {
   if (dir.isDirectory()) {
     String names[] = dir.list();
     for (String n : names) {
+      try {
+        Files.copy(new File(sketchPath() + PATH_PROJECTS + n).toPath(), new File(sketchPath() + PATH_BACKUPS + timestamp + "/projects/" + n).toPath(), StandardCopyOption.REPLACE_EXISTING);
+      } 
+      catch(IOException e) {
+        println(e);
+      }
       loadProjExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadprojfilename", n, CLR_MENU_LV2));
     }
   } else {
