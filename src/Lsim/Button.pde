@@ -51,6 +51,10 @@ class Button extends GuiObject {
       } else if (objType.equals("Fixture")) {
         if (propName.equals("Toggle Beams")) {
           fixObjRef.showBeams = !fixObjRef.showBeams;
+        } else if (propName.equals("Plate Model")) {
+          fixObjRef.baseType = "Plate";
+        } else if (propName.equals("No Model")) {
+          fixObjRef.baseType = "None";
         } else if (propName.equals("Fork Model")) {
           fixObjRef.panType = "Fork";
         } else if (propName.equals("Head Model")) {

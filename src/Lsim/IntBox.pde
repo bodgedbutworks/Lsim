@@ -82,6 +82,15 @@ class IntBox extends GuiObject {
         fixObjRef.universe = int(valStr);
       } else if (propName.equals("Address")) {
         fixObjRef.address = int(valStr);
+      } else if (propName.equals("Base Size LR")) {
+        fixObjRef.sizeBase.x = int(valStr);
+        fixObjRef.rescaleModels();
+      } else if (propName.equals("Base Size UD")) {
+        fixObjRef.sizeBase.y = int(valStr);
+        fixObjRef.rescaleModels();
+      } else if (propName.equals("Base Size FB")) {
+        fixObjRef.sizeBase.z = int(valStr);
+        fixObjRef.rescaleModels();
       } else if (propName.equals("Pan Size LR")) {
         fixObjRef.sizePan.x = int(valStr);
         fixObjRef.rescaleModels();

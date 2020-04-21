@@ -9,11 +9,13 @@ class Fixture extends ScreenObject {
 
   Dynamics pan;
   Dynamics tilt;
+  String baseType = "Plate";                                                    // Plate, None
   String panType = "Fork";                                                      // Fork,
   String tiltType = "Head";                                                     // Head, Cuboid
   PShape modelBase;
   PShape modelPan;
   PShape modelTilt;
+  PVector sizeBase = new PVector(100, 100, 100);
   PVector sizePan = new PVector(100, 100, 100);
   PVector sizeTilt = new PVector(100, 100, 100);
 
@@ -35,7 +37,7 @@ class Fixture extends ScreenObject {
     modelBase.resetMatrix();
     modelPan.resetMatrix();
     modelTilt.resetMatrix();
-    modelBase.scale(sizePan.x/100.0, sizePan.y/100.0, sizePan.z/100.0);
+    modelBase.scale(sizeBase.x/100.0, sizeBase.y/100.0, sizeBase.z/100.0);
     modelPan.scale(sizePan.x/100.0, sizePan.y/100.0, sizePan.z/100.0);
     modelTilt.scale(sizeTilt.x/100.0, sizeTilt.y/100.0, sizeTilt.z/100.0);
   }
@@ -75,7 +77,9 @@ class Fixture extends ScreenObject {
     fill(clr);
     stroke(0);
     strokeWeight(2);
-    shape(modelBase);
+    if (baseType.equals("Plate")) {
+      shape(modelBase);
+    }
     rotateY(radians(pan.pos));
     if (panType.equals("Fork")) {
       shape(modelPan);
@@ -108,15 +112,22 @@ class Fixture extends ScreenObject {
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Address", "Address", address, 1, 1, 512, -1));
     tempFixExp.put(pan.returnGui());
     tempFixExp.put(tilt.returnGui());
+    Expandable selectBaseExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Base Model", true, false, CLR_MENU_LV2);
+    selectBaseExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Plate Model", "Plate", CLR_MENU_LV3));
+    selectBaseExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "No Model", "None", CLR_MENU_LV3));
+    selectBaseExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Base Size LR", "Base Size LR", int(sizeBase.x), 1, 1, 10000, -1));
+    selectBaseExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Base Size FB", "Base Size FB", int(sizeBase.y), 1, 1, 10000, -1));
+    selectBaseExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Base Size UD", "Base Size UD", int(sizeBase.z), 1, 1, 10000, -1));
+    tempFixExp.put(selectBaseExp);
     Expandable selectPanExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pan Model", true, false, CLR_MENU_LV2);
-    selectPanExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Fork Model", "Fork Model", CLR_MENU_LV3));
+    selectPanExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Fork Model", "Fork", CLR_MENU_LV3));
     selectPanExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pan Size LR", "Pan Size LR", int(sizePan.x), 1, 1, 10000, -1));
     selectPanExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pan Size UD", "Pan Size UD", int(sizePan.y), 1, 1, 10000, -1));
     selectPanExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pan Size FB", "Pan Size FB", int(sizePan.z), 1, 1, 10000, -1));
     tempFixExp.put(selectPanExp);
     Expandable selectTiltExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Tilt Model", true, false, CLR_MENU_LV2);
-    selectTiltExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Head Model", "Head Model", CLR_MENU_LV3));
-    selectTiltExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Cuboid Model", "Cuboid Model", CLR_MENU_LV3));
+    selectTiltExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Head Model", "Head", CLR_MENU_LV3));
+    selectTiltExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Cuboid Model", "Cuboid", CLR_MENU_LV3));
     selectTiltExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Tilt Size LR", "Tilt Size LR", int(sizeTilt.x), 1, 1, 10000, -1));
     selectTiltExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Tilt Size FB", "Tilt Size FB", int(sizeTilt.y), 1, 1, 10000, -1));
     selectTiltExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Tilt Size UD", "Tilt Size UD", int(sizeTilt.z), 1, 1, 10000, -1));
@@ -138,8 +149,12 @@ class Fixture extends ScreenObject {
     oJson.setInt("address", address);
     oJson.setJSONObject("pan", pan.save());
     oJson.setJSONObject("tilt", tilt.save());
+    oJson.setString("baseType", baseType);
     oJson.setString("panType", panType);
     oJson.setString("tiltType", tiltType);
+    oJson.setFloat("sizeBase.x", sizeBase.x);
+    oJson.setFloat("sizeBase.y", sizeBase.y);
+    oJson.setFloat("sizeBase.z", sizeBase.z);
     oJson.setFloat("sizePan.x", sizePan.x);
     oJson.setFloat("sizePan.y", sizePan.y);
     oJson.setFloat("sizePan.z", sizePan.z);
@@ -161,8 +176,12 @@ class Fixture extends ScreenObject {
     address = iJson.getInt("address");
     pan.load(iJson.getJSONObject("pan"));
     tilt.load(iJson.getJSONObject("tilt"));
+    baseType = iJson.getString("baseType");
     panType = iJson.getString("panType");
     tiltType = iJson.getString("tiltType");
+    sizeBase.x = iJson.getFloat("sizeBase.x");
+    sizeBase.y = iJson.getFloat("sizeBase.y");
+    sizeBase.z = iJson.getFloat("sizeBase.z");
     sizePan.x = iJson.getFloat("sizePan.x");
     sizePan.y = iJson.getFloat("sizePan.y");
     sizePan.z = iJson.getFloat("sizePan.z");
