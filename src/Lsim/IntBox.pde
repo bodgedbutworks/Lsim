@@ -25,6 +25,13 @@ class IntBox extends GuiObject {
     valDeac = ivalDeac;
     valStr = str(int(valStr));
   }
+  IntBox(PVector iOffset, PVector iSize, Dynamics iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax, int ivalDeac) {
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(float(iInitialVal)), float(iStepSize));
+    valMin = iMin;
+    valMax = iMax;
+    valDeac = ivalDeac;
+    valStr = str(int(valStr));
+  }
 
   void editValKey() {
     if ((key >= '0'  &&  key <= '9')  ||  (key == '-'  &&  valStr.length() == 0)) {
@@ -65,22 +72,6 @@ class IntBox extends GuiObject {
         fixObjRef.universe = int(valStr);
       } else if (propName.equals("Address")) {
         fixObjRef.address = int(valStr);
-      } else if (propName.equals("Pan Offset")) {
-        fixObjRef.panOffset = int(valStr);
-      } else if (propName.equals("Tilt Offset")) {
-        fixObjRef.tiltOffset = int(valStr);
-      } else if (propName.equals("Pan Angle")) {
-        fixObjRef.panAngle = int(valStr);
-      } else if (propName.equals("Tilt Angle")) {
-        fixObjRef.tiltAngle = int(valStr);
-      } else if (propName.equals("Chan Pan Coarse")) {
-        fixObjRef.chanPanCoarse = int(valStr);
-      } else if (propName.equals("Chan Pan Fine")) {
-        fixObjRef.chanPanFine = int(valStr);
-      } else if (propName.equals("Chan Tilt Coarse")) {
-        fixObjRef.chanTiltCoarse = int(valStr);
-      } else if (propName.equals("Chan Tilt Fine")) {
-        fixObjRef.chanTiltFine = int(valStr);
       } else if (propName.equals("Pan Size LR")) {
         fixObjRef.sizePan.x = int(valStr);
         fixObjRef.rescaleModels();
@@ -127,6 +118,16 @@ class IntBox extends GuiObject {
         pixObjRef.chanClrB = int(valStr);
       } else if (propName.equals("Rel. Channel White")) {
         pixObjRef.chanClrW = int(valStr);
+      }
+    } else if (objType.equals("Dynamics")) {
+      if (propName.equals("Channel Coarse")) {
+        dynObjRef.chanCoarse = int(valStr);
+      } else if (propName.equals("Channel Fine")) {
+        dynObjRef.chanFine = int(valStr);
+      } else if (propName.equals("Angle")) {
+        dynObjRef.angle = int(valStr);
+      } else if (propName.equals("Offset")) {
+        dynObjRef.offset = int(valStr);
       }
     }
   }

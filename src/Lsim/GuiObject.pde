@@ -6,6 +6,7 @@ class GuiObject {
   Fixture fixObjRef;
   Cuboid cubObjRef;
   Pixel pixObjRef;
+  Dynamics dynObjRef;
   Expandable expObjRef;
   String objType = "";
 
@@ -33,6 +34,11 @@ class GuiObject {
   GuiObject(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
     pixObjRef = iObjRef;
     objType = "Pixel";
+    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
+  }
+  GuiObject(PVector iOffset, PVector iSize, Dynamics iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
+    dynObjRef = iObjRef;
+    objType = "Dynamics";
     init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
   }
   GuiObject(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {

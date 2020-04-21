@@ -7,10 +7,6 @@ class Fixture extends ScreenObject {
 
   ArrayList<Pixel> pixelList = new ArrayList<Pixel>();
 
-  int panAngle = 630;                                                           // [deg]
-  int tiltAngle = 270;
-  int panOffset = 0;                                                            // [deg]
-  int tiltOffset = 0;
   Dynamics pan;
   Dynamics tilt;
   String panType = "Fork";                                                      // Fork,
@@ -21,12 +17,6 @@ class Fixture extends ScreenObject {
   PVector sizePan = new PVector(100, 100, 100);
   PVector sizeTilt = new PVector(100, 100, 100);
 
-  int chanPanCoarse = 1;                                                              // [1-512]
-  int chanPanFine = 2;
-  int chanTiltCoarse = 3;
-  int chanTiltFine = 4;
-
-
   Fixture() {
     super(new PVector(int(random(-100, 100)), int(random(-250, -50)), int(random(-100, 100))), new PVector(0, 0, 0));
     modelBase = loadShape("Headbase.obj");
@@ -36,12 +26,10 @@ class Fixture extends ScreenObject {
     modelPan.disableStyle();
     modelTilt.disableStyle();
     rescaleModels();
-    pan = new Dynamics();
-    tilt = new Dynamics();
+    pan = new Dynamics("Pan Dynamics");
+    tilt = new Dynamics("Tilt Dynamics");
     pixelList.add(new Pixel("1", this));
   }
-
-
 
   void rescaleModels() {
     modelBase.resetMatrix();
@@ -52,30 +40,14 @@ class Fixture extends ScreenObject {
     modelTilt.scale(sizeTilt.x/100.0, sizeTilt.y/100.0, sizeTilt.z/100.0);
   }
 
-
-
   void display() {
     checkMouseOver();
     fill(80);
     stroke(0);
     strokeWeight(1);
 
-    if (chanPanCoarse > 0  &&  chanPanFine > 0) {
-      int panMSB = ((chanPanCoarse>0) ? int(dmxData[universe][constrain(address-1+chanPanCoarse-1, 0, 511)]) : 127);
-      int panLSB = ((chanPanFine>0) ? int(dmxData[universe][constrain(address-1+chanPanFine-1, 0, 511)]) : 127);
-      pan.updateDest(((panMSB<<8) | panLSB)*float(panAngle)/65536.0 + panOffset);
-      pan.move();
-    } else {
-      pan.pos = float(panAngle)/2;
-    }
-    if (chanTiltCoarse > 0  &&  chanTiltFine > 0) {
-      int tiltMSB = ((chanTiltCoarse>0) ? int(dmxData[universe][constrain(address-1+chanTiltCoarse-1, 0, 511)]) : 127);
-      int tiltLSB = ((chanTiltFine>0) ? int(dmxData[universe][constrain(address-1+chanTiltFine-1, 0, 511)]) : 127);
-      tilt.updateDest(((tiltMSB<<8) | tiltLSB)*float(tiltAngle)/65536.0 + tiltOffset);
-      tilt.move();
-    } else {
-      tilt.pos = float(tiltAngle)/2;
-    }
+    pan.updateDest(address, dmxData[universe]);
+    tilt.updateDest(address, dmxData[universe]);
 
     for (Pixel p : pixelList) {
       p.updateChannels(address, dmxData[universe]);
@@ -108,7 +80,7 @@ class Fixture extends ScreenObject {
     if (panType.equals("Fork")) {
       shape(modelPan);
     }
-    rotateX(radians(tilt.pos - float(tiltAngle)/2.0));                          // Offset tilt (center = pointing straight forwards)
+    rotateX(radians(tilt.pos - float(tilt.angle)/2.0));                          // Offset tilt (center = pointing straight forwards)
     if (tiltType.equals("Head")) {
       shape(modelTilt);
     } else if (tiltType.equals("Cuboid")) {
@@ -132,36 +104,24 @@ class Fixture extends ScreenObject {
     tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.x", "rot.x", rot.x, 1.0));
     tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.y", "rot.y", rot.y, 1.0));
     tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.z", "rot.z", rot.z, 1.0));
-    tempFixExp.put(new Button(new PVector(0, 0), new PVector(120, 25), this, "Toggle Beams", "Toggle Beams", CLR_MENU_LV2));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Universe", "Universe", universe, 1, 0, QTY_UNIVERSES-1, -1));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Address", "Address", address, 1, 1, 512, -1));
-    tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Chan Pan Coarse", "Chan Pan Coarse", chanPanCoarse, 1, 0, 512, 0));
-    tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Chan Pan Fine", "Chan Pan Fine", chanPanFine, 1, 0, 512, 0));
-    tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Chan Tilt Coarse", "Chan Tilt Coarse", chanTiltCoarse, 1, 0, 512, 0));
-    tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Chan Tilt Fine", "Chan Tilt Fine", chanTiltFine, 1, 0, 512, 0));
-    tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Offset", "Pan Offset", panOffset, 1, -180, 180, -999));
-    tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Offset", "Tilt Offset", tiltOffset, 1, -180, 180, -999));
-    tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pan Angle", "Pan Angle", panAngle, 1, 90, 720, -1));
-    tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(70, 25), this, "Pan Accel", "Pan Accel", pan.maxAcc, 0.01));
-    tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(70, 25), this, "Pan Speed", "Pan Speed", pan.maxSpd, 0.01));
-    tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(70, 25), this, "Pan Tweak", "Pan Tweak", pan.maxSpdTweak, 0.01));
-    tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Tilt Angle", "Tilt Angle", tiltAngle, 1, 90, 360, -1));
-    tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(70, 25), this, "Tilt Accel", "Tilt Accel", tilt.maxAcc, 0.01));
-    tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(70, 25), this, "Tilt Speed", "Tilt Speed", tilt.maxSpd, 0.01));
-    tempFixExp.put(new SpinBox(new PVector(10, 0), new PVector(70, 25), this, "Tilt Tweak", "Tilt Tweak", tilt.maxSpdTweak, 0.01));
-    Expandable selectPanExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pan", true, false, CLR_MENU_LV2);
+    tempFixExp.put(pan.returnGui());
+    tempFixExp.put(tilt.returnGui());
+    Expandable selectPanExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pan Model", true, false, CLR_MENU_LV2);
     selectPanExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Fork Model", "Fork Model", CLR_MENU_LV3));
     selectPanExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pan Size LR", "Pan Size LR", int(sizePan.x), 1, 1, 10000, -1));
     selectPanExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pan Size UD", "Pan Size UD", int(sizePan.y), 1, 1, 10000, -1));
     selectPanExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pan Size FB", "Pan Size FB", int(sizePan.z), 1, 1, 10000, -1));
     tempFixExp.put(selectPanExp);
-    Expandable selectTiltExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Tilt", true, false, CLR_MENU_LV2);
+    Expandable selectTiltExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Tilt Model", true, false, CLR_MENU_LV2);
     selectTiltExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Head Model", "Head Model", CLR_MENU_LV3));
     selectTiltExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Cuboid Model", "Cuboid Model", CLR_MENU_LV3));
     selectTiltExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Tilt Size LR", "Tilt Size LR", int(sizeTilt.x), 1, 1, 10000, -1));
     selectTiltExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Tilt Size FB", "Tilt Size FB", int(sizeTilt.y), 1, 1, 10000, -1));
     selectTiltExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Tilt Size UD", "Tilt Size UD", int(sizeTilt.z), 1, 1, 10000, -1));
     tempFixExp.put(selectTiltExp);
+    tempFixExp.put(new Button(new PVector(0, 0), new PVector(120, 25), this, "Toggle Beams", "Toggle Beams", CLR_MENU_LV2));
     menuExpRight.put(tempFixExp);
     for (Pixel p : pixelList) {
       p.loadGui();
@@ -176,14 +136,8 @@ class Fixture extends ScreenObject {
     oJson.setInt("showBeams", (showBeams ? 1 : 0));
     oJson.setInt("universe", universe);
     oJson.setInt("address", address);
-    oJson.setInt("chanPanCoarse", chanPanCoarse);
-    oJson.setInt("chanPanFine", chanPanFine);
-    oJson.setInt("chanTiltCoarse", chanTiltCoarse);
-    oJson.setInt("chanTiltFine", chanTiltFine);
-    oJson.setFloat("panOffset", panOffset);
-    oJson.setFloat("tiltOffset", tiltOffset);
-    oJson.setInt("panAngle", panAngle);
-    oJson.setInt("tiltAngle", tiltAngle);
+    oJson.setJSONObject("pan", pan.save());
+    oJson.setJSONObject("tilt", tilt.save());
     oJson.setString("panType", panType);
     oJson.setString("tiltType", tiltType);
     oJson.setFloat("sizePan.x", sizePan.x);
@@ -192,8 +146,6 @@ class Fixture extends ScreenObject {
     oJson.setFloat("sizeTilt.x", sizeTilt.x);
     oJson.setFloat("sizeTilt.y", sizeTilt.y);
     oJson.setFloat("sizeTilt.z", sizeTilt.z);
-    oJson.setJSONObject("pan", pan.save());
-    oJson.setJSONObject("tilt", tilt.save());
     JSONArray tempJsonArray = new JSONArray();
     for (int i=0; i<pixelList.size(); i++) {
       tempJsonArray.setJSONObject(i, pixelList.get(i).save());
@@ -207,14 +159,8 @@ class Fixture extends ScreenObject {
     showBeams = (!iJson.isNull("showBeams") ? boolean(iJson.getInt("showBeams")) : true);   // Ensure backwards compatibility
     universe = iJson.getInt("universe");
     address = iJson.getInt("address");
-    chanPanCoarse = iJson.getInt("chanPanCoarse");
-    chanPanFine = iJson.getInt("chanPanFine");
-    chanTiltCoarse = iJson.getInt("chanTiltCoarse");
-    chanTiltFine = iJson.getInt("chanTiltFine");
-    panOffset = iJson.getInt("panOffset");
-    tiltOffset = iJson.getInt("tiltOffset");
-    panAngle = iJson.getInt("panAngle");
-    tiltAngle = iJson.getInt("tiltAngle");
+    pan.load(iJson.getJSONObject("pan"));
+    tilt.load(iJson.getJSONObject("tilt"));
     panType = iJson.getString("panType");
     tiltType = iJson.getString("tiltType");
     sizePan.x = iJson.getFloat("sizePan.x");
@@ -223,8 +169,6 @@ class Fixture extends ScreenObject {
     sizeTilt.x = iJson.getFloat("sizeTilt.x");
     sizeTilt.y = iJson.getFloat("sizeTilt.y");
     sizeTilt.z = iJson.getFloat("sizeTilt.z");
-    pan.load(iJson.getJSONObject("pan"));
-    tilt.load(iJson.getJSONObject("tilt"));
     pixelList.clear();
     JSONArray tempJsonArray = iJson.getJSONArray("pixels");
     for (int i=0; i<tempJsonArray.size(); i++) {

@@ -8,6 +8,9 @@ class SpinBox extends GuiObject {
   SpinBox(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
   }
+  SpinBox(PVector iOffset, PVector iSize, Dynamics iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
+  }
 
   void editValKey() {
     if ((key >= '0'  &&  key <= '9')  ||  (key == '.'  &&  valStr.indexOf('.') == -1)  ||  (key == '-'  &&  valStr.length() == 0)) {
@@ -50,18 +53,6 @@ class SpinBox extends GuiObject {
         fixObjRef.rot.y = float(valStr);
       } else if (propName.equals("rot.z")) {
         fixObjRef.rot.z = float(valStr);
-      } else if (propName.equals("Pan Accel")) {
-        fixObjRef.pan.maxAcc = float(valStr);
-      } else if (propName.equals("Pan Speed")) {
-        fixObjRef.pan.maxSpd = float(valStr);
-      } else if (propName.equals("Pan Tweak")) {
-        fixObjRef.pan.maxSpdTweak = float(valStr);
-      } else if (propName.equals("Tilt Accel")) {
-        fixObjRef.tilt.maxAcc = float(valStr);
-      } else if (propName.equals("Tilt Speed")) {
-        fixObjRef.tilt.maxSpd = float(valStr);
-      } else if (propName.equals("Tilt Tweak")) {
-        fixObjRef.tilt.maxSpdTweak = float(valStr);
       }
     } else if (objType.equals("Cuboid")) {
       if (propName.equals("pos3d.x")) {
@@ -90,6 +81,14 @@ class SpinBox extends GuiObject {
         pixObjRef.pos3d.y = float(valStr);
       } else if (propName.equals("Pixel Pos FB")) {
         pixObjRef.pos3d.z = float(valStr);
+      }
+    } else if (objType.equals("Dynamics")) {
+      if (propName.equals("Accel")) {
+        dynObjRef.maxAcc = float(valStr);
+      } else if (propName.equals("Speed")) {
+        dynObjRef.maxSpd = float(valStr);
+      } else if (propName.equals("Tweak")) {
+        dynObjRef.maxSpdTweak = float(valStr);
       }
     }
   }

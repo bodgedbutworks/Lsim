@@ -1,5 +1,11 @@
 class Dynamics {
-  int state = 0;    // 0=idle, 1=accelerating, 2=@maxSpeed, 3=decelerating, 4=tweaking
+  String name = "Axis";
+  int angle = 180;                                                              // [deg]
+  int offset = 0;                                                               // [deg]
+  int chanCoarse = 1;
+  int chanFine = 2;
+
+  int state = 0;                                                                // 0=idle, 1=accelerating, 2=@maxSpeed, 3=decelerating, 4=tweaking
 
   // ToDo add pan/tilt angles here and constrain pos to those
   // ToDo sometimes the fixtures start spinning endlessly, find out why
@@ -7,16 +13,27 @@ class Dynamics {
   float maxSpd = 6.0;
   float maxSpdTweak = 0.1;
 
-  float dest = 0;                      // Destination (Angular value [deg])
-  float pos = 0;                       // Current position [deg]
-  float spd = 0;                       // Current speed [deg/frame]
-  float acc = 0;                       // Current acceleration, constant (always 0 or +/- maxAcc)
+  float dest = 0;                                                               // Destination (Angular value [deg])
+  float pos = 0;                                                                // Current position [deg]
+  float spd = 0;                                                                // Current speed [deg/frame]
+  float acc = 0;                                                                // Current acceleration, constant (always 0 or +/- maxAcc)
 
-  void updateDest(float iDest) {       // Check for changes, if so: reset state
-    float tempDest = iDest;
-    if (dest != tempDest) {
-      dest = tempDest;
-      state = 0;
+  Dynamics(String iName) {
+    name = iName;
+  }
+
+  void updateDest(int iFixtureAddress, byte[] iDmxUniverse) {
+    if (chanCoarse > 0) {                                                       // If Fixture has this movement capability
+      int msb = ((chanCoarse>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanCoarse-1, 0, 511)]) : 127);
+      int lsb = ((chanFine>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanFine-1, 0, 511)]) : 127);
+      float tempDest = ((msb<<8) | lsb)*float(angle)/65536.0 + offset;
+      if (dest != tempDest) {                                                   // Check for changes, if so: reset state
+        dest = tempDest;
+        state = 0;
+      }
+      move();
+    } else {
+      pos = float(angle)/2 + offset;
     }
   }
 
@@ -78,8 +95,24 @@ class Dynamics {
     pos += spd;
   }
 
+  Expandable returnGui() {
+    Expandable dynamicsExp = new Expandable(new PVector(0, 0), new PVector(0, 0), name, true, false, CLR_MENU_LV2);
+    dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Channel Coarse", "Channel Coarse", chanCoarse, 1, 0, 512, 0));
+    dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Channel Fine", "Channel Fine", chanFine, 1, 0, 512, 0));
+    dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Angle", "Total Angle", angle, 1, 90, 720, -1));
+    dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Offset", "Angular Offset", offset, 1, -180, 180, -999));
+    dynamicsExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Accel", "Max Accel", maxAcc, 0.01));
+    dynamicsExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Speed", "Max Speed", maxSpd, 0.01));
+    dynamicsExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Tweak", "Tweak Speed", maxSpdTweak, 0.01));
+    return(dynamicsExp);
+  }
+
   JSONObject save() {
     JSONObject oJson = new JSONObject();
+    oJson.setInt("chanCoarse", chanCoarse);
+    oJson.setInt("chanFine", chanFine);
+    oJson.setInt("angle", angle);
+    oJson.setFloat("offset", offset);
     oJson.setFloat("maxAcc", maxAcc);
     oJson.setFloat("maxSpd", maxSpd);
     oJson.setFloat("maxSpdTweak", maxSpdTweak);
@@ -87,6 +120,10 @@ class Dynamics {
   }
 
   void load(JSONObject iJson) {
+    chanCoarse = iJson.getInt("chanCoarse");
+    chanFine = iJson.getInt("chanFine");
+    angle = iJson.getInt("angle");
+    offset = iJson.getInt("offset");
     maxAcc = iJson.getFloat("maxAcc");
     maxSpd = iJson.getFloat("maxSpd");
     maxSpdTweak = iJson.getFloat("maxSpdTweak");
