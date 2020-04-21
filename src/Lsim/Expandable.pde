@@ -56,7 +56,9 @@ class Expandable extends GuiObject {
         tempPos.add(new PVector(0, SIZE_GUTTER));
         g.display();
       }
+    } else {
+      tempPos.y -= SIZE_GUTTER;                                                 // Remove Gutter offset afer Expandable open/clos button
     }
-    size = PVector.sub(tempPos.get(), pos.get());                                                       // determine Expandable size by summing subelement sizes
+    size = PVector.sub(tempPos.get(), pos.get());                               // determine Expandable size by summing subelement sizes
   }
 }
