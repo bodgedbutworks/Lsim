@@ -67,5 +67,5 @@ Submission for "Effizient Programmieren I+II"
 * CAD (e.g. CATIA): Model should be roughly centered around vertical axis
 * Tesselate CAD model with 0.5 Millimeters allowed deviation
 * Converter (e.g. Cinema4D): Import .stl with scale 1 Millimeter
-* Export as .obj with scale 10 Millimeters amd inverted Y-axis
+* Export as .obj with scale 10 Millimeters and inverted Y-axis
 * Place file in data/ subdirectory of sketch, name starting with "env_"
