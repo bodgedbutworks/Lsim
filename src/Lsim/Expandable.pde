@@ -8,7 +8,7 @@ class Expandable extends GuiObject {
      super(iOffset, iSize, ""/*propName*/     , iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
     hasButton = iHasButton;
     if (hasButton) {
-      expandBtn = new Button(new PVector(0, 0), new PVector(width/15, width/40), this, "state", iDisplayName, iClr);
+      expandBtn = new Button(new PVector(0, 0), new PVector(120, 40), this, "state", iDisplayName, iClr);
     }
     if (iDefaultOpen) {
       state = 2;

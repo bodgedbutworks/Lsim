@@ -132,7 +132,7 @@ class Fixture extends ScreenObject {
     selectTiltExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Tilt Size FB", "Tilt Size FB", int(sizeTilt.y), 1, 1, 10000, -1));
     selectTiltExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Tilt Size UD", "Tilt Size UD", int(sizeTilt.z), 1, 1, 10000, -1));
     tempFixExp.put(selectTiltExp);
-    tempFixExp.put(new Button(new PVector(0, 0), new PVector(120, 25), this, "Toggle Beams", "Toggle Beams", CLR_MENU_LV2));
+    tempFixExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Toggle Beams", "Toggle Beams", CLR_MENU_LV2));
     menuExpRight.put(tempFixExp);
     for (Pixel p : pixelList) {
       p.loadGui();

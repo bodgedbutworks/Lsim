@@ -95,7 +95,7 @@ void setup() {
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*", "Toggle\nLights", CLR_MENU_LV1));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "B", "Toggle\nBeams", CLR_MENU_LV1));
   menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "S", "Save\nProject", CLR_MENU_LV1));
-  menuExpLeft.put(new NameBox(new PVector(0, 0), new PVector(width/15, 25), "projectName", "", projectName));
+  menuExpLeft.put(new NameBox(new PVector(0, 0), new PVector(120, 30), "projectName", "", projectName));
 
   new File(sketchPath() + PATH_BACKUPS + timestamp + "/fixtures/").mkdirs();             // Create directories for backup
   new File(sketchPath() + PATH_BACKUPS + timestamp + "/projects/").mkdirs();
