@@ -45,8 +45,10 @@ Submission for "Effizient Programmieren I+II"
 ##### Setup
 * Download Processing 3 from https://processing.org/download/
 * Open Processing IDE, go to _Tools->Add Tool->Libraries Tab_ and install _UDP_ library by Stephane Cousot
+* Download the latest Lsim release from https://gitlab.fsmach.uni-stuttgart.de/lsim/lsim/-/releases
 * Open _Lsim.pde_ from src/Lsim/ and click _Run_ button in the IDE
 * If you experience problems, check if your Java Runtime Environment version is 8. Newer versions might work, but haven't yet been tested.
+* Starting Lsim _before_ opening your lighting control software is usually a good idea.
 * If it still doesn't work as expected, please report the issue at https://gitlab.fsmach.uni-stuttgart.de/lsim/lsim/-/issues or via E-Mail to lsim@aerotrax.de
 
 ##### Key bindings
