@@ -31,7 +31,7 @@ Submission for "Effizient Programmieren I+II"
 * <del>(ToDo) Automated testing upon push</del> Not working, maybe due to missing OpenGL capabilities on CI server
 * <del>(ToDo) Generation of executables upon merge to master branch</del> Not working, maybe due to launch4j incompatibility on CI server
 
-[![pipeline status](https://gitlab.fsmach.uni-stuttgart.de/lsim/lsim/badges/ciConfig/pipeline.svg)](https://gitlab.fsmach.uni-stuttgart.de/lsim/lsim/-/commits/ciConfig)
+[![pipeline status](https://gitlab.fsmach.uni-stuttgart.de/lsim/lsim/badges/master/pipeline.svg)](https://gitlab.fsmach.uni-stuttgart.de/lsim/lsim/-/commits/master)
 
 ##### Mid-Term goals
 * (ToDo) Add ArtNet output for real-world fixture control via Lsim
