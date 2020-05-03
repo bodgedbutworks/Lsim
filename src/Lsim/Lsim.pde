@@ -29,6 +29,7 @@ color CLR_MENU_LV3 = #6CE8FF;
 
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
 ArrayList<Cuboid> cuboidList = new ArrayList<Cuboid>();
+ArrayList<Notification> notificationsList = new ArrayList<Notification>();
 Expandable menuExpLeft;
 Expandable menuExpRight;
 Button expandBtn;
@@ -54,6 +55,8 @@ long calcFrameRate = 1000;
 boolean lightsOff = false;                                                      // Activation of ambient/directional lights
 boolean beamsOff = false;                                                       // Activation of beam cones
 boolean flag = false;
+
+Notification removeMyNotification;                                              // Buffer to avoid ConcurrentModificationException while deleting
 ScreenObject reloadMyGui;     // GUI sometimes can't be reloaded directly because it would delete the calling element, instead, do it in main loop
 boolean deleteMyGui = false;                                                    // Clear right hand side GUI (f.ex. when deleting a Fixture)
 
@@ -82,6 +85,7 @@ void setup() {
   comImg = loadImage("comImg2.png");
 
   reloadMyGui = null;
+  removeMyNotification = null;
 
   String timestamp = ZonedDateTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern( "uuuu_MM_dd-HH_mm_ss" ));
   projectName = "Projname_" + timestamp;
@@ -229,6 +233,10 @@ void draw() {
     deleteMyGui = false;
     menuExpRight.subElementsList.clear();
   }
+  if (removeMyNotification != null) {
+    notificationsList.remove(removeMyNotification);
+    removeMyNotification = null;
+  }
 
   /********************* 2D Elements ********************/
   camera();
@@ -298,6 +306,20 @@ void draw() {
   menuExpLeft.display();
   menuExpRight.pos = PVector.add(new PVector(menuXpos-(SIZE_MENU_RIGHT)+20, 20-menuScroll), menuExpRight.offset);
   menuExpRight.display();
+
+  if (notificationsList.size() > 0) {
+    PVector tempPos = new PVector(width, height);
+    tempPos.sub(notificationsList.get(notificationsList.size()-1).size);
+    tempPos.sub(new PVector(SIZE_GUTTER, SIZE_GUTTER));
+    for (int n=notificationsList.size()-1; n>=0; n--) {
+      notificationsList.get(n).pos = PVector.add(tempPos, notificationsList.get(n).offset);
+      tempPos.add(new PVector(0, notificationsList.get(n).offset.y));
+      tempPos.sub(new PVector(0, notificationsList.get(n).size.y));
+      tempPos.sub(new PVector(0, SIZE_GUTTER));
+      notificationsList.get(n).display();
+    }
+  }
+
   hint(ENABLE_DEPTH_TEST);
 }
 
