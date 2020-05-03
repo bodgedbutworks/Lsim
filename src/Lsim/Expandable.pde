@@ -23,7 +23,7 @@ class Expandable extends GuiObject {
 
   void display() {
     if (hasButton) {
-      expandBtn.pos = pos.get();
+      expandBtn.pos = pos.copy();
       expandBtn.display();
     }
 
@@ -42,7 +42,7 @@ class Expandable extends GuiObject {
       break;
     }
 
-    PVector tempPos = pos.get();                                                // get() -> clone tempPos instead of creating a reference
+    PVector tempPos = pos.copy();                                                // get() -> clone tempPos instead of creating a reference
     if (hasButton) {
       tempPos.add(new PVector(0, expandBtn.offset.y));
       tempPos.add(new PVector(0, expandBtn.size.y));
@@ -50,7 +50,7 @@ class Expandable extends GuiObject {
     }
     if (state != 0) {
       for (GuiObject g : subElementsList) {
-        g.pos = PVector.add(tempPos.get(), g.offset);
+        g.pos = PVector.add(tempPos, g.offset);
         tempPos.add(new PVector(0, g.offset.y));
         tempPos.add(new PVector(0, g.size.y));
         tempPos.add(new PVector(0, SIZE_GUTTER));
