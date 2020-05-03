@@ -13,7 +13,7 @@ class ScreenObject {
   }
 
   void display() {
-    println("Display function not defined!");
+    notific("Display function not defined!", CLR_NOTIF_DANGER, TTL_DANGER);
   }
 
   // Show name and Center Of Mass symbol; Has to be called in main after resetting camera() for correct 2D display
@@ -26,7 +26,7 @@ class ScreenObject {
   }
 
   void loadGui() {
-    println("Gui load function not defined!");
+    notific("Gui load function not defined!", CLR_NOTIF_DANGER, TTL_DANGER);
   }
 
   JSONObject save() {

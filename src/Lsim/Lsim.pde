@@ -23,9 +23,15 @@ String PATH_ENVIRONMENTS = "/data/";                                            
 String PATH_PROJECTS = "/save/projects/";
 String PATH_BACKUPS = "/save/autobackups/";
 // Saturation 57%, Brightness 100%, Hue varied
-color CLR_MENU_LV1 = #FF00FF;
-color CLR_MENU_LV2 = #FFD68C;
-color CLR_MENU_LV3 = #6CE8FF;
+final color CLR_MENU_LV1 = #FF00FF;
+final color CLR_MENU_LV2 = #FFD68C;
+final color CLR_MENU_LV3 = #6CE8FF;
+final color CLR_NOTIF_SUCCESS = color(0, 255, 0);
+final color CLR_NOTIF_INFO = color(50, 200, 255);
+final color CLR_NOTIF_DANGER = color(255, 0, 0);
+final int TTL_SUCCESS = 5;
+final int TTL_INFO = 8;
+final int TTL_DANGER = 20;
 
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
 ArrayList<Cuboid> cuboidList = new ArrayList<Cuboid>();
@@ -51,7 +57,7 @@ byte[][] dmxData = new byte[4][512];                                            
 ScreenObject selectedScreenObject = null;
 GuiObject selectedGuiObject = null;
 long lastFrameTime = 0;
-long calcFrameRate = 1000;
+long calcFrameRate = 60;
 boolean lightsOff = false;                                                      // Activation of ambient/directional lights
 boolean beamsOff = false;                                                       // Activation of beam cones
 boolean flag = false;
@@ -87,6 +93,8 @@ void setup() {
   reloadMyGui = null;
   removeMyNotification = null;
 
+  notificationsList.add(new Notification("Welcome back!", color(0, 255, 0), 5));
+
   String timestamp = ZonedDateTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern( "uuuu_MM_dd-HH_mm_ss" ));
   projectName = "Projname_" + timestamp;
 
@@ -112,14 +120,15 @@ void setup() {
     for (String n : names) {
       try {
         Files.copy(new File(sketchPath() + PATH_FIXTURES + n).toPath(), new File(sketchPath() + PATH_BACKUPS + timestamp + "/fixtures/" + n).toPath(), StandardCopyOption.REPLACE_EXISTING);
-      } 
+      }
       catch(IOException e) {
+        notific("Error while auto-backing up Fixtures!", CLR_NOTIF_DANGER, TTL_DANGER);
         println(e);
       }
       loadFixExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadfixfilename", n, CLR_MENU_LV2));
     }
   } else {
-    print("Error while scanning fixtures!");
+    notific("Error while scanning fixtures!", CLR_NOTIF_DANGER, TTL_DANGER);
   }
   menuExpLeft.put(loadFixExp);
 
@@ -135,7 +144,7 @@ void setup() {
       }
     }
   } else {
-    print("Error while scanning environments!");
+    notific("Error while scanning environments!", CLR_NOTIF_DANGER, TTL_DANGER);
   }
   menuExpLeft.put(loadEnvExp);
 
@@ -147,14 +156,15 @@ void setup() {
     for (String n : names) {
       try {
         Files.copy(new File(sketchPath() + PATH_PROJECTS + n).toPath(), new File(sketchPath() + PATH_BACKUPS + timestamp + "/projects/" + n).toPath(), StandardCopyOption.REPLACE_EXISTING);
-      } 
+      }
       catch(IOException e) {
+        notific("Error while auto-backing up Projects!", CLR_NOTIF_DANGER, TTL_DANGER);
         println(e);
       }
       loadProjExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadprojfilename", n, CLR_MENU_LV2));
     }
   } else {
-    print("Error while scanning projects!");
+    notific("Error while scanning projects!", CLR_NOTIF_DANGER, TTL_DANGER);
   }
   menuExpLeft.put(loadProjExp);
 
@@ -325,6 +335,14 @@ void draw() {
 
 
 
+// Shorthand for creating Notifications
+void notific(String iTxt, color iClr, int iTtl) {
+  notificationsList.add(new Notification(iTxt, iClr, iTtl));
+  println(iTxt);
+}
+
+
+
 
 void mousePressed() {
   if (mouseButton == LEFT) {
@@ -361,7 +379,7 @@ void keyPressed() {
 }
 
 void saveAll() {
-  println("\n--- Saving Project ---");
+  notific("Saving project " + projectName + "...", CLR_NOTIF_INFO, TTL_SUCCESS);
   JSONObject jsonRoot = new JSONObject();
   int fls = fixtureList.size();
   int cls = cuboidList.size();
@@ -386,13 +404,14 @@ void saveAll() {
 
   try {
     saveJSONObject(jsonRoot, PATH_PROJECTS + projectName + ".lsm");
-    println("Saved " + str(fls) + " Fixtures.");
-    println("Saved " + str(cls) + " Cuboids.");
+    String tempTxt = "Saved " + str(fls) + " Fixtures\nSaved " + str(cls) + " Cuboids";
     if (environmentShape != null) {
-      println("Saved the environment (lol).");
+      tempTxt += "\nSaved the environment (lol)";
     }
+    notific(tempTxt, CLR_NOTIF_SUCCESS, TTL_INFO);
   }
   catch(Exception e) {
+    notific("Error while saving " + projectName + "!", CLR_NOTIF_DANGER, TTL_DANGER);
     print(e);
   }
 }
@@ -408,7 +427,7 @@ void loadAll(String iFileName) {
   int countFix = 0;
   int countCub = 0;
   boolean loadedEnv = false;
-  println("\n--- Loading Project ---");
+  notific("Loading project " + iFileName + "...", CLR_NOTIF_INFO, TTL_SUCCESS);
   try {
     JSONObject jsonLoadRoot = loadJSONObject(PATH_PROJECTS + iFileName);
 
@@ -434,14 +453,14 @@ void loadAll(String iFileName) {
       environmentShape.disableStyle();                                          // Ignore the colors in the SVG
       loadedEnv = true;
     }
-    println("Loaded " + str(countFix) + " Fixtures.");
-    println("Loaded " + str(countCub) + " Cuboids.");
+    String tempTxt = "Loaded " + str(countFix) + " Fixtures\nLoaded " + str(countCub) + " Cuboids";
     if (loadedEnv) {
-      println("Loaded an environment.");
+      tempTxt += "Loaded an environment";
     }
+    notific(tempTxt, CLR_NOTIF_SUCCESS, TTL_INFO);
   }
   catch(Exception e) {
-    println("Error while loading project " + iFileName + "!");
+    notific("Error while loading project " + iFileName + "!", CLR_NOTIF_DANGER, TTL_DANGER);
     println(e);
   }
 }
