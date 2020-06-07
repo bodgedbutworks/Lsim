@@ -8,7 +8,7 @@ class PositionUnit {
   private PVector position2D;
   private PVector rotation2D;
   private PVector size2D;
-  private PVector direction2D;
+  private PVector direction2D; //also used as offset
   
   /**
   * 

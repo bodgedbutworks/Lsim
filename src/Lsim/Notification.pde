@@ -1,9 +1,7 @@
 class Notification {
   int ttl;                                                                      // Time to live in seconds
   long birthTime;
-  PVector offset;                                                               // Position offset, added to temporary position before saving to pos
-  PVector pos;                                                                  // Actual element pos, used for mouseover/displaying, set in draw()
-  PVector size;
+  final PositionUnit positionUnit2DNotification;
   color clr;
   String txt;
 
@@ -12,13 +10,21 @@ class Notification {
     clr = iClr;
     ttl = iTtl;
     birthTime = millis();
-    offset = new PVector(0, 0);
-    pos = new PVector(0, 0);
-    size = new PVector(400, 70);
+    
+    PVector pos = new PVector(0, 0);
+    PVector rot = new PVector(0,0);
+    PVector size = new PVector(400, 70);
+    PVector offset = new PVector(0, 0);
+    this.positionUnit2DNotification = new PositionUnit(pos, rot, size, offset, false);
   }
 
   boolean checkMouseOver() {
-    if (mouseX > pos.x  &&  mouseX < (pos.x+size.x)  &&  mouseY > pos.y  &&  mouseY < (pos.y+size.y)) {
+    boolean moseCheckOne = mouseX > this.positionUnit2DNotification.getPosition2D().x;
+    boolean moseCheckTwo = mouseX < (this.positionUnit2DNotification.getPosition2D().x + this.positionUnit2DNotification.getSize2D().x);
+    boolean moseCheckTree = mouseY > this.positionUnit2DNotification.getPosition2D().y;
+    boolean moseCheckFore = mouseY < (this.positionUnit2DNotification.getPosition2D().y + this.positionUnit2DNotification.getSize2D().y);
+    
+    if (moseCheckOne && moseCheckTwo && moseCheckTree && moseCheckFore) {
       if (flag  &&  mousePressed) {
         flag = false;
         return(true);
@@ -36,10 +42,14 @@ class Notification {
     strokeWeight(2);
     stroke(0);
     fill(clr);
-    rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y, 5);
+    float posX = this.positionUnit2DNotification.getPosition2D().x;
+    float posY = this.positionUnit2DNotification.getPosition2D().y;
+    float sizeX = this.positionUnit2DNotification.getSize2D().x;
+    float sizeY = this.positionUnit2DNotification.getSize2D().y;
+    rect(posX, posY, posX+sizeX, posY+sizeY, 5);
     textSize(height/60);
     textAlign(LEFT, TOP);
     fill(0);
-    text(txt, pos.x+SIZE_GUTTER, pos.y+SIZE_GUTTER, pos.x+size.x-2*SIZE_GUTTER, pos.x+size.y-2*SIZE_GUTTER);
+    text(txt, posX + SIZE_GUTTER, posY + SIZE_GUTTER, posX + sizeX - 2*SIZE_GUTTER, posX + sizeY- 2*SIZE_GUTTER); //the last one schould be sizeY I think 
   }
 }
