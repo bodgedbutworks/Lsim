@@ -51,8 +51,6 @@ PVector camLookAt = new PVector(0, -200, 0);
 PImage comImg;
 boolean showNamesAndComs = true;                                                // Toggle display of names and Center-Of-Mass icons
 
-byte[] artnetHeader = {'A', 'r', 't', '-', 'N', 'e', 't', '\0'};
-byte[][] dmxData = new byte[4][512];                                            // [universe][address]
 
 ScreenObject selectedScreenObject = null;
 GuiObject selectedGuiObject = null;

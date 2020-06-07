@@ -5,6 +5,10 @@ sendUdp(){
  }
  */
 
+byte[] artnetHeader = {'A', 'r', 't', '-', 'N', 'e', 't', '\0'};
+byte[][] dmxData = new byte[4][512];                                            // [universe][address]
+
+
 void receive(byte[] iData, String iIp, int iPort) {
   if (iData.length == 530) {                                                      // ArtNet header + 512 bytes
     for (int i=0; i<8; i++) {
