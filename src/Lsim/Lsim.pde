@@ -201,7 +201,7 @@ void draw() {
   stroke(#222222);
   strokeWeight(5);
   fill(#333333);
-  box(6000, 2000, 6000);
+  box(6000, 2, 6000); //changed the hight from 2000 to 2
   popMatrix();
 
   if (mousePressed) {
