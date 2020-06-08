@@ -52,4 +52,16 @@ class Notification {
     fill(0);
     text(txt, posX + SIZE_GUTTER, posY + SIZE_GUTTER, posX + sizeX - 2*SIZE_GUTTER, posX + sizeY- 2*SIZE_GUTTER); //the last one schould be posY I think 
   }
+  
+  public PVector getSize() {
+    return this.positionUnit2DNotification.getSize2D(); 
+  }
+  
+  public PVector getOffset() {
+    return this.positionUnit2DNotification.getDirection2D(); 
+  }
+  
+  public void setPosition(PVector iNewPosition) {
+    this.positionUnit2DNotification.setPosition2D(iNewPosition); 
+  }
 }

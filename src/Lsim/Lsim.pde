@@ -195,7 +195,7 @@ void draw() {
   stroke(0);
 
   pushMatrix();
-  translate(0, 1000, 0);
+  translate(0, 10, 0);
   stroke(#222222);
   strokeWeight(5);
   fill(#333333);
@@ -317,12 +317,12 @@ void draw() {
 
   if (notificationsList.size() > 0) {
     PVector tempPos = new PVector(width, height);
-    tempPos.sub(notificationsList.get(notificationsList.size()-1).size);
+    tempPos.sub(notificationsList.get(notificationsList.size()-1).getSize());
     tempPos.sub(new PVector(SIZE_GUTTER, SIZE_GUTTER));
     for (int n=notificationsList.size()-1; n>=0; n--) {
-      notificationsList.get(n).pos = PVector.add(tempPos, notificationsList.get(n).offset);
-      tempPos.add(new PVector(0, notificationsList.get(n).offset.y));
-      tempPos.sub(new PVector(0, notificationsList.get(n).size.y));
+      notificationsList.get(n).setPosition(PVector.add(tempPos, notificationsList.get(n).getOffset()));
+      tempPos.add(new PVector(0, notificationsList.get(n).getOffset().y));
+      tempPos.sub(new PVector(0, notificationsList.get(n).getSize().y));
       tempPos.sub(new PVector(0, SIZE_GUTTER));
       notificationsList.get(n).display();
     }

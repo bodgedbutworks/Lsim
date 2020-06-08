@@ -75,5 +75,9 @@ class PositionUnit {
   public PVector getDirection2D() {
     return this.direction2D; 
   }
+  
+  public void setPosition2D(PVector iNewPosition) {
+    this.position2D = iNewPosition;
+  }
 
 }
