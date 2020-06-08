@@ -50,6 +50,6 @@ class Notification {
     textSize(height/60);
     textAlign(LEFT, TOP);
     fill(0);
-    text(txt, posX + SIZE_GUTTER, posY + SIZE_GUTTER, posX + sizeX - 2*SIZE_GUTTER, posX + sizeY- 2*SIZE_GUTTER); //the last one schould be sizeY I think 
+    text(txt, posX + SIZE_GUTTER, posY + SIZE_GUTTER, posX + sizeX - 2*SIZE_GUTTER, posX + sizeY- 2*SIZE_GUTTER); //the last one schould be posY I think 
   }
 }

@@ -58,10 +58,10 @@ class Fixture extends ScreenObject {
     PVector dummy = new PVector(0, 500, 0);
     dummy = rotateVector(dummy, -tilt.pos, 0, 0);
     dummy = rotateVector(dummy, 0, -pan.pos, 0);
-    dummy = rotateVector(dummy, 0, 0, -rot.z);  // Sequence of rotations makes a difference!
-    dummy = rotateVector(dummy, 0, -rot.y, 0);
-    dummy = rotateVector(dummy, -rot.x, 0, 0);
-    dummy.add(new PVector(pos3d.x, pos3d.y, pos3d.z));
+    dummy = rotateVector(dummy, 0, 0, -getRotation().z);  // Sequence of rotations makes a difference!
+    dummy = rotateVector(dummy, 0, -getRotation().y, 0);
+    dummy = rotateVector(dummy, -getRotation().x, 0, 0);
+    dummy.add(getPosition().copy());
 
     /*
     stroke(dimmer);
@@ -70,10 +70,10 @@ class Fixture extends ScreenObject {
      */
 
     pushMatrix();
-    translate(pos3d.x, pos3d.y, pos3d.z);
-    rotateX(radians(rot.x));
-    rotateY(radians(rot.y));
-    rotateZ(radians(rot.z));
+    translate(getPosition().x, getPosition().y, getPosition().z);
+    rotateX(radians(getRotation().x));
+    rotateY(radians(getRotation().y));
+    rotateZ(radians(getRotation().z));
     fill(clr);
     stroke(0);
     strokeWeight(2);
@@ -102,12 +102,12 @@ class Fixture extends ScreenObject {
   void loadGui() {
     Expandable tempFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixture", true, true, CLR_MENU_LV1);
     tempFixExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", name));
-    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", "pos3d.x", pos3d.x, 1.0));
-    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", "pos3d.y", pos3d.y, 1.0));
-    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", "pos3d.z", pos3d.z, 1.0));
-    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.x", "rot.x", rot.x, 1.0));
-    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.y", "rot.y", rot.y, 1.0));
-    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.z", "rot.z", rot.z, 1.0));
+    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", "pos3d.x", getPosition().x, 1.0));
+    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", "pos3d.y", getPosition().y, 1.0));
+    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", "pos3d.z", getPosition().z, 1.0));
+    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.x", "rot.x", getRotation().x, 1.0));
+    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.y", "rot.y", getRotation().y, 1.0));
+    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.z", "rot.z", getRotation().z, 1.0));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Universe", "Universe", universe, 1, 0, QTY_UNIVERSES-1, -1));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Address", "Address", address, 1, 1, 512, -1));
     tempFixExp.put(pan.returnGui());

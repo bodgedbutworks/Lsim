@@ -54,31 +54,31 @@ class SpinBox extends GuiObject {
     // ToDo: Is there a smarter way to do this??
     if (objType.equals("Fixture")) {
       if (propName.equals("pos3d.x")) {
-        fixObjRef.pos3d.x = float(valStr);
+        fixObjRef.getPosition().x = float(valStr);
       } else if (propName.equals("pos3d.y")) {
-        fixObjRef.pos3d.y = float(valStr);
+        fixObjRef.getPosition().y = float(valStr);
       } else if (propName.equals("pos3d.z")) {
-        fixObjRef.pos3d.z = float(valStr);
+        fixObjRef.getPosition().z = float(valStr);
       } else if (propName.equals("rot.x")) {
-        fixObjRef.rot.x = float(valStr);
+        fixObjRef.getRotation().x = float(valStr);
       } else if (propName.equals("rot.y")) {
-        fixObjRef.rot.y = float(valStr);
+        fixObjRef.getRotation().y = float(valStr);
       } else if (propName.equals("rot.z")) {
-        fixObjRef.rot.z = float(valStr);
+        fixObjRef.getRotation().z = float(valStr);
       }
     } else if (objType.equals("Cuboid")) {
       if (propName.equals("pos3d.x")) {
-        cubObjRef.pos3d.x = float(valStr);
+        cubObjRef.getPosition().x = float(valStr);
       } else if (propName.equals("pos3d.y")) {
-        cubObjRef.pos3d.y = float(valStr);
+        cubObjRef.getPosition().y = float(valStr);
       } else if (propName.equals("pos3d.z")) {
-        cubObjRef.pos3d.z = float(valStr);
+        cubObjRef.getPosition().z = float(valStr);
       } else if (propName.equals("rot.x")) {
-        cubObjRef.rot.x = float(valStr);
+        cubObjRef.getRotation().x = float(valStr);
       } else if (propName.equals("rot.y")) {
-        cubObjRef.rot.y = float(valStr);
+        cubObjRef.getRotation().y = float(valStr);
       } else if (propName.equals("rot.z")) {
-        cubObjRef.rot.z = float(valStr);
+        cubObjRef.getRotation().z = float(valStr);
       } else if (propName.equals("size3d.x")) {
         cubObjRef.size3d.x = float(valStr);
       } else if (propName.equals("size3d.y")) {

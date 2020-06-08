@@ -1,15 +1,15 @@
 class ScreenObject {
   //int id;
-  String name = "Object" + str(floor(random(0, 999999)));
-  PVector pos3d;
-  PVector pos2d;
-  PVector rot;
-  color clr = color(50);
+  String name;
+  private PositionUnit positionData;
+  color clr; 
 
   ScreenObject(PVector iPos, PVector iRot) {
-    pos3d = iPos;
-    pos2d = new PVector(0, 0);
-    rot = iRot;
+    this.name = "Object" + str(floor(random(0, 999999)));
+    this.clr = color(50);
+    PVector empty3D = new PVector(0,0,0);
+    PVector empty2D = new PVector(0,0);
+    this.positionData = new PositionUnit(iPos, iRot, empty3D, empty3D, empty2D, empty2D, empty2D, empty2D); // there schoul be some usefull vectors for the empty ones
   }
 
   void display() {
@@ -21,8 +21,8 @@ class ScreenObject {
     fill(255);
     textSize(height/50);
     textAlign(CENTER, CENTER);
-    text(name, pos2d.x, pos2d.y-80);
-    image(comImg, pos2d.x-7, pos2d.y-7, 14, 14);
+    text(name, this.positionData.getPosition2D().x, this.positionData.getPosition2D().y-80);
+    image(comImg, this.positionData.getPosition2D().x-7, this.positionData.getPosition2D().y-7, 14, 14);
   }
 
   void loadGui() {
@@ -32,28 +32,28 @@ class ScreenObject {
   JSONObject save() {
     JSONObject oJson = new JSONObject();
     oJson.setString("name", name);
-    oJson.setFloat("pos3d.x", pos3d.x);
-    oJson.setFloat("pos3d.y", pos3d.y);
-    oJson.setFloat("pos3d.z", pos3d.z);
-    oJson.setFloat("rot.x", rot.x);
-    oJson.setFloat("rot.y", rot.y);
-    oJson.setFloat("rot.z", rot.z);
+    oJson.setFloat("pos3d.x", this.positionData.getPosition3D().x);
+    oJson.setFloat("pos3d.y", this.positionData.getPosition3D().y);
+    oJson.setFloat("pos3d.z", this.positionData.getPosition3D().z);
+    oJson.setFloat("rot.x", this.positionData.getRotation3D().x);
+    oJson.setFloat("rot.y", this.positionData.getRotation3D().y);
+    oJson.setFloat("rot.z", this.positionData.getRotation3D().z);
     return(oJson);
   }
 
   void load(JSONObject iJson) {
     print("Loading ScreenObj..");
     name = iJson.getString("name");
-    pos3d.x = iJson.getFloat("pos3d.x");
-    pos3d.y = iJson.getFloat("pos3d.y");
-    pos3d.z = iJson.getFloat("pos3d.z");
-    rot.x = iJson.getFloat("rot.x");
-    rot.y = iJson.getFloat("rot.y");
-    rot.z = iJson.getFloat("rot.z");
+    this.positionData.getPosition3D().x = iJson.getFloat("pos3d.x");
+    this.positionData.getPosition3D().y = iJson.getFloat("pos3d.y");
+    this.positionData.getPosition3D().z = iJson.getFloat("pos3d.z");
+    this.positionData.getRotation3D().x = iJson.getFloat("rot.x");
+    this.positionData.getRotation3D().y = iJson.getFloat("rot.y");
+    this.positionData.getRotation3D().z = iJson.getFloat("rot.z");
   }
 
   void checkMouseOver() {
-    if (dist(screenX(pos3d.x, pos3d.y, pos3d.z), screenY(pos3d.x, pos3d.y, pos3d.z), mouseX, mouseY) < 30) {
+    if (dist(screenX(this.positionData.getPosition3D().x, this.positionData.getPosition3D().y, this.positionData.getPosition3D().z), screenY(this.positionData.getPosition3D().x, this.positionData.getPosition3D().y, this.positionData.getPosition3D().z), mouseX, mouseY) < 30) {
       clr = color(190, 0, 0);
       if (flag  &&  mousePressed) {
         flag = false;
@@ -75,7 +75,14 @@ class ScreenObject {
   }
 
   void updatePos2d() {
-    pos2d.x = screenX(pos3d.x, pos3d.y, pos3d.z);
-    pos2d.y = screenY(pos3d.x, pos3d.y, pos3d.z);
+    this.positionData.getPosition2D().x = screenX(this.positionData.getPosition3D().x, this.positionData.getPosition3D().y, this.positionData.getPosition3D().z);
+    this.positionData.getPosition2D().y = screenY(this.positionData.getPosition3D().x, this.positionData.getPosition3D().y, this.positionData.getPosition3D().z);
+  }
+  
+  public PVector getPosition() {
+    return this.positionData.getPosition3D();
+  }
+  public PVector getRotation() {
+    return this.positionData.getRotation3D();
   }
 }

@@ -68,7 +68,7 @@ class Button extends GuiObject {
           Fixture tempFix = new Fixture();
           tempFix.load(fixObjRef.save());
           tempFix.name = fixObjRef.name + " Copy";
-          tempFix.pos3d.x += 200;
+          tempFix.getPosition().x += 200;
           fixtureList.add(tempFix);
           reloadMyGui = tempFix;
         } else if (propName.equals("Delete Fixture")) {
@@ -80,7 +80,7 @@ class Button extends GuiObject {
           Cuboid tempCub = new Cuboid();
           tempCub.load(cubObjRef.save());
           tempCub.name = cubObjRef.name + " Copy";
-          tempCub.pos3d.x += 200;
+          tempCub.getPosition().x += 200;
           cuboidList.add(tempCub);
           reloadMyGui = tempCub;
         } else if (propName.equals("Delete Cuboid")) {
