@@ -1,7 +1,7 @@
 class GuiObject {
-  PVector offset;     // Position offset, added to temporary position before saving to pos
-  PVector pos;        // Actual element pos, used for mouseover/displaying, set by "parent" Expandable
-  PVector size;
+  private PositionUnit positionData;
+  //PVector offset;     // Position offset, added to temporary position before saving to pos
+  //PVector pos;        // Actual element pos, used for mouseover/displaying, set by "parent" Expandable //not in use anymore insted positionData
 
   Fixture fixObjRef;
   Cuboid cubObjRef;
@@ -49,13 +49,12 @@ class GuiObject {
     init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
   }
   void init(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
-    offset = iOffset;
-    pos = new PVector(0, 0);
-    size = iSize;
+    PVector empty = new PVector(0, 0);
     propName = iPropName;
     displayName = iDisplayName;
     valStr = iInitialVal;
     stepSize = iStepSize;
+    this.positionData = new PositionUnit(empty, empty, iSize, iOffset, false);
   }
 
   void editValMouse(float iEventGetCount) {
@@ -77,12 +76,44 @@ class GuiObject {
   // Returns true if mouse was clicked inside hitbox. Setting of selectedGuiObject moved
   // to child classes because some of them (f.ex. Button) arent't supposed to be a selectedGuiObject
   boolean checkMouseOver() {
-    if (mouseX > pos.x  &&  mouseX < (pos.x+size.x)  &&  mouseY > pos.y  &&  mouseY < (pos.y+size.y)) {
+    if (mouseX > getPosition().x  &&  mouseX < (getPosition().x+this.positionData.getSize2D().x)  &&  mouseY > getPosition().y  &&  mouseY < (getPosition().y+this.positionData.getSize2D().y)) {
       if (flag  &&  mousePressed) {
         flag = false;
         return(true);
       }
     }
     return(false);
+  }
+  
+  public PVector getPosition() {
+    return this.positionData.getPosition2D(); 
+  }
+  
+  public void setPosition(PVector iPosition) {
+    this.positionData.setPosition2D(iPosition); 
+  }
+  
+  private PVector getRotation() {
+    return this.positionData.getRotation2D(); 
+  }
+  
+  private void setRotation(PVector iRotation) {
+    this.positionData.setRotation2D(iRotation); 
+  }
+  
+  public PVector getSize() {
+    return this.positionData.getSize2D(); 
+  }
+  
+  public void setSize(PVector iSize) {
+    this.positionData.setSize2D(iSize); 
+  }
+  
+  public PVector getOffset() {
+    return this.positionData.getDirection2D(); 
+  }
+  
+  private void setOffset(PVector iOffset) {
+    this.positionData.setDirection2D(iOffset); 
   }
 }

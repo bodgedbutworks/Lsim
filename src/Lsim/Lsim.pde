@@ -308,11 +308,11 @@ void draw() {
   strokeWeight(1);
   fill(100);
   rect(menuXpos-SIZE_MENU_RIGHT-10, menuScroll-30, menuXpos-SIZE_MENU_RIGHT+10, menuScroll+30);
-  expandBtn.pos.x = menuXpos;
+  expandBtn.getPosition().x = menuXpos;
   expandBtn.display();
-  menuExpLeft.pos = PVector.add(new PVector(menuXpos-(SIZE_MENU_LEFT+SIZE_MENU_RIGHT)+20, 20-menuScroll), menuExpLeft.offset);
+  menuExpLeft.setPosition(PVector.add(new PVector(menuXpos-(SIZE_MENU_LEFT+SIZE_MENU_RIGHT)+20, 20-menuScroll), menuExpLeft.getOffset()));
   menuExpLeft.display();
-  menuExpRight.pos = PVector.add(new PVector(menuXpos-(SIZE_MENU_RIGHT)+20, 20-menuScroll), menuExpRight.offset);
+  menuExpRight.setPosition(PVector.add(new PVector(menuXpos-(SIZE_MENU_RIGHT)+20, 20-menuScroll), menuExpRight.getOffset()));
   menuExpRight.display();
 
   if (notificationsList.size() > 0) {

@@ -35,13 +35,13 @@ class NameBox extends GuiObject {
     //valStr = str(float(int(float(valStr)*100)/100));
     noStroke();
     fill((selectedGuiObject==this) ? 220+25*sin(millis()/100.0) : 255);
-    rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y, 3);
+    rect(getPosition().x, getPosition().y, getPosition().x+getSize().x, getPosition().y+getSize().y, 3);
     fill(0);
-    textSize(size.y/2);
+    textSize(getSize().y/2);
     textAlign(LEFT, TOP);
-    text(valStr, pos.x+2, pos.y+4, pos.x+size.x-2, pos.y+size.y-4);
+    text(valStr, getPosition().x+2, getPosition().y+4, getPosition().x+getSize().x-2, getPosition().y+getSize().y-4);
     fill(50, 255, 50);
-    text(displayName, pos.x+size.x+SIZE_GUTTER, pos.y);
+    text(displayName, getPosition().x+getSize().x+SIZE_GUTTER, getPosition().y);
 
     // ToDo: Is there a smarter way to do this??
     if (objType.equals("Fixture")) {

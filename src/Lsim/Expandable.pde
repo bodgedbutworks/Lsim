@@ -23,7 +23,7 @@ class Expandable extends GuiObject {
 
   void display() {
     if (hasButton) {
-      expandBtn.pos = pos.copy();
+      expandBtn.setPosition(getPosition().copy());
       expandBtn.display();
     }
 
@@ -42,23 +42,23 @@ class Expandable extends GuiObject {
       break;
     }
 
-    PVector tempPos = pos.copy();                                                // get() -> clone tempPos instead of creating a reference
+    PVector tempPos = getPosition().copy();                                                // get() -> clone tempPos instead of creating a reference
     if (hasButton) {
-      tempPos.add(new PVector(0, expandBtn.offset.y));
-      tempPos.add(new PVector(0, expandBtn.size.y));
+      tempPos.add(new PVector(0, expandBtn.getOffset().y));
+      tempPos.add(new PVector(0, expandBtn.getSize().y));
       tempPos.add(new PVector(0, SIZE_GUTTER));
     }
     if (state != 0) {
       for (GuiObject g : subElementsList) {
-        g.pos = PVector.add(tempPos, g.offset);
-        tempPos.add(new PVector(0, g.offset.y));
-        tempPos.add(new PVector(0, g.size.y));
+        g.setPosition(PVector.add(tempPos, g.getOffset()));
+        tempPos.add(new PVector(0, g.getOffset().y));
+        tempPos.add(new PVector(0, g.getSize().y));
         tempPos.add(new PVector(0, SIZE_GUTTER));
         g.display();
       }
     } else {
       tempPos.y -= SIZE_GUTTER;                                                 // Remove Gutter offset afer Expandable open/clos button
     }
-    size = PVector.sub(tempPos.get(), pos.get());                               // determine Expandable size by summing subelement sizes
+    setSize(PVector.sub(tempPos.get(), getPosition().get()));                               // determine Expandable size by summing subelement sizes
   }
 }

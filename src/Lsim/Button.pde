@@ -25,11 +25,11 @@ class Button extends GuiObject {
   void display() {
     noStroke();
     fill(clr);
-    rect(pos.x, pos.y, pos.x+size.x, pos.y+size.y, size.y/10);
+    rect(getPosition().x, getPosition().y, getPosition().x+getSize().x, getPosition().y+getSize().y, getSize().y/10);
     fill(0);
     textSize((displayName.length()>=3) ? map(height, 900, 1200, 14, 15) : map(height, 900, 1200, 36, 40));
     textAlign(CENTER, CENTER);
-    text(displayName, pos.x+size.x/2, pos.y+size.y/2-3);
+    text(displayName, getPosition().x+getSize().x/2, getPosition().y+getSize().y/2-3);
 
     if (checkMouseOver()) {
       if (objType.equals("Pixel")) {

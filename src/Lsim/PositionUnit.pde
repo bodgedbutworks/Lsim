@@ -79,5 +79,17 @@ class PositionUnit {
   public void setPosition2D(PVector iNewPosition) {
     this.position2D = iNewPosition;
   }
+  
+  public void setRotation2D(PVector iNewRotation) {
+    this.rotation2D = iNewRotation;
+  }
+  
+  public void setSize2D(PVector iNewSize) {
+    this.size2D = iNewSize;
+  }
+  
+  public void setDirection2D(PVector iNewDirection) {
+    this.direction2D = iNewDirection;
+  }
 
 }
