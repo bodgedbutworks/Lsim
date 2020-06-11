@@ -46,15 +46,15 @@ class NameBox extends GuiObject {
     // ToDo: Is there a smarter way to do this??
     if (objType.equals("Fixture")) {
       if (propName.equals("name")) {
-        fixObjRef.name = valStr;
+        getObjektRefFixture().name = valStr;
       }
     } else if (objType.equals("Cuboid")) {
       if (propName.equals("name")) {
-        cubObjRef.name = valStr;
+        getObjektRefCuboud().name = valStr;
       }
     } else if (objType.equals("Pixel")) {
       if (propName.equals("name")) {
-        pixObjRef.name = valStr;
+        getObjektRefPixel().name = valStr;
       }
     } else if (objType.equals("None")) {
       if (propName.equals("projectName")) {

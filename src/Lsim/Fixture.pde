@@ -198,7 +198,7 @@ class Fixture extends ScreenObject {
     rescaleModels();
     println("Loaded Fixture " + name);
   }
-
+  
   /*
     void calcPanTilt() {
    PVector tempVec = new PVector(0, 0, 0);

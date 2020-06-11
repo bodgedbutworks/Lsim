@@ -3,11 +3,7 @@ class GuiObject {
   //PVector offset;     // Position offset, added to temporary position before saving to pos
   //PVector pos;        // Actual element pos, used for mouseover/displaying, set by "parent" Expandable //not in use anymore insted positionData
 
-  Fixture fixObjRef;
-  Cuboid cubObjRef;
-  Pixel pixObjRef;
-  Dynamics dynObjRef;
-  Expandable expObjRef;
+  private Object generalRef;
   String objType = "";
 
   String propName = "";
@@ -21,33 +17,32 @@ class GuiObject {
   // Overloaded constructor for every object type reference
   GuiObject(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
     objType = "None";
-    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);  // Initialize object type independent properties
+    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);  // Initialize object type independent properties     //null is very bad just for porposis of the clean code cleaning at the end correct this agean
   }
-  GuiObject(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
-    fixObjRef = iObjRef;
-    objType = "Fixture";
+  
+  GuiObject(PVector iOffset, PVector iSize, Object iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
+    if(iObjRef.equals(Fixture.class)) {
+      objType = "Fixture";
+    } else if (iObjRef.equals(Cuboid.class)) {
+      objType = "Cuboid";
+    } else if (iObjRef.equals(Pixel.class)) {
+      objType = "Pixel";
+    } else if (iObjRef.equals(Dynamics.class)) {
+      objType = "Dynamics";
+    } else if (iObjRef.equals(Expandable.class)) {
+      objType = "Expandable";
+    }
+    this.generalRef = iObjRef;
     init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
   }
-  GuiObject(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
-    cubObjRef = iObjRef;
-    objType = "Cuboid";
-    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
-  }
-  GuiObject(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
-    pixObjRef = iObjRef;
-    objType = "Pixel";
-    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
-  }
-  GuiObject(PVector iOffset, PVector iSize, Dynamics iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
-    dynObjRef = iObjRef;
-    objType = "Dynamics";
-    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
-  }
+  
+  //expandable is the one how makes the problems with the button sub thing
   GuiObject(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
-    expObjRef = iObjRef;
     objType = "Expandable";
+    this.generalRef = iObjRef;
     init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
   }
+  
   void init(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
     PVector empty = new PVector(0, 0);
     propName = iPropName;
@@ -115,5 +110,27 @@ class GuiObject {
   
   private void setOffset(PVector iOffset) {
     this.positionData.setDirection2D(iOffset); 
+  }
+  
+  //-------------------------- the following schould be schrinked down to one get'er if generics come in
+  
+  
+  public Fixture getObjektRefFixture() {
+    return (Fixture) this.generalRef; 
+  }
+  public Cuboid getObjektRefCuboud() {
+    return (Cuboid) this.generalRef; 
+  }
+  public Pixel getObjektRefPixel() {
+    return (Pixel) this.generalRef; 
+  }
+  public Expandable getObjektRefExpandable() {
+    return (Expandable) this.generalRef; 
+  }
+  public Dynamics getObjektRefDynamix() {
+    return (Dynamics) this.generalRef; 
+  }
+  private Object getObjektRefString() {
+    return (Object) this.generalRef; 
   }
 }

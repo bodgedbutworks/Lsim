@@ -54,53 +54,53 @@ class SpinBox extends GuiObject {
     // ToDo: Is there a smarter way to do this??
     if (objType.equals("Fixture")) {
       if (propName.equals("pos3d.x")) {
-        fixObjRef.getPosition().x = float(valStr);
+        getObjektRefFixture().getPosition().x = float(valStr);
       } else if (propName.equals("pos3d.y")) {
-        fixObjRef.getPosition().y = float(valStr);
+        getObjektRefFixture().getPosition().y = float(valStr);
       } else if (propName.equals("pos3d.z")) {
-        fixObjRef.getPosition().z = float(valStr);
+        getObjektRefFixture().getPosition().z = float(valStr);
       } else if (propName.equals("rot.x")) {
-        fixObjRef.getRotation().x = float(valStr);
+        getObjektRefFixture().getRotation().x = float(valStr);
       } else if (propName.equals("rot.y")) {
-        fixObjRef.getRotation().y = float(valStr);
+        getObjektRefFixture().getRotation().y = float(valStr);
       } else if (propName.equals("rot.z")) {
-        fixObjRef.getRotation().z = float(valStr);
+        getObjektRefFixture().getRotation().z = float(valStr);
       }
     } else if (objType.equals("Cuboid")) {
       if (propName.equals("pos3d.x")) {
-        cubObjRef.getPosition().x = float(valStr);
+        getObjektRefCuboud().getPosition().x = float(valStr);
       } else if (propName.equals("pos3d.y")) {
-        cubObjRef.getPosition().y = float(valStr);
+        getObjektRefCuboud().getPosition().y = float(valStr);
       } else if (propName.equals("pos3d.z")) {
-        cubObjRef.getPosition().z = float(valStr);
+        getObjektRefCuboud().getPosition().z = float(valStr);
       } else if (propName.equals("rot.x")) {
-        cubObjRef.getRotation().x = float(valStr);
+        getObjektRefCuboud().getRotation().x = float(valStr);
       } else if (propName.equals("rot.y")) {
-        cubObjRef.getRotation().y = float(valStr);
+        getObjektRefCuboud().getRotation().y = float(valStr);
       } else if (propName.equals("rot.z")) {
-        cubObjRef.getRotation().z = float(valStr);
+        getObjektRefCuboud().getRotation().z = float(valStr);
       } else if (propName.equals("size3d.x")) {
-        cubObjRef.size3d.x = float(valStr);
+        getObjektRefCuboud().size3d.x = float(valStr);
       } else if (propName.equals("size3d.y")) {
-        cubObjRef.size3d.y = float(valStr);
+        getObjektRefCuboud().size3d.y = float(valStr);
       } else if (propName.equals("size3d.z")) {
-        cubObjRef.size3d.z = float(valStr);
+        getObjektRefCuboud().size3d.z = float(valStr);
       }
     } else if (objType.equals("Pixel")) {
       if (propName.equals("Pixel Pos LR")) {
-        pixObjRef.pos3d.x = float(valStr);
+        getObjektRefPixel().pos3d.x = float(valStr);
       } else if (propName.equals("Pixel Pos UD")) {
-        pixObjRef.pos3d.y = float(valStr);
+        getObjektRefPixel().pos3d.y = float(valStr);
       } else if (propName.equals("Pixel Pos FB")) {
-        pixObjRef.pos3d.z = float(valStr);
+        getObjektRefPixel().pos3d.z = float(valStr);
       }
     } else if (objType.equals("Dynamics")) {
       if (propName.equals("Accel")) {
-        dynObjRef.maxAcc = float(valStr);
+        getObjektRefDynamix().maxAcc = float(valStr);
       } else if (propName.equals("Speed")) {
-        dynObjRef.maxSpd = float(valStr);
+        getObjektRefDynamix().maxSpd = float(valStr);
       } else if (propName.equals("Tweak")) {
-        dynObjRef.maxSpdTweak = float(valStr);
+        getObjektRefDynamix().maxSpdTweak = float(valStr);
       }
     }
   }

@@ -34,65 +34,65 @@ class Button extends GuiObject {
     if (checkMouseOver()) {
       if (objType.equals("Pixel")) {
         if (propName.equals("Ellipse")) {
-          pixObjRef.faceType = "Ellipse";
+          getObjektRefPixel().faceType = "Ellipse";
         } else if (propName.equals("Rectangle")) {
-          pixObjRef.faceType = "Rectangle";
+          getObjektRefPixel().faceType = "Rectangle";
         } else if (propName.equals("Copy Pixel")) {
-          Pixel tempPix = new Pixel("Irrelevant", pixObjRef.parentFixRef);
-          tempPix.load(pixObjRef.save());
+          Pixel tempPix = new Pixel("Irrelevant", getObjektRefPixel().parentFixRef);
+          tempPix.load(getObjektRefPixel().save());
           tempPix.name += " Copy";
           tempPix.pos3d.x += 20;
-          pixObjRef.parentFixRef.pixelList.add(tempPix);
-          reloadMyGui = pixObjRef.parentFixRef;     // Directly modifying the GUI here would lead to ConcurrentModificationException, so do in main loop
+          getObjektRefPixel().parentFixRef.pixelList.add(tempPix);
+          reloadMyGui = getObjektRefPixel().parentFixRef;     // Directly modifying the GUI here would lead to ConcurrentModificationException, so do in main loop
         } else if (propName.equals("Delete Pixel")) {
-          pixObjRef.parentFixRef.pixelList.remove(pixObjRef);
-          reloadMyGui = pixObjRef.parentFixRef;
+          getObjektRefPixel().parentFixRef.pixelList.remove(getObjektRefPixel());
+          reloadMyGui = getObjektRefPixel().parentFixRef;
         }
       } else if (objType.equals("Fixture")) {
         if (propName.equals("Toggle Beams")) {
-          fixObjRef.showBeams = !fixObjRef.showBeams;
+          getObjektRefFixture().showBeams = !getObjektRefFixture().showBeams;
         } else if (propName.equals("Plate Model")) {
-          fixObjRef.baseType = "Plate";
+          getObjektRefFixture().baseType = "Plate";
         } else if (propName.equals("No Model")) {
-          fixObjRef.baseType = "None";
+          getObjektRefFixture().baseType = "None";
         } else if (propName.equals("Fork Model")) {
-          fixObjRef.panType = "Fork";
+          getObjektRefFixture().panType = "Fork";
         } else if (propName.equals("Head Model")) {
-          fixObjRef.tiltType = "Head";
+          getObjektRefFixture().tiltType = "Head";
         } else if (propName.equals("Cuboid Model")) {
-          fixObjRef.tiltType = "Cuboid";
+          getObjektRefFixture().tiltType = "Cuboid";
         } else if (propName.equals("Save Fixture")) {
-          saveJSONObject(fixObjRef.save(), PATH_FIXTURES + fixObjRef.name + ".lsm");
-          notific("Saved Fixture: " + fixObjRef.name, CLR_NOTIF_SUCCESS, TTL_SUCCESS);
+          saveJSONObject(getObjektRefFixture().save(), PATH_FIXTURES + getObjektRefFixture().name + ".lsm");
+          notific("Saved Fixture: " + getObjektRefFixture().name, CLR_NOTIF_SUCCESS, TTL_SUCCESS);
         } else if (propName.equals("Copy Fixture")) {
           Fixture tempFix = new Fixture();
-          tempFix.load(fixObjRef.save());
-          tempFix.name = fixObjRef.name + " Copy";
+          tempFix.load(getObjektRefFixture().save());
+          tempFix.name = getObjektRefFixture().name + " Copy";
           tempFix.getPosition().x += 200;
           fixtureList.add(tempFix);
           reloadMyGui = tempFix;
         } else if (propName.equals("Delete Fixture")) {
-          fixtureList.remove(fixObjRef);
+          fixtureList.remove(getObjektRefFixture());
           deleteMyGui = true;
         }
       } else if (objType.equals("Cuboid")) {
         if (propName.equals("Copy Cuboid")) {
           Cuboid tempCub = new Cuboid();
-          tempCub.load(cubObjRef.save());
-          tempCub.name = cubObjRef.name + " Copy";
+          tempCub.load(getObjektRefCuboud().save());
+          tempCub.name = getObjektRefCuboud().name + " Copy";
           tempCub.getPosition().x += 200;
           cuboidList.add(tempCub);
           reloadMyGui = tempCub;
         } else if (propName.equals("Delete Cuboid")) {
-          cuboidList.remove(cubObjRef);
+          cuboidList.remove(getObjektRefCuboud());
           deleteMyGui = true;
         }
       } else if (objType.equals("Expandable")) {
         if (propName.equals("state")) {
-          if (expObjRef.state == 0) {
-            expObjRef.state = 1;
-          } else if (expObjRef.state == 2) {
-            expObjRef.state = 3;
+          if (getObjektRefExpandable().state == 0) {
+            getObjektRefExpandable().state = 1;
+          } else if (getObjektRefExpandable().state == 2) {
+            getObjektRefExpandable().state = 3;
           }
         }
       } else if (objType.equals("None")) {
