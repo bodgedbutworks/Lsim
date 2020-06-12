@@ -44,19 +44,19 @@ class NameBox extends GuiObject {
     text(displayName, getPosition().x+getSize().x+SIZE_GUTTER, getPosition().y);
 
     // ToDo: Is there a smarter way to do this??
-    if (objType.equals("Fixture")) {
+    if (getObjTyp().equals("Fixture")) {
       if (propName.equals("name")) {
         getObjektRefFixture().name = valStr;
       }
-    } else if (objType.equals("Cuboid")) {
+    } else if (getObjTyp().equals("Cuboid")) {
       if (propName.equals("name")) {
         getObjektRefCuboud().name = valStr;
       }
-    } else if (objType.equals("Pixel")) {
+    } else if (getObjTyp().equals("Pixel")) {
       if (propName.equals("name")) {
         getObjektRefPixel().name = valStr;
       }
-    } else if (objType.equals("None")) {
+    } else if (getObjTyp().equals("None")) {
       if (propName.equals("projectName")) {
         projectName = valStr;
       }

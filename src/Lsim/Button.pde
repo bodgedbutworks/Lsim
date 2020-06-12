@@ -32,7 +32,7 @@ class Button extends GuiObject {
     text(displayName, getPosition().x+getSize().x/2, getPosition().y+getSize().y/2-3);
 
     if (checkMouseOver()) {
-      if (objType.equals("Pixel")) {
+      if ( getObjTyp().equals("Pixel")) {
         if (propName.equals("Ellipse")) {
           getObjektRefPixel().faceType = "Ellipse";
         } else if (propName.equals("Rectangle")) {
@@ -48,7 +48,7 @@ class Button extends GuiObject {
           getObjektRefPixel().parentFixRef.pixelList.remove(getObjektRefPixel());
           reloadMyGui = getObjektRefPixel().parentFixRef;
         }
-      } else if (objType.equals("Fixture")) {
+      } else if (getObjTyp().equals("Fixture")) {
         if (propName.equals("Toggle Beams")) {
           getObjektRefFixture().showBeams = !getObjektRefFixture().showBeams;
         } else if (propName.equals("Plate Model")) {
@@ -75,7 +75,7 @@ class Button extends GuiObject {
           fixtureList.remove(getObjektRefFixture());
           deleteMyGui = true;
         }
-      } else if (objType.equals("Cuboid")) {
+      } else if (getObjTyp().equals("Cuboid")) {
         if (propName.equals("Copy Cuboid")) {
           Cuboid tempCub = new Cuboid();
           tempCub.load(getObjektRefCuboud().save());
@@ -87,7 +87,7 @@ class Button extends GuiObject {
           cuboidList.remove(getObjektRefCuboud());
           deleteMyGui = true;
         }
-      } else if (objType.equals("Expandable")) {
+      } else if (getObjTyp().equals("Expandable")) {
         if (propName.equals("state")) {
           if (getObjektRefExpandable().state == 0) {
             getObjektRefExpandable().state = 1;
@@ -95,7 +95,7 @@ class Button extends GuiObject {
             getObjektRefExpandable().state = 3;
           }
         }
-      } else if (objType.equals("None")) {
+      } else if (getObjTyp().equals("None")) { //change all these getObjTyp().equals("XXX") to something like objRef.class.equals(XXX.class)
         if (propName.equals(">")) {
           if (menuState == 0) {
             menuState = 1;

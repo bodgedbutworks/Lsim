@@ -77,7 +77,7 @@ class IntBox extends GuiObject {
     text(displayName, getPosition().x+getSize().x+SIZE_GUTTER, getPosition().y);
 
     // ToDo: Is there a smarter way to do this??
-    if (objType.equals("Fixture")) {
+    if (getObjTyp().equals("Fixture")) {
       if (propName.equals("Universe")) {
         getObjektRefFixture().universe = int(valStr);
       } else if (propName.equals("Address")) {
@@ -110,9 +110,9 @@ class IntBox extends GuiObject {
         getObjektRefFixture().sizeTilt.z = int(valStr);
         getObjektRefFixture().rescaleModels();
       }
-    } else if (objType.equals("Cuboid")) {
+    } else if (getObjTyp().equals("Cuboid")) {
       /* Cuboid stuff here */
-    } else if (objType.equals("Pixel")) {
+    } else if (getObjTyp().equals("Pixel")) {
       if (propName.equals("Pixel Width")) {
         getObjektRefPixel().faceSize.x = int(valStr);
         getObjektRefPixel().updateBeam();
@@ -138,7 +138,7 @@ class IntBox extends GuiObject {
       } else if (propName.equals("Rel. Channel White")) {
         getObjektRefPixel().chanClrW = int(valStr);
       }
-    } else if (objType.equals("Dynamics")) {
+    } else if (getObjTyp().equals("Dynamics")) {
       if (propName.equals("Channel Coarse")) {
         getObjektRefDynamix().chanCoarse = int(valStr);
       } else if (propName.equals("Channel Fine")) {

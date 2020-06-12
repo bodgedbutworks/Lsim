@@ -52,7 +52,7 @@ class SpinBox extends GuiObject {
     text(displayName, getPosition().x+getSize().x+SIZE_GUTTER, getPosition().y);
 
     // ToDo: Is there a smarter way to do this??
-    if (objType.equals("Fixture")) {
+    if (getObjTyp().equals("Fixture")) {
       if (propName.equals("pos3d.x")) {
         getObjektRefFixture().getPosition().x = float(valStr);
       } else if (propName.equals("pos3d.y")) {
@@ -66,7 +66,7 @@ class SpinBox extends GuiObject {
       } else if (propName.equals("rot.z")) {
         getObjektRefFixture().getRotation().z = float(valStr);
       }
-    } else if (objType.equals("Cuboid")) {
+    } else if (getObjTyp().equals("Cuboid")) {
       if (propName.equals("pos3d.x")) {
         getObjektRefCuboud().getPosition().x = float(valStr);
       } else if (propName.equals("pos3d.y")) {
@@ -86,7 +86,7 @@ class SpinBox extends GuiObject {
       } else if (propName.equals("size3d.z")) {
         getObjektRefCuboud().size3d.z = float(valStr);
       }
-    } else if (objType.equals("Pixel")) {
+    } else if (getObjTyp().equals("Pixel")) {
       if (propName.equals("Pixel Pos LR")) {
         getObjektRefPixel().pos3d.x = float(valStr);
       } else if (propName.equals("Pixel Pos UD")) {
@@ -94,7 +94,7 @@ class SpinBox extends GuiObject {
       } else if (propName.equals("Pixel Pos FB")) {
         getObjektRefPixel().pos3d.z = float(valStr);
       }
-    } else if (objType.equals("Dynamics")) {
+    } else if (getObjTyp().equals("Dynamics")) {
       if (propName.equals("Accel")) {
         getObjektRefDynamix().maxAcc = float(valStr);
       } else if (propName.equals("Speed")) {

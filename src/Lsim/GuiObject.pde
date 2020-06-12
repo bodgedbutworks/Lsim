@@ -4,7 +4,7 @@ class GuiObject {
   //PVector pos;        // Actual element pos, used for mouseover/displaying, set by "parent" Expandable //not in use anymore insted positionData
 
   private Object generalRef;
-  String objType = "";
+  private String objType = ""; // this is just used to name the specific class change to xxx.clas.equals(XXX.class)
 
   String propName = "";
   String displayName = "";
@@ -16,40 +16,41 @@ class GuiObject {
 
   // Overloaded constructor for every object type reference
   GuiObject(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
-    objType = "None";
-    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);  // Initialize object type independent properties     //null is very bad just for porposis of the clean code cleaning at the end correct this agean
+    this.objType = "None";
+    init(iOffset, iSize, null, iPropName, iDisplayName, iInitialVal, iStepSize);  // Initialize object type independent properties     //null is very bad just for porposis of the clean code cleaning at the end correct this agean
   }
   
   GuiObject(PVector iOffset, PVector iSize, Object iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
+    
     if(iObjRef.equals(Fixture.class)) {
-      objType = "Fixture";
+      this.objType = "Fixture";
     } else if (iObjRef.equals(Cuboid.class)) {
-      objType = "Cuboid";
+      this.objType = "Cuboid";
     } else if (iObjRef.equals(Pixel.class)) {
-      objType = "Pixel";
+      this.objType = "Pixel";
     } else if (iObjRef.equals(Dynamics.class)) {
-      objType = "Dynamics";
+      this.objType = "Dynamics";
     } else if (iObjRef.equals(Expandable.class)) {
-      objType = "Expandable";
+      this.objType = "Expandable";
     }
-    this.generalRef = iObjRef;
-    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
+    
+    init(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, iStepSize);
   }
   
   //expandable is the one how makes the problems with the button sub thing
   GuiObject(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
-    objType = "Expandable";
-    this.generalRef = iObjRef;
-    init(iOffset, iSize, iPropName, iDisplayName, iInitialVal, iStepSize);
+    this.objType = "Expandable";
+    init(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, iStepSize);
   }
   
-  void init(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
+  void init(PVector iOffset, PVector iSize, Object iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
     PVector empty = new PVector(0, 0);
     propName = iPropName;
     displayName = iDisplayName;
     valStr = iInitialVal;
     stepSize = iStepSize;
     this.positionData = new PositionUnit(empty, empty, iSize, iOffset, false);
+    this.generalRef = iObjRef;
   }
 
   void editValMouse(float iEventGetCount) {
@@ -110,6 +111,14 @@ class GuiObject {
   
   private void setOffset(PVector iOffset) {
     this.positionData.setDirection2D(iOffset); 
+  }
+  
+  public String getObjTyp() {
+    return this.objType;
+  }
+  
+  public Object getGeneralRef() {
+    return this.generalRef;
   }
   
   //-------------------------- the following schould be schrinked down to one get'er if generics come in
