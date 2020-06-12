@@ -1,4 +1,4 @@
-class ScreenObject {
+class ScreenObject implements IGuiObject{
   //int id;
   String name;
   private PositionUnit positionData;
@@ -84,5 +84,12 @@ class ScreenObject {
   }
   public PVector getRotation() {
     return this.positionData.getRotation3D();
+  }
+  
+  public void setPosition(PVector iNewPosition) {
+    this.positionData.setPosition3D(iNewPosition);
+  }
+  public void setRotation(PVector iNewRotation) {
+    this.positionData.setRotation3D(iNewRotation);
   }
 }

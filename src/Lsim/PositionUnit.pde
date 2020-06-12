@@ -76,6 +76,22 @@ class PositionUnit {
     return this.direction2D; 
   }
   
+   public void setPosition3D(PVector iNewPosition) {
+    this.position3D = iNewPosition;
+  }
+  
+  public void setRotation3D(PVector iNewRotation) {
+    this.rotation3D = iNewRotation;
+  }
+  
+  public void setSize3D(PVector iNewSize) {
+    this.size3D = iNewSize;
+  }
+  
+  public void setDirection3D(PVector iNewDirection) {
+    this.direction3D = iNewDirection;
+  }
+  
   public void setPosition2D(PVector iNewPosition) {
     this.position2D = iNewPosition;
   }

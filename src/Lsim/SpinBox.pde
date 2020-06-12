@@ -1,4 +1,5 @@
 class SpinBox extends GuiObject {
+  //private float faderValue = 0;
   SpinBox(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
   }
@@ -15,18 +16,23 @@ class SpinBox extends GuiObject {
   void editValKey() {                                                           // run only when a key is pressed
     if ((key >= '0'  &&  key <= '9')  ||  (key == '.'  &&  utilStr.indexOf('.') == -1)  ||  (key == '-'  &&  utilStr.length() == 0)) {
       utilStr += key;
+      //this.faderValue = key;
       keyEditState = 1;
     } else if (key == BACKSPACE  &&  utilStr.length() > 0) {
       utilStr = utilStr.substring(0, utilStr.length()-1);
+      //this.faderValue = getObjektRefFixture().getPosition().x / 10;
       keyEditState = 1;
     } else if (key == DELETE) {
       utilStr = "";
+      //this.faderValue = 0;
       keyEditState = 1;
     }
 
     if (keyEditState == 1) {
       if (key == ENTER) {
         valStr = utilStr;
+        //getObjektRefFixture().setPosition(new PVector(getObjektRefFixture().getPosition().x + this.faderValue,getObjektRefFixture().getPosition().y,getObjektRefFixture().getPosition().z));
+        //this.faderValue = 0;
         keyEditState = 0;
       }
     }
@@ -51,7 +57,8 @@ class SpinBox extends GuiObject {
     fill(50, 255, 50);
     text(displayName, getPosition().x+getSize().x+SIZE_GUTTER, getPosition().y);
 
-    // ToDo: Is there a smarter way to do this??
+    /*
+    // ToDo: Is there a smarter way to do this?? the way it is it dose nothing at all
     if (getObjTyp().equals("Fixture")) {
       if (propName.equals("pos3d.x")) {
         getObjektRefFixture().getPosition().x = float(valStr);
@@ -103,5 +110,6 @@ class SpinBox extends GuiObject {
         getObjektRefDynamix().maxSpdTweak = float(valStr);
       }
     }
+    */
   }
 }

@@ -1,4 +1,4 @@
-class Pixel {
+class Pixel implements IGuiObject{
   Fixture parentFixRef;
   String name = "";
   PVector pos3d = new PVector(0, 0, 27);                                        // Offset realtive to fixture center of mass (COM)

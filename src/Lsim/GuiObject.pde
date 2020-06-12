@@ -1,10 +1,10 @@
-class GuiObject {
+class GuiObject implements IGuiObject{
   private PositionUnit positionData;
   //PVector offset;     // Position offset, added to temporary position before saving to pos
   //PVector pos;        // Actual element pos, used for mouseover/displaying, set by "parent" Expandable //not in use anymore insted positionData
 
   private Object generalRef;
-  private String objType = ""; // this is just used to name the specific class change to xxx.clas.equals(XXX.class)
+  private String objType = ""; // this is just used to name the specific class change to xxx.clas.equals(XXX.class) <-- tried it dident work but I will try it agean later
 
   String propName = "";
   String displayName = "";
@@ -20,7 +20,7 @@ class GuiObject {
     init(iOffset, iSize, null, iPropName, iDisplayName, iInitialVal, iStepSize);  // Initialize object type independent properties     //null is very bad just for porposis of the clean code cleaning at the end correct this agean
   }
   
-  GuiObject(PVector iOffset, PVector iSize, Object iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, IGuiObject iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
     
     if(iObjRef.equals(Fixture.class)) {
       this.objType = "Fixture";
@@ -93,7 +93,7 @@ class GuiObject {
     return this.positionData.getRotation2D(); 
   }
   
-  private void setRotation(PVector iRotation) {
+  public void setRotation(PVector iRotation) {
     this.positionData.setRotation2D(iRotation); 
   }
   

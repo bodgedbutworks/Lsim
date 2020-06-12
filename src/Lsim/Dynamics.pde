@@ -1,4 +1,4 @@
-class Dynamics {
+class Dynamics implements IGuiObject{
   String name = "Axis";
   int angle = 180;                                                              // [deg]
   int offset = 0;                                                               // [deg]
