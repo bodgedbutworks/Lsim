@@ -1,4 +1,4 @@
-class Expandable extends GuiObject {
+class Expandable extends GuiObject implements IGuiObject{
   ArrayList<GuiObject> subElementsList = new ArrayList<GuiObject>();
   Button expandBtn;                                                             // 0=closed, 1=expanding, 2=expanded, 3=closing
   boolean hasButton = true;

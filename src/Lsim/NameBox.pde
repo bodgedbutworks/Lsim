@@ -1,14 +1,8 @@
-class NameBox extends GuiObject {
+class NameBox<T extends IGuiObject> extends GuiObject {
   NameBox(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, String iInitialVal) {
     super(iOffset, iSize, iPropName, iDisplayName, iInitialVal, 1.0/*stepSize*/);
   }
-  NameBox(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName, String iInitialVal) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, 1.0/*stepSize*/);
-  }
-  NameBox(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, String iDisplayName, String iInitialVal) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, 1.0/*stepSize*/);
-  }
-  NameBox(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName, String iInitialVal) {
+  NameBox(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, String iInitialVal) {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, 1.0/*stepSize*/);
   }
 

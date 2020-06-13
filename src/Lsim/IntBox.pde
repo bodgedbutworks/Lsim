@@ -1,31 +1,10 @@
 /// Similar to SpinBox, but for integer values and with constraints
-class IntBox extends GuiObject {
+class IntBox<T extends IGuiObject> extends GuiObject {
   int valMin = 1;   // ToDo: Move min and max constraints to GuiObject class, relevant for SpinBox as well
   int valMax = 512;
   int valDeac = -99999;    // Deactivation value, changes IntBox color
 
-  IntBox(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax, int ivalDeac) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(float(iInitialVal)), float(iStepSize));
-    valMin = iMin;
-    valMax = iMax;
-    valDeac = ivalDeac;
-    valStr = str(int(valStr));
-  }
-  IntBox(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax, int ivalDeac) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(float(iInitialVal)), float(iStepSize));
-    valMin = iMin;
-    valMax = iMax;
-    valDeac = ivalDeac;
-    valStr = str(int(valStr));
-  }
-  IntBox(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax, int ivalDeac) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(float(iInitialVal)), float(iStepSize));
-    valMin = iMin;
-    valMax = iMax;
-    valDeac = ivalDeac;
-    valStr = str(int(valStr));
-  }
-  IntBox(PVector iOffset, PVector iSize, Dynamics iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax, int ivalDeac) {
+  IntBox(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, int iInitialVal, int iStepSize, int iMin, int iMax, int ivalDeac) {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(float(iInitialVal)), float(iStepSize));
     valMin = iMin;
     valMax = iMax;

@@ -1,15 +1,6 @@
-class SpinBox extends GuiObject {
+class SpinBox<T extends IGuiObject> extends GuiObject {
   //private float faderValue = 0;
-  SpinBox(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
-  }
-  SpinBox(PVector iOffset, PVector iSize, Cuboid iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
-  }
-  SpinBox(PVector iOffset, PVector iSize, Pixel iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
-  }
-  SpinBox(PVector iOffset, PVector iSize, Dynamics iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
+  SpinBox(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
   }
 
@@ -31,7 +22,7 @@ class SpinBox extends GuiObject {
     if (keyEditState == 1) {
       if (key == ENTER) {
         valStr = utilStr;
-        //getObjektRefFixture().setPosition(new PVector(getObjektRefFixture().getPosition().x + this.faderValue,getObjektRefFixture().getPosition().y,getObjektRefFixture().getPosition().z));
+        getObjektRefFixture().setPosition(new PVector(float (valStr),getObjektRefFixture().getPosition().y,getObjektRefFixture().getPosition().z));
         //this.faderValue = 0;
         keyEditState = 0;
       }

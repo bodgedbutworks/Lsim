@@ -1,9 +1,10 @@
-class GuiObject implements IGuiObject{
+class GuiObject<T extends IGuiObject> implements IGuiObject{
   private PositionUnit positionData;
   //PVector offset;     // Position offset, added to temporary position before saving to pos
   //PVector pos;        // Actual element pos, used for mouseover/displaying, set by "parent" Expandable //not in use anymore insted positionData
 
-  private Object generalRef;
+  private T generalRef;
+  private Expandable generalRefE;
   private String objType = ""; // this is just used to name the specific class change to xxx.clas.equals(XXX.class) <-- tried it dident work but I will try it agean later
 
   String propName = "";
@@ -20,8 +21,9 @@ class GuiObject implements IGuiObject{
     init(iOffset, iSize, null, iPropName, iDisplayName, iInitialVal, iStepSize);  // Initialize object type independent properties     //null is very bad just for porposis of the clean code cleaning at the end correct this agean
   }
   
-  GuiObject(PVector iOffset, PVector iSize, IGuiObject iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
     
+    ///*
     if(iObjRef.equals(Fixture.class)) {
       this.objType = "Fixture";
     } else if (iObjRef.equals(Cuboid.class)) {
@@ -33,17 +35,19 @@ class GuiObject implements IGuiObject{
     } else if (iObjRef.equals(Expandable.class)) {
       this.objType = "Expandable";
     }
-    
+    //*/
+    //100 % unsure if this below replaces this obove. not quiet it must be something like T.class.toString()
+    //this.objType = iObjRef.toString();
     init(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, iStepSize);
   }
   
   //expandable is the one how makes the problems with the button sub thing
   GuiObject(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
     this.objType = "Expandable";
-    init(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, iStepSize);
+    initE(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, iStepSize);
   }
   
-  void init(PVector iOffset, PVector iSize, Object iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
+  void init(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
     PVector empty = new PVector(0, 0);
     propName = iPropName;
     displayName = iDisplayName;
@@ -51,6 +55,16 @@ class GuiObject implements IGuiObject{
     stepSize = iStepSize;
     this.positionData = new PositionUnit(empty, empty, iSize, iOffset, false);
     this.generalRef = iObjRef;
+  }
+  
+  void initE(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
+    PVector empty = new PVector(0, 0);
+    propName = iPropName;
+    displayName = iDisplayName;
+    valStr = iInitialVal;
+    stepSize = iStepSize;
+    this.positionData = new PositionUnit(empty, empty, iSize, iOffset, false);
+    this.generalRefE = iObjRef;
   }
 
   void editValMouse(float iEventGetCount) {
@@ -118,7 +132,11 @@ class GuiObject implements IGuiObject{
   }
   
   public Object getGeneralRef() {
-    return this.generalRef;
+    if(this.equals(Expandable.class)) {
+      return this.generalRefE;
+    } else {
+      return this.generalRef;
+    }
   }
   
   //-------------------------- the following schould be schrinked down to one get'er if generics come in
@@ -134,7 +152,7 @@ class GuiObject implements IGuiObject{
     return (Pixel) this.generalRef; 
   }
   public Expandable getObjektRefExpandable() {
-    return (Expandable) this.generalRef; 
+    return (Expandable) this.generalRefE; 
   }
   public Dynamics getObjektRefDynamix() {
     return (Dynamics) this.generalRef; 
