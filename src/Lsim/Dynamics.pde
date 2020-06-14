@@ -96,7 +96,7 @@ class Dynamics implements IGuiObject{
   }
 
   Expandable returnGui() {
-    Expandable dynamicsExp = new Expandable(new PVector(0, 0), new PVector(0, 0), name, true, false, CLR_MENU_LV2);
+    Expandable dynamicsExp = new Expandable(new PVector(0, 0), new PVector(0, 0), name, true, false, constantData.CLR_MENU_LV2);
     dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Channel Coarse", "Channel Coarse", chanCoarse, 1, 0, 512, 0));
     dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Channel Fine", "Channel Fine", chanFine, 1, 0, 512, 0));
     dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Angle", "Total Angle", angle, 1, 90, 720, -1));

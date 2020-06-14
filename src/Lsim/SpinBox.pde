@@ -1,7 +1,14 @@
 class SpinBox<T extends IGuiObject> extends GuiObject {
   //private float faderValue = 0;
+  private Consumer<Float>variableChanger;
+  
   SpinBox(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
+  }
+  
+  SpinBox(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize, Consumer<Float> iVariableChanger) {
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
+    this.variableChanger = iVariableChanger;
   }
 
   void editValKey() {                                                           // run only when a key is pressed
@@ -22,7 +29,7 @@ class SpinBox<T extends IGuiObject> extends GuiObject {
     if (keyEditState == 1) {
       if (key == ENTER) {
         valStr = utilStr;
-        getObjektRefFixture().setPosition(new PVector(float (valStr),getObjektRefFixture().getPosition().y,getObjektRefFixture().getPosition().z));
+        this.variableChanger.accept(float (valStr));
         //this.faderValue = 0;
         keyEditState = 0;
       }

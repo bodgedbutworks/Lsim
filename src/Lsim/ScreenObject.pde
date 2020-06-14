@@ -13,7 +13,7 @@ class ScreenObject implements IGuiObject{
   }
 
   void display() {
-    notific("Display function not defined!", CLR_NOTIF_DANGER, TTL_DANGER);
+    notific("Display function not defined!", constantData.CLR_NOTIF_DANGER, constantData.TTL_DANGER);
   }
 
   // Show name and Center Of Mass symbol; Has to be called in main after resetting camera() for correct 2D display
@@ -26,7 +26,7 @@ class ScreenObject implements IGuiObject{
   }
 
   void loadGui() {
-    notific("Gui load function not defined!", CLR_NOTIF_DANGER, TTL_DANGER);
+    notific("Gui load function not defined!", constantData.CLR_NOTIF_DANGER, constantData.TTL_DANGER);
   }
 
   JSONObject save() {

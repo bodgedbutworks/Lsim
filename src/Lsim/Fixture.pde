@@ -100,8 +100,9 @@ class Fixture extends ScreenObject {
 
   // ToDo move Dynamics GUI stuff to Dynamics class
   void loadGui() {
-    Expandable tempFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixture", true, true, CLR_MENU_LV1);
+    Expandable tempFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixture", true, true, constantData.CLR_MENU_LV1);
     tempFixExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", name));
+    //Consumer<Float> consumer3DPosition = {f -> return this.getObjektRefFixture().setPosition(new PVector(f, getObjektRefFixture().getPosition().y, getObjektRefFixture().getPosition().z));}; -----------// change java version over 1.8
     tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", "pos3d.x", getPosition().x, 1.0));
     tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", "pos3d.y", getPosition().y, 1.0));
     tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", "pos3d.z", getPosition().z, 1.0));
@@ -112,34 +113,34 @@ class Fixture extends ScreenObject {
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Address", "Address", address, 1, 1, 512, -1));
     tempFixExp.put(pan.returnGui());
     tempFixExp.put(tilt.returnGui());
-    Expandable selectBaseExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Base Model", true, false, CLR_MENU_LV2);
-    selectBaseExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Plate Model", "Plate", CLR_MENU_LV3));
-    selectBaseExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "No Model", "None", CLR_MENU_LV3));
+    Expandable selectBaseExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Base Model", true, false, constantData.CLR_MENU_LV2);
+    selectBaseExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Plate Model", "Plate", constantData.CLR_MENU_LV3));
+    selectBaseExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "No Model", "None", constantData.CLR_MENU_LV3));
     selectBaseExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Base Size LR", "Base Size LR", int(sizeBase.x), 1, 1, 10000, -1));
     selectBaseExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Base Size FB", "Base Size FB", int(sizeBase.y), 1, 1, 10000, -1));
     selectBaseExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Base Size UD", "Base Size UD", int(sizeBase.z), 1, 1, 10000, -1));
     tempFixExp.put(selectBaseExp);
-    Expandable selectPanExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pan Model", true, false, CLR_MENU_LV2);
-    selectPanExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Fork Model", "Fork", CLR_MENU_LV3));
+    Expandable selectPanExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pan Model", true, false, constantData.CLR_MENU_LV2);
+    selectPanExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Fork Model", "Fork", constantData.CLR_MENU_LV3));
     selectPanExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pan Size LR", "Pan Size LR", int(sizePan.x), 1, 1, 10000, -1));
     selectPanExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pan Size UD", "Pan Size UD", int(sizePan.y), 1, 1, 10000, -1));
     selectPanExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Pan Size FB", "Pan Size FB", int(sizePan.z), 1, 1, 10000, -1));
     tempFixExp.put(selectPanExp);
-    Expandable selectTiltExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Tilt Model", true, false, CLR_MENU_LV2);
-    selectTiltExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Head Model", "Head", CLR_MENU_LV3));
-    selectTiltExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Cuboid Model", "Cuboid", CLR_MENU_LV3));
+    Expandable selectTiltExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Tilt Model", true, false, constantData.CLR_MENU_LV2);
+    selectTiltExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Head Model", "Head", constantData.CLR_MENU_LV3));
+    selectTiltExp.put(new Button(new PVector(10, 0), new PVector(120, 30), this, "Cuboid Model", "Cuboid", constantData.CLR_MENU_LV3));
     selectTiltExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Tilt Size LR", "Tilt Size LR", int(sizeTilt.x), 1, 1, 10000, -1));
     selectTiltExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Tilt Size FB", "Tilt Size FB", int(sizeTilt.y), 1, 1, 10000, -1));
     selectTiltExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Tilt Size UD", "Tilt Size UD", int(sizeTilt.z), 1, 1, 10000, -1));
     tempFixExp.put(selectTiltExp);
-    tempFixExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Toggle Beams", "Toggle Beams", CLR_MENU_LV2));
+    tempFixExp.put(new Button(new PVector(0, 0), new PVector(120, 30), this, "Toggle Beams", "Toggle Beams", constantData.CLR_MENU_LV2));
     menuExpRight.put(tempFixExp);
     for (Pixel p : pixelList) {
       p.loadGui();
     }
-    menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Copy Fixture", "Copy", CLR_MENU_LV1));
-    menuExpRight.put(new Button(new PVector(60+SIZE_GUTTER, 0-30-SIZE_GUTTER), new PVector(60, 30), this, "Delete Fixture", "Delete", CLR_MENU_LV1));
-    menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Save Fixture", "Save", CLR_MENU_LV1));
+    menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Copy Fixture", "Copy", constantData.CLR_MENU_LV1));
+    menuExpRight.put(new Button(new PVector(60+SIZE_GUTTER, 0-30-SIZE_GUTTER), new PVector(60, 30), this, "Delete Fixture", "Delete", constantData.CLR_MENU_LV1));
+    menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Save Fixture", "Save", constantData.CLR_MENU_LV1));
   }
 
   JSONObject save() {

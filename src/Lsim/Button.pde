@@ -55,7 +55,7 @@ class Button<T extends IGuiObject> extends GuiObject {
           getObjektRefFixture().tiltType = "Cuboid";
         } else if (propName.equals("Save Fixture")) {
           saveJSONObject(getObjektRefFixture().save(), PATH_FIXTURES + getObjektRefFixture().name + ".lsm");
-          notific("Saved Fixture: " + getObjektRefFixture().name, CLR_NOTIF_SUCCESS, TTL_SUCCESS);
+          notific("Saved Fixture: " + getObjektRefFixture().name, constantData.CLR_NOTIF_SUCCESS, constantData.TTL_SUCCESS);
         } else if (propName.equals("Copy Fixture")) {
           Fixture tempFix = new Fixture();
           tempFix.load(getObjektRefFixture().save());
@@ -113,7 +113,7 @@ class Button<T extends IGuiObject> extends GuiObject {
             fixtureList.add(tempFix);
           }
           catch(Exception e) {
-            notific("Error while loading Fixture " + displayName + "!", CLR_NOTIF_DANGER, TTL_DANGER);
+            notific("Error while loading Fixture " + displayName + "!", constantData.CLR_NOTIF_DANGER, constantData.TTL_DANGER);
             println(e);
           }
         } else if (propName.equals("loadenvfilename")) {
@@ -127,7 +127,7 @@ class Button<T extends IGuiObject> extends GuiObject {
               environmentShape.disableStyle();                                  // Ignore the colors in the SVG
             }
             catch(Exception e) {
-              notific("Error while loading environment " + displayName + "!", CLR_NOTIF_DANGER, TTL_DANGER);
+              notific("Error while loading environment " + displayName + "!", constantData.CLR_NOTIF_DANGER, constantData.TTL_DANGER);
               println(e);
             }
           }

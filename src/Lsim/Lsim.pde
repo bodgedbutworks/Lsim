@@ -7,8 +7,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.function.Consumer;
 UDP udp;
 
+ConstantData constantData;
 
 final int OPACITY_BEAMS = 180;       // [0-255]
 final int LENGTH_BEAMS = 2000;
@@ -23,15 +25,7 @@ String PATH_ENVIRONMENTS = "/data/";                                            
 String PATH_PROJECTS = "/save/projects/";
 String PATH_BACKUPS = "/save/autobackups/";
 // Saturation 57%, Brightness 100%, Hue varied
-final color CLR_MENU_LV1 = #FF00FF;
-final color CLR_MENU_LV2 = #FFD68C;
-final color CLR_MENU_LV3 = #6CE8FF;
-final color CLR_NOTIF_SUCCESS = color(0, 255, 0);
-final color CLR_NOTIF_INFO = color(50, 200, 255);
-final color CLR_NOTIF_DANGER = color(255, 0, 0);
-final int TTL_SUCCESS = 5;
-final int TTL_INFO = 8;
-final int TTL_DANGER = 20;
+
 
 ArrayList<Fixture> fixtureList = new ArrayList<Fixture>();
 ArrayList<Cuboid> cuboidList = new ArrayList<Cuboid>();
@@ -70,11 +64,163 @@ String environmentFileName = "";                                                
 
 
 void setup() {
+  constantData = new ConstantData();
   size(1500, 900, P3D);
   //fullScreen(P3D, 1);
   surface.setResizable(true);
   frameRate(60);
+  setupBegin();
+  String timestamp = ZonedDateTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern( "uuuu_MM_dd-HH_mm_ss" ));
+  projectName = "Projname_" + timestamp;
+  setupMenue();
+  setupFixtures(timestamp);
+  setupEnfironments();
+  setupProjects(timestamp);
+  setupEnd();
+}
 
+
+
+void draw() {
+  drawBegin();
+  draw3D();
+  draw2D();
+  //drawEnd();
+}
+
+
+
+// Shorthand for creating Notifications
+void notific(String iTxt, color iClr, int iTtl) {
+  notificationsList.add(new Notification(iTxt, iClr, iTtl));
+  println(iTxt);
+}
+
+
+
+
+void mousePressed() {
+  if (mouseButton == LEFT) {
+    flag = true;
+    selectedScreenObject = null;
+    selectedGuiObject = null;
+  }
+}
+
+
+void mouseReleased() {
+  scrolling = false;
+}
+
+
+
+void mouseWheel(MouseEvent event) {
+  if (selectedGuiObject != null) {
+    selectedGuiObject.editValMouse(event.getCount());
+  } else {
+    if (menuState == 2  &&  mouseX <= SIZE_MENU_RIGHT+SIZE_MENU_LEFT) {
+      menuScroll += 100*event.getCount();
+    } else {
+      camPos = addSphereCoords(camPos, 80.0*event.getCount(), 0, 0);
+    }
+  }
+}
+
+void keyPressed() {
+  if (selectedGuiObject != null) {
+    selectedGuiObject.editValKey();
+  } else if (key == ' ') {
+  }
+}
+
+void saveAll() {
+  notific("Saving project " + projectName + "...", constantData.CLR_NOTIF_INFO, constantData.TTL_SUCCESS);
+  JSONObject jsonRoot = new JSONObject();
+  int fls = fixtureList.size();
+  int cls = cuboidList.size();
+
+  JSONArray jsonFixArray = new JSONArray();
+  for (int f=0; f<fls; f++) {
+    jsonFixArray.setJSONObject(f, fixtureList.get(f).save());
+  }
+  jsonRoot.setJSONArray("Fixtures", jsonFixArray);
+
+  JSONArray jsonCubArray = new JSONArray();
+  for (int c=0; c<cls; c++) {
+    jsonCubArray.setJSONObject(c, cuboidList.get(c).save());
+  }
+  jsonRoot.setJSONArray("Cuboids", jsonCubArray);
+
+  if (environmentShape != null) {
+    JSONObject jsonEnvObj = new JSONObject();
+    jsonEnvObj.setString("filename", environmentFileName);
+    jsonRoot.setJSONObject("Environment", jsonEnvObj);
+  }
+
+  try {
+    saveJSONObject(jsonRoot, PATH_PROJECTS + projectName + ".lsm");
+    String tempTxt = "Saved " + str(fls) + " Fixtures\nSaved " + str(cls) + " Cuboids";
+    if (environmentShape != null) {
+      tempTxt += "\nSaved the environment (lol)";
+    }
+    notific(tempTxt, constantData.CLR_NOTIF_SUCCESS, constantData.TTL_INFO);
+  }
+  catch(Exception e) {
+    notific("Error while saving " + projectName + "!", constantData.CLR_NOTIF_DANGER, constantData.TTL_DANGER);
+    print(e);
+  }
+}
+
+void loadAll(String iFileName) {
+  // Commented to try loading multiple projects at once
+  //fixtureList.clear();
+  //cuboidList.clear();
+  //menuExpRight.subElementsList.clear();
+  //environmentShape = null;
+  //environmentFileName = "";
+
+  int countFix = 0;
+  int countCub = 0;
+  boolean loadedEnv = false;
+  notific("Loading project " + iFileName + "...", constantData.CLR_NOTIF_INFO, constantData.TTL_SUCCESS);
+  try {
+    JSONObject jsonLoadRoot = loadJSONObject(PATH_PROJECTS + iFileName);
+
+    JSONArray jsonLoadFixArray = jsonLoadRoot.getJSONArray("Fixtures");
+    for (int i=0; i<jsonLoadFixArray.size(); i++) {
+      Fixture tempFix = new Fixture();
+      tempFix.load(jsonLoadFixArray.getJSONObject(i));
+      fixtureList.add(tempFix);
+      countFix++;
+    }
+
+    JSONArray jsonLoadCubArray = jsonLoadRoot.getJSONArray("Cuboids");
+    for (int i=0; i<jsonLoadCubArray.size(); i++) {
+      Cuboid tempCub = new Cuboid();
+      tempCub.load(jsonLoadCubArray.getJSONObject(i));
+      cuboidList.add(tempCub);
+      countCub++;
+    }
+    if (!jsonLoadRoot.isNull("Environment")) {
+      JSONObject jsonLoadEnvObj = jsonLoadRoot.getJSONObject("Environment");
+      environmentFileName = jsonLoadEnvObj.getString("filename");
+      environmentShape = loadShape(sketchPath() + PATH_ENVIRONMENTS + environmentFileName);
+      environmentShape.disableStyle();                                          // Ignore the colors in the SVG
+      loadedEnv = true;
+    }
+    String tempTxt = "Loaded " + str(countFix) + " Fixtures\nLoaded " + str(countCub) + " Cuboids";
+    if (loadedEnv) {
+      tempTxt += "Loaded an environment";
+    }
+    notific(tempTxt, constantData.CLR_NOTIF_SUCCESS, constantData.TTL_INFO);
+  }
+  catch(Exception e) {
+    notific("Error while loading project " + iFileName + "!", constantData.CLR_NOTIF_DANGER, constantData.TTL_DANGER);
+    println(e);
+  }
+}
+
+private void setupBegin() {
   SIZE_MENU_LEFT = width/9;
   SIZE_MENU_RIGHT = width/6;
 
@@ -90,97 +236,100 @@ void setup() {
 
   reloadMyGui = null;
   removeMyNotification = null;
+}
 
+private void setupMenue() {
   notificationsList.add(new Notification("Welcome back!", color(0, 255, 0), 5));
-
-  String timestamp = ZonedDateTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern( "uuuu_MM_dd-HH_mm_ss" ));
-  projectName = "Projname_" + timestamp;
 
   expandBtn = new Button(new PVector(0, 0), new PVector(width/30, width/25), ">", ">", color(100, 70, 100));
 
-  menuExpLeft = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true, CLR_MENU_LV1);
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "+", "Add\nFixture", CLR_MENU_LV1));
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "++", "Add\nCuboid", CLR_MENU_LV1));
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "COM", "Toggle\nNames", CLR_MENU_LV1));
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*", "Toggle\nLights", CLR_MENU_LV1));
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "B", "Toggle\nBeams", CLR_MENU_LV1));
-  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "S", "Save\nProject", CLR_MENU_LV1));
+  menuExpLeft = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true, constantData.CLR_MENU_LV1);
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "+", "Add\nFixture", constantData.CLR_MENU_LV1));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "++", "Add\nCuboid", constantData.CLR_MENU_LV1));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "COM", "Toggle\nNames", constantData.CLR_MENU_LV1));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "*", "Toggle\nLights", constantData.CLR_MENU_LV1));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "B", "Toggle\nBeams", constantData.CLR_MENU_LV1));
+  menuExpLeft.put(new Button(new PVector(0, 0), new PVector(width/20, width/20), "S", "Save\nProject", constantData.CLR_MENU_LV1));
   menuExpLeft.put(new NameBox(new PVector(0, 0), new PVector(120, 30), "projectName", "", projectName));
+}
 
-  new File(sketchPath() + PATH_BACKUPS + timestamp + "/fixtures/").mkdirs();             // Create directories for backup
-  new File(sketchPath() + PATH_BACKUPS + timestamp + "/projects/").mkdirs();
+private void setupFixtures(String iTimestamp) {
+  new File(sketchPath() + PATH_BACKUPS + iTimestamp + "/fixtures/").mkdirs();             // Create directories for backup
+  new File(sketchPath() + PATH_BACKUPS + iTimestamp + "/projects/").mkdirs();
 
   // Load fixtures
-  Expandable loadFixExp = new Expandable(new PVector(0, 20), new PVector(0, 0), "Fixtures", true, false, CLR_MENU_LV1);
+  Expandable loadFixExp = new Expandable(new PVector(0, 20), new PVector(0, 0), "Fixtures", true, false, constantData.CLR_MENU_LV1);
   File dir = new File(sketchPath() + PATH_FIXTURES);
   if (dir.isDirectory()) {
     String names[] = dir.list();
     for (String n : names) {
       try {
-        Files.copy(new File(sketchPath() + PATH_FIXTURES + n).toPath(), new File(sketchPath() + PATH_BACKUPS + timestamp + "/fixtures/" + n).toPath(), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(new File(sketchPath() + PATH_FIXTURES + n).toPath(), new File(sketchPath() + PATH_BACKUPS + iTimestamp + "/fixtures/" + n).toPath(), StandardCopyOption.REPLACE_EXISTING);
       }
       catch(IOException e) {
-        notific("Error while auto-backing up Fixtures!", CLR_NOTIF_DANGER, TTL_DANGER);
+        notific("Error while auto-backing up Fixtures!", constantData.CLR_NOTIF_DANGER, constantData.TTL_DANGER);
         println(e);
       }
-      loadFixExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadfixfilename", n, CLR_MENU_LV2));
+      loadFixExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadfixfilename", n, constantData.CLR_MENU_LV2));
     }
   } else {
-    notific("Error while scanning fixtures!", CLR_NOTIF_DANGER, TTL_DANGER);
+    notific("Error while scanning fixtures!", constantData.CLR_NOTIF_DANGER, constantData.TTL_DANGER);
   }
   menuExpLeft.put(loadFixExp);
+}
 
+private void setupEnfironments() {
   // Load environment
-  Expandable loadEnvExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Environments", true, false, CLR_MENU_LV1);
-  loadEnvExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadenvfilename", "None", CLR_MENU_LV2));
-  dir = new File(sketchPath() + PATH_ENVIRONMENTS);
+  Expandable loadEnvExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Environments", true, false, constantData.CLR_MENU_LV1);
+  loadEnvExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadenvfilename", "None", constantData.CLR_MENU_LV2));
+  File dir = new File(sketchPath() + PATH_ENVIRONMENTS);
   if (dir.isDirectory()) {
     String names[] = dir.list();
     for (String n : names) {
       if (n.indexOf("env_") != -1) {
-        loadEnvExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadenvfilename", n, CLR_MENU_LV2));
+        loadEnvExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadenvfilename", n, constantData.CLR_MENU_LV2));
       }
     }
   } else {
-    notific("Error while scanning environments!", CLR_NOTIF_DANGER, TTL_DANGER);
+    notific("Error while scanning environments!", constantData.CLR_NOTIF_DANGER, constantData.TTL_DANGER);
   }
   menuExpLeft.put(loadEnvExp);
+}
 
+private void setupProjects(String iTimestamp) {
   // Load projects
-  Expandable loadProjExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Projects", true, false, CLR_MENU_LV1);
-  dir = new File(sketchPath() + PATH_PROJECTS);
+  Expandable loadProjExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Projects", true, false, constantData.CLR_MENU_LV1);
+  File dir = new File(sketchPath() + PATH_PROJECTS);
   if (dir.isDirectory()) {
     String names[] = dir.list();
     for (String n : names) {
       try {
-        Files.copy(new File(sketchPath() + PATH_PROJECTS + n).toPath(), new File(sketchPath() + PATH_BACKUPS + timestamp + "/projects/" + n).toPath(), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(new File(sketchPath() + PATH_PROJECTS + n).toPath(), new File(sketchPath() + PATH_BACKUPS + iTimestamp + "/projects/" + n).toPath(), StandardCopyOption.REPLACE_EXISTING);
       }
       catch(IOException e) {
-        notific("Error while auto-backing up Projects!", CLR_NOTIF_DANGER, TTL_DANGER);
+        notific("Error while auto-backing up Projects!", constantData.CLR_NOTIF_DANGER, constantData.TTL_DANGER);
         println(e);
       }
-      loadProjExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadprojfilename", n, CLR_MENU_LV2));
+      loadProjExp.put(new Button(new PVector(0, 0), new PVector(width/12, width/40), "loadprojfilename", n, constantData.CLR_MENU_LV2));
     }
   } else {
-    notific("Error while scanning projects!", CLR_NOTIF_DANGER, TTL_DANGER);
+    notific("Error while scanning projects!", constantData.CLR_NOTIF_DANGER, constantData.TTL_DANGER);
   }
   menuExpLeft.put(loadProjExp);
-
-
-  menuExpRight = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true, CLR_MENU_LV1);
 }
 
+private void setupEnd() {
+  menuExpRight = new Expandable(new PVector(0, 0), new PVector(0, 0), "", false, true, constantData.CLR_MENU_LV1);
+}
 
-
-void draw() {
-  /********************* 3D Elements ********************/
+private void drawBegin() {
   background(0);
-
+  
   if (lightsOff) {
     ambientLight(128, 128, 128);
     directionalLight(128, 128, 128, 0, 0, -1);
   }
-
+  
   camera(camPos.x, camPos.y, camPos.z, camLookAt.x, camLookAt.y, camLookAt.z, 0, 1, 0);
   fill(255);
   stroke(255);
@@ -201,6 +350,10 @@ void draw() {
   fill(#333333);
   box(6000, 2, 6000); //changed the hight from 2000 to 2
   popMatrix();
+}
+
+private void draw3D() {
+ /********************* 3D Elements ********************/
 
   if (mousePressed) {
     if (mouseButton == RIGHT) {
@@ -244,9 +397,11 @@ void draw() {
   if (removeMyNotification != null) {
     notificationsList.remove(removeMyNotification);
     removeMyNotification = null;
-  }
+  } 
+}
 
-  /********************* 2D Elements ********************/
+private void draw2D() {
+ /********************* 2D Elements ********************/
   camera();
   hint(DISABLE_DEPTH_TEST);
   fill(255);
@@ -328,137 +483,9 @@ void draw() {
     }
   }
 
-  hint(ENABLE_DEPTH_TEST);
+  hint(ENABLE_DEPTH_TEST); 
 }
 
-
-
-// Shorthand for creating Notifications
-void notific(String iTxt, color iClr, int iTtl) {
-  notificationsList.add(new Notification(iTxt, iClr, iTtl));
-  println(iTxt);
-}
-
-
-
-
-void mousePressed() {
-  if (mouseButton == LEFT) {
-    flag = true;
-    selectedScreenObject = null;
-    selectedGuiObject = null;
-  }
-}
-
-
-void mouseReleased() {
-  scrolling = false;
-}
-
-
-
-void mouseWheel(MouseEvent event) {
-  if (selectedGuiObject != null) {
-    selectedGuiObject.editValMouse(event.getCount());
-  } else {
-    if (menuState == 2  &&  mouseX <= SIZE_MENU_RIGHT+SIZE_MENU_LEFT) {
-      menuScroll += 100*event.getCount();
-    } else {
-      camPos = addSphereCoords(camPos, 80.0*event.getCount(), 0, 0);
-    }
-  }
-}
-
-void keyPressed() {
-  if (selectedGuiObject != null) {
-    selectedGuiObject.editValKey();
-  } else if (key == ' ') {
-  }
-}
-
-void saveAll() {
-  notific("Saving project " + projectName + "...", CLR_NOTIF_INFO, TTL_SUCCESS);
-  JSONObject jsonRoot = new JSONObject();
-  int fls = fixtureList.size();
-  int cls = cuboidList.size();
-
-  JSONArray jsonFixArray = new JSONArray();
-  for (int f=0; f<fls; f++) {
-    jsonFixArray.setJSONObject(f, fixtureList.get(f).save());
-  }
-  jsonRoot.setJSONArray("Fixtures", jsonFixArray);
-
-  JSONArray jsonCubArray = new JSONArray();
-  for (int c=0; c<cls; c++) {
-    jsonCubArray.setJSONObject(c, cuboidList.get(c).save());
-  }
-  jsonRoot.setJSONArray("Cuboids", jsonCubArray);
-
-  if (environmentShape != null) {
-    JSONObject jsonEnvObj = new JSONObject();
-    jsonEnvObj.setString("filename", environmentFileName);
-    jsonRoot.setJSONObject("Environment", jsonEnvObj);
-  }
-
-  try {
-    saveJSONObject(jsonRoot, PATH_PROJECTS + projectName + ".lsm");
-    String tempTxt = "Saved " + str(fls) + " Fixtures\nSaved " + str(cls) + " Cuboids";
-    if (environmentShape != null) {
-      tempTxt += "\nSaved the environment (lol)";
-    }
-    notific(tempTxt, CLR_NOTIF_SUCCESS, TTL_INFO);
-  }
-  catch(Exception e) {
-    notific("Error while saving " + projectName + "!", CLR_NOTIF_DANGER, TTL_DANGER);
-    print(e);
-  }
-}
-
-void loadAll(String iFileName) {
-  // Commented to try loading multiple projects at once
-  //fixtureList.clear();
-  //cuboidList.clear();
-  //menuExpRight.subElementsList.clear();
-  //environmentShape = null;
-  //environmentFileName = "";
-
-  int countFix = 0;
-  int countCub = 0;
-  boolean loadedEnv = false;
-  notific("Loading project " + iFileName + "...", CLR_NOTIF_INFO, TTL_SUCCESS);
-  try {
-    JSONObject jsonLoadRoot = loadJSONObject(PATH_PROJECTS + iFileName);
-
-    JSONArray jsonLoadFixArray = jsonLoadRoot.getJSONArray("Fixtures");
-    for (int i=0; i<jsonLoadFixArray.size(); i++) {
-      Fixture tempFix = new Fixture();
-      tempFix.load(jsonLoadFixArray.getJSONObject(i));
-      fixtureList.add(tempFix);
-      countFix++;
-    }
-
-    JSONArray jsonLoadCubArray = jsonLoadRoot.getJSONArray("Cuboids");
-    for (int i=0; i<jsonLoadCubArray.size(); i++) {
-      Cuboid tempCub = new Cuboid();
-      tempCub.load(jsonLoadCubArray.getJSONObject(i));
-      cuboidList.add(tempCub);
-      countCub++;
-    }
-    if (!jsonLoadRoot.isNull("Environment")) {
-      JSONObject jsonLoadEnvObj = jsonLoadRoot.getJSONObject("Environment");
-      environmentFileName = jsonLoadEnvObj.getString("filename");
-      environmentShape = loadShape(sketchPath() + PATH_ENVIRONMENTS + environmentFileName);
-      environmentShape.disableStyle();                                          // Ignore the colors in the SVG
-      loadedEnv = true;
-    }
-    String tempTxt = "Loaded " + str(countFix) + " Fixtures\nLoaded " + str(countCub) + " Cuboids";
-    if (loadedEnv) {
-      tempTxt += "Loaded an environment";
-    }
-    notific(tempTxt, CLR_NOTIF_SUCCESS, TTL_INFO);
-  }
-  catch(Exception e) {
-    notific("Error while loading project " + iFileName + "!", CLR_NOTIF_DANGER, TTL_DANGER);
-    println(e);
-  }
+private void drawEnd() {
+  
 }
