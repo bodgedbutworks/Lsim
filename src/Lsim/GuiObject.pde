@@ -1,3 +1,4 @@
+/// @brief Parent class for all GUI Objects (Button, NameBox, ..)
 class GuiObject {
   PVector offset;     // Position offset, added to temporary position before saving to pos
   PVector pos;        // Actual element pos, used for mouseover/displaying, set by "parent" Expandable
@@ -58,6 +59,8 @@ class GuiObject {
     stepSize = iStepSize;
   }
 
+  /// @brief Run when mouse wheel is scrollen and this GuiObject is focused
+  /// @param iEventGetCount Number of mousewheel scroll ticks
   void editValMouse(float iEventGetCount) {
     iEventGetCount *= stepSize;
     if (keyPressed  &&  key==CODED  &&  keyCode==CONTROL) {
@@ -68,18 +71,21 @@ class GuiObject {
     valStr = str(float(valStr)-iEventGetCount);
   }
 
+  /// @brief Prototype function for value edit via keyboard
   void editValKey() {
   }
 
+  /// @brief Prototype function for GuiObject display
   void display() {
   }
 
-  // Returns true if mouse was clicked inside hitbox. Setting of selectedGuiObject moved
-  // to child classes because some of them (f.ex. Button) arent't supposed to be a selectedGuiObject
+  /// @brief Checks for mouse over and click inside focused GuiObject's hitbox
+  /// @return true if mouse was clicked inside focused GuiObject's hitbox, else false
   boolean checkMouseOver() {
     if (mouseX > pos.x  &&  mouseX < (pos.x+size.x)  &&  mouseY > pos.y  &&  mouseY < (pos.y+size.y)) {
       if (flag  &&  mousePressed) {
         flag = false;
+        // Setting of selectedGuiObject moved to child classes because some of them (f.ex. Button) arent't supposed to be a selectedGuiObject
         return(true);
       }
     }

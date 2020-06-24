@@ -1,4 +1,4 @@
-/// Fixture definition
+/// @brief Class for all 3D Fixture Objects
 class Fixture extends ScreenObject {
   boolean showBeams = true;
 
@@ -33,6 +33,7 @@ class Fixture extends ScreenObject {
     pixelList.add(new Pixel("1", this));
   }
 
+  /// @brief Updates 3D model meshes when user changes scale
   void rescaleModels() {
     modelBase.resetMatrix();
     modelPan.resetMatrix();
@@ -42,6 +43,7 @@ class Fixture extends ScreenObject {
     modelTilt.scale(sizeTilt.x/100.0, sizeTilt.y/100.0, sizeTilt.z/100.0);
   }
 
+  /// @brief Displays the 3D model and all Pixels, applies rotation and translation matrices, handles mouse over/clicked
   void display() {
     checkMouseOver();
     fill(80);
@@ -98,7 +100,7 @@ class Fixture extends ScreenObject {
     updatePos2d();
   }
 
-  // ToDo move Dynamics GUI stuff to Dynamics class
+  /// @brief Load this Fixture's and all its Pixels' GUI Elements (inside an Expandable) into the menu sidebar list
   void loadGui() {
     Expandable tempFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixture", true, true, CLR_MENU_LV1);
     tempFixExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", name));
@@ -142,6 +144,8 @@ class Fixture extends ScreenObject {
     menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Save Fixture", "Save", CLR_MENU_LV1));
   }
 
+  /// @brief Pack relevant attributes (Fixture + all Pixels) into a JSON and return it
+  /// @return JSON data with this Fixtures's (+ Pixels') saved attributes
   JSONObject save() {
     JSONObject oJson = super.save();
     oJson.setInt("showBeams", (showBeams ? 1 : 0));
@@ -169,6 +173,8 @@ class Fixture extends ScreenObject {
     return(oJson);
   }
 
+  /// @brief Load Fixture's and its Pixels' attributes from provided JSON Data
+  /// @param iJson JSON Dataset including this Fixture's and its Pixels' attributes to load
   void load(JSONObject iJson) {
     super.load(iJson);
     showBeams = (!iJson.isNull("showBeams") ? boolean(iJson.getInt("showBeams")) : true);   // Ensure backwards compatibility
@@ -206,10 +212,10 @@ class Fixture extends ScreenObject {
    tempVec = rotateVector(tempVec, rotX, 0, 0);  // Sequence of rotations makes a difference!
    tempVec = rotateVector(tempVec, 0, rotY, 0);
    tempVec = rotateVector(tempVec, 0, 0, rotZ);
-   
+
    pan = degrees(atan2(tempVec.x, tempVec.z));
    tilt = degrees(acos(tempVec.y/tempVec.mag()));
-   
+
    // For Art-Net Output
    int actualPanRange  = 256*360/panRange;       // <8 bit> * <Pan Range of Sphere Coords> / <Fixture Pan Range>
    int actualTiltRange = 127*180/(tiltRange/2);  // <8 bit> * <Tilt Range of Sphere Coords> / <Fixture Tilt Range>

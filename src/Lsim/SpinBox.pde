@@ -1,3 +1,4 @@
+/// @brief Class for all float number SpinBoxes
 class SpinBox extends GuiObject {
   SpinBox(PVector iOffset, PVector iSize, Fixture iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
@@ -12,6 +13,7 @@ class SpinBox extends GuiObject {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
   }
 
+  /// @brief Handles value edit via keyboard
   void editValKey() {                                                           // run only when a key is pressed
     if ((key >= '0'  &&  key <= '9')  ||  (key == '.'  &&  utilStr.indexOf('.') == -1)  ||  (key == '-'  &&  utilStr.length() == 0)) {
       utilStr += key;
@@ -32,6 +34,7 @@ class SpinBox extends GuiObject {
     }
   }
 
+  /// @brief Displays Object, handles mouse over/pressed, decides what to do if the value changes
   void display() {
     if (checkMouseOver()) {
       selectedGuiObject = this;

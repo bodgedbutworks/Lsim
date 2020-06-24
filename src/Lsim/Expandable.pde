@@ -1,3 +1,4 @@
+/// @brief Class for all Expandable GUI Objects, allow their contained Buttons/SpinBoxes/.. to be folded in and out in menu
 class Expandable extends GuiObject {
   ArrayList<GuiObject> subElementsList = new ArrayList<GuiObject>();
   Button expandBtn;                                                             // 0=closed, 1=expanding, 2=expanded, 3=closing
@@ -17,10 +18,13 @@ class Expandable extends GuiObject {
     }
   }
 
+  /// @brief Adds another GuiObject to this Expendable's container list
+  /// @param iGuiObj The Object to include
   void put(GuiObject iGuiObj) {                                                  // For increased shortness when adding elements
     subElementsList.add(iGuiObj);
   }
 
+  /// @brief Display the Expandable, handle state changes (closed, expanding, expanded, ..)
   void display() {
     if (hasButton) {
       expandBtn.pos = pos.copy();

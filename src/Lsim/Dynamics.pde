@@ -1,3 +1,4 @@
+/// @brief Class for storing and calculating moving lights angular position, speed and acceleration (single axis)
 class Dynamics {
   String name = "Axis";
   int angle = 180;                                                              // [deg]
@@ -22,6 +23,10 @@ class Dynamics {
     name = iName;
   }
 
+  /// @brief Update the destination angle
+  /// @param iFixtureAddress DMX address of the corresponding Fixture
+  /// @param iDmxUniverse DMX Data in the corresponding Fixture's universe
+  /// @return
   void updateDest(int iFixtureAddress, byte[] iDmxUniverse) {
     if (chanCoarse > 0) {                                                       // If Fixture has this movement capability
       int msb = ((chanCoarse>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanCoarse-1, 0, 511)]) : 127);
@@ -37,7 +42,10 @@ class Dynamics {
     }
   }
 
+
   // ToDo Debug movements with many updates (e.g. EFX)
+
+  /// @brief Perform smooth movement towards destination
   void move() {
     float diff = dest - pos;
 
@@ -95,6 +103,8 @@ class Dynamics {
     pos += spd;
   }
 
+  /// @brief Load this Dynamic's GUI Elements
+  /// @return This Dynamic's GUI Elements inside an Expendable
   Expandable returnGui() {
     Expandable dynamicsExp = new Expandable(new PVector(0, 0), new PVector(0, 0), name, true, false, CLR_MENU_LV2);
     dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Channel Coarse", "Channel Coarse", chanCoarse, 1, 0, 512, 0));
@@ -107,6 +117,8 @@ class Dynamics {
     return(dynamicsExp);
   }
 
+  /// @brief Pack relevant attributes into a JSON and return it
+  /// @return JSON data with this object's saved attributes
   JSONObject save() {
     JSONObject oJson = new JSONObject();
     oJson.setInt("chanCoarse", chanCoarse);
@@ -119,6 +131,8 @@ class Dynamics {
     return(oJson);
   }
 
+  /// @brief Load object attributes from provided JSON Data
+  /// @param iJson JSON Dataset including this object's attributes to load
   void load(JSONObject iJson) {
     chanCoarse = iJson.getInt("chanCoarse");
     chanFine = iJson.getInt("chanFine");

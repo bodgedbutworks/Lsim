@@ -1,4 +1,4 @@
-/// Similar to SpinBox, but for integer values and with constraints
+/// @brief Class similar to SpinBox, but for integer values and with constraints
 class IntBox extends GuiObject {
   int valMin = 1;   // ToDo: Move min and max constraints to GuiObject class, relevant for SpinBox as well
   int valMax = 512;
@@ -33,6 +33,7 @@ class IntBox extends GuiObject {
     valStr = str(int(valStr));
   }
 
+  /// @brief Handles value edit via keyboard
   void editValKey() {                                                           // run only when a key is pressed
     if ((key >= '0'  &&  key <= '9')  ||  (key == '-'  &&  utilStr.length() == 0)) {
       utilStr += key;
@@ -53,6 +54,7 @@ class IntBox extends GuiObject {
     }
   }
 
+  /// @brief Displays Object, handles mouse over/pressed, decides what to do if the value changes
   void display() {
     if (checkMouseOver()) {
       selectedGuiObject = this;

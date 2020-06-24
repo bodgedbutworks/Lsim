@@ -1,3 +1,4 @@
+/// @brief Class for all Button GUI Elements
 class Button extends GuiObject {
   color clr = color(255);
 
@@ -22,6 +23,7 @@ class Button extends GuiObject {
     clr = iClr;
   }
 
+  /// @brief Displays the Button and decides what to do if the Button is pressed
   void display() {
     noStroke();
     fill(clr);

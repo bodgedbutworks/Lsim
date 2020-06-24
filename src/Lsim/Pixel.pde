@@ -1,3 +1,4 @@
+/// @brief Class for all Fixture Pixels (illuminated surface + beam cone)
 class Pixel {
   Fixture parentFixRef;
   String name = "";
@@ -30,6 +31,7 @@ class Pixel {
     updateBeam();
   }
 
+  /// @brief Updates 3D beam cone mesh if user changes zoom angle
   void updateBeam() {
     int zoomRadius = int(min(faceSize.x, faceSize.y)) + int(tan(radians(map(zoom, 0, 255, zoomAngleMin, zoomAngleMax)/2))*LENGTH_BEAMS);    // radius = tan(half beam angle) * beam length
     modelBeam = createShape();
@@ -42,6 +44,7 @@ class Pixel {
     modelBeam.endShape(CLOSE);
   }
 
+  /// @brief Get current values for all channels from DMX array
   void updateChannels(int iFixtureAddress, byte[] iDmxUniverse) {
     dimmer = ((chanDimmer>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanDimmer-1, 0, 511)]) : 255);
     clrR = ((chanClrR>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanClrR-1, 0, 511)]) : 0);
@@ -62,6 +65,7 @@ class Pixel {
     }
   }
 
+  /// @brief Display illuminated surface + beam cone
   void display() {
     hint(DISABLE_DEPTH_MASK);                                                   // Disable depth counter, NOT occlusion detection (=DISABLE_DEPTH_TEST)
     pushMatrix();
@@ -81,6 +85,7 @@ class Pixel {
     hint(ENABLE_DEPTH_MASK);
   }
 
+  /// @brief Load this Pixel's GUI Elements into menu sidebar
   void loadGui() {
     Expandable pixelExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pixel "+name, true, false, CLR_MENU_LV1);
     pixelExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", name));
@@ -106,6 +111,8 @@ class Pixel {
     menuExpRight.put(pixelExp);
   }
 
+  /// @brief Pack relevant attributes into a JSON and return it
+  /// @return JSON data with this object's saved attributes
   JSONObject save() {
     JSONObject oJson = new JSONObject();
     oJson.setString("name", name);
@@ -126,6 +133,8 @@ class Pixel {
     return(oJson);
   }
 
+  /// @brief Load object attributes from provided JSON Data
+  /// @param iJson JSON Dataset including this object's attributes to load
   void load(JSONObject iJson) {
     name = iJson.getString("name");
     pos3d.x = iJson.getFloat("pos3d.x");
