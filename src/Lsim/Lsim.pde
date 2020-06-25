@@ -227,11 +227,11 @@ void draw() {
     popMatrix();
   }
 
-  for (Fixture f : fixtureList) {
-    f.display();
-  }
   for (Cuboid c : cuboidList) {
     c.display();
+  }
+  for (Fixture f : fixtureList) {
+    f.display();
   }
 
   if (reloadMyGui != null) {

@@ -65,6 +65,8 @@ class Pixel {
     }
   }
 
+  // ToDo Beams don't collide with cuboids
+
   /// @brief Display illuminated surface + beam cone
   void display() {
     hint(DISABLE_DEPTH_MASK);                                                   // Disable depth counter, NOT occlusion detection (=DISABLE_DEPTH_TEST)
