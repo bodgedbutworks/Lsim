@@ -156,7 +156,7 @@ class Fixture extends ScreenObject {
   }
 
   /**
-  * @brief @brief Pack relevant attributes (Fixture + all Pixels) into a JSON and return it
+  * @brief Pack relevant attributes (Fixture + all Pixels) into a JSON and return it
   * @return JSON data with this Fixtures's (+ Pixels') saved attributes
   */
   JSONObject save() {

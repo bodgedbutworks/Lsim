@@ -109,7 +109,7 @@ class Dynamics implements IGuiObject{
   }
 
   /**
-  * @brief @brief Load this Dynamic's GUI Elements
+  * @brief Load this Dynamic's GUI Elements
   * @return This Dynamic's GUI Elements inside an Expendable
   */
   Expandable returnGui() {

@@ -1,6 +1,14 @@
-// Transform _vector to sphere coordinates, modify them, then tranform back to cartesian & save to vector
-// r = radius, omega = [0°-180°], phi = [0°-360°]
-// Note: {+x, +y, +z} in sphere coordinates correspond to {+z, +x, -y}
+/**
+ * @brief Transforms a vector to sphere coordinates, modifies them as requested,then tranforms back to cartesian & returns the vector
+ * @details r = radius, omega = [0°-180°], phi = [0°-360°] 
+ * @details {+x, +y, +z} in sphere coordinates correspond to {+z, +x, -y}
+ *
+ * @param iVector : A PVector Object representing x, y, z position in 3D space
+ * @param iAdd_r : Radius to add
+ * @param iAdd_omega : Inclination to add [radians]
+ * @param iAdd_phi : Angle in horizontal plane to add [radians]
+ * @return Modified PVector
+ */
 PVector addSphereCoords(PVector _vector, float add_r, float add_omega, float add_phi) {
   PVector sphereCoords = new PVector(0, 0, 0);
 
@@ -28,15 +36,14 @@ PVector addSphereCoords(PVector _vector, float add_r, float add_omega, float add
   return(new PVector(sphereCoords.y, -(sphereCoords.z), sphereCoords.x));
 }
 
-
-
-// Note: Use PVector built-in function PVector.cross(v1, v2, target)
-//PVector Kreuzprodukt(PVector vA, PVector vB) {
-//  return new PVector(vA.y*vB.z-vA.z*vB.y, vA.z*vB.x-vA.x*vB.z, vA.x*vB.y-vA.y*vB.x);
-//}
-
-
-
+/**
+ * @brief Rotates a vector by 3 angles in this order x, y, z axis
+ * @param iOldVector : Input PVector Object to rotate
+ * @param iRot_x : Rotation angle around x axis in degrees
+ * @param iRot_y : Rotation angle around y axis in degrees
+ * @param iRot_z : Rotation angle around z axis in degrees
+ * @return Rotated PVector
+ */
 PVector rotateVector(PVector _oldVector, float _rotX, float _rotY, float _rotZ) {  //For KOSY to KOSY rotation
   PVector newVector = new PVector(0, 0, 0);
 

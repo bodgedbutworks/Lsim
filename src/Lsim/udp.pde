@@ -1,14 +1,13 @@
-/*
-sendUdp(){
- String message = "lol rofl";
- udp.send(message, "localhost", 6454);
- }
- */
 
 byte[] artnetHeader = {'A', 'r', 't', '-', 'N', 'e', 't', '\0'};
 byte[][] dmxData = new byte[4][512];                                            // [universe][address]
 
-
+/**
+ * @brief Called upon UDP packet receival, checks for presence of ArtNet header and writes to dmxData
+ * @param iData : The packet's contents
+ * @param iIp : The sender's IP address
+ * @param iPort : The receiving UDP port (ArtNet standard: 6454)
+ */
 void receive(byte[] iData, String iIp, int iPort) {
   if (iData.length == 530) {                                                      // ArtNet header + 512 bytes
     for (int i=0; i<8; i++) {
@@ -21,14 +20,7 @@ void receive(byte[] iData, String iIp, int iPort) {
     if (universe >= 0  &&  universe <= 3) {
       dmxData[universe] = subset(iData, 18, 512);
     }
-    /*
-    for(int i=8; i<30; i++){
-     print(int(iData[i]));
-     print(".");
-     }
-     println();
-     */
-    //println("receive: \"" + str(subset(iData, 0, 10)) + "\" from " + iIp + " on port " + iPort);
+
   } else {
     //println("(Packet of wrong length received)");
   }
