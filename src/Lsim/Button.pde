@@ -1,3 +1,6 @@
+/**
+* @brief Button GUI element class
+*/
 class Button<T extends IGuiObject> extends GuiObject {
   //color clr = color(255);
 
@@ -13,7 +16,11 @@ class Button<T extends IGuiObject> extends GuiObject {
      super(iOffset, iSize, iObjRef, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
     super.clr = iClr;
   }
-
+  
+  /**
+  * @brief displays the button
+  * TODO extzract prest in own method
+  */
   void display() {
     noStroke();
     fill(clr);

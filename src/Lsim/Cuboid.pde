@@ -1,3 +1,6 @@
+/**
+* @brief Cuboid class 3D Objects
+*/
 class Cuboid extends ScreenObject {
   PVector size3d;
 
@@ -6,6 +9,10 @@ class Cuboid extends ScreenObject {
     size3d = new PVector(40, 40, 40);
   }
 
+  /**
+  * @brief displays the button
+  * TODO extzract prest and mous over in own method
+  */
   void display() {
     checkMouseOver();
 
@@ -29,6 +36,10 @@ class Cuboid extends ScreenObject {
     updatePos2d();
   }
 
+  /**
+  * @brief loads Cuboid's GUI elements in sidebar list
+  * inside Expandable
+  */
   void loadGui() {
     Expandable tempCubExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Cuboid", true, true, constantData.CLR_MENU_LV1);
     tempCubExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", name));
@@ -46,6 +57,10 @@ class Cuboid extends ScreenObject {
     menuExpRight.put(tempCubExp);
   }
 
+  /**
+  * @brief Pack relevant attributes into a JSON and return it
+  * @return JSON data with this object's saved attributes
+  */
   JSONObject save() {
     JSONObject oJson = super.save();
     oJson.setFloat("size3d.x", size3d.x);
@@ -54,6 +69,10 @@ class Cuboid extends ScreenObject {
     return(oJson);
   }
 
+  /**
+  * @brief Load object attributes from provided JSON Data
+  * @param iJson JSON Dataset including this object's attributes to load
+  */
   void load(JSONObject iJson) {
     super.load(iJson);
     size3d.x = iJson.getFloat("size3d.x");

@@ -1,3 +1,7 @@
+/**
+* @brief Expandable GUI objects
+* alows the folding in and out in the menu
+*/
 class Expandable extends GuiObject implements IGuiObject{
   ArrayList<GuiObject> subElementsList = new ArrayList<GuiObject>();
   Button expandBtn;                                                             // 0=closed, 1=expanding, 2=expanded, 3=closing
@@ -17,10 +21,18 @@ class Expandable extends GuiObject implements IGuiObject{
     }
   }
 
+  /**
+  * @brief Adds another element to the expandable list
+  *  @param iGuiObj : The Object to include
+  */
   void put(GuiObject iGuiObj) {                                                  // For increased shortness when adding elements
     subElementsList.add(iGuiObj);
   }
 
+  /**
+  * @brief Displays the object in all states
+  * The object can be in following states : closed, expanding, expanded
+  */
   void display() {
     if (hasButton) {
       expandBtn.setPosition(getPosition().copy());

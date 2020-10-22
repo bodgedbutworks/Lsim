@@ -1,3 +1,7 @@
+/**
+* @brief moving lights class
+* lights with angular position, speed and acceleration single axis
+*/
 class Dynamics implements IGuiObject{
   String name = "Axis";
   int angle = 180;                                                              // [deg]
@@ -22,6 +26,11 @@ class Dynamics implements IGuiObject{
     name = iName;
   }
 
+  /**
+  * @brief updates the destination angle
+  * @param iFixtureAddress : DMX address of the corresponding Fixture
+  * @param iDmxUniverse : DMX Data in the corresponding Fixture's universe
+  */
   void updateDest(int iFixtureAddress, byte[] iDmxUniverse) {
     if (chanCoarse > 0) {                                                       // If Fixture has this movement capability
       int msb = ((chanCoarse>0) ? int(iDmxUniverse[constrain(iFixtureAddress-1+chanCoarse-1, 0, 511)]) : 127);
@@ -38,6 +47,10 @@ class Dynamics implements IGuiObject{
   }
 
   // ToDo Debug movements with many updates (e.g. EFX)
+  
+  /**
+  * @brief Performs smooth movement towards destination
+  */
   void move() {
     float diff = dest - pos;
 
@@ -95,6 +108,10 @@ class Dynamics implements IGuiObject{
     pos += spd;
   }
 
+  /**
+  * @brief @brief Load this Dynamic's GUI Elements
+  * @return This Dynamic's GUI Elements inside an Expendable
+  */
   Expandable returnGui() {
     Expandable dynamicsExp = new Expandable(new PVector(0, 0), new PVector(0, 0), name, true, false, constantData.CLR_MENU_LV2);
     dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Channel Coarse", "Channel Coarse", chanCoarse, 1, 0, 512, 0));
@@ -107,6 +124,10 @@ class Dynamics implements IGuiObject{
     return(dynamicsExp);
   }
 
+  /**
+  * @brief Pack relevant attributes into a JSON and return it
+  * @return JSON data with this object's saved attributes
+  */
   JSONObject save() {
     JSONObject oJson = new JSONObject();
     oJson.setInt("chanCoarse", chanCoarse);
@@ -118,7 +139,11 @@ class Dynamics implements IGuiObject{
     oJson.setFloat("maxSpdTweak", maxSpdTweak);
     return(oJson);
   }
-
+  
+  /**
+  * @brief Load object attributes from provided JSON Data
+  * @param iJson JSON Dataset including this object's attributes to load
+  */
   void load(JSONObject iJson) {
     chanCoarse = iJson.getInt("chanCoarse");
     chanFine = iJson.getInt("chanFine");

@@ -1,3 +1,6 @@
+/**
+* @brief Parent class for all objects in 3D space
+*/
 class ScreenObject implements IGuiObject{
   //int id;
   String name;
@@ -12,11 +15,17 @@ class ScreenObject implements IGuiObject{
     this.positionData = new PositionUnit(iPos, iRot, empty3D, empty3D, empty2D, empty2D, empty2D, empty2D); // there schoul be some usefull vectors for the empty ones
   }
 
+  /**
+  * @brief 
+  */
   void display() {
     notific("Display function not defined!", constantData.CLR_NOTIF_DANGER, constantData.TTL_DANGER);
   }
 
-  // Show name and Center Of Mass symbol; Has to be called in main after resetting camera() for correct 2D display
+  /**
+  * @brief Shows name and Center Of Mass symbol
+  * @details Called in main after resetting camera() for correct 2D display
+  */
   void draw2d() {
     fill(255);
     textSize(height/50);
@@ -25,10 +34,17 @@ class ScreenObject implements IGuiObject{
     image(comImg, this.positionData.getPosition2D().x-7, this.positionData.getPosition2D().y-7, 14, 14);
   }
 
+  /**
+  * @brief function for loading of this Object's GUI elements
+  */
   void loadGui() {
     notific("Gui load function not defined!", constantData.CLR_NOTIF_DANGER, constantData.TTL_DANGER);
   }
 
+  /**
+  * @brief Pack relevant attributes into a JSON and return it
+  * @return JSON data with this object's saved attributes
+  */
   JSONObject save() {
     JSONObject oJson = new JSONObject();
     oJson.setString("name", name);
@@ -41,6 +57,10 @@ class ScreenObject implements IGuiObject{
     return(oJson);
   }
 
+  /**
+  * @brief Load object attributes from provided JSON Data
+  * @param iJson JSON Dataset including this object's attributes to load
+  */
   void load(JSONObject iJson) {
     print("Loading ScreenObj..");
     name = iJson.getString("name");
@@ -52,6 +72,10 @@ class ScreenObject implements IGuiObject{
     this.positionData.getRotation3D().z = iJson.getFloat("rot.z");
   }
 
+  /**
+  * @brief Checks for mouse over and click inside focused ScreenObject's as circular 2d proximity
+  * @return true if mouse was clicked inside proximity radius
+  */
   void checkMouseOver() {
     if (dist(screenX(this.positionData.getPosition3D().x, this.positionData.getPosition3D().y, this.positionData.getPosition3D().z), screenY(this.positionData.getPosition3D().x, this.positionData.getPosition3D().y, this.positionData.getPosition3D().z), mouseX, mouseY) < 30) {
       clr = color(190, 0, 0);
@@ -74,6 +98,9 @@ class ScreenObject implements IGuiObject{
     }
   }
 
+  /**
+  * @brief Updates 2d on-screen position from 3d position
+  */
   void updatePos2d() {
     this.positionData.getPosition2D().x = screenX(this.positionData.getPosition3D().x, this.positionData.getPosition3D().y, this.positionData.getPosition3D().z);
     this.positionData.getPosition2D().y = screenY(this.positionData.getPosition3D().x, this.positionData.getPosition3D().y, this.positionData.getPosition3D().z);

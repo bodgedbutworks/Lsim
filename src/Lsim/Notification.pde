@@ -1,3 +1,6 @@
+/**
+* @brief GUI text notifications
+*/
 class Notification {
   int ttl;                                                                      // Time to live in seconds
   long birthTime;
@@ -18,6 +21,10 @@ class Notification {
     this.positionUnit2DNotification = new PositionUnit(pos, rot, size, offset, false);
   }
 
+  /**
+  * @brief Check if mouse is over notification or notification was clicked or dismissed
+  * @return true if mouse was clicked inside notification's hitbox, else false
+  */
   boolean checkMouseOver() {
     boolean moseCheckOne = mouseX > this.positionUnit2DNotification.getPosition2D().x;
     boolean moseCheckTwo = mouseX < (this.positionUnit2DNotification.getPosition2D().x + this.positionUnit2DNotification.getSize2D().x);
@@ -33,6 +40,9 @@ class Notification {
     return(false);
   }
 
+  /**
+  * @brief Displays notification, handles mouse over/click, removes notification after TTL
+  */
   void display() {
     if (checkMouseOver()  ||  ((millis()-birthTime) > (ttl*1000))) {
       removeMyNotification = this;

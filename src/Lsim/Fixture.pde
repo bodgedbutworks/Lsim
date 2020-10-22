@@ -1,4 +1,6 @@
-/// Fixture definition
+/**
+* @brief 3D Fixtures class
+*/
 class Fixture extends ScreenObject {
   boolean showBeams = true;
 
@@ -33,6 +35,9 @@ class Fixture extends ScreenObject {
     pixelList.add(new Pixel("1", this));
   }
 
+  /**
+  * @brief Updates 3D model meshes when user changes scale
+  */
   void rescaleModels() {
     modelBase.resetMatrix();
     modelPan.resetMatrix();
@@ -42,6 +47,10 @@ class Fixture extends ScreenObject {
     modelTilt.scale(sizeTilt.x/100.0, sizeTilt.y/100.0, sizeTilt.z/100.0);
   }
 
+  /**
+  * @brief displays the 3D object
+  * changes to rotation and translation matrices, handles mouse over/clicked get applied
+  */
   void display() {
     checkMouseOver();
     fill(80);
@@ -99,6 +108,9 @@ class Fixture extends ScreenObject {
   }
 
   // ToDo move Dynamics GUI stuff to Dynamics class
+  /**
+  * @brief loads the GUI of Fixtures and Pixels
+  */
   void loadGui() {
     Expandable tempFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixture", true, true, constantData.CLR_MENU_LV1);
     tempFixExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", name));
@@ -143,6 +155,10 @@ class Fixture extends ScreenObject {
     menuExpRight.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Save Fixture", "Save", constantData.CLR_MENU_LV1));
   }
 
+  /**
+  * @brief @brief Pack relevant attributes (Fixture + all Pixels) into a JSON and return it
+  * @return JSON data with this Fixtures's (+ Pixels') saved attributes
+  */
   JSONObject save() {
     JSONObject oJson = super.save();
     oJson.setInt("showBeams", (showBeams ? 1 : 0));
@@ -170,6 +186,10 @@ class Fixture extends ScreenObject {
     return(oJson);
   }
 
+  /**
+  * @brief Load Fixture's and its Pixels' attributes from provided JSON Data
+  * @param iJson JSON Dataset including this Fixture's and its Pixels' attributes to load
+  */
   void load(JSONObject iJson) {
     super.load(iJson);
     showBeams = (!iJson.isNull("showBeams") ? boolean(iJson.getInt("showBeams")) : true);   // Ensure backwards compatibility

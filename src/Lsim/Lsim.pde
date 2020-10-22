@@ -62,7 +62,9 @@ PShape environmentShape;
 String environmentFileName = "";                                                // Save filename to be able to save environment later
 
 
-
+/**
+* @brief main funktion to set everything up
+*/
 void setup() {
   constantData = new ConstantData();
   size(1500, 900, P3D);
@@ -80,7 +82,10 @@ void setup() {
 }
 
 
-
+/**
+* @brief main funktion that is a while true loop
+* starts after setup() to cyclical with frameRate or less cycles per second
+*/
 void draw() {
   drawBegin();
   draw3D();
@@ -90,7 +95,12 @@ void draw() {
 
 
 
-// Shorthand for creating Notifications
+/**
+* @brief Shorthand for creating Notifications
+* @param iTxt Notification display text
+* @param iClr Notification background color
+* @param iTtl Notification Time-To-Live in seconds
+*/
 void notific(String iTxt, color iClr, int iTtl) {
   notificationsList.add(new Notification(iTxt, iClr, iTtl));
   println(iTxt);
@@ -98,7 +108,9 @@ void notific(String iTxt, color iClr, int iTtl) {
 
 
 
-
+/**
+* @brief Triggered when a mouse button is pressed
+*/
 void mousePressed() {
   if (mouseButton == LEFT) {
     flag = true;
@@ -107,13 +119,18 @@ void mousePressed() {
   }
 }
 
-
+/**
+* @brief Triggered when mouse wheel is turned
+* @param event The mouse wheel event
+*/
 void mouseReleased() {
   scrolling = false;
 }
 
 
-
+/**
+* @brief Triggered when a mouse button is released
+*/
 void mouseWheel(MouseEvent event) {
   if (selectedGuiObject != null) {
     selectedGuiObject.editValMouse(event.getCount());
@@ -126,6 +143,9 @@ void mouseWheel(MouseEvent event) {
   }
 }
 
+/**
+* @brief Triggered when keyboard key is pressed
+*/
 void keyPressed() {
   if (selectedGuiObject != null) {
     selectedGuiObject.editValKey();
@@ -133,6 +153,9 @@ void keyPressed() {
   }
 }
 
+/**
+* @brief Saves an entire project, consisting of all Fixtures, Cuboids and the Environment
+*/
 void saveAll() {
   notific("Saving project " + projectName + "...", constantData.CLR_NOTIF_INFO, constantData.TTL_SUCCESS);
   JSONObject jsonRoot = new JSONObject();
@@ -171,6 +194,10 @@ void saveAll() {
   }
 }
 
+/**
+* @brief Loads an entire project, consisting of all Fixtures, Cuboids and the Environment
+* @param iFileName : The filename to load
+*/
 void loadAll(String iFileName) {
   // Commented to try loading multiple projects at once
   //fixtureList.clear();

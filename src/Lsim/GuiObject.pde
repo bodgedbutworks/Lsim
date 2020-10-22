@@ -1,3 +1,6 @@
+/**
+* @brief parent class for GUI objects
+*/
 class GuiObject<T extends IGuiObject> implements IGuiObject{
   private PositionUnit positionData;
   //PVector offset;     // Position offset, added to temporary position before saving to pos
@@ -67,6 +70,10 @@ class GuiObject<T extends IGuiObject> implements IGuiObject{
     this.generalRefE = iObjRef;
   }
 
+  /**
+  * @brief Method that gets get triggert if mouse wheel is scrollen and this GuiObject is focused
+  * @param iEventGetCount Number of mousewheel scroll ticks
+  */
   void editValMouse(float iEventGetCount) {
     iEventGetCount *= stepSize;
     if (keyPressed  &&  key==CODED  &&  keyCode==CONTROL) {
@@ -77,13 +84,22 @@ class GuiObject<T extends IGuiObject> implements IGuiObject{
     valStr = str(float(valStr)-iEventGetCount);
   }
 
+  /**
+  * @brief function for value edit via keyboard
+  */
   void editValKey() {
   }
 
+  /**
+  * @brief function for GuiObject display
+  */
   void display() {
   }
 
-  // Returns true if mouse was clicked inside hitbox. Setting of selectedGuiObject moved
+  /**
+  * @brief Checks for mouse over and click inside focused GuiObject's hitbox
+  * @return true if mouse was clicked inside focused GuiObject's hitbox
+  */
   // to child classes because some of them (f.ex. Button) arent't supposed to be a selectedGuiObject
   boolean checkMouseOver() {
     if (mouseX > getPosition().x  &&  mouseX < (getPosition().x+this.positionData.getSize2D().x)  &&  mouseY > getPosition().y  &&  mouseY < (getPosition().y+this.positionData.getSize2D().y)) {

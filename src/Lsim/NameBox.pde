@@ -1,3 +1,6 @@
+/**
+* @brief Class for all text fields in GUI
+*/
 class NameBox<T extends IGuiObject> extends GuiObject {
   NameBox(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, String iInitialVal) {
     super(iOffset, iSize, iPropName, iDisplayName, iInitialVal, 1.0/*stepSize*/);
@@ -10,6 +13,9 @@ class NameBox<T extends IGuiObject> extends GuiObject {
     /* Ovverride parent class function to prevent string edit on scroll */
   }
 
+  /**
+  * @brief Handles value edit via keyboard
+  */
   void editValKey() {
     if ((key >= 'a'  &&  key <= 'z')  ||  (key >= 'A'  &&  key <= 'Z')  ||  (key >= '0'  &&  key <= '9')  ||  key == ' ') {
       valStr += key;
@@ -22,6 +28,9 @@ class NameBox<T extends IGuiObject> extends GuiObject {
     }
   }
 
+  /**
+  * @brief Displays Object, handles mouse over/pressed, decides what to do if the value changes
+  */
   void display() {
     if (checkMouseOver()) {
       selectedGuiObject = this;

@@ -1,3 +1,7 @@
+/**
+* @brief float number SpinBoxes
+* @see SpinBoxes
+*/
 class SpinBox<T extends IGuiObject> extends GuiObject {
   //private float faderValue = 0;
   private Consumer<Float>variableChanger;
@@ -11,6 +15,9 @@ class SpinBox<T extends IGuiObject> extends GuiObject {
     this.variableChanger = iVariableChanger;
   }
 
+  /**
+  * @brief Handles value edit via keyboard
+  */
   void editValKey() {                                                           // run only when a key is pressed
     if ((key >= '0'  &&  key <= '9')  ||  (key == '.'  &&  utilStr.indexOf('.') == -1)  ||  (key == '-'  &&  utilStr.length() == 0)) {
       utilStr += key;
@@ -36,6 +43,9 @@ class SpinBox<T extends IGuiObject> extends GuiObject {
     }
   }
 
+  /**
+  * @brief Displays Object, handles mouse over/pressed, decides what to do if the value changes
+  */
   void display() {
     if (checkMouseOver()) {
       selectedGuiObject = this;
