@@ -13,6 +13,7 @@ class GuiObject<T extends IGuiObject> implements IGuiObject{
   String propName = "";
   String displayName = "";
   String valStr = "42.0";
+  float valNr = 42.0;
   String utilStr = "0";                                                         // Used while editing via keyboard, later applied to valStr
   byte keyEditState = 0;                                                        // 0=idle, 1=editing
   float stepSize = 1.0;
@@ -55,6 +56,7 @@ class GuiObject<T extends IGuiObject> implements IGuiObject{
     propName = iPropName;
     displayName = iDisplayName;
     valStr = iInitialVal;
+    valNr = float(iInitialVal);
     stepSize = iStepSize;
     this.positionData = new PositionUnit(empty, empty, iSize, iOffset, false);
     this.generalRef = iObjRef;
@@ -65,6 +67,7 @@ class GuiObject<T extends IGuiObject> implements IGuiObject{
     propName = iPropName;
     displayName = iDisplayName;
     valStr = iInitialVal;
+    valNr = float(iInitialVal);
     stepSize = iStepSize;
     this.positionData = new PositionUnit(empty, empty, iSize, iOffset, false);
     this.generalRefE = iObjRef;
@@ -81,7 +84,31 @@ class GuiObject<T extends IGuiObject> implements IGuiObject{
     } else if (keyPressed  &&  key==CODED  &&  keyCode==SHIFT) {
       iEventGetCount *= 100;
     }
-    valStr = str(float(valStr)-iEventGetCount);
+    valNr = valNr - iEventGetCount;
+    valStr = str(valNr);
+    PVector transitionalPosition = generalRef.getPosition();
+    PVector transitionalRotation = generalRef.getRotation();
+    if(propName == "pos3d.x" ) {
+      transitionalPosition.set(valNr, transitionalPosition.y, transitionalPosition.z);
+      generalRef.setPosition(transitionalPosition);
+    } else if(propName == "pos3d.y") {
+      transitionalPosition.set(transitionalPosition.x, valNr, transitionalPosition.z);
+      generalRef.setPosition(transitionalPosition);
+    } else if(propName == "pos3d.z") {
+      transitionalPosition.set(transitionalPosition.x, transitionalPosition.y, valNr);
+      generalRef.setPosition(transitionalPosition);
+    } else if(propName == "rot.x") {
+      transitionalRotation.set(valNr, transitionalRotation.y, transitionalRotation.z);
+      generalRef.setRotation(transitionalRotation);
+    } else if(propName == "rot.y") {
+      transitionalRotation.set(transitionalRotation.x, valNr, transitionalRotation.z);
+      generalRef.setRotation(transitionalRotation);
+    } else if(propName == "rot.z") {
+      transitionalRotation.set(transitionalRotation.x, transitionalRotation.y, valNr);
+      generalRef.setRotation(transitionalRotation);
+    } else if(false) {
+      //TODO add rest
+    }
   }
 
   /**
@@ -119,7 +146,7 @@ class GuiObject<T extends IGuiObject> implements IGuiObject{
     this.positionData.setPosition2D(iPosition); 
   }
   
-  private PVector getRotation() {
+  public PVector getRotation() {
     return this.positionData.getRotation2D(); 
   }
   

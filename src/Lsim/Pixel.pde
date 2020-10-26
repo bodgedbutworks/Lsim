@@ -26,6 +26,8 @@ class Pixel implements IGuiObject{
   float clrG = 255;
   float clrB = 0;
   float clrW = 0;
+  
+  private PositionUnit positionData;
 
   Pixel(String iName, Fixture iParentFixRef) {
     parentFixRef = iParentFixRef;
@@ -166,5 +168,19 @@ class Pixel implements IGuiObject{
     chanClrB = iJson.getInt("chanClrB");
     chanClrW = iJson.getInt("chanClrW");
     print("Loading Pixel..");
+  }
+  
+    public PVector getPosition() {
+    return this.positionData.getPosition3D();
+  }
+  public PVector getRotation() {
+    return this.positionData.getRotation3D();
+  }
+  
+  public void setPosition(PVector iNewPosition) {
+    this.positionData.setPosition3D(iNewPosition);
+  }
+  public void setRotation(PVector iNewRotation) {
+    this.positionData.setRotation3D(iNewRotation);
   }
 }

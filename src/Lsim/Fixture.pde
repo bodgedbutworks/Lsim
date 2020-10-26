@@ -63,15 +63,7 @@ class Fixture extends ScreenObject {
     for (Pixel p : pixelList) {
       p.updateChannels(address, dmxData[universe]);
     }
-
-    PVector dummy = new PVector(0, 500, 0);
-    dummy = rotateVector(dummy, -tilt.pos, 0, 0);
-    dummy = rotateVector(dummy, 0, -pan.pos, 0);
-    dummy = rotateVector(dummy, 0, 0, -getRotation().z);  // Sequence of rotations makes a difference!
-    dummy = rotateVector(dummy, 0, -getRotation().y, 0);
-    dummy = rotateVector(dummy, -getRotation().x, 0, 0);
-    dummy.add(getPosition().copy());
-
+    
     /*
     stroke(dimmer);
      strokeWeight(5);

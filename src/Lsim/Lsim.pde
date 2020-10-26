@@ -382,6 +382,7 @@ private void drawBegin() {
 private void draw3D() {
  /********************* 3D Elements ********************/
 
+  //maiby the change of camere position schouldnt be in here
   if (mousePressed) {
     if (mouseButton == RIGHT) {
       camPos = addSphereCoords(PVector.sub(camPos, camLookAt), 0, (pmouseY-mouseY)/100.0, (pmouseX-mouseX)/100.0);

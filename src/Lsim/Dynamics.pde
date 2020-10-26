@@ -20,7 +20,9 @@ class Dynamics implements IGuiObject{
   float dest = 0;                                                               // Destination (Angular value [deg])
   float pos = 0;                                                                // Current position [deg]
   float spd = 0;                                                                // Current speed [deg/frame]
-  float acc = 0;                                                                // Current acceleration, constant (always 0 or +/- maxAcc)
+  float acc = 0;             // Current acceleration, constant (always 0 or +/- maxAcc)
+  
+  private PositionUnit positionData;
 
   Dynamics(String iName) {
     name = iName;
@@ -153,5 +155,19 @@ class Dynamics implements IGuiObject{
     maxSpd = iJson.getFloat("maxSpd");
     maxSpdTweak = iJson.getFloat("maxSpdTweak");
     print("Loading Dynamics..");
+  }
+  
+    public PVector getPosition() {
+    return this.positionData.getPosition3D();
+  }
+  public PVector getRotation() {
+    return this.positionData.getRotation3D();
+  }
+  
+  public void setPosition(PVector iNewPosition) {
+    this.positionData.setPosition3D(iNewPosition);
+  }
+  public void setRotation(PVector iNewRotation) {
+    this.positionData.setRotation3D(iNewRotation);
   }
 }
