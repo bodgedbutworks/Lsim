@@ -3,7 +3,6 @@
 */
 class Pixel extends ScreenObject {
   Fixture parentFixRef;
-  String name = "";
   PVector pos3d = new PVector(0, 0, 27);                                        // Offset realtive to fixture center of mass (COM)
   PShape modelBeam;
   color beamClr;
@@ -32,7 +31,7 @@ class Pixel extends ScreenObject {
   Pixel(String iName, Fixture iParentFixRef) {
     super(iParentFixRef.getPosition(), iParentFixRef.getRotation());
     parentFixRef = iParentFixRef;
-    name = iName;
+    this.displayName = iName;
     updateBeam();
   }
 
@@ -100,8 +99,8 @@ class Pixel extends ScreenObject {
   *  @brief Load this Pixel's GUI Elements into menu sidebar
   */
   void loadGui() {
-    Expandable pixelExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pixel "+name, true, false, constantData.CLR_MENU_LV1);
-    pixelExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", name));
+    Expandable pixelExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pixel "+ this.displayName, true, false, constantData.CLR_MENU_LV1);
+    pixelExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", this.displayName));
     pixelExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Pos LR", "Pixel Pos LR", pos3d.x, 1.0));
     pixelExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Pos UD", "Pixel Pos UD", pos3d.y, 1.0));
     pixelExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Pos FB", "Pixel Pos FB", pos3d.z, 1.0));
@@ -130,7 +129,7 @@ class Pixel extends ScreenObject {
   */
   JSONObject save() {
     JSONObject oJson = new JSONObject();
-    oJson.setString("name", name);
+    oJson.setString("name", this.displayName);
     oJson.setFloat("pos3d.x", pos3d.x);
     oJson.setFloat("pos3d.y", pos3d.y);
     oJson.setFloat("pos3d.z", pos3d.z);
@@ -153,7 +152,7 @@ class Pixel extends ScreenObject {
   * @param iJson JSON Dataset including this object's attributes to load
   */
   void load(JSONObject iJson) {
-    name = iJson.getString("name");
+    this.displayName = iJson.getString("name");
     pos3d.x = iJson.getFloat("pos3d.x");
     pos3d.y = iJson.getFloat("pos3d.y");
     pos3d.z = iJson.getFloat("pos3d.z");

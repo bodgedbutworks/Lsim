@@ -7,19 +7,18 @@ class GuiObject<T extends IGuiObject> extends IGuiObject{
   private Expandable generalRefE;
   private String objType = ""; // this is just used to name the specific class change to xxx.clas.equals(XXX.class) <-- tried it dident work but I will try it agean later
 
-  String valStr = "42.0";
   float valNr = 42.0;
   String utilStr = "0";                                                         // Used while editing via keyboard, later applied to valStr
   byte keyEditState = 0;                                                        // 0=idle, 1=editing
   float stepSize = 1.0;
 
   // Overloaded constructor for every object type reference
-  GuiObject(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     this.objType = "None";
     init(iOffset, iSize, null, iPropName, iDisplayName, iInitialVal, iStepSize);  // Initialize object type independent properties     //null is very bad just for porposis of the clean code cleaning at the end correct this agean
   }
   
-  GuiObject(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     
     ///*
     if(iObjRef.equals(Fixture.class)) {
@@ -41,29 +40,27 @@ class GuiObject<T extends IGuiObject> extends IGuiObject{
   }
   
   //expandable is the one how makes the problems with the button sub thing
-  GuiObject(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
+  GuiObject(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     this.objType = "Expandable";
     initE(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, iStepSize);
     this.objectColor = color(255, 0, 255);
   }
   
-  void init(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
+  void init(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     PVector empty = new PVector(0, 0);
     this.properName = iPropName;
     displayName = iDisplayName;
-    valStr = iInitialVal;
-    valNr = float(iInitialVal);
+    valNr = iInitialVal;
     stepSize = iStepSize;
     this.positionData = new PositionUnit(empty, empty, iSize, iOffset, false);
     this.generalRef = iObjRef;
   }
   
-  void initE(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
+  void initE(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     PVector empty = new PVector(0, 0);
     this.properName = iPropName;
     displayName = iDisplayName;
-    valStr = iInitialVal;
-    valNr = float(iInitialVal);
+    valNr = iInitialVal;
     stepSize = iStepSize;
     this.positionData = new PositionUnit(empty, empty, iSize, iOffset, false);
     this.generalRefE = iObjRef;
@@ -81,7 +78,6 @@ class GuiObject<T extends IGuiObject> extends IGuiObject{
       iEventGetCount *= 100;
     }
     valNr = valNr - iEventGetCount;
-    valStr = str(valNr);
     PVector transitionalPosition = generalRef.getPosition();
     PVector transitionalRotation = generalRef.getRotation();
     PVector transitionalSize = generalRef.getSize();
@@ -112,8 +108,6 @@ class GuiObject<T extends IGuiObject> extends IGuiObject{
     } else if(this.properName =="size3d.z") {
       transitionalSize.set(transitionalSize.x, transitionalSize.y, valNr);
       generalRef.setSize(transitionalSize);
-    } else if(false) {
-      //TODO add rest
     }
   }
 

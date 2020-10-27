@@ -57,7 +57,7 @@ class NameBox<T extends IGuiObject> extends GuiObject {
       }
     } else if (getObjTyp().equals("Pixel")) {
       if (this.properName.equals("name")) {
-        getObjektRefPixel().name = valStr;
+        getObjektRefPixel().displayName = valStr;
       }
     } else if (getObjTyp().equals("None")) {
       if (this.properName.equals("projectName")) {

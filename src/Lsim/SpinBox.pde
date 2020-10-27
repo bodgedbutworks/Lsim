@@ -3,15 +3,15 @@
 * @see SpinBoxes
 */
 class SpinBox<T extends IGuiObject> extends GuiObject {
-  //private float faderValue = 0;
+
   private Consumer<Float>variableChanger;
   
   SpinBox(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, iStepSize);
   }
   
   SpinBox(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize, Consumer<Float> iVariableChanger) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, str(iInitialVal), iStepSize);
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, iStepSize);
     this.variableChanger = iVariableChanger;
   }
 

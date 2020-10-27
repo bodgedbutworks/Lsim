@@ -9,7 +9,7 @@ class Expandable<T extends IGuiObject> extends GuiObject {
   byte state = 0;
 
   Expandable(PVector iOffset, PVector iSize, String iDisplayName, boolean iHasButton, boolean iDefaultOpen, color iClr) {
-     super(iOffset, iSize, ""/*propName*/     , iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
+     super(iOffset, iSize, ""/*propName*/     , iDisplayName, 0.0/*initialVal*/    , 1.0/*stepSize*/);
     hasButton = iHasButton;
     if (hasButton) {
       expandBtn = new Button(new PVector(0, 0), new PVector(120, 40), this, "state", iDisplayName, iClr);

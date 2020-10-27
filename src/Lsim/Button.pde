@@ -5,15 +5,15 @@ class Button<T extends IGuiObject> extends GuiObject {
   //color clr = color(255);
 
   Button(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, color iClr) {
-    super(iOffset, iSize, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
+    super(iOffset, iSize, iPropName, iDisplayName, 0.0 , 1.0/*stepSize*/);
     this.objectColor = iClr;
   }
   Button(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, color iClr) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, 0.0/*initialVal*/    , 1.0/*stepSize*/);
     this.objectColor = iClr;
   }
   Button(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, color iClr) {
-    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, ""/*initialVal*/    , 1.0/*stepSize*/);
+    super(iOffset, iSize, iObjRef, iPropName, iDisplayName, 0.0/*initialVal*/    , 1.0/*stepSize*/);
     this.objectColor = iClr;
   }
   
@@ -39,7 +39,7 @@ class Button<T extends IGuiObject> extends GuiObject {
         } else if (this.properName.equals("Copy Pixel")) {
           Pixel tempPix = new Pixel("Irrelevant", getObjektRefPixel().parentFixRef);
           tempPix.load(getObjektRefPixel().save());
-          tempPix.name += " Copy";
+          tempPix.displayName += " Copy";
           tempPix.pos3d.x += 20;
           getObjektRefPixel().parentFixRef.pixelList.add(tempPix);
           reloadMyGui = getObjektRefPixel().parentFixRef;     // Directly modifying the GUI here would lead to ConcurrentModificationException, so do in main loop
