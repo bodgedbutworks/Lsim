@@ -65,59 +65,5 @@ class SpinBox<T extends IGuiObject> extends GuiObject {
     fill(50, 255, 50);
     text(displayName, getPosition().x+getSize().x+SIZE_GUTTER, getPosition().y);
 
-    /*
-    // ToDo: Is there a smarter way to do this?? the way it is it dose nothing at all
-    if (getObjTyp().equals("Fixture")) {
-      if (propName.equals("pos3d.x")) {
-        getObjektRefFixture().getPosition().x = float(valStr);
-      } else if (propName.equals("pos3d.y")) {
-        getObjektRefFixture().getPosition().y = float(valStr);
-      } else if (propName.equals("pos3d.z")) {
-        getObjektRefFixture().getPosition().z = float(valStr);
-      } else if (propName.equals("rot.x")) {
-        getObjektRefFixture().getRotation().x = float(valStr);
-      } else if (propName.equals("rot.y")) {
-        getObjektRefFixture().getRotation().y = float(valStr);
-      } else if (propName.equals("rot.z")) {
-        getObjektRefFixture().getRotation().z = float(valStr);
-      }
-    } else if (getObjTyp().equals("Cuboid")) {
-      if (propName.equals("pos3d.x")) {
-        getObjektRefCuboud().getPosition().x = float(valStr);
-      } else if (propName.equals("pos3d.y")) {
-        getObjektRefCuboud().getPosition().y = float(valStr);
-      } else if (propName.equals("pos3d.z")) {
-        getObjektRefCuboud().getPosition().z = float(valStr);
-      } else if (propName.equals("rot.x")) {
-        getObjektRefCuboud().getRotation().x = float(valStr);
-      } else if (propName.equals("rot.y")) {
-        getObjektRefCuboud().getRotation().y = float(valStr);
-      } else if (propName.equals("rot.z")) {
-        getObjektRefCuboud().getRotation().z = float(valStr);
-      } else if (propName.equals("size3d.x")) {
-        getObjektRefCuboud().size3d.x = float(valStr);
-      } else if (propName.equals("size3d.y")) {
-        getObjektRefCuboud().size3d.y = float(valStr);
-      } else if (propName.equals("size3d.z")) {
-        getObjektRefCuboud().size3d.z = float(valStr);
-      }
-    } else if (getObjTyp().equals("Pixel")) {
-      if (propName.equals("Pixel Pos LR")) {
-        getObjektRefPixel().pos3d.x = float(valStr);
-      } else if (propName.equals("Pixel Pos UD")) {
-        getObjektRefPixel().pos3d.y = float(valStr);
-      } else if (propName.equals("Pixel Pos FB")) {
-        getObjektRefPixel().pos3d.z = float(valStr);
-      }
-    } else if (getObjTyp().equals("Dynamics")) {
-      if (propName.equals("Accel")) {
-        getObjektRefDynamix().maxAcc = float(valStr);
-      } else if (propName.equals("Speed")) {
-        getObjektRefDynamix().maxSpd = float(valStr);
-      } else if (propName.equals("Tweak")) {
-        getObjektRefDynamix().maxSpdTweak = float(valStr);
-      }
-    }
-    */
   }
 }

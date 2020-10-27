@@ -1,7 +1,7 @@
 /**
 * @brief Pixels class for the Fixtures with illuminated surface + beam cone
 */
-class Pixel implements IGuiObject{
+class Pixel extends ScreenObject {
   Fixture parentFixRef;
   String name = "";
   PVector pos3d = new PVector(0, 0, 27);                                        // Offset realtive to fixture center of mass (COM)
@@ -30,6 +30,7 @@ class Pixel implements IGuiObject{
   private PositionUnit positionData;
 
   Pixel(String iName, Fixture iParentFixRef) {
+    super(iParentFixRef.getPosition(), iParentFixRef.getRotation());
     parentFixRef = iParentFixRef;
     name = iName;
     updateBeam();

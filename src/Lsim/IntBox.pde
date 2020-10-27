@@ -67,74 +67,74 @@ class IntBox<T extends IGuiObject> extends GuiObject {
 
     // ToDo: Is there a smarter way to do this??
     if (getObjTyp().equals("Fixture")) {
-      if (propName.equals("Universe")) {
+      if (this.properName.equals("Universe")) {
         getObjektRefFixture().universe = int(valStr);
-      } else if (propName.equals("Address")) {
+      } else if (this.properName.equals("Address")) {
         getObjektRefFixture().address = int(valStr);
-      } else if (propName.equals("Base Size LR")) {
+      } else if (this.properName.equals("Base Size LR")) {
         getObjektRefFixture().sizeBase.x = int(valStr);
         getObjektRefFixture().rescaleModels();
-      } else if (propName.equals("Base Size UD")) {
+      } else if (this.properName.equals("Base Size UD")) {
         getObjektRefFixture().sizeBase.y = int(valStr);
         getObjektRefFixture().rescaleModels();
-      } else if (propName.equals("Base Size FB")) {
+      } else if (this.properName.equals("Base Size FB")) {
         getObjektRefFixture().sizeBase.z = int(valStr);
         getObjektRefFixture().rescaleModels();
-      } else if (propName.equals("Pan Size LR")) {
+      } else if (this.properName.equals("Pan Size LR")) {
         getObjektRefFixture().sizePan.x = int(valStr);
         getObjektRefFixture().rescaleModels();
-      } else if (propName.equals("Pan Size UD")) {
+      } else if (this.properName.equals("Pan Size UD")) {
         getObjektRefFixture().sizePan.y = int(valStr);
         getObjektRefFixture().rescaleModels();
-      } else if (propName.equals("Pan Size FB")) {
+      } else if (this.properName.equals("Pan Size FB")) {
         getObjektRefFixture().sizePan.z = int(valStr);
         getObjektRefFixture().rescaleModels();
-      } else if (propName.equals("Tilt Size LR")) {
+      } else if (this.properName.equals("Tilt Size LR")) {
         getObjektRefFixture().sizeTilt.x = int(valStr);
         getObjektRefFixture().rescaleModels();
-      } else if (propName.equals("Tilt Size FB")) {
+      } else if (this.properName.equals("Tilt Size FB")) {
         getObjektRefFixture().sizeTilt.y = int(valStr);
         getObjektRefFixture().rescaleModels();
-      } else if (propName.equals("Tilt Size UD")) {
+      } else if (this.properName.equals("Tilt Size UD")) {
         getObjektRefFixture().sizeTilt.z = int(valStr);
         getObjektRefFixture().rescaleModels();
       }
     } else if (getObjTyp().equals("Cuboid")) {
       /* Cuboid stuff here */
     } else if (getObjTyp().equals("Pixel")) {
-      if (propName.equals("Pixel Width")) {
+      if (this.properName.equals("Pixel Width")) {
         getObjektRefPixel().faceSize.x = int(valStr);
         getObjektRefPixel().updateBeam();
-      } else if (propName.equals("Pixel Height")) {
+      } else if (this.properName.equals("Pixel Height")) {
         getObjektRefPixel().faceSize.y = int(valStr);
         getObjektRefPixel().updateBeam();
-      } else if (propName.equals("Zoom Angle Min")) {
+      } else if (this.properName.equals("Zoom Angle Min")) {
         getObjektRefPixel().zoomAngleMin = int(valStr);
         getObjektRefPixel().updateBeam();
-      } else if (propName.equals("Zoom Angle Max")) {
+      } else if (this.properName.equals("Zoom Angle Max")) {
         getObjektRefPixel().zoomAngleMax = int(valStr);
         getObjektRefPixel().updateBeam();
-      } else if (propName.equals("Rel. Channel Dimmer")) {
+      } else if (this.properName.equals("Rel. Channel Dimmer")) {
         getObjektRefPixel().chanDimmer = int(valStr);
-      } else if (propName.equals("Rel. Channel Zoom")) {
+      } else if (this.properName.equals("Rel. Channel Zoom")) {
         getObjektRefPixel().chanZoom = int(valStr);
-      } else if (propName.equals("Rel. Channel Red")) {
+      } else if (this.properName.equals("Rel. Channel Red")) {
         getObjektRefPixel().chanClrR = int(valStr);
-      } else if (propName.equals("Rel. Channel Green")) {
+      } else if (this.properName.equals("Rel. Channel Green")) {
         getObjektRefPixel().chanClrG = int(valStr);
-      } else if (propName.equals("Rel. Channel Blue")) {
+      } else if (this.properName.equals("Rel. Channel Blue")) {
         getObjektRefPixel().chanClrB = int(valStr);
-      } else if (propName.equals("Rel. Channel White")) {
+      } else if (this.properName.equals("Rel. Channel White")) {
         getObjektRefPixel().chanClrW = int(valStr);
       }
     } else if (getObjTyp().equals("Dynamics")) {
-      if (propName.equals("Channel Coarse")) {
+      if (this.properName.equals("Channel Coarse")) {
         getObjektRefDynamix().chanCoarse = int(valStr);
-      } else if (propName.equals("Channel Fine")) {
+      } else if (this.properName.equals("Channel Fine")) {
         getObjektRefDynamix().chanFine = int(valStr);
-      } else if (propName.equals("Angle")) {
+      } else if (this.properName.equals("Angle")) {
         getObjektRefDynamix().angle = int(valStr);
-      } else if (propName.equals("Offset")) {
+      } else if (this.properName.equals("Offset")) {
         getObjektRefDynamix().offset = int(valStr);
       }
     }

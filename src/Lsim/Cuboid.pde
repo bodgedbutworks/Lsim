@@ -29,7 +29,7 @@ class Cuboid extends ScreenObject {
     rotateZ(radians(getRotation().z));
     stroke(0);
     strokeWeight(1);
-    fill(clr);
+    fill(this.objectColor);
     box(size3d.x, size3d.y, size3d.z);
     popMatrix();
 
@@ -42,7 +42,7 @@ class Cuboid extends ScreenObject {
   */
   void loadGui() {
     Expandable tempCubExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Cuboid", true, true, constantData.CLR_MENU_LV1);
-    tempCubExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", name));
+    tempCubExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", this.displayName));
     tempCubExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", "pos3d.x", getPosition().x, 1.0));
     tempCubExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", "pos3d.y", getPosition().y, 1.0));
     tempCubExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", "pos3d.z", getPosition().z, 1.0));
@@ -78,6 +78,6 @@ class Cuboid extends ScreenObject {
     size3d.x = iJson.getFloat("size3d.x");
     size3d.y = iJson.getFloat("size3d.y");
     size3d.z = iJson.getFloat("size3d.z");
-    println("Loaded Cuboid " + name);
+    println("Loaded Cuboid " + this.displayName);
   }
 }

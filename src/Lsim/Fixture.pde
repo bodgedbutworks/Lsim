@@ -75,7 +75,7 @@ class Fixture extends ScreenObject {
     rotateX(radians(getRotation().x));
     rotateY(radians(getRotation().y));
     rotateZ(radians(getRotation().z));
-    fill(clr);
+    fill(this.objectColor);
     stroke(0);
     strokeWeight(2);
     if (baseType.equals("Plate")) {
@@ -105,7 +105,7 @@ class Fixture extends ScreenObject {
   */
   void loadGui() {
     Expandable tempFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixture", true, true, constantData.CLR_MENU_LV1);
-    tempFixExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", name));
+    tempFixExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", this.displayName));
     //Consumer<Float> consumer3DPosition = {f -> return this.getObjektRefFixture().setPosition(new PVector(f, getObjektRefFixture().getPosition().y, getObjektRefFixture().getPosition().z));}; -----------// change java version over 1.8
     tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", "pos3d.x", getPosition().x, 1.0));
     tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", "pos3d.y", getPosition().y, 1.0));
@@ -209,7 +209,7 @@ class Fixture extends ScreenObject {
       pixelList.add(tempPixel);
     }
     rescaleModels();
-    println("Loaded Fixture " + name);
+    println("Loaded Fixture " + this.displayName);
   }
   
   /*

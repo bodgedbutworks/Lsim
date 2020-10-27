@@ -2,7 +2,7 @@
 * @brief Expandable GUI objects
 * alows the folding in and out in the menu
 */
-class Expandable extends GuiObject implements IGuiObject{
+class Expandable<T extends IGuiObject> extends GuiObject {
   ArrayList<GuiObject> subElementsList = new ArrayList<GuiObject>();
   Button expandBtn;                                                             // 0=closed, 1=expanding, 2=expanded, 3=closing
   boolean hasButton = true;

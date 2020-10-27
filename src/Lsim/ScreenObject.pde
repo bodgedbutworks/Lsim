@@ -1,15 +1,12 @@
 /**
 * @brief Parent class for all objects in 3D space
 */
-class ScreenObject implements IGuiObject{
-  //int id;
-  String name;
-  private PositionUnit positionData;
-  color clr; 
+class ScreenObject<T extends IGuiObject> extends IGuiObject{
 
   ScreenObject(PVector iPos, PVector iRot) {
-    this.name = "Object" + str(floor(random(0, 999999)));
-    this.clr = color(50);
+    super();
+    this.properName = "Object" + str(floor(random(0, 999999)));
+    this.objectColor = color(50);
     PVector empty3D = new PVector(0,0,0);
     PVector empty2D = new PVector(0,0);
     this.positionData = new PositionUnit(iPos, iRot, empty3D, empty3D, empty2D, empty2D, empty2D, empty2D); // there schoul be some usefull vectors for the empty ones
@@ -30,7 +27,7 @@ class ScreenObject implements IGuiObject{
     fill(255);
     textSize(height/50);
     textAlign(CENTER, CENTER);
-    text(name, this.positionData.getPosition2D().x, this.positionData.getPosition2D().y-80);
+    text(this.properName, this.positionData.getPosition2D().x, this.positionData.getPosition2D().y-80);
     image(comImg, this.positionData.getPosition2D().x-7, this.positionData.getPosition2D().y-7, 14, 14);
   }
 
@@ -47,7 +44,7 @@ class ScreenObject implements IGuiObject{
   */
   JSONObject save() {
     JSONObject oJson = new JSONObject();
-    oJson.setString("name", name);
+    oJson.setString("name", this.properName);
     oJson.setFloat("pos3d.x", this.positionData.getPosition3D().x);
     oJson.setFloat("pos3d.y", this.positionData.getPosition3D().y);
     oJson.setFloat("pos3d.z", this.positionData.getPosition3D().z);
@@ -63,7 +60,7 @@ class ScreenObject implements IGuiObject{
   */
   void load(JSONObject iJson) {
     print("Loading ScreenObj..");
-    name = iJson.getString("name");
+    this.properName = iJson.getString("name");
     this.positionData.getPosition3D().x = iJson.getFloat("pos3d.x");
     this.positionData.getPosition3D().y = iJson.getFloat("pos3d.y");
     this.positionData.getPosition3D().z = iJson.getFloat("pos3d.z");
@@ -78,7 +75,7 @@ class ScreenObject implements IGuiObject{
   */
   void checkMouseOver() {
     if (dist(screenX(this.positionData.getPosition3D().x, this.positionData.getPosition3D().y, this.positionData.getPosition3D().z), screenY(this.positionData.getPosition3D().x, this.positionData.getPosition3D().y, this.positionData.getPosition3D().z), mouseX, mouseY) < 30) {
-      clr = color(190, 0, 0);
+      this.objectColor = color(190, 0, 0);
       if (flag  &&  mousePressed) {
         flag = false;
         selectedScreenObject = this;
@@ -91,9 +88,9 @@ class ScreenObject implements IGuiObject{
       }
     } else {
       if (this == selectedScreenObject) {
-        clr = color(245+10*sin(millis()/100.0), 0, 0);
+        this.objectColor = color(245+10*sin(millis()/100.0), 0, 0);
       } else {
-        clr = color(80);
+        this.objectColor = color(80);
       }
     }
   }
@@ -118,5 +115,13 @@ class ScreenObject implements IGuiObject{
   }
   public void setRotation(PVector iNewRotation) {
     this.positionData.setRotation3D(iNewRotation);
+  }
+  
+  public PVector getSize() {
+    return this.positionData.getSize3D(); 
+  }
+  
+  public void setSize(PVector iSize) {
+    this.positionData.setSize3D(iSize); 
   }
 }

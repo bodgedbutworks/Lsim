@@ -1,23 +1,17 @@
 /**
 * @brief parent class for GUI objects
 */
-class GuiObject<T extends IGuiObject> implements IGuiObject{
-  private PositionUnit positionData;
-  //PVector offset;     // Position offset, added to temporary position before saving to pos
-  //PVector pos;        // Actual element pos, used for mouseover/displaying, set by "parent" Expandable //not in use anymore insted positionData
+class GuiObject<T extends IGuiObject> extends IGuiObject{
 
   private T generalRef;
   private Expandable generalRefE;
   private String objType = ""; // this is just used to name the specific class change to xxx.clas.equals(XXX.class) <-- tried it dident work but I will try it agean later
 
-  String propName = "";
-  String displayName = "";
   String valStr = "42.0";
   float valNr = 42.0;
   String utilStr = "0";                                                         // Used while editing via keyboard, later applied to valStr
   byte keyEditState = 0;                                                        // 0=idle, 1=editing
   float stepSize = 1.0;
-  color clr = color(255, 0, 255);
 
   // Overloaded constructor for every object type reference
   GuiObject(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
@@ -43,17 +37,19 @@ class GuiObject<T extends IGuiObject> implements IGuiObject{
     //100 % unsure if this below replaces this obove. not quiet it must be something like T.class.toString()
     //this.objType = iObjRef.toString();
     init(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, iStepSize);
+    this.objectColor = color(255, 0, 255);
   }
   
   //expandable is the one how makes the problems with the button sub thing
   GuiObject(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
     this.objType = "Expandable";
     initE(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, iStepSize);
+    this.objectColor = color(255, 0, 255);
   }
   
   void init(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
     PVector empty = new PVector(0, 0);
-    propName = iPropName;
+    this.properName = iPropName;
     displayName = iDisplayName;
     valStr = iInitialVal;
     valNr = float(iInitialVal);
@@ -64,7 +60,7 @@ class GuiObject<T extends IGuiObject> implements IGuiObject{
   
   void initE(PVector iOffset, PVector iSize, Expandable iObjRef, String iPropName, String iDisplayName, String iInitialVal, float iStepSize) {
     PVector empty = new PVector(0, 0);
-    propName = iPropName;
+    this.properName = iPropName;
     displayName = iDisplayName;
     valStr = iInitialVal;
     valNr = float(iInitialVal);
@@ -88,24 +84,34 @@ class GuiObject<T extends IGuiObject> implements IGuiObject{
     valStr = str(valNr);
     PVector transitionalPosition = generalRef.getPosition();
     PVector transitionalRotation = generalRef.getRotation();
-    if(propName == "pos3d.x" ) {
+    PVector transitionalSize = generalRef.getSize();
+    if(this.properName == "pos3d.x" ) {
       transitionalPosition.set(valNr, transitionalPosition.y, transitionalPosition.z);
       generalRef.setPosition(transitionalPosition);
-    } else if(propName == "pos3d.y") {
+    } else if(this.properName == "pos3d.y") {
       transitionalPosition.set(transitionalPosition.x, valNr, transitionalPosition.z);
       generalRef.setPosition(transitionalPosition);
-    } else if(propName == "pos3d.z") {
+    } else if(this.properName == "pos3d.z") {
       transitionalPosition.set(transitionalPosition.x, transitionalPosition.y, valNr);
       generalRef.setPosition(transitionalPosition);
-    } else if(propName == "rot.x") {
+    } else if(this.properName == "rot.x") {
       transitionalRotation.set(valNr, transitionalRotation.y, transitionalRotation.z);
       generalRef.setRotation(transitionalRotation);
-    } else if(propName == "rot.y") {
+    } else if(this.properName == "rot.y") {
       transitionalRotation.set(transitionalRotation.x, valNr, transitionalRotation.z);
       generalRef.setRotation(transitionalRotation);
-    } else if(propName == "rot.z") {
+    } else if(this.properName == "rot.z") {
       transitionalRotation.set(transitionalRotation.x, transitionalRotation.y, valNr);
       generalRef.setRotation(transitionalRotation);
+    } else if(this.properName =="size3d.x") {
+      transitionalSize.set(valNr, transitionalSize.y, transitionalSize.z);
+      generalRef.setSize(transitionalSize);
+    } else if(this.properName =="size3d.y") {
+      transitionalSize.set(transitionalSize.x, valNr, transitionalSize.z);
+      generalRef.setSize(transitionalSize);
+    } else if(this.properName =="size3d.z") {
+      transitionalSize.set(transitionalSize.x, transitionalSize.y, valNr);
+      generalRef.setSize(transitionalSize);
     } else if(false) {
       //TODO add rest
     }

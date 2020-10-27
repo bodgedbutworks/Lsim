@@ -2,7 +2,7 @@
 * @brief moving lights class
 * lights with angular position, speed and acceleration single axis
 */
-class Dynamics implements IGuiObject{
+class Dynamics extends ScreenObject {
   String name = "Axis";
   int angle = 180;                                                              // [deg]
   int offset = 0;                                                               // [deg]
@@ -25,6 +25,7 @@ class Dynamics implements IGuiObject{
   private PositionUnit positionData;
 
   Dynamics(String iName) {
+    super(new PVector(0,0,0), new PVector(0,0,0));
     name = iName;
   }
 
