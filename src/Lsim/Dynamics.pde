@@ -57,16 +57,6 @@ class Dynamics extends ScreenObject {
   void move() {
     float diff = dest - pos;
 
-    /* print(diff);
-     print(" ");
-     print(state);
-     print(" ");
-     print(acc);
-     print(" ");
-     print(spd);
-     print(" ");
-     println(); */
-
     // ifs instead of switch/case so that multiple state changes can be handled in one function call
     if (state == 0) {
       if (abs(diff) < POS_TOLERANCE) {            // While within tolerance

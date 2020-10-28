@@ -30,6 +30,7 @@ class Button<T extends IGuiObject> extends GuiObject {
     textAlign(CENTER, CENTER);
     text(displayName, getPosition().x+getSize().x/2, getPosition().y+getSize().y/2-3);
 
+    //change to setter
     if (checkMouseOver()) {
       if ( getObjTyp().equals("Pixel")) {
         if (this.properName.equals("Ellipse")) {

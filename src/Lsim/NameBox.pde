@@ -2,10 +2,10 @@
 * @brief Class for all text fields in GUI
 */
 class NameBox<T extends IGuiObject> extends GuiObject {
-  NameBox(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, String iInitialVal) {
+  NameBox(PVector iOffset, PVector iSize, String iPropName, String iDisplayName, float iInitialVal) {
     super(iOffset, iSize, iPropName, iDisplayName, iInitialVal, 1.0/*stepSize*/);
   }
-  NameBox(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, String iInitialVal) {
+  NameBox(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, float iInitialVal) {
     super(iOffset, iSize, iObjRef, iPropName, iDisplayName, iInitialVal, 1.0/*stepSize*/);
   }
 
@@ -46,7 +46,7 @@ class NameBox<T extends IGuiObject> extends GuiObject {
     fill(50, 255, 50);
     text(displayName, getPosition().x+getSize().x+SIZE_GUTTER, getPosition().y);
 
-    // ToDo: Is there a smarter way to do this??xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    // ToDo: Is there a smarter way to do this??xxxxxxxxxxxxxxxxxxxxxxxxxxxxx setter
     if (getObjTyp().equals("Fixture")) {
       if (this.properName.equals("name")) {
         getObjektRefFixture().displayName = valStr;

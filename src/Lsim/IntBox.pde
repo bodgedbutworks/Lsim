@@ -65,7 +65,7 @@ class IntBox<T extends IGuiObject> extends SpinBox {
     text(displayName, getPosition().x+getSize().x+SIZE_GUTTER, getPosition().y);
 
 /*
-    // ToDo: Is there a smarter way to do this??
+    // ToDo: Is there a smarter way to do this?? change to setter
     if (getObjTyp().equals("Fixture")) {
       if (this.properName.equals("Universe")) {
         getObjektRefFixture().universe = int(this.valNr);

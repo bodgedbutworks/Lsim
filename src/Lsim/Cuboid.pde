@@ -15,12 +15,6 @@ class Cuboid extends ScreenObject {
   void display() {
     checkMouseOver();
 
-    PVector dummy = new PVector(0, 500, 0);
-    dummy = rotateVector(dummy, 0, 0, -getRotation().z);  // Sequence of rotations makes a difference!
-    dummy = rotateVector(dummy, 0, -getRotation().y, 0);
-    dummy = rotateVector(dummy, -getRotation().x, 0, 0);
-    dummy.add(getPosition().copy());
-
     pushMatrix();
     translate(getPosition().x, getPosition().y, getPosition().z);
     rotateX(radians(getRotation().x));

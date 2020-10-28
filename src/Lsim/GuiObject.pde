@@ -49,7 +49,7 @@ class GuiObject<T extends IGuiObject> extends IGuiObject{
   void init(PVector iOffset, PVector iSize, T iObjRef, String iPropName, String iDisplayName, float iInitialVal, float iStepSize) {
     PVector empty = new PVector(0, 0);
     this.properName = iPropName;
-    displayName = iDisplayName;
+    this.displayName = iDisplayName;
     valNr = iInitialVal;
     stepSize = iStepSize;
     this.positionData = new PositionUnit(empty, empty, iSize, iOffset, false);
