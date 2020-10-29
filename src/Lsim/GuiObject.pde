@@ -3,12 +3,12 @@
 */
 class GuiObject<T extends IGuiObject> extends IGuiObject{
 
-  private T generalRef;
+  public T generalRef;
   private Expandable generalRefE;
   private String objType = ""; // this is just used to name the specific class change to xxx.clas.equals(XXX.class) <-- tried it dident work but I will try it agean later
 
   float valNr = 42.0;
-  String utilStr = "0";                                                         // Used while editing via keyboard, later applied to valStr
+                                                        // Used while editing via keyboard, later applied to valStr
   byte keyEditState = 0;                                                        // 0=idle, 1=editing
   float stepSize = 1.0;
 

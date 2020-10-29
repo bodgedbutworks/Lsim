@@ -107,12 +107,12 @@ class Fixture extends ScreenObject {
     Expandable tempFixExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Fixture", true, true, constantData.CLR_MENU_LV1);
     tempFixExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", this.displayName));
     //Consumer<Float> consumer3DPosition = {f -> return this.getObjektRefFixture().setPosition(new PVector(f, getObjektRefFixture().getPosition().y, getObjektRefFixture().getPosition().z));}; -----------// change java version over 1.8
-    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", "pos3d.x", getPosition().x, 1.0));
-    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", "pos3d.y", getPosition().y, 1.0));
-    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", "pos3d.z", getPosition().z, 1.0));
-    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.x", "rot.x", getRotation().x, 1.0));
-    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.y", "rot.y", getRotation().y, 1.0));
-    tempFixExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.z", "rot.z", getRotation().z, 1.0));
+    tempFixExp.put(new SpinBox(this, "pos3d.x", "pos3d.x", getPosition().x, 1.0));
+    tempFixExp.put(new SpinBox(this, "pos3d.y", "pos3d.y", getPosition().y, 1.0));
+    tempFixExp.put(new SpinBox(this, "pos3d.z", "pos3d.z", getPosition().z, 1.0));
+    tempFixExp.put(new SpinBox(this, "rot.x", "rot.x", getRotation().x, 1.0));
+    tempFixExp.put(new SpinBox(this, "rot.y", "rot.y", getRotation().y, 1.0));
+    tempFixExp.put(new SpinBox(this, "rot.z", "rot.z", getRotation().z, 1.0));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Universe", "Universe", universe, 1, 0, QTY_UNIVERSES-1, -1));
     tempFixExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Address", "Address", address, 1, 1, 512, -1));
     tempFixExp.put(pan.returnGui());

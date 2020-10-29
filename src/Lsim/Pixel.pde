@@ -101,9 +101,9 @@ class Pixel extends ScreenObject {
   void loadGui() {
     Expandable pixelExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Pixel "+ this.displayName, true, false, constantData.CLR_MENU_LV1);
     pixelExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", this.displayName));
-    pixelExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Pos LR", "Pixel Pos LR", pos3d.x, 1.0));
-    pixelExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Pos UD", "Pixel Pos UD", pos3d.y, 1.0));
-    pixelExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Pos FB", "Pixel Pos FB", pos3d.z, 1.0));
+    pixelExp.put(new SpinBox(this, "Pixel Pos LR", "Pixel Pos LR", pos3d.x, 1.0));
+    pixelExp.put(new SpinBox(this, "Pixel Pos UD", "Pixel Pos UD", pos3d.y, 1.0));
+    pixelExp.put(new SpinBox(this, "Pixel Pos FB", "Pixel Pos FB", pos3d.z, 1.0));
     pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Width", "Pixel Width", int(faceSize.x), 1, 1, 10000, -1));
     pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Pixel Height", "Pixel Height", int(faceSize.y), 1, 1, 10000, -1));
     pixelExp.put(new IntBox(new PVector(0, 0), new PVector(80, 25), this, "Zoom Angle Min", "Zoom Angle Min", zoomAngleMin, 1, 0, 180, -1));

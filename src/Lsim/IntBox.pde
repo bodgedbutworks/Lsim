@@ -16,35 +16,12 @@ class IntBox<T extends IGuiObject> extends SpinBox {
   }
 
   /**
-  * @brief Handles value edit via keyboard
-  */
-  void editValKey() {                                                           // run only when a key is pressed
-    if ((key >= '0'  &&  key <= '9')  ||  (key == '-'  &&  utilStr.length() == 0)) {
-      utilStr += key;
-      keyEditState = 1;
-    } else if (key == BACKSPACE  &&  utilStr.length() > 0) {
-      utilStr = utilStr.substring(0, utilStr.length()-1);
-      keyEditState = 1;
-    } else if (key == DELETE) {
-      utilStr = "";
-      keyEditState = 1;
-    }
-
-    if (keyEditState == 1) {
-      if (key == ENTER) {
-        this.valNr = float(utilStr);
-        keyEditState = 0;
-      }
-    }
-  }
-
-  /**
   * @brief Displays Object, handles mouse over/pressed, decides what to do if the value changes
   */
   void display() {
     if (checkMouseOver()) {
       selectedGuiObject = this;
-      utilStr = new String(this.valNr);
+      this.utilStr = "" + this.valNr;
     }
     if (selectedGuiObject != this) {
       keyEditState = 0;
@@ -60,7 +37,7 @@ class IntBox<T extends IGuiObject> extends SpinBox {
     fill((keyEditState==1) ? 70+70*sin(millis()/50.0) : 0);                     // Flash text while editing via
     textSize(getSize().y/2);
     textAlign(LEFT, TOP);
-    text(((keyEditState==0) ? this.valNr : utilStr), getPosition().x+2, getPosition().y+4, getPosition().x+getSize().x-2, getPosition().y+getSize().y-4);
+    text(((keyEditState==0) ? "" + this.valNr : this.utilStr), getPosition().x+2, getPosition().y+4, getPosition().x+getSize().x-2, getPosition().y+getSize().y-4);
     fill(50, 255, 50);
     text(displayName, getPosition().x+getSize().x+SIZE_GUTTER, getPosition().y);
 

@@ -106,6 +106,7 @@ class ScreenObject<T extends IGuiObject> extends IGuiObject{
   public PVector getPosition() {
     return this.positionData.getPosition3D();
   }
+  
   public PVector getRotation() {
     return this.positionData.getRotation3D();
   }
@@ -124,4 +125,5 @@ class ScreenObject<T extends IGuiObject> extends IGuiObject{
   public void setSize(PVector iSize) {
     this.positionData.setSize3D(iSize); 
   }
+  
 }

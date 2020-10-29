@@ -34,18 +34,19 @@ class Cuboid extends ScreenObject {
   * inside Expandable
   */
   void loadGui() {
+    PVector ovsetForMenue = new PVector(0, 0);
     Expandable tempCubExp = new Expandable(new PVector(0, 0), new PVector(0, 0), "Cuboid", true, true, constantData.CLR_MENU_LV1);
-    tempCubExp.put(new NameBox(new PVector(0, 0), new PVector(120, 25), this, "name", "Name", this.displayName));
-    tempCubExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.x", "pos3d.x", getPosition().x, 1.0));
-    tempCubExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.y", "pos3d.y", getPosition().y, 1.0));
-    tempCubExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "pos3d.z", "pos3d.z", getPosition().z, 1.0));
-    tempCubExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.x", "rot.x", getRotation().x, 1.0));
-    tempCubExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.y", "rot.y", getRotation().y, 1.0));
-    tempCubExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "rot.z", "rot.z", getRotation().z, 1.0));
-    tempCubExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.x", "size3d.x", this.positionData.getSize3D().x, 1.0));
-    tempCubExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.y", "size3d.y", this.positionData.getSize3D().y, 1.0));
-    tempCubExp.put(new SpinBox(new PVector(0, 0), new PVector(80, 25), this, "size3d.z", "size3d.z", this.positionData.getSize3D().z, 1.0));
-    tempCubExp.put(new Button(new PVector(0, 0), new PVector(60, 30), this, "Copy Cuboid", "Copy", constantData.CLR_MENU_LV1));
+    tempCubExp.put(new NameBox(ovsetForMenue, new PVector(120, 25), this, "name", "Name", this.displayName));
+    tempCubExp.put(new SpinBox(this, "pos3d.x", "pos3d.x", getPosition().x, 1.0));
+    tempCubExp.put(new SpinBox(this, "pos3d.y", "pos3d.y", getPosition().y, 1.0));
+    tempCubExp.put(new SpinBox(this, "pos3d.z", "pos3d.z", getPosition().z, 1.0));
+    tempCubExp.put(new SpinBox(this, "rot.x", "rot.x", getRotation().x, 1.0));
+    tempCubExp.put(new SpinBox(this, "rot.y", "rot.y", getRotation().y, 1.0));
+    tempCubExp.put(new SpinBox(this, "rot.z", "rot.z", getRotation().z, 1.0));
+    tempCubExp.put(new SpinBox(this, "size3d.x", "size3d.x", this.positionData.getSize3D().x, 1.0));
+    tempCubExp.put(new SpinBox(this, "size3d.y", "size3d.y", this.positionData.getSize3D().y, 1.0));
+    tempCubExp.put(new SpinBox(this, "size3d.z", "size3d.z", this.positionData.getSize3D().z, 1.0));
+    tempCubExp.put(new Button(ovsetForMenue, new PVector(60, 30), this, "Copy Cuboid", "Copy", constantData.CLR_MENU_LV1));
     tempCubExp.put(new Button(new PVector(60+SIZE_GUTTER, 0-30-SIZE_GUTTER), new PVector(60, 30), this, "Delete Cuboid", "Delete", constantData.CLR_MENU_LV1));
     menuExpRight.put(tempCubExp);
   }
