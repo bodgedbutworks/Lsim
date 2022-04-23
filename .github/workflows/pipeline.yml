@@ -84,8 +84,8 @@ jobs:
         run: |
           wget -d --header="User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0" --header="Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8" --header="Accept-Encoding: gzip, deflate, br" --header="Host: www.ubaa.net" --header="Connection: keep-alive" https://www.ubaa.net/shared/processing/udp/udp.zip
           unzip udp.zip
-          mkdir -p Lsim/src/libraries && cp -r udp/* "$_"
-          ls -al Lsim/src
+          ls -al
+          mkdir -p Lsim/src/libraries && cp -r udp/udp "$_"
           ls -al Lsim/src/libraries
           ls -al Lsim/src/libraries/udp
       
