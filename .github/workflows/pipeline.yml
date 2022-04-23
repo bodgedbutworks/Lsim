@@ -82,7 +82,7 @@ jobs:
       
       - name: Install UDP lib
         run: |
-          wget https://www.ubaa.net/shared/processing/udp/udp.zip
+          wget -d https://www.ubaa.net/shared/processing/udp/udp.zip
           unzip udp.zip
           mkdir -p Lsim/src/libraries && cp -r udp/* "$_"
           ls -al Lsim/src
