@@ -1,6 +1,8 @@
 name: CI
 # Controls when the workflow will run
 on:
+  workflow_dispatch:
+  
   release:
     types: [published]
 
@@ -80,7 +82,7 @@ jobs:
       
       - name: Install UDP lib
         run: |
-          wget http://www.ubaa.net/shared/processing/udp/udp.zip
+          wget https://www.ubaa.net/shared/processing/udp/udp.zip
           unzip udp.zip
           mkdir -p Lsim/src/libraries && cp -r udp/* "$_"
           ls -al Lsim/src
