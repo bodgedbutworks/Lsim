@@ -1,8 +1,8 @@
 name: CI
 # Controls when the workflow will run
 on:
-  workflow_dispatch:
-  
+  push:
+    branches: [pipeline-dev]
   release:
     types: [published]
 
