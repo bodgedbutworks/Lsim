@@ -78,6 +78,15 @@ jobs:
           cd processing-3.5.4
           ./install.sh
       
+      - name: Install UDP lib
+        run: |
+          wget http://ubaa.net/shared/processing/udp/udp.zip
+          unzip udp.zip
+          mkdir -p Lsim/src/libraries && cp -r udp/* "$_"
+          ls -al Lsim/src
+          ls -al Lsim/src/libraries
+          ls -al Lsim/src/libraries/udp
+      
       - name: Install 32bit libs
         run: sudo apt update && sudo apt install lib32z1
       
