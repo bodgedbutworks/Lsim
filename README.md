@@ -1,11 +1,15 @@
 # Lsim - Lighting Simulation software
+<img src="https://user-images.githubusercontent.com/66431086/164988059-c8370333-f8d5-40fc-87e7-f6fdca0f9d66.PNG" width="70%">
 Created by bodgedbutworks
+<br>
+<br>
+<br>
 
----
 ### Feel free to contribute - Thanks for contributing!
----
+<br>
 
 ### Overview
+---
 
 #### Technological Purpose
 Simulation of lighting equipment (conventional and LED fixtures, moving lights, pixel matrices) controlled by ArtNet input
@@ -28,19 +32,34 @@ Submission for lecture "Effizient Programmieren I+II", attempts were made to pur
 #### Additional Mechanisms (Things that are automatically done for you)
 * Generation of Doxygen documentation, available here: http://193.196.52.193/doxygen/index.html
 
+
+<br>
+<br>
+<img src="https://user-images.githubusercontent.com/66431086/164988061-98f43070-5dcf-4330-b943-b1793b9be01f.PNG" width="70%">
+<br>
+
+
 ### Mid-Term goals
+---
 * (ToDo) Move Doxygen compilation to GitHub CI (currently done by CI of deprecated GitLab Repo, therefore outdated)
 * (ToDo) Add ArtNet output for real-world fixture control via Lsim
 * (ToDo) Add camera inputs and 2D->3D coordinate mapping
 * (ToDo) Add Kinect input
 
-
+<br>
 
 ### Usage
-
+---
 #### Option A: Download executable for you system [here](https://github.com/bodgedbutworks/Lsim/releases)
+> **Note for mac users**: \
+> If you download the prebuilt releases, they are considered suspicious and receive a quarantine flag. This results in errors such as `The application is corrupted and should be removed` and the application not starting.
+> This can be prevented by either installing [Processing 3](https://processing.org/download/) yourself and running the program from source OR by removing the quarantine flag from the app.
+> To remove the flag open a terminal window and execute the following command 
+> ```
+>  sudo xattr -d -r com.apple.quarantine <path_to_your_Blaize_V3.app>
+> ``` 
 
-#### Option B: Build from source code yourself using Processing 3 (below)
+#### Option B: Build from source code yourself using Processing 3
 * Download Processing 3 from https://processing.org/download/
 * Open Processing IDE, go to _Tools->Add Tool->Libraries Tab_ and install _UDP_ library by Stephane Cousot
 * Download the latest Lsim release (Source Code) from [here](https://github.com/bodgedbutworks/Lsim/releases)
@@ -73,3 +92,8 @@ Submission for lecture "Effizient Programmieren I+II", attempts were made to pur
 * Converter (e.g. Cinema4D): Import .stl with scale 1 Millimeter
 * Export as .obj with scale 10 Millimeters and inverted Y-axis
 * Place file in data/ subdirectory of sketch, name starting with "env_"
+
+
+<br>
+<br>
+<img src="https://user-images.githubusercontent.com/66431086/164988063-a54b053c-011b-4e3c-9b3c-36f2e7d86421.PNG" width="70%">
