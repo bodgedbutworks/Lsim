@@ -1,5 +1,5 @@
 # Lsim - Lighting Simulation software
-Created by Oliver Steigauf
+Created by bodgedbutworks
 
 ---
 ### Feel free to contribute - Thanks for contributing!
@@ -7,13 +7,13 @@ Created by Oliver Steigauf
 
 ### Overview
 
-##### Technological Purpose
+#### Technological Purpose
 Simulation of lighting equipment (conventional and LED fixtures, moving lights, pixel matrices) controlled by ArtNet input
 
-##### Educational Purpose
-Submission for "Effizient Programmieren I+II"
+#### Educational Purpose
+Submission for lecture "Effizient Programmieren I+II", attempts were made to pursue a clean code style
 
-##### Software Design Guidelines (Things you should stick to while coding)
+#### Software Design Guidelines (Things you should stick to while coding)
 * Code style in compliance with Processing 3.5.4 Autoformat
 * Naming convention:
     * Classes: First letter Caps ("Vehicles")
@@ -25,15 +25,11 @@ Submission for "Effizient Programmieren I+II"
 * Documentation via descriptive variable names, comments in code and Doxygen-specific comments
 * Version control via Git (duh)
 
-##### Additional Mechanisms (Things that are automatically done for you)
+#### Additional Mechanisms (Things that are automatically done for you)
 * Generation of Doxygen documentation, available here: http://193.196.52.193/doxygen/index.html
-* Automated build check (see badges below)
-* <del>(ToDo) Automated testing upon push</del> Not working, maybe due to missing OpenGL capabilities on CI server
-* <del>(ToDo) Generation of executables upon merge to master branch</del> Not working, maybe due to launch4j incompatibility on CI server
 
-[![pipeline status](https://gitlab.fsmach.uni-stuttgart.de/lsim/lsim/badges/master/pipeline.svg)](https://gitlab.fsmach.uni-stuttgart.de/lsim/lsim/-/commits/master)
-
-##### Mid-Term goals
+### Mid-Term goals
+* (ToDo) Move Doxygen compilation to GitHub CI (currently done by CI of deprecated GitLab Repo, therefore outdated)
 * (ToDo) Add ArtNet output for real-world fixture control via Lsim
 * (ToDo) Add camera inputs and 2D->3D coordinate mapping
 * (ToDo) Add Kinect input
@@ -42,22 +38,24 @@ Submission for "Effizient Programmieren I+II"
 
 ### Usage
 
-##### Setup
+#### Option A: Download executable for you system [here](https://github.com/bodgedbutworks/Lsim/releases)
+
+#### Option B: Build from source code yourself using Processing 3 (below)
 * Download Processing 3 from https://processing.org/download/
 * Open Processing IDE, go to _Tools->Add Tool->Libraries Tab_ and install _UDP_ library by Stephane Cousot
-* Download the latest Lsim release from https://gitlab.fsmach.uni-stuttgart.de/lsim/lsim/-/releases
+* Download the latest Lsim release (Source Code) from [here](https://github.com/bodgedbutworks/Lsim/releases)
 * Open _Lsim.pde_ from src/Lsim/ and click _Run_ button in the IDE
 * If you experience problems, check if your Java Runtime Environment version is 8. Newer versions might work, but haven't yet been tested.
 * Starting Lsim _before_ opening your lighting control software is usually a good idea.
-* If it still doesn't work as expected, please report the issue at https://gitlab.fsmach.uni-stuttgart.de/lsim/lsim/-/issues or via E-Mail to lsim@aerotrax.de
+* If it still doesn't work as expected, please [report the issue here](https://github.com/bodgedbutworks/Lsim/issues) or via E-Mail to lsim@aerotrax.de
 
-##### Key bindings
+#### Key bindings
 * DELETE: Clear spin box
 * BACKSPACE: Delete rightmost spin box digit
 * '-', '0'-'9', '.': Change spin box value
 * ENTER: Apply value
 
-##### Mouse control
+#### Mouse control
 * Mousewheel (menu): Increment/Decrement box values
 * CONTROL + Mousewheel: Incrementation speed x10
 * SHIFT + Mousewheel: Incrementation speed x100
@@ -65,12 +63,12 @@ Submission for "Effizient Programmieren I+II"
 * Hold right mouse button: Orbit around point of interest
 * Hold middle mouse button: Move point of interest
 
-##### General
+#### General
 * Scale is 1cm/px
-* Backups are automatically created in save/autobackups/ upon program start, so if you (or a bug) messed something up, check older versions there
+* Backups are automatically created in save/autobackups/ upon program start, so if you (or a bug) messed something up, check for older versions there
 
-##### Environment format generation
-* CAD (e.g. CATIA): Model should be roughly centered around vertical axis
+#### Environment models generation
+* CAD (e.g. CATIA): Model should roughly be centered around the vertical axis
 * Tesselate CAD model with 0.5 Millimeters allowed deviation
 * Converter (e.g. Cinema4D): Import .stl with scale 1 Millimeter
 * Export as .obj with scale 10 Millimeters and inverted Y-axis
