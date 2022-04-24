@@ -1,8 +1,6 @@
 name: CI
 # Controls when the workflow will run
 on:
-  push:
-    branches: [doxygen-dev]
   release:
     types: [published]
 
@@ -104,6 +102,7 @@ jobs:
       - name: doxygen
         run: |
           sudo apt install doxygen
+          sudo apt install graphviz
           cd Lsim
           doxygen
           zip -rq Documentation.zip doc/
