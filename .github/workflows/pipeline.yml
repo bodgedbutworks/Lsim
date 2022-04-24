@@ -101,13 +101,21 @@ jobs:
           $GITHUB_WORKSPACE/processing-3.5.4/processing-java --sketch=$GITHUB_WORKSPACE/Lsim/src/Lsim --output=$GITHUB_WORKSPACE/Lsim_${GITHUB_REF#refs/tags/}_windows --platform=windows --export;
           zip -rq Lsim_${GITHUB_REF#refs/tags/}_windows.zip Lsim_${GITHUB_REF#refs/tags/}_windows/ -x "Lsim_${GITHUB_REF#refs/tags/}_windows/source/*"
       
+      - name: doxygen
+        run: |
+          sudo apt install doxygen
+          cd Lsim
+          doxygen
+          zip -rq Documentation.zip doc/
+      
       # Upload assets to created release
       - name: Upload release assets 
         run: > 
           cd $GITHUB_WORKSPACE/Lsim
 
-          gh release upload ${GITHUB_REF#refs/tags/} 
+          gh release upload ${GITHUB_REF#refs/tags/}
           $GITHUB_WORKSPACE/Lsim_${GITHUB_REF#refs/tags/}_windows.zip
+          $GITHUB_WORKSPACE/Lsim/Documentation.zip
           --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
