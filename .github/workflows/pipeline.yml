@@ -1,6 +1,8 @@
 name: CI
 # Controls when the workflow will run
 on:
+  push:
+    branches: [doxygen-dev]
   release:
     types: [published]
 
