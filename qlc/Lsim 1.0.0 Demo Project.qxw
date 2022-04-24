@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Workspace>
+<Workspace xmlns="http://www.qlcplus.org/Workspace" CurrentWindow="VirtualConsole">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2</Version>
+  <Author>Oliver</Author>
+ </Creator>
+ <Engine>
+  <InputOutputMap>
+   <Universe Name="Universe 1" ID="0">
+    <Output Plugin="ArtNet" Line="0"/>
+   </Universe>
+   <Universe Name="Universe 2" ID="1">
+    <Output Plugin="ArtNet" Line="0"/>
+   </Universe>
+   <Universe Name="Universe 3" ID="2"/>
+   <Universe Name="Universe 4" ID="3"/>
+  </InputOutputMap>
+  <Fixture>
+   <Manufacturer>AK Craesch</Manufacturer>
+   <Model>Sharpy (Correct Gobo Pics)</Model>
+   <Mode>Standard</Mode>
+   <ID>0</ID>
+   <Name>Sharpy #1</Name>
+   <Universe>1</Universe>
+   <Address>0</Address>
+   <Channels>16</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>AK Craesch</Manufacturer>
+   <Model>Sharpy (Correct Gobo Pics)</Model>
+   <Mode>Standard</Mode>
+   <ID>1</ID>
+   <Name>Sharpy #2</Name>
+   <Universe>1</Universe>
+   <Address>16</Address>
+   <Channels>16</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>AK Craesch</Manufacturer>
+   <Model>Sharpy (Correct Gobo Pics)</Model>
+   <Mode>Standard</Mode>
+   <ID>2</ID>
+   <Name>Sharpy #3</Name>
+   <Universe>1</Universe>
+   <Address>32</Address>
+   <Channels>16</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>AK Craesch</Manufacturer>
+   <Model>Sharpy (Correct Gobo Pics)</Model>
+   <Mode>Standard</Mode>
+   <ID>3</ID>
+   <Name>Sharpy #4</Name>
+   <Universe>1</Universe>
+   <Address>48</Address>
+   <Channels>16</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>ignition</Manufacturer>
+   <Model>Strip X</Model>
+   <Mode>10Ch</Mode>
+   <ID>4</ID>
+   <Name>Strip X #1</Name>
+   <Universe>0</Universe>
+   <Address>26</Address>
+   <Channels>10</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>ignition</Manufacturer>
+   <Model>Strip X</Model>
+   <Mode>10Ch</Mode>
+   <ID>5</ID>
+   <Name>Strip X #2</Name>
+   <Universe>0</Universe>
+   <Address>36</Address>
+   <Channels>10</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>ignition</Manufacturer>
+   <Model>Strip X</Model>
+   <Mode>10Ch</Mode>
+   <ID>6</ID>
+   <Name>Strip X #3</Name>
+   <Universe>0</Universe>
+   <Address>46</Address>
+   <Channels>10</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>ignition</Manufacturer>
+   <Model>Strip X</Model>
+   <Mode>10Ch</Mode>
+   <ID>7</ID>
+   <Name>Strip X #4</Name>
+   <Universe>0</Universe>
+   <Address>56</Address>
+   <Channels>10</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>SGM</Manufacturer>
+   <Model>P-5</Model>
+   <Mode>6Ch (RAW)</Mode>
+   <ID>8</ID>
+   <Name>P-5 #1</Name>
+   <Universe>0</Universe>
+   <Address>240</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>SGM</Manufacturer>
+   <Model>P-5</Model>
+   <Mode>6Ch (RAW)</Mode>
+   <ID>9</ID>
+   <Name>P-5 #2</Name>
+   <Universe>0</Universe>
+   <Address>246</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>SGM</Manufacturer>
+   <Model>P-5</Model>
+   <Mode>6Ch (RAW)</Mode>
+   <ID>10</ID>
+   <Name>P-5 #3</Name>
+   <Universe>0</Universe>
+   <Address>252</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>SGM</Manufacturer>
+   <Model>P-5</Model>
+   <Mode>6Ch (RAW)</Mode>
+   <ID>11</ID>
+   <Name>P-5 #4</Name>
+   <Universe>0</Universe>
+   <Address>258</Address>
+   <Channels>6</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>GLP</Manufacturer>
+   <Model>Impression Spot_One</Model>
+   <Mode>Normal (24ch)</Mode>
+   <ID>12</ID>
+   <Name>Impression Spot_One #1</Name>
+   <Universe>0</Universe>
+   <Address>416</Address>
+   <Channels>24</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>GLP</Manufacturer>
+   <Model>Impression Spot_One</Model>
+   <Mode>Normal (24ch)</Mode>
+   <ID>13</ID>
+   <Name>Impression Spot_One #2</Name>
+   <Universe>0</Universe>
+   <Address>440</Address>
+   <Channels>24</Channels>
+  </Fixture>
+  <FixtureGroup ID="0">
+   <Name>Tutti</Name>
+   <Size X="20" Y="5"/>
+   <Head X="4" Y="0" Fixture="12">0</Head>
+   <Head X="15" Y="0" Fixture="13">0</Head>
+   <Head X="0" Y="1" Fixture="4">0</Head>
+   <Head X="1" Y="1" Fixture="4">1</Head>
+   <Head X="2" Y="1" Fixture="4">2</Head>
+   <Head X="3" Y="1" Fixture="4">3</Head>
+   <Head X="4" Y="1" Fixture="4">4</Head>
+   <Head X="5" Y="1" Fixture="4">5</Head>
+   <Head X="6" Y="1" Fixture="4">6</Head>
+   <Head X="7" Y="1" Fixture="4">7</Head>
+   <Head X="8" Y="1" Fixture="4">8</Head>
+   <Head X="9" Y="1" Fixture="4">9</Head>
+   <Head X="10" Y="1" Fixture="6">0</Head>
+   <Head X="11" Y="1" Fixture="6">1</Head>
+   <Head X="12" Y="1" Fixture="6">2</Head>
+   <Head X="13" Y="1" Fixture="6">3</Head>
+   <Head X="14" Y="1" Fixture="6">4</Head>
+   <Head X="15" Y="1" Fixture="6">5</Head>
+   <Head X="16" Y="1" Fixture="6">6</Head>
+   <Head X="17" Y="1" Fixture="6">7</Head>
+   <Head X="18" Y="1" Fixture="6">8</Head>
+   <Head X="19" Y="1" Fixture="6">9</Head>
+   <Head X="0" Y="2" Fixture="5">0</Head>
+   <Head X="1" Y="2" Fixture="5">1</Head>
+   <Head X="2" Y="2" Fixture="5">2</Head>
+   <Head X="3" Y="2" Fixture="5">3</Head>
+   <Head X="4" Y="2" Fixture="5">4</Head>
+   <Head X="5" Y="2" Fixture="5">5</Head>
+   <Head X="6" Y="2" Fixture="5">6</Head>
+   <Head X="7" Y="2" Fixture="5">7</Head>
+   <Head X="8" Y="2" Fixture="5">8</Head>
+   <Head X="9" Y="2" Fixture="5">9</Head>
+   <Head X="10" Y="2" Fixture="7">0</Head>
+   <Head X="11" Y="2" Fixture="7">1</Head>
+   <Head X="12" Y="2" Fixture="7">2</Head>
+   <Head X="13" Y="2" Fixture="7">3</Head>
+   <Head X="14" Y="2" Fixture="7">4</Head>
+   <Head X="15" Y="2" Fixture="7">5</Head>
+   <Head X="16" Y="2" Fixture="7">6</Head>
+   <Head X="17" Y="2" Fixture="7">7</Head>
+   <Head X="18" Y="2" Fixture="7">8</Head>
+   <Head X="19" Y="2" Fixture="7">9</Head>
+   <Head X="0" Y="3" Fixture="0">0</Head>
+   <Head X="6" Y="3" Fixture="1">0</Head>
+   <Head X="13" Y="3" Fixture="2">0</Head>
+   <Head X="19" Y="3" Fixture="3">0</Head>
+   <Head X="0" Y="4" Fixture="8">0</Head>
+   <Head X="6" Y="4" Fixture="9">0</Head>
+   <Head X="13" Y="4" Fixture="10">0</Head>
+   <Head X="19" Y="4" Fixture="11">0</Head>
+  </FixtureGroup>
+  <FixtureGroup ID="1">
+   <Name>Strips</Name>
+   <Size X="20" Y="2"/>
+   <Head X="0" Y="0" Fixture="4">0</Head>
+   <Head X="1" Y="0" Fixture="4">1</Head>
+   <Head X="2" Y="0" Fixture="4">2</Head>
+   <Head X="3" Y="0" Fixture="4">3</Head>
+   <Head X="4" Y="0" Fixture="4">4</Head>
+   <Head X="5" Y="0" Fixture="4">5</Head>
+   <Head X="6" Y="0" Fixture="4">6</Head>
+   <Head X="7" Y="0" Fixture="4">7</Head>
+   <Head X="8" Y="0" Fixture="4">8</Head>
+   <Head X="9" Y="0" Fixture="4">9</Head>
+   <Head X="10" Y="0" Fixture="6">0</Head>
+   <Head X="11" Y="0" Fixture="6">1</Head>
+   <Head X="12" Y="0" Fixture="6">2</Head>
+   <Head X="13" Y="0" Fixture="6">3</Head>
+   <Head X="14" Y="0" Fixture="6">4</Head>
+   <Head X="15" Y="0" Fixture="6">5</Head>
+   <Head X="16" Y="0" Fixture="6">6</Head>
+   <Head X="17" Y="0" Fixture="6">7</Head>
+   <Head X="18" Y="0" Fixture="6">8</Head>
+   <Head X="19" Y="0" Fixture="6">9</Head>
+   <Head X="0" Y="1" Fixture="5">0</Head>
+   <Head X="1" Y="1" Fixture="5">1</Head>
+   <Head X="2" Y="1" Fixture="5">2</Head>
+   <Head X="3" Y="1" Fixture="5">3</Head>
+   <Head X="4" Y="1" Fixture="5">4</Head>
+   <Head X="5" Y="1" Fixture="5">5</Head>
+   <Head X="6" Y="1" Fixture="5">6</Head>
+   <Head X="7" Y="1" Fixture="5">7</Head>
+   <Head X="8" Y="1" Fixture="5">8</Head>
+   <Head X="9" Y="1" Fixture="5">9</Head>
+   <Head X="10" Y="1" Fixture="7">0</Head>
+   <Head X="11" Y="1" Fixture="7">1</Head>
+   <Head X="12" Y="1" Fixture="7">2</Head>
+   <Head X="13" Y="1" Fixture="7">3</Head>
+   <Head X="14" Y="1" Fixture="7">4</Head>
+   <Head X="15" Y="1" Fixture="7">5</Head>
+   <Head X="16" Y="1" Fixture="7">6</Head>
+   <Head X="17" Y="1" Fixture="7">7</Head>
+   <Head X="18" Y="1" Fixture="7">8</Head>
+   <Head X="19" Y="1" Fixture="7">9</Head>
+  </FixtureGroup>
+  <ChannelsGroup ID="0" Name="Sharpys Clr White" Value="0">0,0,1,0,2,0,3,0</ChannelsGroup>
+  <Function ID="0" Type="RGBMatrix" Name="LR">
+   <Speed FadeIn="0" FadeOut="200" Duration="50"/>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm Type="Script">Stripes</Algorithm>
+   <DimmerControl>1</DimmerControl>
+   <MonoColor>4278219775</MonoColor>
+   <FixtureGroup>0</FixtureGroup>
+  </Function>
+  <Function ID="1" Type="EFX" Name="Circle">
+   <Fixture>
+    <ID>12</ID>
+    <Head>0</Head>
+    <Mode>0</Mode>
+    <Direction>Forward</Direction>
+    <StartOffset>0</StartOffset>
+   </Fixture>
+   <Fixture>
+    <ID>13</ID>
+    <Head>0</Head>
+    <Mode>0</Mode>
+    <Direction>Forward</Direction>
+    <StartOffset>0</StartOffset>
+   </Fixture>
+   <Fixture>
+    <ID>0</ID>
+    <Head>0</Head>
+    <Mode>0</Mode>
+    <Direction>Forward</Direction>
+    <StartOffset>0</StartOffset>
+   </Fixture>
+   <Fixture>
+    <ID>1</ID>
+    <Head>0</Head>
+    <Mode>0</Mode>
+    <Direction>Forward</Direction>
+    <StartOffset>0</StartOffset>
+   </Fixture>
+   <Fixture>
+    <ID>2</ID>
+    <Head>0</Head>
+    <Mode>0</Mode>
+    <Direction>Forward</Direction>
+    <StartOffset>0</StartOffset>
+   </Fixture>
+   <Fixture>
+    <ID>3</ID>
+    <Head>0</Head>
+    <Mode>0</Mode>
+    <Direction>Forward</Direction>
+    <StartOffset>0</StartOffset>
+   </Fixture>
+   <PropagationMode>Asymmetric</PropagationMode>
+   <Speed FadeIn="0" FadeOut="0" Duration="7000"/>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm>Circle</Algorithm>
+   <Width>50</Width>
+   <Height>50</Height>
+   <Rotation>0</Rotation>
+   <StartOffset>0</StartOffset>
+   <IsRelative>0</IsRelative>
+   <Axis Name="X">
+    <Offset>127</Offset>
+    <Frequency>2</Frequency>
+    <Phase>90</Phase>
+   </Axis>
+   <Axis Name="Y">
+    <Offset>127</Offset>
+    <Frequency>3</Frequency>
+    <Phase>0</Phase>
+   </Axis>
+  </Function>
+  <Function ID="2" Type="RGBMatrix" Name="Noise">
+   <Speed FadeIn="0" FadeOut="1000" Duration="234"/>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm Type="Script">Noise</Algorithm>
+   <DimmerControl>1</DimmerControl>
+   <MonoColor>4293787903</MonoColor>
+   <FixtureGroup>0</FixtureGroup>
+   <Property Name="noisePercentage" Value="Medium"/>
+  </Function>
+  <Function ID="3" Type="RGBMatrix" Name="Strips Sparkle">
+   <Speed FadeIn="0" FadeOut="300" Duration="30"/>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm Type="Script">Random Pixel Per Row</Algorithm>
+   <DimmerControl>1</DimmerControl>
+   <MonoColor>4294967295</MonoColor>
+   <FixtureGroup>1</FixtureGroup>
+  </Function>
+  <Function ID="4" Type="RGBMatrix" Name="Strips In Out">
+   <Speed FadeIn="100" FadeOut="500" Duration="100"/>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm Type="Script">Fill Unfill From Center</Algorithm>
+   <DimmerControl>1</DimmerControl>
+   <MonoColor>4294967295</MonoColor>
+   <FixtureGroup>1</FixtureGroup>
+  </Function>
+  <Function ID="5" Type="RGBMatrix" Name="Gradient">
+   <Speed FadeIn="100" FadeOut="500" Duration="100"/>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm Type="Script">Gradient</Algorithm>
+   <DimmerControl>1</DimmerControl>
+   <MonoColor>4294901760</MonoColor>
+   <FixtureGroup>0</FixtureGroup>
+   <Property Name="orientation" Value="Horizontal"/>
+   <Property Name="presetSize" Value="15"/>
+  </Function>
+  <Function ID="6" Type="EFX" Name="Tilt Wave">
+   <Fixture>
+    <ID>12</ID>
+    <Head>0</Head>
+    <Mode>0</Mode>
+    <Direction>Forward</Direction>
+    <StartOffset>50</StartOffset>
+   </Fixture>
+   <Fixture>
+    <ID>13</ID>
+    <Head>0</Head>
+    <Mode>0</Mode>
+    <Direction>Forward</Direction>
+    <StartOffset>100</StartOffset>
+   </Fixture>
+   <Fixture>
+    <ID>0</ID>
+    <Head>0</Head>
+    <Mode>0</Mode>
+    <Direction>Forward</Direction>
+    <StartOffset>0</StartOffset>
+   </Fixture>
+   <Fixture>
+    <ID>1</ID>
+    <Head>0</Head>
+    <Mode>0</Mode>
+    <Direction>Forward</Direction>
+    <StartOffset>50</StartOffset>
+   </Fixture>
+   <Fixture>
+    <ID>2</ID>
+    <Head>0</Head>
+    <Mode>0</Mode>
+    <Direction>Forward</Direction>
+    <StartOffset>100</StartOffset>
+   </Fixture>
+   <Fixture>
+    <ID>3</ID>
+    <Head>0</Head>
+    <Mode>0</Mode>
+    <Direction>Forward</Direction>
+    <StartOffset>150</StartOffset>
+   </Fixture>
+   <PropagationMode>Parallel</PropagationMode>
+   <Speed FadeIn="0" FadeOut="0" Duration="8000"/>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm>Line</Algorithm>
+   <Width>0</Width>
+   <Height>60</Height>
+   <Rotation>0</Rotation>
+   <StartOffset>0</StartOffset>
+   <IsRelative>0</IsRelative>
+   <Axis Name="X">
+    <Offset>87</Offset>
+    <Frequency>2</Frequency>
+    <Phase>90</Phase>
+   </Axis>
+   <Axis Name="Y">
+    <Offset>177</Offset>
+    <Frequency>3</Frequency>
+    <Phase>0</Phase>
+   </Axis>
+  </Function>
+  <Function ID="7" Type="RGBMatrix" Name="dimmerTest" BlendMode="Subtractive">
+   <Speed FadeIn="0" FadeOut="0" Duration="500"/>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm Type="Plain"/>
+   <DimmerControl>0</DimmerControl>
+   <MonoColor>4294967295</MonoColor>
+   <FixtureGroup>0</FixtureGroup>
+  </Function>
+  <Monitor DisplayMode="0" ShowLabels="0">
+   <Font>Arial,12,-1,5,50,0,0,0,0,0</Font>
+   <ChannelStyle>0</ChannelStyle>
+   <ValueStyle>0</ValueStyle>
+   <Grid Width="5" Height="3" Depth="5" Units="0"/>
+  </Monitor>
+ </Engine>
+ <VirtualConsole>
+  <Frame Caption="">
+   <Appearance>
+    <FrameStyle>None</FrameStyle>
+    <ForegroundColor>Default</ForegroundColor>
+    <BackgroundColor>4292861919</BackgroundColor>
+    <BackgroundImage>None</BackgroundImage>
+    <Font>Default</Font>
+   </Appearance>
+   <SoloFrame Caption="" ID="0">
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <WindowState Visible="True" X="140" Y="60" Width="200" Height="200"/>
+    <AllowChildren>True</AllowChildren>
+    <AllowResize>True</AllowResize>
+    <ShowHeader>False</ShowHeader>
+    <ShowEnableButton>False</ShowEnableButton>
+    <Mixing>False</Mixing>
+    <Collapsed>False</Collapsed>
+    <Disabled>False</Disabled>
+    <Button Caption="LR" ID="2" Icon="">
+     <WindowState Visible="True" X="10" Y="10" Width="80" Height="80"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <Function ID="0"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+    </Button>
+    <Button Caption="Noise" ID="8" Icon="">
+     <WindowState Visible="True" X="90" Y="10" Width="80" Height="80"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <Function ID="2"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+    </Button>
+    <Button Caption="Gradient" ID="13" Icon="">
+     <WindowState Visible="True" X="10" Y="90" Width="80" Height="80"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <Function ID="5"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+    </Button>
+   </SoloFrame>
+   <SoloFrame Caption="" ID="4">
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <WindowState Visible="True" X="425" Y="65" Width="200" Height="200"/>
+    <AllowChildren>True</AllowChildren>
+    <AllowResize>True</AllowResize>
+    <ShowHeader>False</ShowHeader>
+    <ShowEnableButton>False</ShowEnableButton>
+    <Mixing>False</Mixing>
+    <Collapsed>False</Collapsed>
+    <Disabled>False</Disabled>
+    <Button Caption="Circle" ID="5" Icon="">
+     <WindowState Visible="True" X="10" Y="10" Width="80" Height="80"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <Function ID="1"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+    </Button>
+    <Button Caption="Tilt Wave" ID="18" Icon="">
+     <WindowState Visible="True" X="90" Y="10" Width="80" Height="80"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <Function ID="6"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+    </Button>
+   </SoloFrame>
+   <Slider Caption="Sharpys White" ID="6" WidgetStyle="Slider" InvertedAppearance="false">
+    <WindowState Visible="True" X="690" Y="65" Width="60" Height="200"/>
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <SliderMode ValueDisplayStyle="Exact" ClickAndGoType="None" Monitor="false">Level</SliderMode>
+    <Level LowLimit="0" HighLimit="255" Value="255">
+     <Channel Fixture="0">0</Channel>
+     <Channel Fixture="1">0</Channel>
+     <Channel Fixture="2">0</Channel>
+     <Channel Fixture="3">0</Channel>
+    </Level>
+    <Playback>
+     <Function>4294967295</Function>
+    </Playback>
+   </Slider>
+   <Slider Caption="Heads Zoom" ID="7" WidgetStyle="Slider" InvertedAppearance="false">
+    <WindowState Visible="True" X="750" Y="65" Width="60" Height="200"/>
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <SliderMode ValueDisplayStyle="Exact" ClickAndGoType="None" Monitor="false">Level</SliderMode>
+    <Level LowLimit="0" HighLimit="255" Value="0">
+     <Channel Fixture="0">8</Channel>
+     <Channel Fixture="1">8</Channel>
+     <Channel Fixture="2">8</Channel>
+     <Channel Fixture="3">8</Channel>
+     <Channel Fixture="12">14</Channel>
+     <Channel Fixture="13">14</Channel>
+    </Level>
+    <Playback>
+     <Function>4294967295</Function>
+    </Playback>
+   </Slider>
+   <SoloFrame Caption="" ID="10">
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <WindowState Visible="True" X="140" Y="260" Width="200" Height="200"/>
+    <AllowChildren>True</AllowChildren>
+    <AllowResize>True</AllowResize>
+    <ShowHeader>False</ShowHeader>
+    <ShowEnableButton>False</ShowEnableButton>
+    <Mixing>False</Mixing>
+    <Collapsed>False</Collapsed>
+    <Disabled>False</Disabled>
+    <Button Caption="Strips Sparkle" ID="11" Icon="">
+     <WindowState Visible="True" X="10" Y="10" Width="80" Height="80"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <Function ID="3"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+    </Button>
+    <Button Caption="Strips In Out" ID="12" Icon="">
+     <WindowState Visible="True" X="90" Y="10" Width="80" Height="80"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <Function ID="4"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+    </Button>
+   </SoloFrame>
+   <Label Caption="Color &amp; Dimmer" ID="14">
+    <WindowState Visible="True" X="190" Y="30" Width="100" Height="30"/>
+    <Appearance>
+     <FrameStyle>None</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+   </Label>
+   <Label Caption="Strips Dimmer" ID="15">
+    <WindowState Visible="True" X="185" Y="460" Width="100" Height="30"/>
+    <Appearance>
+     <FrameStyle>None</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+   </Label>
+   <Label Caption="EFX" ID="16">
+    <WindowState Visible="True" X="475" Y="35" Width="100" Height="30"/>
+    <Appearance>
+     <FrameStyle>None</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+   </Label>
+   <Label Caption="Misc" ID="17">
+    <WindowState Visible="True" X="700" Y="35" Width="100" Height="30"/>
+    <Appearance>
+     <FrameStyle>None</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+   </Label>
+   <Button Caption="dimmerTest" ID="1" Icon="">
+    <WindowState Visible="True" X="410" Y="490" Width="80" Height="80"/>
+    <Appearance>
+     <FrameStyle>None</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <Function ID="7"/>
+    <Action>Toggle</Action>
+    <Intensity Adjust="False">100</Intensity>
+   </Button>
+   <Matrix Caption="dimmerTest" ID="3">
+    <WindowState Visible="True" X="530" Y="395" Width="255" Height="220"/>
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <Function ID="7" InstantApply="true"/>
+    <Visibility>1</Visibility>
+   </Matrix>
+  </Frame>
+  <Properties>
+   <Size Width="1920" Height="1080"/>
+   <GrandMaster ChannelMode="Intensity" ValueMode="Reduce" SliderMode="Normal"/>
+  </Properties>
+ </VirtualConsole>
+ <SimpleDesk>
+  <Engine/>
+ </SimpleDesk>
+</Workspace>
