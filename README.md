@@ -29,10 +29,6 @@ Submission for lecture "Effizient Programmieren I+II", attempts were made to pur
 * Documentation via descriptive variable names, comments in code and Doxygen-specific comments
 * Version control via Git (duh)
 
-#### Additional Mechanisms (Things that are automatically done for you)
-* Generation of Doxygen documentation, available here: http://193.196.52.193/doxygen/index.html
-
-
 <br>
 <br>
 <img src="https://user-images.githubusercontent.com/66431086/164988061-98f43070-5dcf-4330-b943-b1793b9be01f.PNG" width="70%">
@@ -41,7 +37,6 @@ Submission for lecture "Effizient Programmieren I+II", attempts were made to pur
 
 ### Mid-Term goals
 ---
-* (ToDo) Move Doxygen compilation to GitHub CI (currently done by CI of deprecated GitLab Repo, therefore outdated)
 * (ToDo) Add ArtNet output for real-world fixture control via Lsim
 * (ToDo) Add camera inputs and 2D->3D coordinate mapping
 * (ToDo) Add Kinect input
@@ -92,6 +87,12 @@ Submission for lecture "Effizient Programmieren I+II", attempts were made to pur
 * Converter (e.g. Cinema4D): Import .stl with scale 1 Millimeter
 * Export as .obj with scale 10 Millimeters and inverted Y-axis
 * Place file in data/ subdirectory of sketch, name starting with "env_"
+
+<br>
+
+### Code Documentation
+---
+Available [here](https://github.com/bodgedbutworks/Lsim/releases) (Download _Documentation.zip_, open _Documentation/doc/html/index.html_ with your browser)
 
 
 <br>
