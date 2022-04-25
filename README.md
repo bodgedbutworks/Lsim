@@ -84,8 +84,9 @@ Submission for lecture "Effizient Programmieren I+II", attempts were made to pur
 #### Environment models generation
 * CAD (e.g. CATIA): Model should roughly be centered around the vertical axis
 * Tesselate CAD model with 0.5 Millimeters allowed deviation
-* Converter (e.g. Cinema4D): Import .stl with scale 1 Millimeter
-* Export as .obj with scale 10 Millimeters and inverted Y-axis
+* Converter/mesh editor (e.g. Cinema 4D): Import .stl with standard settings
+* Scale and position model accordingly, +Y axis is the upwards direction
+* Export as .obj (for Meshroom models: Select "Flip X Axis" and "Flip Y Axis")
 * Place file in data/ subdirectory of sketch, name starting with "env_"
 
 <br>
