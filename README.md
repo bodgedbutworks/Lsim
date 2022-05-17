@@ -48,11 +48,14 @@ Submission for lecture "Effizient Programmieren I+II", attempts were made to pur
 #### Option A: Download executable for you system [here](https://github.com/bodgedbutworks/Lsim/releases)
 > **Note for mac users**: \
 > If you download the prebuilt releases, they are considered suspicious and receive a quarantine flag. This results in errors such as `The application is corrupted and should be removed` and the application not starting.
-> This can be prevented by either installing [Processing 3](https://processing.org/download/) yourself and running the program from source OR by removing the quarantine flag from the app.
-> To remove the flag open a terminal window and execute the following command 
-> ```
->  sudo xattr -d -r com.apple.quarantine <path_to_your_Blaize_V3.app>
-> ``` 
+> This can be prevented either by installing [Processing 3](https://processing.org/download/) yourself and running the program from source OR (quicker) by removing the quarantine flag from the app.
+> To remove the flag open a terminal window (Spotlight search [CMD+Space], type "Term...") and execute the following commands: \
+> __Navigate to where Lsim was downloaded. You can partially type the directory names (e.g. "Lsi...") and press TAB multiple times to autocomplete:__ \
+> ```cd ~/Downloads/Lsim_v1.0.1_macos-x86_64``` \
+> __Remove quarantine flag:__ \
+> ```sudo xattr -d -r com.apple.quarantine Lsim.app```
+
+
 
 #### Option B: Build from source code yourself using Processing 3
 * Download Processing 3 from https://processing.org/download/
