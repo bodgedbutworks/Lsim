@@ -222,7 +222,7 @@ void draw() {
     pushMatrix();
     noStroke();
     fill(70);
-    translate(0, -1, 0);
+    translate(0, -1, 0);    
     shape(environmentShape);
     popMatrix();
   }

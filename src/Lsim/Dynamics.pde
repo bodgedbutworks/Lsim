@@ -71,7 +71,7 @@ class Dynamics {
     }
     if (state == 1) {
       float lookahead_spd = spd+acc;              // Estimate theoretical speed in the next iteration
-      float lookahead_pos = diff-spd;             // Estimate theoretical pos in the next iteration
+      float lookahead_pos = diff-lookahead_spd;             // Estimate theoretical pos in the next iteration
       // If either max spd reached OR it's already time to decelerate
       if ((abs(spd) >= maxSpd)  ||  ((lookahead_spd*lookahead_spd)/(2*maxAcc)) >= abs(lookahead_pos)) {
         spd = constrain(spd, -maxSpd, maxSpd);
@@ -109,7 +109,7 @@ class Dynamics {
     Expandable dynamicsExp = new Expandable(new PVector(0, 0), new PVector(0, 0), name, true, false, CLR_MENU_LV2);
     dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Channel Coarse", "Channel Coarse", chanCoarse, 1, 0, 512, 0));
     dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Channel Fine", "Channel Fine", chanFine, 1, 0, 512, 0));
-    dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Angle", "Total Angle", angle, 1, 90, 720, -1));
+    dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Angle", "Total Angle", angle, 1, -720, 720, -1));
     dynamicsExp.put(new IntBox(new PVector(10, 0), new PVector(80, 25), this, "Offset", "Angular Offset", offset, 1, -180, 180, -999));
     dynamicsExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Accel", "Max Accel", maxAcc, 0.01));
     dynamicsExp.put(new SpinBox(new PVector(10, 0), new PVector(80, 25), this, "Speed", "Max Speed", maxSpd, 0.01));

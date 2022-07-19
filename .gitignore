@@ -1,3 +1,8 @@
 doc
-*.autosave
-save/
+
+src/Lsim/save/autobackups
+
+src/Lsim/save/projects/*
+!src/Lsim/save/projects/Lsim Demo Project.lsm
+
+src/Lsim/data/env_*
