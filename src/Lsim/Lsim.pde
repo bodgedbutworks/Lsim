@@ -222,7 +222,7 @@ void draw() {
     pushMatrix();
     noStroke();
     fill(70);
-    translate(0, -1, 0);    
+    translate(0, -1, 0);
     shape(environmentShape);
     popMatrix();
   }
@@ -351,8 +351,8 @@ void notific(String iTxt, color iClr, int iTtl) {
 void mousePressed() {
   if (mouseButton == LEFT) {
     flag = true;
-    selectedScreenObject = null;
-    selectedGuiObject = null;
+    // selectedScreenObject = null;
+    // selectedGuiObject = null;
   }
 }
 

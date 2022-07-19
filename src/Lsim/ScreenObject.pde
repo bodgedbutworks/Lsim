@@ -6,6 +6,7 @@ class ScreenObject {
   PVector pos2d;
   PVector rot;
   color clr = color(50);
+  byte compassTranslateMode = 0;  // 0=none, 1-6=x,y,z,xy,yz,xz
 
   ScreenObject(PVector iPos, PVector iRot) {
     pos3d = iPos;
@@ -63,7 +64,7 @@ class ScreenObject {
   /// @brief Checks for mouse over and click inside focused ScreenObject's (circular 2d) proximity
   /// @return true if mouse was clicked inside proximity radius, else false
   void checkMouseOver() {
-    if (dist(screenX(pos3d.x, pos3d.y, pos3d.z), screenY(pos3d.x, pos3d.y, pos3d.z), mouseX, mouseY) < 30) {
+    if (compassTranslateMode ==0  &&  dist(screenX(pos3d.x, pos3d.y, pos3d.z), screenY(pos3d.x, pos3d.y, pos3d.z), mouseX, mouseY) < 30) {
       clr = color(190, 0, 0);
       if (flag  &&  mousePressed) {
         flag = false;
@@ -81,6 +82,82 @@ class ScreenObject {
       } else {
         clr = color(80);
       }
+    }
+    if (this == selectedScreenObject) {
+      handleCompassTranslate();
+    }
+  }
+
+  void handleCompassTranslate() {
+    strokeWeight(3);
+    noFill();
+    stroke(#FF0000);
+    line(pos3d.x, pos3d.y, pos3d.z, pos3d.x+100, pos3d.y, pos3d.z);
+    stroke(#FFFF00);
+    beginShape();
+    vertex(pos3d.x+80, pos3d.y-80, pos3d.z);
+    vertex(pos3d.x+100, pos3d.y-80, pos3d.z);
+    vertex(pos3d.x+100, pos3d.y-100, pos3d.z);
+    vertex(pos3d.x+80, pos3d.y-100, pos3d.z);
+    endShape(CLOSE);
+    stroke(#00FF00);
+    line(pos3d.x, pos3d.y, pos3d.z, pos3d.x, pos3d.y-100, pos3d.z);
+    stroke(#00FFFF);
+    beginShape();
+    vertex(pos3d.x, pos3d.y-80, pos3d.z+80);
+    vertex(pos3d.x, pos3d.y-100, pos3d.z+80);
+    vertex(pos3d.x, pos3d.y-100, pos3d.z+100);
+    vertex(pos3d.x, pos3d.y-80, pos3d.z+100);
+    endShape(CLOSE);
+    stroke(#0000FF);
+    line(pos3d.x, pos3d.y, pos3d.z, pos3d.x, pos3d.y, pos3d.z+100);
+    stroke(#FF00FF);
+    beginShape();
+    vertex(pos3d.x+80, pos3d.y, pos3d.z+80);
+    vertex(pos3d.x+80, pos3d.y, pos3d.z+100);
+    vertex(pos3d.x+100, pos3d.y, pos3d.z+100);
+    vertex(pos3d.x+100, pos3d.y, pos3d.z+80);
+    endShape(CLOSE);
+
+    if (flag  &&  mousePressed) {
+      if (dist(screenX(pos3d.x+100, pos3d.y, pos3d.z), screenY(pos3d.x+100, pos3d.y, pos3d.z), mouseX, mouseY) < 30) {
+        compassTranslateMode = 1;
+        menuExpRight.subElementsList.clear();
+      } else if (dist(screenX(pos3d.x, pos3d.y-100, pos3d.z), screenY(pos3d.x, pos3d.y-100, pos3d.z), mouseX, mouseY) < 30) {
+        compassTranslateMode = 2;
+        menuExpRight.subElementsList.clear();
+      } else if (dist(screenX(pos3d.x, pos3d.y, pos3d.z+100), screenY(pos3d.x, pos3d.y, pos3d.z+100), mouseX, mouseY) < 30) {
+        compassTranslateMode = 3;
+        menuExpRight.subElementsList.clear();
+      } else if (dist(screenX(pos3d.x+90, pos3d.y-90, pos3d.z), screenY(pos3d.x+90, pos3d.y-90, pos3d.z), mouseX, mouseY) < 30) {
+        compassTranslateMode = 4;
+        menuExpRight.subElementsList.clear();
+      } else if (dist(screenX(pos3d.x, pos3d.y-90, pos3d.z+90), screenY(pos3d.x, pos3d.y-90, pos3d.z+90), mouseX, mouseY) < 30) {
+        compassTranslateMode = 5;
+        menuExpRight.subElementsList.clear();
+      } else if (dist(screenX(pos3d.x+90, pos3d.y, pos3d.z+90), screenY(pos3d.x+90, pos3d.y, pos3d.z+90), mouseX, mouseY) < 30) {
+        compassTranslateMode = 6;
+        menuExpRight.subElementsList.clear();
+      }
+    }
+    if (compassTranslateMode != 0  &&  !mousePressed) {
+      compassTranslateMode = 0;
+      loadGui();
+    }
+
+    switch(compassTranslateMode) {
+    case 1:
+      pos3d.x += dist(mouseX, mouseY, pmouseX, pmouseY);
+        break;
+      // case 2:
+      //   pos3d.y += mouseY-pmouseY;
+      //   break;
+      // case 3:
+      //   pos3d.z += mouseZ-pmouseZ;
+      //   break;
+      // case 4:
+      //   pos3d.x += mouseX-pmouseX;
+      //   break;
     }
   }
 
