@@ -83,6 +83,7 @@ class Cuboid extends ScreenObject {
     size3d.y = iJson.getFloat("size3d.y");
     size3d.z = iJson.getFloat("size3d.z");
     displayType = iJson.getString("displayType");
+    if(displayType == null) displayType = "Cuboid";    // Legacy support for older project files
     println("Loaded Cuboid " + name);
   }
 }
